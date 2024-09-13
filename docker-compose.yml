@@ -1,0 +1,38 @@
+version: '3.5'
+
+services:
+  postgres:
+    image: postgis/postgis:14-master
+    networks:
+      - internal
+    ports:
+      - 5144:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: l2-in
+      TZ: 'Etc/GMT'
+      PGTZ: 'Etc/GMT'
+
+  redis:
+    image: redis:latest
+    networks:
+      - internal
+    ports:
+      - 5191:6379
+
+  viisp-auth-helper:
+    image: ghcr.io/aplinkosministerija/viisp-auth-helper:1.2.1
+    environment:
+      VIISP_PID: ${VIISP_PID}
+      KEYSTORE_BASE64: ${VIISP_KEYSTORE_BASE64}
+      KEYSTORE_PASSWORD: ${VIISP_KEYSTORE_PASSWORD}
+      VIISP_POSTBACK_URL: ${VIISP_POSTBACK_URL}
+    ports:
+      - 5190:8080
+
+networks:
+  internal:
+
+volumes:
+  data:

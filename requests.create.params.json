@@ -1,0 +1,161 @@
+{
+  "formType": "certificate",
+  "form": "goods",
+  "status": "CREATED",
+  "data": {
+    "siuntejas": {
+      "asmuo": {
+        "tipas": "Fizinis asmuo",
+        "vardas-pavarde": "Jonas Jonaitis",
+        "asmens-kodas": "12345678900"
+      },
+      "adresas": "Abrikosų g. 1, Vilnius",
+      "patvirtinimo-iregistravimo-nr": "123",
+      "atsakingas-asmuo": {
+        "vardas-pavarde": "Antanas Antanaitis",
+        "pareigos": "Direktorius",
+        "telefono-nr": "+37060000000",
+        "el-pastas": "el@pastas.lt"
+      }
+    },
+    "marsrutas": {
+      "eksportuojanti-salis": {
+        "salis": "Airija"
+      },
+      "tranzitines-salys": [
+        {
+          "salis": "Alandų Salos",
+          "pkp": "Lenkija PKP"
+        }
+      ],
+      "importuojanti-salis": {
+        "salis": "Albanijos Respublika",
+        "pkp": "Latvija PKP"
+      }
+    },
+    "vezejas": {
+      "asmuo": {
+        "tipas": "Juridinis asmuo",
+        "imones-pavadinimas": "Įmonė",
+        "imones-kodas": "123123123"
+      },
+      "adresas": "Abrikosų g. 2, Vilnius",
+      "patvirtinimo-iregistravimo-nr": "124",
+      "transporto-priemones": [
+        {
+          "rusis": "Lėktuvas",
+          "valstybinis-numeris": "A1",
+          "plombos-numeris": "AA"
+        },
+        {
+          "rusis": "Laivas",
+          "valstybinis-numeris": "B1",
+          "plombos-numeris": "BB"
+        }
+      ]
+    },
+    "pakrovimo-vieta": {
+      "asmuo": {
+        "tipas": "Juridinis asmuo",
+        "imones-pavadinimas": "Įmonė 2",
+        "imones-kodas": "123123124"
+      },
+      "adresas": "Abrikosų g. 3, Vilnius",
+      "patvirtinimo-iregistravimo-nr": "125",
+      "data": "2024-05-05",
+      "laikas": "16:00:00Z"
+    },
+    "prekes": [
+      {
+        "kpn-kodas": "1",
+        "pavadinimas": "Prekė",
+        "komercinis-lotyniskas-pavadinimas": "Preke",
+        "pagaminimo-data": "2024-05-01",
+        "partijos-numeris": 11111,
+        "tinkamumo-naudoti-terminas": "2 sav.",
+        "pakuotes-tipas": "Tipas",
+        "pakuociu-skaicius": 5,
+        "kiekis": "5",
+        "patvirtinimo-nr": "1",
+        "laikymo-ir-transportavimo-salygos": "Aplinkos",
+        "ar-preke-zuvis": true,
+        "zuvies-kilme": "Laukinė",
+        "ar-sudetinis-produktas": true,
+        "gyvuniniu-produktu-procentas": "15",
+        "salis": "Žaliojo Kyšulio Respublika",
+        "gamintojo-pavadinimas": "Gamintojas",
+        "gamintojo-patvirtinimo-iregistravimo-nr": "111",
+        "adresas": "Abrikosų g. 4, Vilnius",
+        "sertifikatas": "https://url.com/file.pdf"
+      },
+      {
+        "kpn-kodas": "1",
+        "pavadinimas": "Prekė 2",
+        "komercinis-lotyniskas-pavadinimas": "Preke",
+        "pagaminimo-data": "2024-05-01",
+        "partijos-numeris": 11111,
+        "tinkamumo-naudoti-terminas": "2 sav.",
+        "pakuotes-tipas": "Tipas",
+        "pakuociu-skaicius": 5,
+        "kiekis": "5",
+        "patvirtinimo-nr": "1",
+        "laikymo-ir-transportavimo-salygos": "Aplinkos",
+        "ar-preke-zuvis": true,
+        "zuvies-kilme": "Laukinė",
+        "ar-sudetinis-produktas": true,
+        "gyvuniniu-produktu-procentas": "15",
+        "salis": "Žaliojo Kyšulio Respublika",
+        "gamintojo-pavadinimas": "Gamintojas",
+        "gamintojo-patvirtinimo-iregistravimo-nr": "111",
+        "adresas": "Abrikosų g. 4, Vilnius",
+        "sertifikatas": "https://url.com/file.pdf"
+      }
+    ],
+    "zaliavos": [
+      {
+        "pavadinimas": "Žaliava",
+        "kiekis": "15",
+        "kiekis-matas": "kg",
+        "gamintojas": {
+          "imones-pavadinimas": "Įmonė 3",
+          "adresas": "Abrikosų g. 5, Vilnius",
+          "patvirtinimo-numeris": "1231"
+        },
+        "gavimo-data": "2024-01-01",
+        "partijos-numeris": "11",
+        "pagamintos-prekes-kiekis": "10"
+      }
+    ],
+    "gavejas": {
+      "asmuo": {
+        "tipas": "Fizinis asmuo",
+        "vardas-pavarde": "Jonas Jonaitis",
+        "asmens-kodas": "12345678900"
+      },
+      "adresas": "Abrikosų g. 6, Vilnius",
+      "atsakingas-asmuo": {
+        "vardas-pavarde": "Antanas Antanaitis",
+        "pareigos": "Direktorius",
+        "telefono-nr": "+37060000000",
+        "el-pastas": "el@pastas.lt"
+      },
+      "paskirties-vieta": {
+        "asmuo": {
+          "tipas": "Fizinis asmuo",
+          "vardas-pavarde": "Jonas Jonaitis",
+          "asmens-kodas": "12345678900"
+        },
+        "adresas": "Abrikosų g. 6, Vilnius",
+        "patvirtinimo-iregistravimo-nr": "111"
+      }
+    },
+    "dokumentai": {
+      "labaratoriniai-tyrimai": "https://url.com/file2.pdf",
+      "vaztarastis": "https://url.com/file3.pdf",
+      "saskaita-faktura": "https://url.com/file4.pdf",
+      "papildomi-dokumentai": [{ "dokumentas": "https://url.com/file5.pdf" }],
+      "papildoma-informacija": "-",
+      "sutikimas": true
+    }
+  }
+}

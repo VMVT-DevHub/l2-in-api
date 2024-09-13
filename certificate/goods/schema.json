@@ -1,0 +1,725 @@
+{
+  "type": "object",
+  "title": "Sertifikatas prekių siuntai",
+  "additionalProperties": false,
+  "properties": {
+    "siuntejas": {
+      "type": "object",
+      "title": "Siuntėjas",
+      "additionalProperties": false,
+      "properties": {
+        "asmuo": {
+          "$ref": "#/definitions/asmuo-su-kodu"
+        },
+        "adresas": {
+          "$ref": "#/definitions/adresas"
+        },
+        "patvirtinimo-iregistravimo-nr": {
+          "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
+        },
+        "atsakingas-asmuo": {
+          "$ref": "#/definitions/atsakingas-asmuo"
+        }
+      },
+      "required": ["asmuo", "adresas", "patvirtinimo-iregistravimo-nr", "atsakingas-asmuo"]
+    },
+    "marsrutas": {
+      "type": "object",
+      "title": "Kelionės maršrutas",
+      "additionalProperties": false,
+      "required": ["eksportuojanti-salis", "tranzitines-salys", "importuojanti-salis"],
+      "properties": {
+        "eksportuojanti-salis": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["salis"],
+          "properties": {
+            "salis": {
+              "title": "Eksportuojanti šalis",
+              "$ref": "#/definitions/salis"
+            }
+          }
+        },
+        "tranzitines-salys": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["salis", "pkp"],
+            "properties": {
+              "salis": {
+                "title": "Tranzitinė šalis",
+                "$ref": "#/definitions/salis"
+              },
+              "pkp": {
+                "title": "PKP pavadinimas",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "importuojanti-salis": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["salis", "pkp"],
+          "properties": {
+            "salis": {
+              "title": "Importuojanti šalis",
+              "$ref": "#/definitions/salis"
+            },
+            "pkp": {
+              "title": "PKP pavadinimas",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "vezejas": {
+      "type": "object",
+      "title": "Vežėjo kontaktinė informacija",
+      "additionalProperties": false,
+      "properties": {
+        "asmuo": {
+          "$ref": "#/definitions/asmuo-su-kodu"
+        },
+        "adresas": {
+          "$ref": "#/definitions/adresas"
+        },
+        "patvirtinimo-iregistravimo-nr": {
+          "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
+        },
+        "transporto-priemones": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "rusis": {
+                "$ref": "#/definitions/transporto-priemones-rusis"
+              },
+              "valstybinis-numeris": {
+                "title": "Valstybinis numeris",
+                "type": "string"
+              },
+              "plombos-numeris": {
+                "title": "Plombos numeris",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "pakrovimo-vieta": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "asmuo": {
+          "$ref": "#/definitions/asmuo-su-kodu"
+        },
+        "adresas": {
+          "$ref": "#/definitions/adresas"
+        },
+        "patvirtinimo-iregistravimo-nr": {
+          "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
+        },
+        "data": {
+          "$ref": "#/definitions/data"
+        },
+        "laikas": {
+          "$ref": "#/definitions/laikas"
+        }
+      }
+    },
+    "prekes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kpn-kodas": {
+            "title": "KPN kodas",
+            "type": "string"
+          },
+          "pavadinimas": {
+            "title": "Pavadinimas",
+            "type": "string"
+          },
+          "komercinis-lotyniskas-pavadinimas": {
+            "title": "Komercinis / lotyniškas pavadinimas (jeigu taikoma)",
+            "type": "string"
+          },
+          "pagaminimo-data": {
+            "title": "Pagaminimo data (laikotarpis)",
+            "type": "string"
+          },
+          "partijos-numeris": {
+            "title": "Partijos nr.",
+            "type": "integer"
+          },
+          "tinkamumo-naudoti-terminas": {
+            "title": "Tinkamumo naudoti (vartoti) terminas",
+            "type": "string"
+          },
+          "pakuotes-tipas": {
+            "title": "Pakuotės tipas",
+            "type": "string"
+          },
+          "pakuociu-skaicius": {
+            "title": "Pakuočių skaičius (vnt.)",
+            "type": "number"
+          },
+          "kiekis": {
+            "title": "Kiekis (neto / bruto, kg.)",
+            "type": "string"
+          },
+          "patvirtinimo-nr": {
+            "title": "Patvirtinimo Nr.",
+            "type": "string"
+          },
+          "laikymo-ir-transportavimo-salygos": {
+            "title": "Laikymo ir transportavimo sąlygos",
+            "type": "string",
+            "enum": ["Aplinkos", "Atvėsintas", "Užšaldytas"]
+          },
+          "ar-preke-zuvis": {
+            "title": "Ar prekė pagaminta iš žuvies?",
+            "type": "boolean"
+          },
+          "zuvies-kilme": {
+            "title": "Nurodykite žuvies kilmę",
+            "type": "string",
+            "enum": ["Laukinė", "Užauginta"]
+          },
+          "ar-sudetinis-produktas": {
+            "title": "Ar prekė yra sudėtinis produktas?",
+            "type": "boolean"
+          },
+          "gyvuniniu-produktu-procentas": {
+            "title": "Nurodykite, kiek procentų sudaro gyvūniniai produktai",
+            "type": "string"
+          },
+          "salis": {
+            "title": "Šalis",
+            "$ref": "#/definitions/salis"
+          },
+          "gamintojo-pavadinimas": {
+            "title": "Prekės gamintojo pavadinimas",
+            "type": "string"
+          },
+          "gamintojo-patvirtinimo-iregistravimo-nr": {
+            "title": "Gamintojo patvirtinimo ar įregistravimo nr.",
+            "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
+          },
+          "adresas": {
+            "$ref": "#/definitions/adresas"
+          },
+          "sertifikatas": {
+            "title": "Pridėkite pirminį prekės sertifikatą",
+            "$ref": "#/definitions/dokumentas"
+          }
+        }
+      }
+    },
+
+    "zaliavos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "pavadinimas": {
+            "title": "Žaliavų pavadinimas",
+            "type": "string"
+          },
+          "kiekis": {
+            "title": "Žaliavų kiekis",
+            "type": "string"
+          },
+          "kiekis-matas": {
+            "type": "string",
+            "enum": ["kg", "t", "vnt", "doz"]
+          },
+          "gamintojas": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "imones-pavadinimas": {
+                "title": "Žaliavos gamintojo pavadinimas",
+                "$ref": "#/definitions/imones-pavadinimas"
+              },
+              "adresas": {
+                "title": "Žaliavos gamintojo adresas",
+                "$ref": "#/definitions/adresas"
+              },
+              "patvirtinimo-numeris": {
+                "title": "Žaliavos gamintojo patvirtinimo numeris",
+                "type": "string"
+              }
+            },
+            "required": ["imones-pavadinimas", "adresas", "patvirtinimo-numeris"]
+          },
+          "gavimo-data": {
+            "title": "Žaliavos gavimo data",
+            "$ref": "#/definitions/data"
+          },
+          "partijos-numeris": {
+            "title": "Žaliavos partijos numeris",
+            "type": "string"
+          },
+          "pagamintos-prekes-kiekis": {
+            "title": "Iš žaliavos pagamintos prekės kiekis",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pavadinimas",
+          "kiekis",
+          "kiekis-matas",
+          "gamintojas",
+          "gavimo-data",
+          "partijos-numeris",
+          "pagamintos-prekes-kiekis"
+        ]
+      }
+    },
+    "gavejas": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "asmuo": {
+          "$ref": "#/definitions/asmuo-be-kodo"
+        },
+        "adresas": {
+          "$ref": "#/definitions/adresas"
+        },
+        "atsakingas-asmuo": {
+          "$ref": "#/definitions/atsakingas-asmuo"
+        },
+        "paskirties-vieta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "asmuo": {
+              "$ref": "#/definitions/asmuo-be-kodo"
+            },
+            "adresas": {
+              "$ref": "#/definitions/adresas"
+            },
+            "patvirtinimo-iregistravimo-nr": {
+              "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
+            }
+          }
+        }
+      }
+    },
+    "dokumentai": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "labaratoriniai-tyrimai": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "vaztarastis": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "saskaita-faktura": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "papildomi-dokumentai": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "dokumentas": {
+                "$ref": "#/definitions/dokumentas"
+              }
+            }
+          }
+        },
+        "papildoma-informacija": {
+          "type": "string"
+        },
+        "sutikimas": {
+          "title": "Aš, atsakingas asmuo, patvirtinu, kad prašyme pateikti duomenys yra paremti dokumentais, jie patikrinti ir atitinka tikrovę, produktų sauga ir kokybė atitinka ES ir Lietuvos bei šalies importuotojos teisės aktų reikalavimus, trečiajai šaliai priėmus sprendimą grąžinti prekę, nedelsiant informuosiu Valstybinės  maisto ir veterinarijos tarnybos skyrių, išdavusį veterinarijos sertifikatą, pateikdamas išsamią informaciją ir dokumentus.",
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "required": ["siuntejas", "marsrutas", "gavejas"],
+  "definitions": {
+    "asmens-tipas": {
+      "title": "Asmens tipas",
+      "type": "string",
+      "enum": ["Juridinis asmuo", "Fizinis asmuo"],
+      "default": "Juridinis asmuo"
+    },
+    "asmuo-be-kodo": {
+      "type": "object",
+      "required": ["tipas"],
+      "if": { "properties": { "tipas": { "const": "Fizinis asmuo" } } },
+      "then": { "required": ["vardas-pavarde"] },
+      "else": { "required": ["imones-pavadinimas"] },
+      "properties": {
+        "tipas": {
+          "$ref": "#/definitions/asmens-tipas"
+        },
+        "imones-pavadinimas": {
+          "$ref": "#/definitions/imones-pavadinimas"
+        },
+        "vardas-pavarde": {
+          "$ref": "#/definitions/vardas-pavarde"
+        }
+      }
+    },
+    "asmuo-su-kodu": {
+      "type": "object",
+      "required": ["tipas"],
+      "if": { "properties": { "tipas": { "const": "Fizinis asmuo" } } },
+      "then": { "required": ["vardas-pavarde", "asmens-kodas"] },
+      "else": { "required": ["imones-pavadinimas", "imones-kodas"] },
+      "properties": {
+        "tipas": {
+          "$ref": "#/definitions/asmens-tipas"
+        },
+        "imones-pavadinimas": {
+          "$ref": "#/definitions/imones-pavadinimas"
+        },
+        "vardas-pavarde": {
+          "$ref": "#/definitions/vardas-pavarde"
+        },
+        "imones-kodas": {
+          "$ref": "#/definitions/imones-kodas"
+        },
+        "asmens-kodas": {
+          "$ref": "#/definitions/asmens-kodas"
+        }
+      }
+    },
+    "atsakingas-asmuo": {
+      "title": "Atsakingas asmuo",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "vardas-pavarde": {
+          "$ref": "#/definitions/vardas-pavarde"
+        },
+        "pareigos": {
+          "title": "Pareigos",
+          "type": "string"
+        },
+        "telefono-nr": {
+          "title": "Telefono nr.",
+          "type": "string"
+        },
+        "el-pastas": {
+          "title": "El. paštas",
+          "type": "string",
+          "format": "email"
+        }
+      },
+      "required": ["vardas-pavarde", "pareigos", "telefono-nr", "el-pastas"]
+    },
+    "adresas": {
+      "title": "Adresas",
+      "type": "string"
+    },
+    "patvirtinimo-iregistravimo-nr": {
+      "title": "Patvirtinimo/Įregistravimo Nr.",
+      "type": "string"
+    },
+    "laikas": {
+      "title": "Laikas",
+      "type": "string",
+      "format": "time"
+    },
+    "data": {
+      "title": "Data",
+      "type": "string",
+      "format": "date"
+    },
+    "imones-pavadinimas": {
+      "title": "Ūkio subjekto pavadinimas",
+      "type": "string"
+    },
+    "vardas-pavarde": {
+      "title": "Vardas, pavardė",
+      "type": "string"
+    },
+    "imones-kodas": {
+      "title": "Juridinio asmens kodas",
+      "type": "string",
+      "pattern": "[0-9]{9}"
+    },
+    "asmens-kodas": {
+      "title": "Asmens kodas",
+      "type": "string",
+      "pattern": "[0-9]{11}"
+    },
+    "dokumentas": {
+      "type": "string",
+      "format": "url"
+    },
+    "transporto-priemones-rusis": {
+      "title": "Transporto priemonės rūšis",
+      "type": "string",
+      "enum": [
+        "Lėktuvas",
+        "Laivas",
+        "Geležinkelio vagonas",
+        "Autokelių transporto priemonė",
+        "Konteineris (Konteinerio numeris)",
+        "Kita (įrašyti)"
+      ]
+    },
+    "salis": {
+      "type": "string",
+      "enum": [
+        "Afganistano Islamo Respublika",
+        "Airija",
+        "Alandų Salos",
+        "Albanijos Respublika",
+        "Alžyro Liaudies Demokratinė Respublika",
+        "Amerikos Samoa",
+        "Andoros Kunigaikštystė",
+        "Angilija",
+        "Angolos Respublika",
+        "Antigva ir Barbuda",
+        "Argentinos Respublika",
+        "Armėnijos Respublika",
+        "Aruba",
+        "Australijos Sandrauga",
+        "Austrijos Respublika",
+        "Azerbaidžano Respublika",
+        "Bahamų Sandrauga",
+        "Bahreino Karalystė",
+        "Baltarusijos Respublika",
+        "Bangladešo Liaudies Respublika",
+        "Barbadosas",
+        "Belgijos Karalystė",
+        "Belizas",
+        "Benino Respublika",
+        "Bermuda",
+        "Bisau Gvinėjos Respublika",
+        "Bolivijos Daugiatautė Valstybė",
+        "Bosnijos ir Hercegovinos Respublika",
+        "Botsvanos Respublika",
+        "Brazilijos Federacinė Respublika",
+        "Brunėjaus Darusalamas",
+        "Bulgarijos Respublika",
+        "Burkina Fasas",
+        "Burundžio Respublika",
+        "Butano Karalystė",
+        "Centrinės Afrikos Respublika",
+        "Čado Respublika",
+        "Čekijos Respublika",
+        "Čilės Respublika",
+        "Danijos Karalystė",
+        "Didžiosios Britanijos Mergelių Salos",
+        "Dominikos Respublika",
+        "Dominikos Sandrauga",
+        "Dramblio Kaulo Kranto Respublika",
+        "Džersis",
+        "Džibučio Respublika",
+        "Egipto Arabų Respublika",
+        "Ekvadoro Respublika",
+        "Eritrėjos Valstybė",
+        "Estijos Respublika",
+        "Etiopijos Federacinė Demokratinė Respublika",
+        "Farerų Salos",
+        "Fidžio Salų Respublika",
+        "Filipinų Respublika",
+        "Folklando (Malvinų) Salos",
+        "Gabono Respublika",
+        "Gajanos Respublika",
+        "Gambijos Respublika",
+        "Ganos Respublika",
+        "Gernsis",
+        "Gibraltaras",
+        "Graikijos Respublika",
+        "Grenada",
+        "Grenlandija",
+        "Gruzija",
+        "Guamo Teritorija",
+        "Gvadelupa",
+        "Gvatemalos Respublika",
+        "Gvinėjos Respublika",
+        "Haičio Respublika",
+        "Hondūro Respublika",
+        "Indijos Respublika",
+        "Indonezijos Respublika",
+        "Ypatingasis Administracinis Kinijos Regionas Honkongas",
+        "Ypatingasis Administracinis Kinijos Regionas Makao",
+        "Irako Respublika",
+        "Irano Islamo Respublika",
+        "Islandijos Respublika",
+        "Ispanijos Karalystė",
+        "Italijos Respublika",
+        "Izraelio Valstybė",
+        "Jamaika",
+        "Japonija",
+        "Jemeno Respublika",
+        "Jordanijos Hašimitų Karalystė",
+        "Jungtinė Didžiosios Britanijos ir Šiaurės Airijos Karalystė",
+        "Jungtinės Amerikos Valstijos",
+        "Jungtiniai Arabų Emyratai",
+        "Jungtinių Valstijų Mažosios Tolimosios Salos",
+        "Jungtinių Valstijų Mergelių Salos",
+        "Juodkalnija",
+        "Kaimanų Salos",
+        "Kambodžos Karalystė",
+        "Kamerūno Respublika",
+        "Kanada",
+        "Kataro Valstybė",
+        "Kazachstano Respublika",
+        "Kenijos Respublika",
+        "Kinijos Liaudies Respublika",
+        "Kipro Respublika",
+        "Kirgizijos Respublika",
+        "Kiribačio Respublika",
+        "Kolumbijos Respublika",
+        "Komorų Sąjunga",
+        "Kongo Demokratinė Respublika",
+        "Kongo Respublika",
+        "Korėjos Liaudies Demokratinė Respublika",
+        "Korėjos Respublika",
+        "Kosta Rikos Respublika",
+        "Kroatijos Respublika",
+        "Kubos Respublika",
+        "Kuko Salos",
+        "Kuveito Valstybė",
+        "Laoso Liaudies Demokratinė Respublika",
+        "Latvijos Respublika",
+        "Lenkijos Respublika",
+        "Lesoto Karalystė",
+        "Libano Respublika",
+        "Liberijos Respublika",
+        "Libijos Arabų Socialistinė Liaudies Džamachirija",
+        "Lichtenšteino Kunigaikštystė",
+        "Lietuvos Respublika",
+        "Liuksemburgo Didžioji Hercogystė",
+        "Madagaskaro Respublika",
+        "Majoto Teritorinė Bendrija",
+        "Malaizija",
+        "Malavio Respublika",
+        "Maldyvų Respublika",
+        "Malio Respublika",
+        "Maltos Respublika",
+        "Marianos Šiaurinių Salų Sandrauga",
+        "Maroko Karalystė",
+        "Maršalo Salų Respublika",
+        "Martinika",
+        "Mauricijaus Respublika",
+        "Mauritanijos Islamo Respublika",
+        "Meksikos Jungtinės Valstijos",
+        "Meno sala",
+        "Mianmaro Sąjunga",
+        "Mikronezijos Federacinės Valstijos ",
+        "Moldovos Respublika",
+        "Monako Kunigaikštystė",
+        "Mongolija",
+        "Montseratas",
+        "Mozambiko Respublika",
+        "Namibijos Respublika",
+        "Naujoji Kaledonija ir Pavaldžios Teritorijos",
+        "Naujoji Zelandija",
+        "Nauru Respublika",
+        "Nepalas",
+        "Nyderlandų Karalystė",
+        "Nigerijos Federacinė Respublika",
+        "Nigerio Respublika",
+        "Nikaragvos Respublika",
+        "Niujės Respublika",
+        "Norfolko Sala",
+        "Norvegijos Karalystė",
+        "Okupuotoji Palestinos Teritorija",
+        "Olandijos Antilai",
+        "Omano Sultonatas",
+        "Pakistano Islamo Respublika",
+        "Palau Respublika",
+        "Panamos Respublika",
+        "Papua Naujosios Gvinėjos Nepriklausomoji Valstybė",
+        "Paragvajaus Respublika",
+        "Peru Respublika",
+        "Pietų Afrikos Respublika",
+        "Pietų Džordžijos ir Pietų Sandvičo Salos",
+        "Pitkerno Salos",
+        "Portugalijos Respublika",
+        "Prancūzijos Gviana",
+        "Prancūzijos Respublika",
+        "Pranc?zijos Polinezija",
+        "Puerto Riko Sandrauga",
+        "Pusiaujo Gvinėjos Respublika",
+        "Reunjonas",
+        "Ruandos Respublika",
+        "Rumunija",
+        "Rusijos Federacija",
+        "Sakartvelas",
+        "Saliamono Salos",
+        "Salvadoro Respublika",
+        "Samoa Neprikausomoji Valstybė",
+        "San Marino Respublika",
+        "San Tomė ir Prinsipės Demokratinė Respublika",
+        "Saudo Arabijos Karalystė",
+        "Seišelių Respublika",
+        "Sen Martenas (Prancūzijos užjūrio bendrija)",
+        "Sen Pjero ir Mikelono Teritorinė Bendrija",
+        "Senegalo Respublika",
+        "Sent Kitso ir Nevio Federacija",
+        "Sent Lusija",
+        "Sent Vinsentas ir Grenadinai",
+        "Serbija ir Juodkalnija",
+        "Serbijos Respublika",
+        "Siera Leonės Respublika",
+        "Singapūro Respublika",
+        "Sirijos Arabų Respublika",
+        "Slovakijos Respublika",
+        "Slovėnijos Respublika",
+        "Somalio Respublika",
+        "Sudano Respublika",
+        "Suomijos Respublika",
+        "Surinamo Respublika",
+        "Svalbardo ir Jano Majeno Salos",
+        "Svazilando Karalystė",
+        "Šiaurės Makedonija",
+        "Šri Lankos Demokratinė Socialistinė Respublika",
+        "Šv. Bartolomėjaus sala",
+        "Šv. Elenos Sala ir Pavaldžios Teritorijos",
+        "Švedijos Karalystė",
+        "Šveicarijos Konfederacija",
+        "Šventasis Sostas (Vatikano Miesto Valstybė)",
+        "Tadžikistano Respublika",
+        "Tailando Karalystė",
+        "Taivanas, Kinijos Respublika",
+        "Tanzanijos Jungtinė Respublika",
+        "Terkso ir Kaikoso Salos",
+        "Timoro-Leste Demokratinė Respublika",
+        "Togo Respublika",
+        "Tokelau",
+        "Tongos Karalystė",
+        "Trinidado ir Tobago Respublika",
+        "Tuniso Respublika",
+        "Turkijos Respublika",
+        "Turkmėnistanas",
+        "Tuvalu",
+        "Ugandos Respublika",
+        "Ukraina",
+        "Urugvajaus Rytų Respublika",
+        "Uzbekistano Respublika",
+        "Vakarų Sachara",
+        "Vanuatu Respublika",
+        "Venesuelos Bolivaro Respublika",
+        "Vengrijos Respublika",
+        "Vietnamo Socialistinė Respublika",
+        "Vokietijos Federacinė Respublika",
+        "Voliso ir Futūnos salos",
+        "Zambijos Respublika",
+        "Zimbabvės Respublika",
+        "Žaliojo Kyšulio Respublika"
+      ]
+    }
+  }
+}

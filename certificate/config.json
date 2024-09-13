@@ -1,0 +1,22 @@
+{
+  "title": "Sertifikatai",
+  "columns": [
+    {
+      "name": "productNames",
+      "title": "Produkto pavadinimas",
+      "path": "$.prekes[*].pavadinimas",
+      "mapper": "join"
+    },
+    {
+      "name": "importingCountry",
+      "title": "Šalis importuotoja",
+      "path": "$.marsrutas.importuojanti-salis.salis"
+    },
+    {
+      "name": "productAmount",
+      "title": "Kiekis",
+      "path": "$.prekes[*].kiekis",
+      "mapper": "sum"
+    }
+  ]
+}

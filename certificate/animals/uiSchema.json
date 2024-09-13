@@ -1,0 +1,838 @@
+{
+  "type": "Categorization",
+  "options": {
+    "display": "form"
+  },
+  "elements": [
+    {
+      "type": "Category",
+      "elements": [
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "options": { "display": "buttonGroup" },
+                  "scope": "#/properties/siuntejas/properties/asmuo/properties/tipas"
+                },
+                {}
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/siuntejas/properties/asmuo/properties/tipas",
+                  "schema": {
+                    "const": "Juridinis asmuo"
+                  }
+                }
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/asmuo/properties/imones-pavadinimas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/asmuo/properties/imones-kodas"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/siuntejas/properties/asmuo/properties/tipas",
+                  "schema": {
+                    "const": "Fizinis asmuo"
+                  }
+                }
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/asmuo/properties/vardas-pavarde"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/asmuo/properties/asmens-kodas"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/adresas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/patvirtinimo-iregistravimo-nr"
+                }
+              ]
+            }
+          ],
+          "label": "Siuntėjas"
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/vardas-pavarde"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/pareigos"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/telefono-nr"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/el-pastas"
+                }
+              ]
+            }
+          ],
+          "label": "Atsakingas asmuo"
+        }
+      ],
+      "label": "Siuntėjas"
+    },
+    {
+      "type": "Category",
+      "elements": [
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "label": "Eksportuojanti šalis",
+                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/marsrutas/properties/tranzitines-salys",
+                  "options": {
+                    "addLabel": "Pridėti tranzitinę šalį",
+                    "detail": {
+                      "type": "HorizontalLayout",
+                      "elements": [
+                        {
+                          "type": "Control",
+                          "label": "Tranzitinė šalis",
+                          "scope": "#/properties/salis"
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/pkp"
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/poilsio-punktas"
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/patvirtinimo-numeris"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "label": "Importuojanti šalis",
+                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/pkp"
+                }
+              ]
+            }
+          ],
+          "description": "Nurodykite šalis ir pasienio kontrolės postus (PKP), kuriuo vyks produktų transportavimas.",
+          "label": "Kelionės maršrutas"
+        }
+      ],
+      "label": "Maršrutas"
+    },
+    {
+      "type": "Category",
+      "elements": [
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "options": { "display": "buttonGroup" },
+                  "scope": "#/properties/vezejas/properties/asmuo/properties/tipas"
+                },
+                {}
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/vezejas/properties/asmuo/properties/tipas",
+                  "schema": {
+                    "const": "Juridinis asmuo"
+                  }
+                }
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/vezejas/properties/asmuo/properties/imones-pavadinimas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/vezejas/properties/asmuo/properties/imones-kodas"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/vezejas/properties/asmuo/properties/tipas",
+                  "schema": {
+                    "const": "Fizinis asmuo"
+                  }
+                }
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/vezejas/properties/asmuo/properties/vardas-pavarde"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/vezejas/properties/asmuo/properties/asmens-kodas"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/vezejas/properties/adresas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/vezejas/properties/patvirtinimo-iregistravimo-nr"
+                }
+              ]
+            }
+          ],
+          "label": "Vežėjo kontaktinė informacija",
+          "description": "Vežėjo atsakingo už siuntos transportavimą kontaktai."
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/vezejas/properties/transporto-priemones",
+              "options": {
+                "addLabel": "Pridėti transporto priemonę",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/rusis"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/numeris"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/patvirtinimo-iregistravimo-nr"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "label": "Transporto priemonės",
+          "description": "Transporto priemonės, naudojamos produktų gabenimui.\nNurodyti planuojamas naudoti plombas. Esant nuotolinio sertifikavimo atvejui pateiktas (-i) plombos (-ų) numeris (-iai) bus nurodytas (-i) eksporto veterinarijos sertifikate."
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/vezejas/properties/priziuretojai",
+              "options": {
+                "addLabel": "Pridėti prižiūrėtoją",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/vardas"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/pavarde"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/pazymejimo-nr"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "label": "Vežamų gyvūnų prižiūrėtojas",
+          "description": "Atsakingo už gyvūnų vežimą asmens kompetencijos pažymėjimų² numeriai"
+        }
+      ],
+      "label": "Vežėjas"
+    },
+    {
+      "type": "Category",
+      "elements": [
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "options": { "display": "buttonGroup" },
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/tipas"
+                },
+                {}
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/tipas",
+                  "schema": {
+                    "const": "Juridinis asmuo"
+                  }
+                }
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/imones-pavadinimas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/imones-kodas"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/tipas",
+                  "schema": {
+                    "const": "Fizinis asmuo"
+                  }
+                }
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/vardas-pavarde"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/asmens-kodas"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/adresas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/patvirtinimo-iregistravimo-nr"
+                }
+              ]
+            }
+          ],
+          "label": "Pakrovimo vieta",
+          "description": "Vieta, kurioje vyksta produktų pakrovimas į transporto priemonę."
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/pakrovimo-data"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/pakrovimo-laikas"
+                }
+              ]
+            }
+          ],
+          "label": "Pakrovimo informacija",
+          "description": "Informacija apie produktų pakrovimą."
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/atvykimo-data"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/atvykimo-laikas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/trukme"
+                }
+              ]
+            }
+          ],
+          "label": "Atvykimo informacija",
+          "description": "Numatoma (planuojama) siuntos atvykimo į paskirties vietą data ir laikas. Nurodyti kelionės trukmę valandomis nuo pakrovimo pradžios iki atvykimo į paskirties vietą, įskaitant poilsio laiką."
+        }
+      ],
+      "label": "Pakrovimo vieta"
+    },
+    {
+      "type": "Category",
+      "elements": [
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/gyvunai",
+              "options": {
+                "display": "modal",
+                "addLabel": "Pridėti gyvūną",
+                "card": {
+                  "title": { "scope": "#/properties/rusis" },
+                  "bottom": [
+                    {
+                      "label": "Paskirtis",
+                      "scope": "#/properties/siuntos-paskirtis"
+                    },
+                    {
+                      "label": "KN kodas",
+                      "scope": "#/properties/kodas"
+                    },
+                    {
+                      "label": "Gyvūnų skaičius",
+                      "scope": "#/properties/kiekis"
+                    },
+                    {
+                      "label": "Pakuočių skaičius",
+                      "scope": "#/properties/pakuociu-skaicius"
+                    },
+                    {
+                      "label": "Bendras svoris",
+                      "scope": "#/properties/svoris"
+                    },
+                    {
+                      "label": "Bandos Nr.",
+                      "scope": "#/properties/bandos-nr"
+                    }
+                  ]
+                },
+                "detail": {
+                  "type": "Group",
+                  "label": "Pridėti gabenamus gyvūnus",
+                  "elements": [
+                    {
+                      "type": "HorizontalLayout",
+                      "elements": [
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/kodas"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "HorizontalLayout",
+                      "elements": [
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/rusis"
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/kiekis"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "HorizontalLayout",
+                      "elements": [
+                        {
+                          "label": "Siuntos paskirtis",
+                          "type": "Control",
+                          "scope": "#/properties/siuntos-paskirtis"
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/svoris"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "HorizontalLayout",
+                      "elements": [
+                        {
+                          "type": "Control",
+                          "label": "Atpažinimo priemonė",
+                          "scope": "#/properties/atpazinimo-priemone"
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/bandos-nr"
+                        },
+                        {
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/kodas",
+                              "schema": {
+                                "enum": ["105", "106"]
+                              }
+                            }
+                          },
+                          "type": "Control",
+                          "scope": "#/properties/pakuociu-skaicius"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "HorizontalLayout",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/kodas",
+                          "schema": {
+                            "const": "105"
+                          }
+                        }
+                      },
+                      "elements": [
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/paukstides-nr"
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/patvirtinimo-iregistravimo-nr"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Group",
+                      "label": "AAA",
+                      "options": { "display": "column" },
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/kodas",
+                          "schema": {
+                            "enum": ["101", "102", "104", "106"]
+                          }
+                        }
+                      },
+                      "elements": [
+                        {
+                          "type": "HorizontalLayout",
+                          "elements": [
+                            {
+                              "label": "Identifikacijos Nr.",
+                              "type": "Control",
+                              "scope": "#/properties/identifikacijos-nr",
+                              "options": {
+                                "display": "creatableMultiSelect",
+                                "placeholder": "Įrašykite identifikacijos Nr."
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "label": "Siunčiami gyvūnai",
+          "description": "Sąrašas su visa gabenamų gyvūnų informacija."
+        }
+      ],
+      "label": "Gyvūnai"
+    },
+
+    {
+      "type": "Category",
+      "elements": [
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/gavejas/properties/asmuo/properties/tipas",
+                  "options": { "display": "buttonGroup" }
+                },
+                {}
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/gavejas/properties/asmuo/properties/imones-pavadinimas",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/gavejas/properties/asmuo/properties/tipas",
+                      "schema": {
+                        "const": "Juridinis asmuo"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/gavejas/properties/asmuo/properties/vardas-pavarde",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/gavejas/properties/asmuo/properties/tipas",
+                      "schema": {
+                        "const": "Fizinis asmuo"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/gavejas/properties/adresas"
+                }
+              ]
+            }
+          ],
+          "label": "Gavėjas"
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/asmuo/properties/tipas",
+                  "options": { "display": "buttonGroup" }
+                },
+                {}
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/asmuo/properties/imones-pavadinimas",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/asmuo/properties/tipas",
+                      "schema": {
+                        "const": "Juridinis asmuo"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/asmuo/properties/vardas-pavarde",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/asmuo/properties/tipas",
+                      "schema": {
+                        "const": "Fizinis asmuo"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/adresas"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/salis"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/patvirtinimo-iregistravimo-nr"
+                }
+              ]
+            }
+          ],
+          "label": "Paskirties vieta"
+        }
+      ],
+      "label": "Gavėjas"
+    },
+    {
+      "type": "Category",
+      "elements": [
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/marsruto-planas"
+            }
+          ],
+          "label": "Maršruto planas"
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/uzkreciamuju-ligu-tyrimo-protokolas"
+            }
+          ],
+          "label": "Gyvūnų užkrečiamųjų ligų tyrimo protokolai"
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/apmokejimas"
+            }
+          ],
+          "label": "Apmokėjimas už sertifikatą"
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/saskaita-faktura"
+            }
+          ],
+          "label": "Sąskaita faktūra"
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/papildomi-dokumentai",
+              "options": {
+                "addLabel": "Pridėti dokumentą",
+                "detail": {
+                  "type": "Control",
+                  "scope": "#/properties/dokumentas"
+                }
+              }
+            }
+          ],
+          "label": "Papildomi dokumentai"
+        },
+
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/papildoma-informacija"
+            }
+          ],
+          "label": "Papildoma info"
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/sutikimas"
+            }
+          ],
+          "label": "Sutikimas"
+        }
+      ],
+      "label": "Dokumentai"
+    }
+  ]
+}

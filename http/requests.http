@@ -1,0 +1,17 @@
+GET {{BASE_URL}}/requests
+Accept: application/json
+
+###
+
+POST {{BASE_URL}}/requests
+Accept: application/json
+Content-Type: application/json
+
+{
+  "form": 1,
+  "status": "CREATED",
+  "data": {
+    "siuntejas": "Jonas",
+    "marsrutas": "Vilnius-Kaunas"
+  }
+}
