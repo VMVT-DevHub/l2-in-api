@@ -172,7 +172,7 @@ export default class extends moleculer.Service {
     if (isCreatedByTenant || isCreatedByUser) {
       return {
         validate: false,
-        edit: [RequestStatus.RETURNED].includes(request.status),
+        edit: [RequestStatus.RETURNED, RequestStatus.DRAFT].includes(request.status),
       };
     }
 
