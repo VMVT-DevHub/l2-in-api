@@ -34,7 +34,7 @@ RUN yarn install --immutable --immutable-cache --inline-builds --production \
 # Copy built artifacts from builder stage
 COPY --from=builder /app/dist/ ./dist/
 COPY --from=builder /app/database/ ./dist/database/
-COPY --from=builder /app/forms/ ./dist/forms/
+COPY --from=builder /app/forms/ ./forms/
 
 # Docker build args and environment variables
 ARG VERSION
