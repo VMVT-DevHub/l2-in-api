@@ -15,7 +15,7 @@ export type Table<
 > = Pick<Omit<Fields, P> & Pick<Populates, P>, Extract<P | Exclude<keyof Fields, P>, F>>;
 
 export interface CommonFields {
-  id: number;
+  id: number | string;
   createdBy: User['id'];
   createdAt: Date;
   updatedBy: User['id'];

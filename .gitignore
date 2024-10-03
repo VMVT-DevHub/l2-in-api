@@ -73,3 +73,5 @@ dist/
 generated-sources
 
 http-client.env.json
+
+database/seed/

@@ -128,7 +128,11 @@
                 {
                   "type": "Control",
                   "label": "Eksportuojanti šalis",
-                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis"
+                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis",
+                  "options": {
+                    "label": "name",
+                    "value": "id"
+                  }
                 }
               ]
             },
@@ -146,7 +150,11 @@
                         {
                           "type": "Control",
                           "label": "Tranzitinė šalis",
-                          "scope": "#/properties/salis"
+                          "scope": "#/properties/salis",
+                          "options": {
+                            "label": "name",
+                            "value": "id"
+                          }
                         },
                         {
                           "type": "Control",
@@ -172,7 +180,11 @@
                 {
                   "type": "Control",
                   "label": "Importuojanti šalis",
-                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis"
+                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
+                  "options": {
+                    "label": "name",
+                    "value": "id"
+                  }
                 },
                 {
                   "type": "Control",
@@ -451,11 +463,13 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/pakrovimo-vieta/properties/pakrovimo-data"
+                  "scope": "#/properties/pakrovimo-vieta/properties/pakrovimo-data",
+                  "label": "Numatoma pakrovimo pradžios data"
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/pakrovimo-vieta/properties/pakrovimo-laikas"
+                  "scope": "#/properties/pakrovimo-vieta/properties/pakrovimo-laikas",
+                  "label": "Numatomas pakrovimo pradžios laikas"
                 }
               ]
             }
@@ -471,15 +485,18 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/pakrovimo-vieta/properties/atvykimo-data"
+                  "scope": "#/properties/pakrovimo-vieta/properties/atvykimo-data",
+                  "label": "Numatoma siuntos atvykimo data"
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/pakrovimo-vieta/properties/atvykimo-laikas"
+                  "scope": "#/properties/pakrovimo-vieta/properties/atvykimo-laikas",
+                  "label": "Numatomas siuntos atvykimo laikas"
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/pakrovimo-vieta/properties/trukme"
+                  "scope": "#/properties/pakrovimo-vieta/properties/trukme",
+                  "label": "Bendra kelionės trukmė valandomis"
                 }
               ]
             }
@@ -771,7 +788,12 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/salis"
+                  "label": "Šalis",
+                  "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/salis",
+                  "options": {
+                    "label": "name",
+                    "value": "id"
+                  }
                 },
                 {
                   "type": "Control",

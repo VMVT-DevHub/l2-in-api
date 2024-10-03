@@ -128,7 +128,11 @@
                 {
                   "type": "Control",
                   "label": "Eksportuojanti šalis",
-                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis"
+                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis",
+                  "options": {
+                    "label": "name",
+                    "value": "id"
+                  }
                 }
               ]
             },
@@ -146,7 +150,11 @@
                         {
                           "type": "Control",
                           "label": "Tranzitinė šalis",
-                          "scope": "#/properties/salis"
+                          "scope": "#/properties/salis",
+                          "options": {
+                            "label": "name",
+                            "value": "id"
+                          }
                         },
                         {
                           "type": "Control",
@@ -164,7 +172,11 @@
                 {
                   "type": "Control",
                   "label": "Importuojanti šalis",
-                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis"
+                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
+                  "options": {
+                    "label": "name",
+                    "value": "id"
+                  }
                 },
                 {
                   "type": "Control",
@@ -261,15 +273,7 @@
             "condition": {
               "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
               "schema": {
-                "enum": [
-                  "Ukraina",
-                  "Sakartvelas",
-                  "Čilės Respublika",
-                  "Jungtinė Didžiosios Britanijos ir Šiaurės Airijos Karalystė",
-                  "Kanada",
-                  "Moldovos Respublika",
-                  "Naujoji Zelandija"
-                ]
+                "enum": ["UKR", "GEO", "CHL", "GBR", "CAN", "MDA", "NZL"]
               }
             }
           }
@@ -497,7 +501,13 @@
                           "elements": [
                             {
                               "type": "Control",
-                              "scope": "#/properties/kpn-kodas"
+                              "scope": "#/properties/kpn-kodas",
+
+                              "options": {
+                                "display": "tree",
+                                "label": "id",
+                                "value": "id"
+                              }
                             },
                             {
                               "type": "Control",
@@ -606,7 +616,12 @@
                           "elements": [
                             {
                               "type": "Control",
-                              "scope": "#/properties/salis"
+                              "label": "Šalis",
+                              "scope": "#/properties/salis",
+                              "options": {
+                                "label": "name",
+                                "value": "id"
+                              }
                             },
                             {
                               "type": "Control",
@@ -652,17 +667,7 @@
         "condition": {
           "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
           "schema": {
-            "enum": [
-              "Jungtinės Amerikos Valstijos",
-              "Korėjos Respublika",
-              "Japonija",
-              "Australija",
-              "Baltarusijos Respublika",
-              "Kazachstano Respublika",
-              "Rusijos Federacija",
-              "Armėnijos Respublika",
-              "Kirgizijos Respublika"
-            ]
+            "enum": ["USA", "KOR", "JPN", "AUS", "BLR", "KAZ", "RUS", "ARM", "KGZ"]
           }
         }
       },
@@ -841,7 +846,7 @@
             "condition": {
               "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
               "schema": {
-                "const": "Ukraina"
+                "const": "UKR"
               }
             }
           },
@@ -930,6 +935,10 @@
                 {
                   "type": "Control",
                   "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
+                  "options": {
+                    "label": "name",
+                    "value": "id"
+                  },
                   "rule": {
                     "effect": "DISABLE",
                     "condition": {
