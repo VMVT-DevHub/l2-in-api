@@ -117,4 +117,13 @@ export function throwBadRequestError(message?: string, data?: any): Errors.Molec
   );
 }
 
+export function throwUploadError(status?: number, message?: string) {
+  throw new Moleculer.Errors.MoleculerServerError(
+    message || `Failed to upload file, status: ${status}`,
+    status || 500,
+    'UPLOAD_ERROR',
+    { status },
+  );
+}
+
 export const COMMON_DEFAULT_SCOPES = ['notDeleted'];

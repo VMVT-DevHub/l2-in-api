@@ -98,6 +98,10 @@
               "rusis": {
                 "$ref": "#/definitions/transporto-priemones-rusis"
               },
+              "rusis-kita": {
+                "title": "Nurodykite transporto rūšį",
+                "type": "string"
+              },
               "valstybinis-numeris": {
                 "title": "Valstybinis numeris",
                 "type": "string"
@@ -472,7 +476,7 @@
         "Geležinkelio vagonas",
         "Autokelių transporto priemonė",
         "Konteineris (Konteinerio numeris)",
-        "Kita (įrašyti)"
+        "Kita"
       ]
     },
     "salis": {

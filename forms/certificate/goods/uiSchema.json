@@ -291,11 +291,46 @@
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/valstybinis-numeris"
+                      "scope": "#/properties/rusis-kita",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/rusis",
+                          "schema": {
+                            "const": "Kita"
+                          }
+                        }
+                      }
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/plombos-numeris"
+                      "scope": "#/properties/valstybinis-numeris",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/rusis",
+                          "schema": {
+                            "not": {
+                              "const": "Kita"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/plombos-numeris",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/rusis",
+                          "schema": {
+                            "not": {
+                              "const": "Kita"
+                            }
+                          }
+                        }
+                      }
                     }
                   ]
                 }
@@ -532,7 +567,16 @@
                         },
                         {
                           "type": "Control",
-                          "scope": "#/properties/zuvies-kilme"
+                          "scope": "#/properties/zuvies-kilme",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/ar-preke-zuvis",
+                              "schema": {
+                                "const": true
+                              }
+                            }
+                          }
                         },
                         {
                           "type": "Control",
@@ -540,7 +584,16 @@
                         },
                         {
                           "type": "Control",
-                          "scope": "#/properties/gyvuniniu-produktu-procentas"
+                          "scope": "#/properties/gyvuniniu-produktu-procentas",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/ar-sudetinis-produktas",
+                              "schema": {
+                                "const": true
+                              }
+                            }
+                          }
                         }
                       ],
                       "label": "Prekės informacija"
@@ -586,7 +639,8 @@
               }
             }
           ],
-          "label": "Prekių identifikavimas"
+          "label": "Prekių identifikavimas",
+          "description": "Sąrašas su visa gabenamų prekių informacija."
         }
       ],
       "label": "Prekės"
@@ -719,7 +773,8 @@
               }
             }
           ],
-          "label": "Gyvūninių produktų žaliavų sąrašas"
+          "label": "Gyvūninių produktų žaliavų sąrašas",
+          "description": "Sąrašas su naudojamų gyvūninių produktų žaliavų informacija."
         }
       ],
       "label": "Žaliavos"
@@ -910,7 +965,8 @@
               "scope": "#/properties/dokumentai/properties/labaratoriniai-tyrimai"
             }
           ],
-          "label": "Labaratoriniai tyrimai"
+          "label": "Labaratoriniai tyrimai",
+          "description": "Tyrimai, atlikti produktų kokybės ar saugos patikrinimui."
         },
         {
           "type": "Group",
@@ -920,7 +976,8 @@
               "scope": "#/properties/dokumentai/properties/vaztarastis"
             }
           ],
-          "label": "Važtaraštis"
+          "label": "Važtaraštis",
+          "description": "Siuntos lydimieji dokumentas - važtaraštis."
         },
         {
           "type": "Group",
@@ -930,7 +987,8 @@
               "scope": "#/properties/dokumentai/properties/saskaita-faktura"
             }
           ],
-          "label": "Sąskaita faktūra"
+          "label": "Sąskaita faktūra",
+          "description": "Siuntos lydimieji dokumentai - sąskaita faktūra."
         },
         {
           "type": "Group",
@@ -947,7 +1005,8 @@
               }
             }
           ],
-          "label": "Papildomi dokumentai"
+          "label": "Papildomi dokumentai",
+          "description": "Prikabinkite papildomus dokumentus, jei tokie reikalingi."
         },
 
         {
@@ -958,7 +1017,8 @@
               "scope": "#/properties/dokumentai/properties/papildoma-informacija"
             }
           ],
-          "label": "Papildoma info"
+          "label": "Papildoma info",
+          "description": "Bet kokia papildoma informacija apie siuntą ar gabenimą."
         },
         {
           "type": "Group",
@@ -968,7 +1028,8 @@
               "scope": "#/properties/dokumentai/properties/sutikimas"
             }
           ],
-          "label": "Sutikimas"
+          "label": "Sutikimas",
+          "description": "Patvirtinimas duomenų patikimumo."
         }
       ],
       "label": "Dokumentai"

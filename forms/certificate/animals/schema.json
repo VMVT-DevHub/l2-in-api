@@ -111,7 +111,7 @@
                 "type": "string"
               },
               "numeris": {
-                "title": "Transporto priemonės numeris",
+                "title": "Transporto priemonės Nr.",
                 "type": "string"
               },
               "patvirtinimo-iregistravimo-nr": {
@@ -255,6 +255,7 @@
               "$ref": "#/definitions/adresas"
             },
             "salis": {
+              "title": "Šalis",
               "$ref": "#/definitions/salis"
             },
             "patvirtinimo-iregistravimo-nr": {
@@ -435,7 +436,13 @@
     "transporto-priemones-rusis": {
       "title": "Transporto priemonės rūšis",
       "type": "string",
-      "enum": ["Autokelių transporto priemonė", "Kita (įrašyti)"]
+      "enum": [
+        "Autokelių transporto priemonė",
+        "Geležinkelio vagonas",
+        "Lėktuvas",
+        "Laivas",
+        "Kita"
+      ]
     },
     "salis": {
       "type": "string",

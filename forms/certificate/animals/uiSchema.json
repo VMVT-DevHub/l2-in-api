@@ -282,11 +282,46 @@
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/numeris"
+                      "scope": "#/properties/rusis-kita",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/rusis",
+                          "schema": {
+                            "const": "Kita"
+                          }
+                        }
+                      }
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/patvirtinimo-iregistravimo-nr"
+                      "scope": "#/properties/numeris",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/rusis",
+                          "schema": {
+                            "not": {
+                              "const": "Kita"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/patvirtinimo-iregistravimo-nr",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/rusis",
+                          "schema": {
+                            "not": {
+                              "const": "Kita"
+                            }
+                          }
+                        }
+                      }
                     }
                   ]
                 }
@@ -587,7 +622,7 @@
                     },
                     {
                       "type": "Group",
-                      "label": "AAA",
+                      "label": "Gabenamų gyvūnų atpažinimo duomenys",
                       "options": { "display": "column" },
                       "rule": {
                         "effect": "SHOW",
@@ -761,7 +796,8 @@
               "scope": "#/properties/dokumentai/properties/marsruto-planas"
             }
           ],
-          "label": "Maršruto planas"
+          "label": "Maršruto planas",
+          "description": "Tyrimai, atlikti produktų kokybės ar saugos patikrinimui."
         },
         {
           "type": "Group",
@@ -771,7 +807,8 @@
               "scope": "#/properties/dokumentai/properties/uzkreciamuju-ligu-tyrimo-protokolas"
             }
           ],
-          "label": "Gyvūnų užkrečiamųjų ligų tyrimo protokolai"
+          "label": "Gyvūnų užkrečiamųjų ligų tyrimo protokolai",
+          "description": "Siuntos lydimieji dokumentas - važtaraštis."
         },
         {
           "type": "Group",
@@ -791,7 +828,8 @@
               "scope": "#/properties/dokumentai/properties/saskaita-faktura"
             }
           ],
-          "label": "Sąskaita faktūra"
+          "label": "Sąskaita faktūra",
+          "description": "Siuntos lydimieji dokumentai - sąskaita faktūra."
         },
         {
           "type": "Group",
@@ -808,7 +846,8 @@
               }
             }
           ],
-          "label": "Papildomi dokumentai"
+          "label": "Papildomi dokumentai",
+          "description": "Prikabinkite papildomus dokumentus, jei tokie reikalingi."
         },
 
         {
@@ -819,7 +858,8 @@
               "scope": "#/properties/dokumentai/properties/papildoma-informacija"
             }
           ],
-          "label": "Papildoma info"
+          "label": "Papildoma info",
+          "description": "Bet kokia papildoma informacija apie siuntą ar gabenimą."
         },
         {
           "type": "Group",
@@ -829,7 +869,8 @@
               "scope": "#/properties/dokumentai/properties/sutikimas"
             }
           ],
-          "label": "Sutikimas"
+          "label": "Sutikimas",
+          "description": "Patvirtinimas duomenų patikimumo."
         }
       ],
       "label": "Dokumentai"
