@@ -312,6 +312,10 @@
                     {
                       "type": "Control",
                       "scope": "#/properties/numeris",
+                      "options": {
+                        "display": "creatableMultiSelect",
+                        "placeholder": "Įrašykite transporto Nr."
+                      },
                       "rule": {
                         "effect": "SHOW",
                         "condition": {

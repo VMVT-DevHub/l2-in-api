@@ -104,11 +104,17 @@
               },
               "valstybinis-numeris": {
                 "title": "Transporto priemonės Nr.",
-                "type": "string"
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "plombos-numeris": {
                 "title": "Plombos numeris",
-                "type": "string"
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             },
             "required": ["rusis", "plombos-numeris"]
@@ -180,7 +186,7 @@
           },
           "kiekis": {
             "title": "Kiekis (neto / bruto, kg.)",
-            "type": "string"
+            "type": "number"
           },
           "patvirtinimo-nr": {
             "title": "Patvirtinimo Nr.",
@@ -231,7 +237,6 @@
         "required": [
           "kpn-kodas",
           "pavadinimas",
-          "komercinis-lotyniskas-pavadinimas",
           "pagaminimo-data",
           "partijos-numeris",
           "tinkamumo-naudoti-terminas",
@@ -300,14 +305,14 @@
           "kiekis": {
             "title": "Žaliavų kiekis",
             "type": "object",
-            "properties" : {
-                "kiekis": {
-                  "type": "number"
-                },
-                "matas": {
-                  "type": "string",
-                  "enum": ["kg", "t", "vnt", "doz"]
-                }
+            "properties": {
+              "kiekis": {
+                "type": "number"
+              },
+              "matas": {
+                "type": "string",
+                "enum": ["kg", "t", "vnt", "doz"]
+              }
             },
             "required": ["kiekis", "matas"]
           },
@@ -346,7 +351,6 @@
         "required": [
           "pavadinimas",
           "kiekis",
-          "kiekis-matas",
           "gamintojas",
           "gavimo-data",
           "partijos-numeris",

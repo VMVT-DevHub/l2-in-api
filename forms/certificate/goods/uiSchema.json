@@ -313,6 +313,10 @@
                     {
                       "type": "Control",
                       "scope": "#/properties/valstybinis-numeris",
+                      "options": {
+                        "display": "creatableMultiSelect",
+                        "placeholder": "Įrašykite transporto Nr."
+                      },
                       "rule": {
                         "effect": "SHOW",
                         "condition": {
@@ -328,6 +332,10 @@
                     {
                       "type": "Control",
                       "scope": "#/properties/plombos-numeris",
+                      "options": {
+                        "display": "creatableMultiSelect",
+                        "placeholder": "Įrašykite plombos Nr."
+                      },
                       "rule": {
                         "effect": "SHOW",
                         "condition": {
@@ -769,6 +777,7 @@
                         },
                         {
                           "type": "Control",
+                          "label": "Žaliavos gavimo data",
                           "scope": "#/properties/gavimo-data"
                         }
                       ]
@@ -976,6 +985,7 @@
               "elements": [
                 {
                   "type": "Control",
+                  "label": "Šalis",
                   "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
                   "options": {
                     "label": "name",

@@ -64,7 +64,7 @@ export default class SharePointService extends Moleculer.Service {
 
   @Method
   async uploadFile(token: string, file: any, name: string, mimeType: string, fileNameHash: string) {
-    const url = `${this.settings.baseUrl}/${process.env.SHARE_POINT_DRIVE_ID}/root:/${process.env.NODE_ENV}/${fileNameHash}:/content`;
+    const url = `${this.settings.baseUrl}/${process.env.SHARE_POINT_DRIVE_ID}/root:/${process.env.SHARE_POINT_FOLDER}/${fileNameHash}:/content`;
 
     try {
       const response = await fetch(url, {
@@ -109,5 +109,18 @@ export default class SharePointService extends Moleculer.Service {
       .digest('hex');
 
     return this.uploadFile(token, fileStream, fileName, mimeType, fileNameHash);
+  }
+
+  created() {
+    const hasSecrets =
+      process.env.SHARE_POINT_TENANT_ID &&
+      process.env.SHARE_POINT_CLIENT_ID &&
+      process.env.SHARE_POINT_CLIENT_SECRET &&
+      process.env.SHARE_POINT_DRIVE_ID &&
+      process.env.SHARE_POINT_FOLDER;
+
+    if (process.env.NODE_ENV !== 'local' && !hasSecrets) {
+      this.broker.fatal('SharePoint is not configured');
+    }
   }
 }
