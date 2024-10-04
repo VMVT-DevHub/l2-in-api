@@ -98,11 +98,13 @@ export default class extends moleculer.Service {
     params: {
       formType: 'string',
       form: 'string',
+      validate: 'boolean|optional',
     },
   })
-  async form(ctx: Context<{ formType: string; form: string }>) {
+  async form(ctx: Context<{ formType: string; form: string; validate: boolean }>) {
     const formType = ctx.params.formType;
     const form = ctx.params.form;
+    const validate = ctx.params.validate;
 
     const config = JSON.parse(
       readFileSync(`${this.settings.dir}/${formType}/${form}/config.json`, 'utf8'),
@@ -119,10 +121,13 @@ export default class extends moleculer.Service {
     const setEnums = async (obj: any) => {
       if (obj?.fetchEnumFrom) {
         const enumOptions = await ctx.call(obj?.fetchEnumFrom);
-        const options = await ctx.call(obj?.fetchOptionsFrom);
 
         obj.enum = enumOptions;
-        obj.options = options;
+        if (!validate) {
+          const options = await ctx.call(obj?.fetchOptionsFrom);
+          obj.options = options;
+        }
+
         delete obj.fetchEnumFrom;
         delete obj.fetchOptionsFrom;
       }

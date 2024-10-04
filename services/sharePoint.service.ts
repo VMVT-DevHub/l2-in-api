@@ -63,7 +63,7 @@ export default class SharePointService extends Moleculer.Service {
   }
 
   @Method
-  async uploadFile(token: string, file: any, fileNameHash: string) {
+  async uploadFile(token: string, file: any, name: string, mimeType: string, fileNameHash: string) {
     const url = `${this.settings.baseUrl}/${process.env.SHARE_POINT_DRIVE_ID}/root:/${process.env.NODE_ENV}/${fileNameHash}:/content`;
 
     try {
@@ -71,7 +71,7 @@ export default class SharePointService extends Moleculer.Service {
         method: 'PUT',
         headers: {
           Authorization: token,
-          'Content-Type': 'application/octet-stream',
+          'Content-Type': mimeType,
         },
         body: file,
         //@ts-ignore
@@ -83,7 +83,7 @@ export default class SharePointService extends Moleculer.Service {
       }
 
       const responseData = await response.json();
-      const { name, size, '@microsoft.graph.downloadUrl': downloadUrl } = responseData;
+      const { size, '@microsoft.graph.downloadUrl': downloadUrl } = responseData;
 
       return { name, url: downloadUrl, size };
     } catch ({}) {
@@ -98,15 +98,16 @@ export default class SharePointService extends Moleculer.Service {
       type: 'multipart',
     },
   })
-  async uploadFiles(ctx: Context<{}, { filename: string } & UserAuthMeta>) {
+  async uploadFiles(ctx: Context<{}, { filename: string; mimetype: string } & UserAuthMeta>) {
     const token = await this.getToken();
     const fileStream = ctx.params;
     const fileName = ctx?.meta?.filename ?? '';
+    const mimeType = ctx?.meta?.mimetype ?? '';
     const timestamp = Date.now().toString();
     const fileNameHash = createHash('md5')
       .update(fileName + timestamp)
       .digest('hex');
 
-    return this.uploadFile(token, fileStream, fileNameHash);
+    return this.uploadFile(token, fileStream, fileName, mimeType, fileNameHash);
   }
 }

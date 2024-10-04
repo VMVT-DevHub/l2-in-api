@@ -103,14 +103,15 @@
                 "type": "string"
               },
               "valstybinis-numeris": {
-                "title": "Valstybinis numeris",
+                "title": "Transporto priemonės Nr.",
                 "type": "string"
               },
               "plombos-numeris": {
                 "title": "Plombos numeris",
                 "type": "string"
               }
-            }
+            },
+            "required": ["rusis", "plombos-numeris"]
           }
         }
       }
@@ -134,7 +135,8 @@
         "laikas": {
           "$ref": "#/definitions/laikas"
         }
-      }
+      },
+      "required": ["laikas", "data", "patvirtinimo-iregistravimo-nr", "adresas", "asmuo"]
     },
     "prekes": {
       "type": "array",
@@ -166,7 +168,7 @@
           },
           "tinkamumo-naudoti-terminas": {
             "title": "Tinkamumo naudoti (vartoti) terminas",
-            "type": "string"
+            "$ref": "#/definitions/data"
           },
           "pakuotes-tipas": {
             "title": "Pakuotės tipas",
@@ -226,6 +228,23 @@
             "$ref": "#/definitions/dokumentas"
           }
         },
+        "required": [
+          "kpn-kodas",
+          "pavadinimas",
+          "komercinis-lotyniskas-pavadinimas",
+          "pagaminimo-data",
+          "partijos-numeris",
+          "tinkamumo-naudoti-terminas",
+          "pakuotes-tipas",
+          "pakuociu-skaicius",
+          "kiekis",
+          "patvirtinimo-nr",
+          "laikymo-ir-transportavimo-salygos",
+          "salis",
+          "gamintojo-pavadinimas",
+          "adresas",
+          "gamintojo-patvirtinimo-iregistravimo-nr"
+        ],
         "if": {
           "properties": {
             "salis": {
@@ -280,11 +299,17 @@
           },
           "kiekis": {
             "title": "Žaliavų kiekis",
-            "type": "string"
-          },
-          "kiekis-matas": {
-            "type": "string",
-            "enum": ["kg", "t", "vnt", "doz"]
+            "type": "object",
+            "properties" : {
+                "kiekis": {
+                  "type": "number"
+                },
+                "matas": {
+                  "type": "string",
+                  "enum": ["kg", "t", "vnt", "doz"]
+                }
+            },
+            "required": ["kiekis", "matas"]
           },
           "gamintojas": {
             "type": "object",
@@ -355,7 +380,8 @@
             "patvirtinimo-iregistravimo-nr": {
               "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
             }
-          }
+          },
+          "required": ["patvirtinimo-iregistravimo-nr", "adresas", "asmuo"]
         }
       }
     },
@@ -375,13 +401,7 @@
         "papildomi-dokumentai": {
           "type": "array",
           "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "dokumentas": {
-                "$ref": "#/definitions/dokumentas"
-              }
-            }
+            "$ref": "#/definitions/dokumentas"
           }
         },
         "papildoma-informacija": {
@@ -391,7 +411,8 @@
           "title": "Aš, atsakingas asmuo, patvirtinu, kad prašyme pateikti duomenys yra paremti dokumentais, jie patikrinti ir atitinka tikrovę, produktų sauga ir kokybė atitinka ES ir Lietuvos bei šalies importuotojos teisės aktų reikalavimus, trečiajai šaliai priėmus sprendimą grąžinti prekę, nedelsiant informuosiu Valstybinės  maisto ir veterinarijos tarnybos skyrių, išdavusį veterinarijos sertifikatą, pateikdamas išsamią informaciją ir dokumentus.",
           "type": "boolean"
         }
-      }
+      },
+      "required": ["labaratoriniai-tyrimai", "vaztarastis", "saskaita-faktura", "sutikimas"]
     }
   },
   "required": ["siuntejas", "marsrutas", "gavejas"],
@@ -505,8 +526,20 @@
       "pattern": "[0-9]{11}"
     },
     "dokumentas": {
-      "type": "string",
-      "format": "url"
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "url"
+        },
+        "name": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        }
+      }
     },
     "transporto-priemones-rusis": {
       "title": "Transporto priemonės rūšis",

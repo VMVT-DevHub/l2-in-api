@@ -123,10 +123,35 @@ export default class extends moleculer.Service {
     auth: RestrictionType.PUBLIC,
   })
   async getParentIds(ctx: Context) {
-    const result: KPN[] = await this.findEntities(ctx);
-    const ids = result.map((obj) => obj?.l1);
+    const result: KPN[] = (await this.findEntities(ctx)).filter(
+      (item: any) => item.l1 == '01000000',
+    );
+
+    const ids = result.map((obj) => obj?.l2);
 
     return [...new Set(ids)];
+  }
+
+  @Action({
+    rest: 'GET /parents',
+    auth: RestrictionType.PUBLIC,
+  })
+  async getParents(ctx: Context) {
+    const result: KPN[] = (await this.findEntities(ctx)).filter(
+      (item: any) => item.l1 == '01000000',
+    );
+    const group: any = {};
+
+    for (const item of result) {
+      const currentId = item.l2;
+
+      group[currentId] = {
+        id: item.l2,
+        name: item.l2Name,
+      };
+    }
+
+    return Object.values(group);
   }
 
   @Action({

@@ -16,9 +16,14 @@ export default function (opts: any = {}) {
         if (process.env.NODE_ENV !== 'local') return;
 
         const records = [];
-        const parser = fs
-          .createReadStream(`${__dirname}/../database/seed/${fileName}.csv`)
-          .pipe(parse());
+
+        const path = `${__dirname}/../database/seed/${fileName}.csv`;
+
+        if (!fs.existsSync(path)) {
+          return;
+        }
+
+        const parser = fs.createReadStream(path).pipe(parse());
 
         for await (const record of parser) {
           const obj: any = {};

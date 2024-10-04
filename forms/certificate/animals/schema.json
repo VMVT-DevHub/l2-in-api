@@ -87,6 +87,13 @@
       "type": "object",
       "title": "Vežėjo kontaktinė informacija",
       "additionalProperties": false,
+      "required": [
+        "asmuo",
+        "adresas",
+        "patvirtinimo-iregistravimo-nr",
+        "transporto-priemones",
+        "priziuretojai"
+      ],
       "properties": {
         "asmuo": {
           "$ref": "#/definitions/asmuo-su-kodu"
@@ -102,6 +109,7 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
+            "required": ["rusis", "adresas", "patvirtinimo-iregistravimo-nr"],
             "properties": {
               "rusis": {
                 "$ref": "#/definitions/transporto-priemones-rusis"
@@ -147,6 +155,16 @@
     "pakrovimo-vieta": {
       "type": "object",
       "additionalProperties": false,
+      "required": [
+        "atvykimo-data",
+        "atvykimo-laikas",
+        "trukme",
+        "pakrovimo-laikas",
+        "pakrovimo-data",
+        "patvirtinimo-iregistravimo-nr",
+        "adresas",
+        "asmuo"
+      ],
       "properties": {
         "asmuo": {
           "$ref": "#/definitions/asmuo-su-kodu"
@@ -184,6 +202,14 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "kodas",
+          "rusis",
+          "kiekis",
+          "siuntos-paskirtis",
+          "svoris",
+          "atpazinimo-priemone"
+        ],
         "properties": {
           "kodas": {
             "title": "Nomenklatūrinis pavadinimas ir kodas",
@@ -261,7 +287,8 @@
             "patvirtinimo-iregistravimo-nr": {
               "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
             }
-          }
+          },
+          "required": ["salis", "patvirtinimo-iregistravimo-nr", "adresas", "asmuo"]
         }
       }
     },
@@ -284,13 +311,7 @@
         "papildomi-dokumentai": {
           "type": "array",
           "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "dokumentas": {
-                "$ref": "#/definitions/dokumentas"
-              }
-            }
+            "$ref": "#/definitions/dokumentas"
           }
         },
         "papildoma-informacija": {
@@ -300,7 +321,13 @@
           "title": "Aš, atsakingas asmuo, patvirtinu, kad prašyme pateikti duomenys yra paremti dokumentais, jie patikrinti ir atitinka tikrovę, vežami gyvūnai atitinka ES ir Lietuvos bei šalies importuotojos teisės aktų reikalavimus.",
           "type": "boolean"
         }
-      }
+      },
+      "required": [
+        "marsruto-planas",
+        "uzkreciamuju-ligu-tyrimo-protokolas",
+        "saskaita-faktura",
+        "apmokejimas"
+      ]
     }
   },
   "required": ["siuntejas", "marsrutas", "gavejas"],
@@ -383,7 +410,8 @@
     },
     "gyvuno-kodas": {
       "type": "string",
-      "enum": ["101", "102", "103", "104", "105", "106"]
+      "fetchEnumFrom": "kpn.getParentIds",
+      "fetchOptionsFrom": "kpn.getParents"
     },
     "gyvuno-atpazinimo-priemone": {
       "type": "string",
@@ -430,8 +458,20 @@
       "pattern": "[0-9]{11}"
     },
     "dokumentas": {
-      "type": "string",
-      "format": "url"
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "url"
+        },
+        "name": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        }
+      }
     },
     "transporto-priemones-rusis": {
       "title": "Transporto priemonės rūšis",

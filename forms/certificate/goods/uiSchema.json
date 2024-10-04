@@ -12,13 +12,15 @@
           "elements": [
             {
               "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
               "elements": [
                 {
                   "type": "Control",
                   "options": { "display": "buttonGroup" },
                   "scope": "#/properties/siuntejas/properties/asmuo/properties/tipas"
-                },
-                {}
+                }
               ]
             },
             {
@@ -199,13 +201,15 @@
           "elements": [
             {
               "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
               "elements": [
                 {
                   "type": "Control",
                   "options": { "display": "buttonGroup" },
                   "scope": "#/properties/vezejas/properties/asmuo/properties/tipas"
-                },
-                {}
+                }
               ]
             },
             {
@@ -355,13 +359,15 @@
           "elements": [
             {
               "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
               "elements": [
                 {
                   "type": "Control",
                   "options": { "display": "buttonGroup" },
                   "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/tipas"
-                },
-                {}
+                }
               ]
             },
             {
@@ -433,10 +439,12 @@
               "elements": [
                 {
                   "type": "Control",
+                  "label": "Numatoma pakrovimo pradžios data",
                   "scope": "#/properties/pakrovimo-vieta/properties/data"
                 },
                 {
                   "type": "Control",
+                  "label": "Numatoma pakrovimo pradžios laikas",
                   "scope": "#/properties/pakrovimo-vieta/properties/laikas"
                 }
               ]
@@ -537,6 +545,7 @@
                             },
                             {
                               "type": "Control",
+                              "label": "Tinkamumo naudoti (vartoti) terminas",
                               "scope": "#/properties/tinkamumo-naudoti-terminas"
                             }
                           ]
@@ -644,7 +653,8 @@
                         },
                         {
                           "type": "Control",
-                          "scope": "#/properties/sertifikatas"
+                          "scope": "#/properties/sertifikatas",
+                          "options": { "display": "upload" }
                         }
                       ],
                       "label": "Prekės kilmė"
@@ -726,11 +736,12 @@
                         },
                         {
                           "type": "Control",
-                          "scope": "#/properties/kiekis"
-                        },
-                        {
-                          "type": "Control",
-                          "scope": "#/properties/kiekis-matas"
+                          "scope": "#/properties/kiekis",
+                          "options" : {
+                            "display": "combinedInput",
+                            "inputKey": "kiekis",
+                            "optionKey": "matas"
+                          }
                         }
                       ]
                     },
@@ -739,10 +750,12 @@
                       "elements": [
                         {
                           "type": "Control",
+                          "label": "Žaliavos gamintojo pavadinimas",
                           "scope": "#/properties/gamintojas/properties/imones-pavadinimas"
                         },
                         {
                           "type": "Control",
+                          "label": "Žaliavos gamintojo adresas",
                           "scope": "#/properties/gamintojas/properties/adresas"
                         }
                       ]
@@ -792,13 +805,15 @@
           "elements": [
             {
               "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
               "elements": [
                 {
                   "type": "Control",
                   "scope": "#/properties/gavejas/properties/asmuo/properties/tipas",
                   "options": { "display": "buttonGroup" }
-                },
-                {}
+                }
               ]
             },
             {
@@ -844,9 +859,34 @@
           "rule": {
             "effect": "SHOW",
             "condition": {
-              "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
+              "scope": "#",
               "schema": {
-                "const": "UKR"
+                "properties": {
+                  "marsrutas": {
+                    "properties": {
+                      "importuojanti-salis": {
+                        "properties": {
+                          "salis": {
+                            "const": "UKR"
+                          }
+                        },
+                        "required": ["salis"]
+                      }
+                    },
+                    "required": ["importuojanti-salis"]
+                  },
+                  "prekes": {
+                    "contains": {
+                      "properties": {
+                        "ar-preke-zuvis": {
+                          "const": true
+                        }
+                      },
+                      "required": ["ar-preke-zuvis"]
+                    }
+                  }
+                },
+                "required": ["marsrutas", "prekes"]
               }
             }
           },
@@ -885,13 +925,15 @@
           "elements": [
             {
               "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
               "elements": [
                 {
                   "type": "Control",
                   "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/asmuo/properties/tipas",
                   "options": { "display": "buttonGroup" }
-                },
-                {}
+                }
               ]
             },
             {
@@ -971,7 +1013,8 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/labaratoriniai-tyrimai"
+              "scope": "#/properties/dokumentai/properties/labaratoriniai-tyrimai",
+              "options": { "display": "upload" }
             }
           ],
           "label": "Labaratoriniai tyrimai",
@@ -982,7 +1025,8 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/vaztarastis"
+              "scope": "#/properties/dokumentai/properties/vaztarastis",
+              "options": { "display": "upload" }
             }
           ],
           "label": "Važtaraštis",
@@ -993,7 +1037,8 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/saskaita-faktura"
+              "scope": "#/properties/dokumentai/properties/saskaita-faktura",
+              "options": { "display": "upload" }
             }
           ],
           "label": "Sąskaita faktūra",
@@ -1006,11 +1051,8 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/papildomi-dokumentai",
               "options": {
-                "addLabel": "Pridėti dokumentą",
-                "detail": {
-                  "type": "Control",
-                  "scope": "#/properties/dokumentas"
-                }
+                "display": "upload",
+                "multi": true
               }
             }
           ],
@@ -1023,7 +1065,10 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/papildoma-informacija"
+              "scope": "#/properties/dokumentai/properties/papildoma-informacija",
+              "options": {
+                "display": "textarea"
+              }
             }
           ],
           "label": "Papildoma info",
