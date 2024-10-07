@@ -4,9 +4,9 @@ const commonFields = (table) => {
   table.timestamp('createdAt');
   table.timestamp('updatedAt');
   table.timestamp('deletedAt');
-  table.timestamp('createdBy');
-  table.timestamp('updatedBy');
-  table.timestamp('deletedBy');
+  table.integer('createdBy').unsigned();
+  table.integer('updatedBy').unsigned();
+  table.integer('deletedBy').unsigned();
 };
 
 const schema = process.env.DB_SCHEMA || 'public';

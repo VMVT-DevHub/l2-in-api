@@ -12,13 +12,15 @@
           "elements": [
             {
               "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
               "elements": [
                 {
                   "type": "Control",
                   "options": { "display": "buttonGroup" },
                   "scope": "#/properties/siuntejas/properties/asmuo/properties/tipas"
-                },
-                {}
+                }
               ]
             },
             {
@@ -128,7 +130,11 @@
                 {
                   "type": "Control",
                   "label": "Eksportuojanti šalis",
-                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis"
+                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis",
+                  "options": {
+                    "labelFormat": "${name}",
+                    "value": "id"
+                  }
                 }
               ]
             },
@@ -146,7 +152,11 @@
                         {
                           "type": "Control",
                           "label": "Tranzitinė šalis",
-                          "scope": "#/properties/salis"
+                          "scope": "#/properties/salis",
+                          "options": {
+                            "labelFormat": "${name}",
+                            "value": "id"
+                          }
                         },
                         {
                           "type": "Control",
@@ -164,7 +174,11 @@
                 {
                   "type": "Control",
                   "label": "Importuojanti šalis",
-                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis"
+                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
+                  "options": {
+                    "labelFormat": "${name}",
+                    "value": "id"
+                  }
                 },
                 {
                   "type": "Control",
@@ -187,13 +201,15 @@
           "elements": [
             {
               "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
               "elements": [
                 {
                   "type": "Control",
                   "options": { "display": "buttonGroup" },
                   "scope": "#/properties/vezejas/properties/asmuo/properties/tipas"
-                },
-                {}
+                }
               ]
             },
             {
@@ -261,15 +277,7 @@
             "condition": {
               "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
               "schema": {
-                "enum": [
-                  "Ukraina",
-                  "Sakartvelas",
-                  "Čilės Respublika",
-                  "Jungtinė Didžiosios Britanijos ir Šiaurės Airijos Karalystė",
-                  "Kanada",
-                  "Moldovos Respublika",
-                  "Naujoji Zelandija"
-                ]
+                "enum": ["UKR", "GEO", "CHL", "GBR", "CAN", "MDA", "NZL"]
               }
             }
           }
@@ -291,11 +299,54 @@
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/valstybinis-numeris"
+                      "scope": "#/properties/rusis-kita",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/rusis",
+                          "schema": {
+                            "const": "Kita"
+                          }
+                        }
+                      }
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/plombos-numeris"
+                      "scope": "#/properties/valstybinis-numeris",
+                      "options": {
+                        "display": "creatableMultiSelect",
+                        "placeholder": "Įrašykite transporto Nr."
+                      },
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/rusis",
+                          "schema": {
+                            "not": {
+                              "const": "Kita"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/plombos-numeris",
+                      "options": {
+                        "display": "creatableMultiSelect",
+                        "placeholder": "Įrašykite plombos Nr."
+                      },
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/rusis",
+                          "schema": {
+                            "not": {
+                              "const": "Kita"
+                            }
+                          }
+                        }
+                      }
                     }
                   ]
                 }
@@ -316,13 +367,15 @@
           "elements": [
             {
               "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
               "elements": [
                 {
                   "type": "Control",
                   "options": { "display": "buttonGroup" },
                   "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/tipas"
-                },
-                {}
+                }
               ]
             },
             {
@@ -394,10 +447,12 @@
               "elements": [
                 {
                   "type": "Control",
+                  "label": "Numatoma pakrovimo pradžios data",
                   "scope": "#/properties/pakrovimo-vieta/properties/data"
                 },
                 {
                   "type": "Control",
+                  "label": "Numatoma pakrovimo pradžios laikas",
                   "scope": "#/properties/pakrovimo-vieta/properties/laikas"
                 }
               ]
@@ -462,7 +517,13 @@
                           "elements": [
                             {
                               "type": "Control",
-                              "scope": "#/properties/kpn-kodas"
+                              "scope": "#/properties/kpn-kodas",
+
+                              "options": {
+                                "display": "tree",
+                                "labelFormat": "${name} - ${id}",
+                                "value": "id"
+                              }
                             },
                             {
                               "type": "Control",
@@ -492,6 +553,7 @@
                             },
                             {
                               "type": "Control",
+                              "label": "Tinkamumo naudoti (vartoti) terminas",
                               "scope": "#/properties/tinkamumo-naudoti-terminas"
                             }
                           ]
@@ -532,7 +594,16 @@
                         },
                         {
                           "type": "Control",
-                          "scope": "#/properties/zuvies-kilme"
+                          "scope": "#/properties/zuvies-kilme",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/ar-preke-zuvis",
+                              "schema": {
+                                "const": true
+                              }
+                            }
+                          }
                         },
                         {
                           "type": "Control",
@@ -540,7 +611,16 @@
                         },
                         {
                           "type": "Control",
-                          "scope": "#/properties/gyvuniniu-produktu-procentas"
+                          "scope": "#/properties/gyvuniniu-produktu-procentas",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/ar-sudetinis-produktas",
+                              "schema": {
+                                "const": true
+                              }
+                            }
+                          }
                         }
                       ],
                       "label": "Prekės informacija"
@@ -553,7 +633,12 @@
                           "elements": [
                             {
                               "type": "Control",
-                              "scope": "#/properties/salis"
+                              "label": "Šalis",
+                              "scope": "#/properties/salis",
+                              "options": {
+                                "labelFormat": "${name}",
+                                "value": "id"
+                              }
                             },
                             {
                               "type": "Control",
@@ -576,7 +661,8 @@
                         },
                         {
                           "type": "Control",
-                          "scope": "#/properties/sertifikatas"
+                          "scope": "#/properties/sertifikatas",
+                          "options": { "display": "upload" }
                         }
                       ],
                       "label": "Prekės kilmė"
@@ -586,7 +672,8 @@
               }
             }
           ],
-          "label": "Prekių identifikavimas"
+          "label": "Prekių identifikavimas",
+          "description": "Sąrašas su visa gabenamų prekių informacija."
         }
       ],
       "label": "Prekės"
@@ -598,17 +685,7 @@
         "condition": {
           "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
           "schema": {
-            "enum": [
-              "Jungtinės Amerikos Valstijos",
-              "Korėjos Respublika",
-              "Japonija",
-              "Australija",
-              "Baltarusijos Respublika",
-              "Kazachstano Respublika",
-              "Rusijos Federacija",
-              "Armėnijos Respublika",
-              "Kirgizijos Respublika"
-            ]
+            "enum": ["USA", "KOR", "JPN", "AUS", "BLR", "KAZ", "RUS", "ARM", "KGZ"]
           }
         }
       },
@@ -667,11 +744,12 @@
                         },
                         {
                           "type": "Control",
-                          "scope": "#/properties/kiekis"
-                        },
-                        {
-                          "type": "Control",
-                          "scope": "#/properties/kiekis-matas"
+                          "scope": "#/properties/kiekis",
+                          "options": {
+                            "display": "combinedInput",
+                            "inputKey": "kiekis",
+                            "optionKey": "matas"
+                          }
                         }
                       ]
                     },
@@ -680,10 +758,12 @@
                       "elements": [
                         {
                           "type": "Control",
+                          "label": "Žaliavos gamintojo pavadinimas",
                           "scope": "#/properties/gamintojas/properties/imones-pavadinimas"
                         },
                         {
                           "type": "Control",
+                          "label": "Žaliavos gamintojo adresas",
                           "scope": "#/properties/gamintojas/properties/adresas"
                         }
                       ]
@@ -697,6 +777,7 @@
                         },
                         {
                           "type": "Control",
+                          "label": "Žaliavos gavimo data",
                           "scope": "#/properties/gavimo-data"
                         }
                       ]
@@ -719,7 +800,8 @@
               }
             }
           ],
-          "label": "Gyvūninių produktų žaliavų sąrašas"
+          "label": "Gyvūninių produktų žaliavų sąrašas",
+          "description": "Sąrašas su naudojamų gyvūninių produktų žaliavų informacija."
         }
       ],
       "label": "Žaliavos"
@@ -732,13 +814,15 @@
           "elements": [
             {
               "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
               "elements": [
                 {
                   "type": "Control",
                   "scope": "#/properties/gavejas/properties/asmuo/properties/tipas",
                   "options": { "display": "buttonGroup" }
-                },
-                {}
+                }
               ]
             },
             {
@@ -784,9 +868,34 @@
           "rule": {
             "effect": "SHOW",
             "condition": {
-              "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
+              "scope": "#",
               "schema": {
-                "const": "Ukraina"
+                "properties": {
+                  "marsrutas": {
+                    "properties": {
+                      "importuojanti-salis": {
+                        "properties": {
+                          "salis": {
+                            "const": "UKR"
+                          }
+                        },
+                        "required": ["salis"]
+                      }
+                    },
+                    "required": ["importuojanti-salis"]
+                  },
+                  "prekes": {
+                    "contains": {
+                      "properties": {
+                        "ar-preke-zuvis": {
+                          "const": true
+                        }
+                      },
+                      "required": ["ar-preke-zuvis"]
+                    }
+                  }
+                },
+                "required": ["marsrutas", "prekes"]
               }
             }
           },
@@ -825,13 +934,15 @@
           "elements": [
             {
               "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
               "elements": [
                 {
                   "type": "Control",
                   "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/asmuo/properties/tipas",
                   "options": { "display": "buttonGroup" }
-                },
-                {}
+                }
               ]
             },
             {
@@ -874,7 +985,12 @@
               "elements": [
                 {
                   "type": "Control",
+                  "label": "Šalis",
                   "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
+                  "options": {
+                    "labelFormat": "${name}",
+                    "value": "id"
+                  },
                   "rule": {
                     "effect": "DISABLE",
                     "condition": {
@@ -907,30 +1023,36 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/labaratoriniai-tyrimai"
+              "scope": "#/properties/dokumentai/properties/labaratoriniai-tyrimai",
+              "options": { "display": "upload" }
             }
           ],
-          "label": "Labaratoriniai tyrimai"
+          "label": "Labaratoriniai tyrimai",
+          "description": "Tyrimai, atlikti produktų kokybės ar saugos patikrinimui."
         },
         {
           "type": "Group",
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/vaztarastis"
+              "scope": "#/properties/dokumentai/properties/vaztarastis",
+              "options": { "display": "upload" }
             }
           ],
-          "label": "Važtaraštis"
+          "label": "Važtaraštis",
+          "description": "Siuntos lydimieji dokumentas - važtaraštis."
         },
         {
           "type": "Group",
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/saskaita-faktura"
+              "scope": "#/properties/dokumentai/properties/saskaita-faktura",
+              "options": { "display": "upload" }
             }
           ],
-          "label": "Sąskaita faktūra"
+          "label": "Sąskaita faktūra",
+          "description": "Siuntos lydimieji dokumentai - sąskaita faktūra."
         },
         {
           "type": "Group",
@@ -939,15 +1061,13 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/papildomi-dokumentai",
               "options": {
-                "addLabel": "Pridėti dokumentą",
-                "detail": {
-                  "type": "Control",
-                  "scope": "#/properties/dokumentas"
-                }
+                "display": "upload",
+                "multi": true
               }
             }
           ],
-          "label": "Papildomi dokumentai"
+          "label": "Papildomi dokumentai",
+          "description": "Prikabinkite papildomus dokumentus, jei tokie reikalingi."
         },
 
         {
@@ -955,10 +1075,14 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/papildoma-informacija"
+              "scope": "#/properties/dokumentai/properties/papildoma-informacija",
+              "options": {
+                "display": "textarea"
+              }
             }
           ],
-          "label": "Papildoma info"
+          "label": "Papildoma info",
+          "description": "Bet kokia papildoma informacija apie siuntą ar gabenimą."
         },
         {
           "type": "Group",
@@ -968,7 +1092,8 @@
               "scope": "#/properties/dokumentai/properties/sutikimas"
             }
           ],
-          "label": "Sutikimas"
+          "label": "Sutikimas",
+          "description": "Patvirtinimas duomenų patikimumo."
         }
       ],
       "label": "Dokumentai"

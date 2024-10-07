@@ -98,11 +98,14 @@ export default class extends moleculer.Service {
     params: {
       formType: 'string',
       form: 'string',
+      validate: 'boolean|optional',
     },
   })
-  async form(ctx: Context<{ formType: string; form: string }>) {
+  async form(ctx: Context<{ formType: string; form: string; validate: boolean }>) {
     const formType = ctx.params.formType;
     const form = ctx.params.form;
+    const validate = ctx.params.validate;
+
     const config = JSON.parse(
       readFileSync(`${this.settings.dir}/${formType}/${form}/config.json`, 'utf8'),
     );
@@ -115,6 +118,36 @@ export default class extends moleculer.Service {
       readFileSync(`${this.settings.dir}/${formType}/${form}/uiSchema.json`, 'utf8'),
     );
 
-    return { form, formType, title: config.title, schema, uiSchema };
+    const setEnums = async (obj: any) => {
+      if (obj?.fetchEnumFrom) {
+        const enumOptions = await ctx.call(obj?.fetchEnumFrom);
+
+        obj.enum = enumOptions;
+        if (!validate) {
+          const options = await ctx.call(obj?.fetchOptionsFrom);
+          obj.options = options;
+        }
+
+        delete obj.fetchEnumFrom;
+        delete obj.fetchOptionsFrom;
+      }
+
+      if (obj?.type === 'object') {
+        for (const property in obj.properties) {
+          await setEnums(obj.properties[property]);
+        }
+      } else if (obj?.type === 'array') {
+        await setEnums(obj.items);
+      }
+
+      if (obj?.definitions) {
+        for (const property in obj.definitions) {
+          await setEnums(obj.definitions[property]);
+        }
+      }
+    };
+    await setEnums(schema);
+
+    return { form, formType, title: config.title, schema: schema, uiSchema };
   }
 }

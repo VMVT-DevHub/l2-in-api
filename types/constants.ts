@@ -15,7 +15,7 @@ export type Table<
 > = Pick<Omit<Fields, P> & Pick<Populates, P>, Extract<P | Exclude<keyof Fields, P>, F>>;
 
 export interface CommonFields {
-  id: number;
+  id: number | string;
   createdBy: User['id'];
   createdAt: Date;
   updatedBy: User['id'];
@@ -114,6 +114,15 @@ export function throwBadRequestError(message?: string, data?: any): Errors.Molec
     400,
     'BAD_REQUEST',
     data,
+  );
+}
+
+export function throwUploadError(status?: number, message?: string) {
+  throw new Moleculer.Errors.MoleculerServerError(
+    message || `Failed to upload file, status: ${status}`,
+    status || 500,
+    'UPLOAD_ERROR',
+    { status },
   );
 }
 
