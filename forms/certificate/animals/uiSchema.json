@@ -132,7 +132,7 @@
                   "label": "Eksportuojanti šalis",
                   "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis",
                   "options": {
-                    "label": "name",
+                    "labelFormat": "${name}",
                     "value": "id"
                   }
                 }
@@ -154,7 +154,7 @@
                           "label": "Tranzitinė šalis",
                           "scope": "#/properties/salis",
                           "options": {
-                            "label": "name",
+                            "labelFormat": "${name}",
                             "value": "id"
                           }
                         },
@@ -184,7 +184,7 @@
                   "label": "Importuojanti šalis",
                   "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
                   "options": {
-                    "label": "name",
+                    "labelFormat": "${name}",
                     "value": "id"
                   }
                 },
@@ -570,7 +570,7 @@
                           "scope": "#/properties/kodas",
                           "label": "Nomenklatūrinis pavadinimas ir kodas",
                           "options": {
-                            "label": "name,id",
+                            "labelFormat": "${name} - ${id}",
                             "value": "id"
                           }
                         }
@@ -810,7 +810,7 @@
                   "label": "Šalis",
                   "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/salis",
                   "options": {
-                    "label": "name",
+                    "labelFormat": "${name}",
                     "value": "id"
                   }
                 },

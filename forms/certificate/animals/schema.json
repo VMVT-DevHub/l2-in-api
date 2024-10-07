@@ -109,7 +109,7 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["rusis", "adresas", "patvirtinimo-iregistravimo-nr"],
+            "required": ["rusis"],
             "properties": {
               "rusis": {
                 "$ref": "#/definitions/transporto-priemones-rusis"

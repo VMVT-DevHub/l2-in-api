@@ -132,7 +132,7 @@
                   "label": "Eksportuojanti šalis",
                   "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis",
                   "options": {
-                    "label": "name",
+                    "labelFormat": "${name}",
                     "value": "id"
                   }
                 }
@@ -154,7 +154,7 @@
                           "label": "Tranzitinė šalis",
                           "scope": "#/properties/salis",
                           "options": {
-                            "label": "name",
+                            "labelFormat": "${name}",
                             "value": "id"
                           }
                         },
@@ -176,7 +176,7 @@
                   "label": "Importuojanti šalis",
                   "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
                   "options": {
-                    "label": "name",
+                    "labelFormat": "${name}",
                     "value": "id"
                   }
                 },
@@ -521,7 +521,7 @@
 
                               "options": {
                                 "display": "tree",
-                                "label": "id",
+                                "labelFormat": "${name} - ${id}",
                                 "value": "id"
                               }
                             },
@@ -636,7 +636,7 @@
                               "label": "Šalis",
                               "scope": "#/properties/salis",
                               "options": {
-                                "label": "name",
+                                "labelFormat": "${name}",
                                 "value": "id"
                               }
                             },
@@ -745,7 +745,7 @@
                         {
                           "type": "Control",
                           "scope": "#/properties/kiekis",
-                          "options" : {
+                          "options": {
                             "display": "combinedInput",
                             "inputKey": "kiekis",
                             "optionKey": "matas"
@@ -988,7 +988,7 @@
                   "label": "Šalis",
                   "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
                   "options": {
-                    "label": "name",
+                    "labelFormat": "${name}",
                     "value": "id"
                   },
                   "rule": {
