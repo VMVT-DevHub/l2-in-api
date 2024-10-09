@@ -123,6 +123,9 @@
       "elements": [
         {
           "type": "Group",
+          "options": {
+            "display": "timeline"
+          },
           "elements": [
             {
               "type": "HorizontalLayout",
@@ -133,7 +136,8 @@
                   "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis",
                   "options": {
                     "labelFormat": "${name}",
-                    "value": "id"
+                    "value": "id",
+                    "display": "timelineCountryStart"
                   }
                 }
               ]
@@ -155,7 +159,8 @@
                           "scope": "#/properties/salis",
                           "options": {
                             "labelFormat": "${name}",
-                            "value": "id"
+                            "value": "id",
+                            "display": "timelineCountryStep"
                           }
                         },
                         {
@@ -177,7 +182,8 @@
                   "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
                   "options": {
                     "labelFormat": "${name}",
-                    "value": "id"
+                    "value": "id",
+                    "display": "timelineCountryEnd"
                   }
                 },
                 {
@@ -637,7 +643,8 @@
                               "scope": "#/properties/salis",
                               "options": {
                                 "labelFormat": "${name}",
-                                "value": "id"
+                                "value": "id",
+                                "display": "countrySelect"
                               }
                             },
                             {
@@ -708,8 +715,8 @@
                     },
                     {
                       "svg": "<svg width=\"16\" height=\"17\" viewBox=\"0 0 16 17\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M8 5.83337C9.10457 5.83337 10 4.93794 10 3.83337C10 2.7288 9.10457 1.83337 8 1.83337C6.89543 1.83337 6 2.7288 6 3.83337C6 4.93794 6.89543 5.83337 8 5.83337Z\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M4.33315 5.83337C4.04465 5.83637 3.76491 5.93286 3.53592 6.10836C3.30692 6.28386 3.14103 6.52891 3.06315 6.80671L1.39982 12.8334C1.34942 13.0284 1.34388 13.2324 1.38361 13.4299C1.42334 13.6274 1.50731 13.8133 1.62921 13.9737C1.75111 14.1341 1.90777 14.2648 2.08742 14.3559C2.26708 14.4471 2.46506 14.4964 2.66648 14.5H13.3332C13.5389 14.5 13.7419 14.4523 13.9262 14.3607C14.1104 14.2691 14.271 14.1361 14.3953 13.9721C14.5196 13.808 14.6042 13.6175 14.6426 13.4153C14.681 13.2132 14.672 13.0048 14.6165 12.8067L12.9332 6.83337C12.8597 6.54898 12.6945 6.29679 12.463 6.11596C12.2315 5.93514 11.9469 5.8358 11.6532 5.83337H4.33315Z\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
-                      "scope": "#/properties/kiekis",
-                      "dynamicInfix": { "scope": "#/properties/kiekis-matas" }
+                      "scope": "#/properties/kiekis/properties/kiekis",
+                      "dynamicInfix": { "scope": "#/properties/kiekis/properties/matas" }
                     }
                   ],
                   "bottom": [
@@ -729,7 +736,7 @@
                   "right": {
                     "scope": "#/properties/pagamintos-prekes-kiekis",
                     "label": "Gautas kiekis",
-                    "dynamicInfix": { "scope": "#/properties/kiekis-matas" }
+                    "dynamicInfix": { "scope": "#/properties/kiekis/properties/matas" }
                   }
                 },
                 "detail": {
@@ -989,7 +996,8 @@
                   "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
                   "options": {
                     "labelFormat": "${name}",
-                    "value": "id"
+                    "value": "id",
+                    "display": "countrySelect"
                   },
                   "rule": {
                     "effect": "DISABLE",

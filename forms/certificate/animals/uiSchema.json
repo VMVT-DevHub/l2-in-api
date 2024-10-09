@@ -123,6 +123,9 @@
       "elements": [
         {
           "type": "Group",
+          "options": {
+            "display": "timeline"
+          },
           "elements": [
             {
               "type": "HorizontalLayout",
@@ -133,7 +136,8 @@
                   "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis",
                   "options": {
                     "labelFormat": "${name}",
-                    "value": "id"
+                    "value": "id",
+                    "display": "timelineCountryStart"
                   }
                 }
               ]
@@ -155,7 +159,8 @@
                           "scope": "#/properties/salis",
                           "options": {
                             "labelFormat": "${name}",
-                            "value": "id"
+                            "value": "id",
+                            "display": "timelineCountryStep"
                           }
                         },
                         {
@@ -185,7 +190,8 @@
                   "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
                   "options": {
                     "labelFormat": "${name}",
-                    "value": "id"
+                    "value": "id",
+                    "display": "timelineCountryEnd"
                   }
                 },
                 {
@@ -811,7 +817,8 @@
                   "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/salis",
                   "options": {
                     "labelFormat": "${name}",
-                    "value": "id"
+                    "value": "id",
+                    "display": "countrySelect"
                   }
                 },
                 {
