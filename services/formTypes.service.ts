@@ -1,5 +1,6 @@
 'use strict';
 
+import $RefParser from '@apidevtools/json-schema-ref-parser';
 import { RestrictionType } from '@aplinkosministerija/moleculer-accounts';
 import { readdirSync, readFileSync } from 'fs';
 import moleculer, { Context } from 'moleculer';
@@ -79,16 +80,24 @@ export default class extends moleculer.Service {
   async formType(ctx: Context<{ formType: string }>) {
     const formType = ctx.params.formType;
     const config = JSON.parse(readFileSync(`${this.settings.dir}/${formType}/config.json`, 'utf8'));
-    const forms = readdirSync(`${this.settings.dir}/${formType}`, { withFileTypes: true })
-      .filter((dirent) => dirent.isDirectory())
-      .map((dirent) => {
-        const form = dirent.name;
-        const { title, description } = JSON.parse(
-          readFileSync(`${this.settings.dir}/${formType}/${form}/config.json`, 'utf8'),
-        );
 
-        return { form, formType, title, description };
-      });
+    let formNames: string[];
+
+    if (config.forms) {
+      formNames = config.forms;
+    } else {
+      formNames = readdirSync(`${this.settings.dir}/${formType}`, { withFileTypes: true })
+        .filter((dirent) => dirent.isDirectory())
+        .map((dirent) => dirent.name);
+    }
+
+    const forms = formNames.map((form) => {
+      const { title, description } = JSON.parse(
+        readFileSync(`${this.settings.dir}/${formType}/${form}/config.json`, 'utf8'),
+      );
+
+      return { form, formType, title, description };
+    });
 
     return { ...config, forms };
   }
@@ -98,13 +107,11 @@ export default class extends moleculer.Service {
     params: {
       formType: 'string',
       form: 'string',
-      validate: 'boolean|optional',
     },
   })
-  async form(ctx: Context<{ formType: string; form: string; validate: boolean }>) {
+  async form(ctx: Context<{ formType: string; form: string }>) {
     const formType = ctx.params.formType;
     const form = ctx.params.form;
-    const validate = ctx.params.validate;
 
     const config = JSON.parse(
       readFileSync(`${this.settings.dir}/${formType}/${form}/config.json`, 'utf8'),
@@ -114,22 +121,21 @@ export default class extends moleculer.Service {
       readFileSync(`${this.settings.dir}/${formType}/${form}/schema.json`, 'utf8'),
     );
 
+    await $RefParser.dereference(schema);
+
     const uiSchema = JSON.parse(
       readFileSync(`${this.settings.dir}/${formType}/${form}/uiSchema.json`, 'utf8'),
     );
+
+    await $RefParser.dereference(uiSchema);
 
     const setEnums = async (obj: any) => {
       if (obj?.fetchEnumFrom) {
         const enumOptions = await ctx.call(obj?.fetchEnumFrom);
 
         obj.enum = enumOptions;
-        if (!validate) {
-          const options = await ctx.call(obj?.fetchOptionsFrom);
-          obj.options = options;
-        }
 
         delete obj.fetchEnumFrom;
-        delete obj.fetchOptionsFrom;
       }
 
       if (obj?.type === 'object') {

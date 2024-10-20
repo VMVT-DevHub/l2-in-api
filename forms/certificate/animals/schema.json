@@ -413,8 +413,7 @@
     },
     "gyvuno-kodas": {
       "type": "string",
-      "fetchEnumFrom": "kpn.getParentIds",
-      "fetchOptionsFrom": "kpn.getParents"
+      "fetchEnumFrom": "kpn.getParentIds"
     },
     "gyvuno-atpazinimo-priemone": {
       "type": "string",
@@ -489,8 +488,7 @@
     },
     "salis": {
       "type": "string",
-      "fetchEnumFrom": "countries.getCountryIds",
-      "fetchOptionsFrom": "countries.getCountries"
+      "fetchEnumFrom": "countries.getCountryIds"
     }
   }
 }

@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "title": "Sertifikatas gyvūnų siuntai",
+  "additionalProperties": false,
+  "properties": {
+    "pareiskejas": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "atsakingas-asmuo": {
+          "$ref": "forms/food/defs.json#/definitions/atsakingas-asmuo"
+        }
+      },
+      "required": ["atsakingas-asmuo"]
+    },
+    "subjektas": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "registracijos-nr": {
+          "type": "string",
+          "title": "Registracijos patvirtinimo Nr."
+        },
+        "sutikimas": {
+          "type": "boolean",
+          "title": "Suprantu kad bus panaikintas maisto tvarkymo subjektas"
+        }
+      },
+      "required": ["registracijos-nr", "sutikimas"]
+    }
+  },
+  "required": ["pareiskejas", "subjektas"]
+}

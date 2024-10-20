@@ -137,7 +137,8 @@
                   "options": {
                     "labelFormat": "${name}",
                     "value": "id",
-                    "display": "timelineCountryStart"
+                    "display": "timelineCountryStart",
+                    "fetchOptionsFrom": "countries/getCountries"
                   }
                 }
               ]
@@ -160,7 +161,8 @@
                           "options": {
                             "labelFormat": "${name}",
                             "value": "id",
-                            "display": "timelineCountryStep"
+                            "display": "timelineCountryStep",
+                            "fetchOptionsFrom": "countries/getCountries"
                           }
                         },
                         {
@@ -191,7 +193,8 @@
                   "options": {
                     "labelFormat": "${name}",
                     "value": "id",
-                    "display": "timelineCountryEnd"
+                    "display": "timelineCountryEnd",
+                    "fetchOptionsFrom": "countries/getCountries"
                   }
                 },
                 {
@@ -577,7 +580,8 @@
                           "label": "Nomenklatūrinis pavadinimas ir kodas",
                           "options": {
                             "labelFormat": "${name} - ${id}",
-                            "value": "id"
+                            "value": "id",
+                            "fetchOptionsFrom": "kpn/getParents"
                           }
                         }
                       ]
@@ -818,7 +822,8 @@
                   "options": {
                     "labelFormat": "${name}",
                     "value": "id",
-                    "display": "countrySelect"
+                    "display": "countrySelect",
+                    "fetchOptionsFrom": "countries/getCountries"
                   }
                 },
                 {

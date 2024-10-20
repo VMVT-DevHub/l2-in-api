@@ -1,0 +1,35 @@
+{
+  "definitions": {
+    "atsakingas-asmuo": {
+      "title": "Atsakingas asmuo",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "vardas": {
+          "title": "Vardas",
+          "type": "string",
+          "readOnly": true
+        },
+        "pavarde": {
+          "title": "Pavardė",
+          "type": "string",
+          "readOnly": true
+        },
+        "pareigos": {
+          "title": "Pareigos",
+          "type": "string"
+        },
+        "telefono-nr": {
+          "title": "Telefono nr.",
+          "type": "string"
+        },
+        "el-pastas": {
+          "title": "El. paštas",
+          "type": "string",
+          "format": "email"
+        }
+      },
+      "required": ["vardas", "pavarde", "pareigos", "telefono-nr", "el-pastas"]
+    }
+  }
+}

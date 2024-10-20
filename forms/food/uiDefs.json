@@ -1,0 +1,56 @@
+{
+  "definitions": {
+    "atsakingas-asmuo": {
+      "type": "Group",
+      "label": "Atsakingojo / įgaliotojo asmens kontaktiniai duomenys",
+      "elements": [
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/vardas",
+              "options": {
+                "display": "authField",
+                "key": "firstName"
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/pavarde",
+              "options": {
+                "display": "authField",
+                "key": "lastName"
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/pareigos"
+            }
+          ]
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/telefono-nr",
+              "options": {
+                "display": "authField",
+                "key": "phone"
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/el-pastas",
+              "options": {
+                "display": "authField",
+                "key": "email"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
