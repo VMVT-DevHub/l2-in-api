@@ -1,0 +1,368 @@
+{
+  "type": "object",
+  "title": "Sertifikatas gyvūnų siuntai",
+  "additionalProperties": false,
+  "properties": {
+    "pareiskejas": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "atsakingas-asmuo": {
+          "$ref": "forms/food/defs.json#/definitions/atsakingas-asmuo"
+        }
+      },
+      "required": ["atsakingas-asmuo"]
+    },
+    "subjektas": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "duomenys": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "pavadinimas": {
+              "type": "string",
+              "title": "Maisto tvarkymo subjekto pavadinimas"
+            },
+            "laikina-vieta": {
+              "title": "Maisto tvarkymo veikla steigiama laikiname statinyje / naudojami laikini prekybos įrenginiai",
+              "type": "boolean"
+            },
+            "adresas-sutampa": {
+              "title": "Maisto tvarkymo vietos adresas sutampa su subjekto buveinės (korespondencijos adresu)",
+              "type": "boolean"
+            },
+            "darbuotoju-skaicius": {
+              "title": "Darbuotojų skaičius",
+              "type": "string",
+              "enum": [
+                "250 ir daugiau",
+                "50-249 darbuotojai",
+                "10-49 darbuotojai",
+                "1-9 darbuotojai"
+              ]
+            },
+            "pamainu-skaicius": {
+              "type": "number",
+              "title": "Pamainų skaičius"
+            },
+            "patalpu-tipas": {
+              "title": "Patalpų tipas",
+              "type": "string",
+              "enum": ["Mobilios/ Kilnojamos", "Namų ūkio", "Komercinės"]
+            }
+          },
+          "required": ["pavadinimas", "darbuotoju-skaicius", "pamainu-skaicius", "patalpu-tipas"]
+        },
+        "adresas": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "savivaldybe": {
+              "type": "number",
+              "title": "Savivaldybė"
+            },
+            "miestas": {
+              "type": "number",
+              "title": "Miestas"
+            },
+            "gatve": {
+              "type": "number",
+              "title": "Gatvė"
+            },
+            "namo-nr": {
+              "type": "number",
+              "title": "Namo Nr."
+            },
+            "buto-nr": {
+              "type": "number",
+              "title": "Buto Nr."
+            }
+          },
+          "required": ["savivaldybe", "miestas", "gatve", "namo-nr"]
+        },
+        "darbo-laikas": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "menesiai": {
+              "type": "array",
+              "title": "Pasirinkite darbo mėnesius",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "sausis",
+                  "vasaris",
+                  "kovas",
+                  "balandis",
+                  "geguze",
+                  "birzelis",
+                  "liepa",
+                  "rugpjutis",
+                  "rugsejis",
+                  "spalis",
+                  "lapkritis",
+                  "gruodis"
+                ],
+                "uniqueItems": true
+              }
+            },
+            "savaites-dienos": {
+              "type": "array",
+              "title": "Pasirinkite darbo mėnesius",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "pirmadienis",
+                  "antradienis",
+                  "treciadienis",
+                  "ketvirtadienis",
+                  "penktadienis",
+                  "sestadienis",
+                  "sekmadienis"
+                ],
+                "uniqueItems": true
+              }
+            }
+          },
+          "required": ["menesiai", "savaites-dienos"]
+        },
+        "elektronine-prekyba": {
+          "type": "object",
+          "additionalProperties": false,
+          "title": "Elektroninė prekyba",
+          "properties": {
+            "ar-vykdoma": {
+              "title": "Ar vykdo elektroninę prekybą",
+              "type": "string",
+              "enum": ["Taip", "Ne"]
+            },
+            "svetaines-adresas": {
+              "type": "string",
+              "title": "Internetinės svetainės adresas"
+            }
+          },
+          "required": ["ar-vykdoma", "svetaines-adresas"]
+        },
+        "mobilios-patalpos": {
+          "type": "object",
+          "additionalProperties": false,
+          "title": "Mobilios/Kilnojamos patalpos",
+          "properties": {
+            "marke": {
+              "type": "string",
+              "title": "Transporto priemonės markė"
+            },
+            "valstybinis-nr": {
+              "type": "string",
+              "title": "Transporto priemonės valstybinis registracijos Nr."
+            }
+          },
+          "required": ["marke", "valstybinis-nr"]
+        },
+        "gamybos-apimtys": {
+          "type": "array",
+          "default": [{}],
+          "title": "Projektinės gamybos apimtys",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "tipas": {
+                "type": "string",
+                "title": "Produkcijos tiekimo rinkai tipas",
+                "enum": [
+                  "Pagamintos produkcijos kiekis",
+                  "Importuojamos iš trečiųjų šalių produkcijos kiekis",
+                  "Paskerstų gyvulių skaičius"
+                ]
+              },
+              "skaicius-vienetas": {
+                "type": "object",
+                "properties": {
+                  "skaicius": {
+                    "title": "Nurodyti skaičių",
+                    "type": "number"
+                  },
+                  "matavimo-vienetas": {
+                    "type": "string",
+                    "title": "Matavimo vienetas",
+                    "enum": ["t/metus", "ltr./metus"]
+                  }
+                },
+                "required": ["skaicius", "matavimo-vienetas"]
+              }
+            },
+            "required": ["tipas", "skaicius-vienetas"]
+          }
+        },
+        "mastas": {
+          "type": "object",
+          "additionalProperties": false,
+          "title": "Mastas",
+          "properties": {
+            "trecios-salys": {
+              "type": "boolean",
+              "title": "Pagamintas produktas eksportuojamas į trečiąsias šalis"
+            },
+            "es-rinka": {
+              "type": "boolean",
+              "title": "Produktas tiekiamas ES rinkai"
+            },
+            "mazi-kiekiai": {
+              "type": "boolean",
+              "title": "Vykdoma gamyba mažais kiekiais"
+            }
+          },
+          "required": []
+        }
+      },
+      "required": [
+        "duomenys",
+        "adresas",
+        "darbo-laikas",
+        "elektronine-prekyba",
+        "mobilios-patalpos",
+        "gamybos-apimtys"
+      ]
+    },
+    "veiklos": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "veiklos": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "pagrindine": {
+              "title": "Pagrindinė veikla",
+              "$ref": "#/definitions/veiklos"
+            },
+            "papildomos": {
+              "type": "array",
+              "title": "Papildoma veikla",
+              "items": {
+                "$ref": "#/definitions/veiklos"
+              }
+            }
+          },
+          "required": ["pagrindine"]
+        },
+        "asortimentas": {
+          "type": "object",
+          "additionalProperties": false,
+          "title": "Maisto produktų asortimentas",
+          "properties": {
+            "sgn": {
+              "type": "boolean",
+              "title": "Produktas su saugoma geografine nuoroda (SGN), Produktas su saugoma kilmės vietos nuoroda (SKVN), Garantuotas tradicinis gaminys (GTG)"
+            },
+            "nkp": {
+              "type": "boolean",
+              "title": "Pagal nacionalinę maisto kokybės sistemą pagamintas produktas (NKP)"
+            },
+            "ekologiski": {
+              "type": "boolean",
+              "title": "Ekologiški maisto produktai"
+            },
+            "alkoholiniai": {
+              "type": "boolean",
+              "title": "Alkoholiniai gėrimai"
+            },
+            "kanapiu": {
+              "type": "boolean",
+              "title": "Maisto produktai, pagaminti iš pluoštinių kanapių arba kurių sudėtyje yra pluoštinių kanapių"
+            }
+          },
+          "required": []
+        },
+        "savikontroles-sistema": {
+          "type": "object",
+          "additionalProperties": false,
+          "title": "Savikontrolės sistema",
+          "properties": {
+            "sistema": {
+              "type": "string",
+              "title": "Savikontrolės sistema",
+              "fetchEnumFrom": "selfControl.getLeafIds"
+            }
+          }
+        }
+      }
+    },
+    "dokumentai": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "patalpu-projektas": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "proceso-aprasymas": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "tvarkymo-vieta": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "registracijos-liudijimas": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "rinkliava": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "pavedimo-kopija": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "papildomi-dokumentai": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/dokumentas"
+          }
+        },
+        "papildoma-informacija": {
+          "type": "string"
+        },
+        "isipareigojimas": {
+          "title": "Įsipareigoju: Laikytis mano vykdomą maisto tvarkymo veiklą reglamentuojančių teisės aktų reikalavimų; Netvarkyti maisto, jei statiniai ir patalpos neatitinka statybą ir jos priežiūrą ir statinių naudojimą reglamentuojančių teisės aktų reikalavimų; Apie ūkinės komercinės veiklos pasikeitimus nedelsiant informuoti Valstybinės maisto ir veterinarijos tarnybos Paslaugų departamentą.",
+          "type": "boolean"
+        },
+        "susipazinimas": {
+          "title": "Esu susipažinęs, kad: daigus auginantis maisto tvarkymo subjektas patvirtinamas ne vėliau kaip per 10 (dešimt) darbo dienų (nuo visų dokumentų gavimo dienos), arba, vadovaujantis Maisto tvarkymo subjektų patvirtinimo ir registravimo tvarkos aprašo, patvirtinto Valstybinės maisto ir veterinarijos tarnybos direktoriaus 2008 m. spalio 15 d. įsakymo Nr. B1-527 „Dėl Maisto tvarkymo subjektų patvirtinimo ir registravimo tvarkos aprašo patvirtinimo“, 24 punktu, atsisakoma suteikti patvirtinimą; maisto tvarkymo subjektas, siekiantis įgyti teisę vykdyti maisto tvarkymo veiklą, nurodytą Aprašo 1 priedo 1 punkte, registruojamas ne vėliau kaip per 10 (dešimt) darbo dienų (nuo visų dokumentų gavimo dienos), įtraukiant maisto tvarkymo subjektą į Valstybinės maisto ir veterinarijos tarnybos tvarkomą Maisto tvarkymo subjektų sąrašą ir suteikiant jam atpažinimo numerį, arba, vadovaujantis Aprašo 36 punktu, per šį terminą atsisakoma jį registruoti; maisto tvarkymo subjektas, siekiantis įgyti teisę vykdyti maisto tvarkymo veiklą, nurodytą Aprašo 1 priedo 2 punkte, registruojamas ne vėliau kaip per 5 (penkias) darbo dienas (nuo visų dokumentų gavimo dienos), įtraukiant maisto tvarkymo subjektą į Valstybinės maisto ir veterinarijos tarnybos tvarkomą Maisto tvarkymo subjektų sąrašą ir suteikiant jam atpažinimo numerį, arba, vadovaujantis Aprašo 47 punktu, per šį terminą atsisakoma jį registruoti; laikotarpis, per kurį maisto tvarkymo subjektas turi pateikti trūkstamus duomenis ar dokumentus arba pašalinti nurodytus neatitikimus teisės aktų reikalavimams, į nurodytus dokumentų išnagrinėjimo terminus neįskaičiuojamas; atsakymo dėl patvirtinimo / registravimo nepateikimas per teisės aktų nustatytą terminą nelaikomas patvirtinimu / registravimu.",
+          "type": "boolean"
+        },
+        "sutikimas": {
+          "title": "Sutinku gauti informacinius pranešimus iš VMVT, susijusius su mano vykdoma veikla.",
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "required": [],
+  "definitions": {
+    "veiklos": {
+      "type": "string",
+      "enum": [
+        "Maisto produktų gamyba (sezoninė)",
+        "Bulvių perdirbimas ir konservavimas",
+        "Vaisių, uogų ir daržovių sulčių gamyba"
+      ],
+      "default": ""
+    },
+    "dokumentas": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "url"
+        },
+        "name": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        }
+      },
+      "required": []
+    }
+  }
+}

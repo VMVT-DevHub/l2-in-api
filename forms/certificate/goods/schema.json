@@ -153,8 +153,7 @@
           "kpn-kodas": {
             "title": "KPN kodas",
             "type": "string",
-            "fetchEnumFrom": "kpn.getLeafIds",
-            "fetchOptionsFrom": "kpn.getTree"
+            "fetchEnumFrom": "kpn.getLeafIds"
           },
           "pavadinimas": {
             "title": "Pavadinimas",
@@ -165,8 +164,7 @@
             "type": "string"
           },
           "pagaminimo-data": {
-            "title": "Pagaminimo data (laikotarpis)",
-            "type": "string"
+            "$ref": "#/definitions/data"
           },
           "partijos-numeris": {
             "title": "Partijos nr.",
@@ -559,8 +557,7 @@
     },
     "salis": {
       "type": "string",
-      "fetchEnumFrom": "countries.getCountryIds",
-      "fetchOptionsFrom": "countries.getCountries"
+      "fetchEnumFrom": "countries.getCountryIds"
     }
   }
 }

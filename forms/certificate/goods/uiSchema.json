@@ -137,7 +137,8 @@
                   "options": {
                     "labelFormat": "${name}",
                     "value": "id",
-                    "display": "timelineCountryStart"
+                    "display": "timelineCountryStart",
+                    "fetchOptionsFrom": "countries/getCountries"
                   }
                 }
               ]
@@ -160,7 +161,8 @@
                           "options": {
                             "labelFormat": "${name}",
                             "value": "id",
-                            "display": "timelineCountryStep"
+                            "display": "timelineCountryStep",
+                            "fetchOptionsFrom": "countries/getCountries"
                           }
                         },
                         {
@@ -183,7 +185,8 @@
                   "options": {
                     "labelFormat": "${name}",
                     "value": "id",
-                    "display": "timelineCountryEnd"
+                    "display": "timelineCountryEnd",
+                    "fetchOptionsFrom": "countries/getCountries"
                   }
                 },
                 {
@@ -528,7 +531,8 @@
                               "options": {
                                 "display": "tree",
                                 "labelFormat": "${name} - ${id}",
-                                "value": "id"
+                                "value": "id",
+                                "fetchOptionsFrom": "kpn/getTree"
                               }
                             },
                             {
@@ -546,6 +550,7 @@
                             },
                             {
                               "type": "Control",
+                              "label": "Pagaminimo data (laikotarpis)",
                               "scope": "#/properties/pagaminimo-data"
                             }
                           ]
@@ -644,7 +649,8 @@
                               "options": {
                                 "labelFormat": "${name}",
                                 "value": "id",
-                                "display": "countrySelect"
+                                "display": "countrySelect",
+                                "fetchOptionsFrom": "countries/getCountries"
                               }
                             },
                             {
@@ -997,7 +1003,8 @@
                   "options": {
                     "labelFormat": "${name}",
                     "value": "id",
-                    "display": "countrySelect"
+                    "display": "countrySelect",
+                    "fetchOptionsFrom": "countries/getCountries"
                   },
                   "rule": {
                     "effect": "DISABLE",

@@ -189,7 +189,7 @@ export default class extends moleculer.Service {
     if ([RequestStatus.DRAFT, RequestStatus.REJECTED, RequestStatus.RETURNED].includes(status))
       return true;
 
-    const formSchema: Form = await ctx.call('formTypes.form', { form, formType, validate: true });
+    const formSchema: Form = await ctx.call('formTypes.form', { form, formType });
 
     const ajv = new Ajv({
       allErrors: true,
