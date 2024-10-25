@@ -253,6 +253,7 @@
             "salis": {
               "not": {
                 "enum": [
+                  "LTU",
                   "BEL",
                   "ITA",
                   "LUX",
