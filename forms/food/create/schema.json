@@ -92,18 +92,18 @@
               "items": {
                 "type": "string",
                 "enum": [
-                  "sausis",
-                  "vasaris",
-                  "kovas",
-                  "balandis",
-                  "geguze",
-                  "birzelis",
-                  "liepa",
-                  "rugpjutis",
-                  "rugsejis",
-                  "spalis",
-                  "lapkritis",
-                  "gruodis"
+                  "Sausis",
+                  "Vasaris",
+                  "Kovas",
+                  "Balandis",
+                  "Gegužė",
+                  "Birželis",
+                  "Liepa",
+                  "Rugpjūtis",
+                  "Rugsėjis",
+                  "Spalis",
+                  "Lapkritis",
+                  "Gruodis"
                 ],
                 "uniqueItems": true
               }
@@ -114,13 +114,13 @@
               "items": {
                 "type": "string",
                 "enum": [
-                  "pirmadienis",
-                  "antradienis",
-                  "treciadienis",
-                  "ketvirtadienis",
-                  "penktadienis",
-                  "sestadienis",
-                  "sekmadienis"
+                  "Pirmadienis",
+                  "Antradienis",
+                  "Trečiadienis",
+                  "Ketvirtadienis",
+                  "Penktadienis",
+                  "Šeštadienis",
+                  "Sekmadienis"
                 ],
                 "uniqueItems": true
               }
@@ -143,7 +143,9 @@
               "title": "Internetinės svetainės adresas"
             }
           },
-          "required": ["ar-vykdoma", "svetaines-adresas"]
+          "required": ["ar-vykdoma"],
+          "if": { "properties": { "ar-vykdoma": { "const": "Taip" } } },
+          "then": { "required": ["svetaines-adresas"] }
         },
         "mobilios-patalpos": {
           "type": "object",
@@ -214,18 +216,16 @@
               "type": "boolean",
               "title": "Vykdoma gamyba mažais kiekiais"
             }
-          },
-          "required": []
+          }
         }
       },
-      "required": [
-        "duomenys",
-        "adresas",
-        "darbo-laikas",
-        "elektronine-prekyba",
-        "mobilios-patalpos",
-        "gamybos-apimtys"
-      ]
+      "required": ["duomenys", "adresas", "darbo-laikas", "elektronine-prekyba", "gamybos-apimtys"],
+      "if": {
+        "properties": {
+          "duomenys": { "properties": { "patalpu-tipas": { "const": "Mobilios/ Kilnojamos" } } }
+        }
+      },
+      "then": { "required": ["mobilios-patalpos"] }
     },
     "veiklos": {
       "type": "object",
@@ -274,8 +274,7 @@
               "type": "boolean",
               "title": "Maisto produktai, pagaminti iš pluoštinių kanapių arba kurių sudėtyje yra pluoštinių kanapių"
             }
-          },
-          "required": []
+          }
         },
         "savikontroles-sistema": {
           "type": "object",
@@ -337,7 +336,6 @@
       }
     }
   },
-  "required": [],
   "definitions": {
     "veiklos": {
       "type": "string",
@@ -361,8 +359,7 @@
         "size": {
           "type": "number"
         }
-      },
-      "required": []
+      }
     }
   }
 }

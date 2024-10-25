@@ -405,6 +405,7 @@
             {
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/patalpu-projektas",
+              "label": "",
               "options": { "display": "upload" }
             }
           ]
@@ -416,6 +417,7 @@
             {
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/proceso-aprasymas",
+              "label": "",
               "options": { "display": "upload" }
             }
           ]
@@ -428,6 +430,7 @@
             {
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/tvarkymo-vieta",
+              "label": "",
               "options": { "display": "upload" }
             }
           ]
@@ -440,6 +443,7 @@
             {
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/registracijos-liudijimas",
+              "label": "",
               "options": { "display": "upload" }
             }
           ]
@@ -451,6 +455,7 @@
             {
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/rinkliava",
+              "label": "",
               "options": { "display": "upload" }
             }
           ]
@@ -462,6 +467,7 @@
             {
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/pavedimo-kopija",
+              "label": "",
               "options": { "display": "upload" }
             }
           ]
@@ -474,6 +480,7 @@
             {
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/papildomi-dokumentai",
+              "label": "",
               "options": {
                 "display": "upload",
                 "multi": true
