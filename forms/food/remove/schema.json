@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "title": "Sertifikatas gyvūnų siuntai",
+  "title": "Prašymas dėl valstybinės veterinarinės kontrolės subjekto panaikinimo",
   "additionalProperties": false,
   "properties": {
     "pareiskejas": {

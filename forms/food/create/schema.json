@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "title": "Sertifikatas gyvūnų siuntai",
+  "title": "Prašymas dėl valstybinės veterinarinės kontrolės subjekto patvirtinimo / registravimo",
   "additionalProperties": false,
   "properties": {
     "pareiskejas": {
@@ -23,7 +23,8 @@
           "properties": {
             "pavadinimas": {
               "type": "string",
-              "title": "Maisto tvarkymo subjekto pavadinimas"
+              "title": "Maisto tvarkymo subjekto pavadinimas",
+              "maxLength": 256
             },
             "laikina-vieta": {
               "title": "Maisto tvarkymo veikla steigiama laikiname statinyje / naudojami laikini prekybos įrenginiai",
@@ -45,7 +46,8 @@
             },
             "pamainu-skaicius": {
               "type": "number",
-              "title": "Pamainų skaičius"
+              "title": "Pamainų skaičius",
+              "maximum": 99
             },
             "patalpu-tipas": {
               "title": "Patalpų tipas",
@@ -110,7 +112,7 @@
             },
             "savaites-dienos": {
               "type": "array",
-              "title": "Pasirinkite darbo mėnesius",
+              "title": "Pasirinkite darbo dienas",
               "items": {
                 "type": "string",
                 "enum": [
@@ -140,7 +142,9 @@
             },
             "svetaines-adresas": {
               "type": "string",
-              "title": "Internetinės svetainės adresas"
+              "title": "Internetinės svetainės adresas",
+              "format": "url",
+              "maxLength": 512
             }
           },
           "required": ["ar-vykdoma"],
@@ -154,11 +158,13 @@
           "properties": {
             "marke": {
               "type": "string",
-              "title": "Transporto priemonės markė"
+              "title": "Transporto priemonės markė",
+              "maxLength": 50
             },
             "valstybinis-nr": {
               "type": "string",
-              "title": "Transporto priemonės valstybinis registracijos Nr."
+              "title": "Transporto priemonės valstybinis registracijos Nr.",
+              "maxLength": 8
             }
           },
           "required": ["marke", "valstybinis-nr"]

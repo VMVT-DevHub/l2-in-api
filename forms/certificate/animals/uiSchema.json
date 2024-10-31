@@ -41,7 +41,8 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/siuntejas/properties/asmuo/properties/imones-kodas"
+                  "scope": "#/properties/siuntejas/properties/asmuo/properties/imones-kodas",
+                  "options": { "placeholder": "123456789" }
                 }
               ]
             },
@@ -63,7 +64,8 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/siuntejas/properties/asmuo/properties/asmens-kodas"
+                  "scope": "#/properties/siuntejas/properties/asmuo/properties/asmens-kodas",
+                  "options": { "placeholder": "12345678900" }
                 }
               ]
             },
@@ -247,7 +249,8 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/vezejas/properties/asmuo/properties/imones-kodas"
+                  "scope": "#/properties/vezejas/properties/asmuo/properties/imones-kodas",
+                  "options": { "placeholder": "123456789" }
                 }
               ]
             },
@@ -269,7 +272,8 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/vezejas/properties/asmuo/properties/asmens-kodas"
+                  "scope": "#/properties/vezejas/properties/asmuo/properties/asmens-kodas",
+                  "options": { "placeholder": "12345678900" }
                 }
               ]
             },
@@ -431,7 +435,8 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/imones-kodas"
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/imones-kodas",
+                  "options": { "placeholder": "123456789" }
                 }
               ]
             },
@@ -453,7 +458,8 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/asmens-kodas"
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/asmens-kodas",
+                  "options": { "placeholder": "12345678900" }
                 }
               ]
             },
@@ -741,6 +747,20 @@
                 },
                 {
                   "type": "Control",
+                  "scope": "#/properties/gavejas/properties/asmuo/properties/imones-kodas",
+                  "options": { "placeholder": "123456789" },
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/gavejas/properties/asmuo/properties/tipas",
+                      "schema": {
+                        "const": "Juridinis asmuo"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
                   "scope": "#/properties/gavejas/properties/asmuo/properties/vardas-pavarde",
                   "rule": {
                     "effect": "SHOW",
@@ -846,6 +866,18 @@
           "elements": [
             {
               "type": "Control",
+              "scope": "#/properties/dokumentai/properties/apmokejimas",
+              "label": "",
+              "options": { "display": "upload" }
+            }
+          ],
+          "label": "Mokėjimo pavedimas"
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
               "scope": "#/properties/dokumentai/properties/marsruto-planas",
               "label": "",
               "options": { "display": "upload" }
@@ -866,18 +898,6 @@
           ],
           "label": "Gyvūnų užkrečiamųjų ligų tyrimo protokolai",
           "description": "Siuntos lydimieji dokumentas - važtaraštis."
-        },
-        {
-          "type": "Group",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/apmokejimas",
-              "label": "",
-              "options": { "display": "upload" }
-            }
-          ],
-          "label": "Apmokėjimas už sertifikatą"
         },
         {
           "type": "Group",

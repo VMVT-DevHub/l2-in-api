@@ -268,7 +268,7 @@
       "additionalProperties": false,
       "properties": {
         "asmuo": {
-          "$ref": "#/definitions/asmuo-be-kodo"
+          "$ref": "#/definitions/asmuo-su-imones-kodu"
         },
         "adresas": {
           "$ref": "#/definitions/adresas"
@@ -299,13 +299,13 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "apmokejimas": {
+          "$ref": "#/definitions/dokumentas"
+        },
         "marsruto-planas": {
           "$ref": "#/definitions/dokumentas"
         },
         "uzkreciamuju-ligu-tyrimo-protokolas": {
-          "$ref": "#/definitions/dokumentas"
-        },
-        "apmokejimas": {
           "$ref": "#/definitions/dokumentas"
         },
         "saskaita-faktura": {
@@ -325,12 +325,7 @@
           "type": "boolean"
         }
       },
-      "required": [
-        "marsruto-planas",
-        "uzkreciamuju-ligu-tyrimo-protokolas",
-        "saskaita-faktura",
-        "apmokejimas"
-      ]
+      "required": ["apmokejimas", "sutikimas"]
     }
   },
   "required": ["siuntejas", "marsrutas", "gavejas"],
@@ -356,6 +351,27 @@
         },
         "vardas-pavarde": {
           "$ref": "#/definitions/vardas-pavarde"
+        }
+      }
+    },
+    "asmuo-su-imones-kodu": {
+      "type": "object",
+      "required": ["tipas"],
+      "if": { "properties": { "tipas": { "const": "Fizinis asmuo" } } },
+      "then": { "required": ["vardas-pavarde"] },
+      "else": { "required": ["imones-pavadinimas", "imones-kodas"] },
+      "properties": {
+        "tipas": {
+          "$ref": "#/definitions/asmens-tipas"
+        },
+        "imones-pavadinimas": {
+          "$ref": "#/definitions/imones-pavadinimas"
+        },
+        "vardas-pavarde": {
+          "$ref": "#/definitions/vardas-pavarde"
+        },
+        "imones-kodas": {
+          "$ref": "#/definitions/imones-kodas"
         }
       }
     },
@@ -393,16 +409,19 @@
         },
         "pareigos": {
           "title": "Pareigos",
-          "type": "string"
+          "type": "string",
+          "maxLength": 100
         },
         "telefono-nr": {
           "title": "Telefono nr.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^\\+?[\\d\\s\\-\\(\\)]{8,15}$"
         },
         "el-pastas": {
           "title": "El. paštas",
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "maxLength": 254
         }
       },
       "required": ["vardas-pavarde", "pareigos", "telefono-nr", "el-pastas"]

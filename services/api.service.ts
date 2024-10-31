@@ -116,7 +116,7 @@ export default class ApiService extends moleculer.Service {
 
     const data: { id: number } = await verifyToken(token, process.env.ACCESS_JWT_SECRET);
     if (data?.id) {
-      const user: User = await ctx.call('users.get', { id: data.id });
+      const user: User = await ctx.call('users.resolve', { id: data.id });
       if (user) {
         ctx.meta.session = { token, user };
         return;

@@ -17,16 +17,19 @@
         },
         "pareigos": {
           "title": "Pareigos",
-          "type": "string"
+          "type": "string",
+          "maxLength": 100
         },
         "telefono-nr": {
           "title": "Telefono nr.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^\\+?[\\d\\s\\-\\(\\)]{8,15}$"
         },
         "el-pastas": {
           "title": "El. paštas",
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "maxLength": 254
         }
       },
       "required": ["vardas", "pavarde", "pareigos", "telefono-nr", "el-pastas"]
