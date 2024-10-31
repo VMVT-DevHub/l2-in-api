@@ -97,7 +97,6 @@ const populatePermissions = (field: string) => {
         virtual: true,
         type: 'object',
         async populate(ctx: Context, _values: any[], items: any[]) {
-          console.log(items);
           const tree: any = await ctx.call('formTypes.getTree');
           return items.map((item) => {
             return tree[item.formType][item.form];

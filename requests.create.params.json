@@ -33,7 +33,7 @@
         "pkp": "Latvija PKP"
       }
     },
-    "vezejas": {
+    "siunta": {
       "asmuo": {
         "tipas": "Juridinis asmuo",
         "imones-pavadinimas": "Įmonė",
@@ -150,7 +150,7 @@
       }
     },
     "dokumentai": {
-      "labaratoriniai-tyrimai": "https://url.com/file2.pdf",
+      "laboratoriniai-tyrimai": "https://url.com/file2.pdf",
       "vaztarastis": "https://url.com/file3.pdf",
       "saskaita-faktura": "https://url.com/file4.pdf",
       "papildomi-dokumentai": [{ "dokumentas": "https://url.com/file5.pdf" }],

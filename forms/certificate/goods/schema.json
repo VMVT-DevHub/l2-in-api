@@ -75,7 +75,7 @@
         }
       }
     },
-    "vezejas": {
+    "siunta": {
       "type": "object",
       "title": "Vežėjo kontaktinė informacija",
       "additionalProperties": false,
@@ -362,7 +362,7 @@
       "additionalProperties": false,
       "properties": {
         "asmuo": {
-          "$ref": "#/definitions/asmuo-be-kodo"
+          "$ref": "#/definitions/asmuo-su-imones-kodu"
         },
         "adresas": {
           "$ref": "#/definitions/adresas"
@@ -392,7 +392,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "labaratoriniai-tyrimai": {
+        "apmokejimas": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "laboratoriniai-tyrimai": {
           "$ref": "#/definitions/dokumentas"
         },
         "vaztarastis": {
@@ -415,7 +418,7 @@
           "type": "boolean"
         }
       },
-      "required": ["labaratoriniai-tyrimai", "vaztarastis", "saskaita-faktura", "sutikimas"]
+      "required": ["apmokejimas", "sutikimas"]
     }
   },
   "required": ["siuntejas", "marsrutas", "gavejas"],
@@ -441,6 +444,27 @@
         },
         "vardas-pavarde": {
           "$ref": "#/definitions/vardas-pavarde"
+        }
+      }
+    },
+    "asmuo-su-imones-kodu": {
+      "type": "object",
+      "required": ["tipas"],
+      "if": { "properties": { "tipas": { "const": "Fizinis asmuo" } } },
+      "then": { "required": ["vardas-pavarde"] },
+      "else": { "required": ["imones-pavadinimas", "imones-kodas"] },
+      "properties": {
+        "tipas": {
+          "$ref": "#/definitions/asmens-tipas"
+        },
+        "imones-pavadinimas": {
+          "$ref": "#/definitions/imones-pavadinimas"
+        },
+        "vardas-pavarde": {
+          "$ref": "#/definitions/vardas-pavarde"
+        },
+        "imones-kodas": {
+          "$ref": "#/definitions/imones-kodas"
         }
       }
     },
@@ -478,16 +502,19 @@
         },
         "pareigos": {
           "title": "Pareigos",
-          "type": "string"
+          "type": "string",
+          "maxLength": 100
         },
         "telefono-nr": {
           "title": "Telefono nr.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^\\+?[\\d\\s\\-\\(\\)]{8,15}$"
         },
         "el-pastas": {
           "title": "El. paštas",
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "maxLength": 254
         }
       },
       "required": ["vardas-pavarde", "pareigos", "telefono-nr", "el-pastas"]
@@ -521,7 +548,7 @@
     "imones-kodas": {
       "title": "Juridinio asmens kodas",
       "type": "string",
-      "pattern": "[0-9]{9}"
+      "pattern": "\\d{9}"
     },
     "asmens-kodas": {
       "title": "Asmens kodas",
