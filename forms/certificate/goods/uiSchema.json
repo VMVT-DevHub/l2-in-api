@@ -106,11 +106,17 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/telefono-nr"
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/telefono-nr",
+                  "options": {
+                    "placeholder": "+37060000000 arba 06000000"
+                  }
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/el-pastas"
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/el-pastas",
+                  "options": {
+                    "placeholder": "vardas.pavarde@domenas.lt"
+                  }
                 }
               ]
             }
@@ -142,6 +148,10 @@
                     "display": "timelineCountryStart",
                     "fetchOptionsFrom": "countries/getCountries"
                   }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/pkp-out"
                 }
               ]
             },
@@ -170,6 +180,10 @@
                         {
                           "type": "Control",
                           "scope": "#/properties/pkp"
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/pkp-out"
                         }
                       ]
                     }
@@ -313,6 +327,9 @@
                     {
                       "type": "Control",
                       "scope": "#/properties/rusis-kita",
+                      "options": {
+                        "placeholder": "Įrašykite transporto rūšį"
+                      },
                       "rule": {
                         "effect": "SHOW",
                         "condition": {
@@ -325,40 +342,9 @@
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/valstybinis-numeris",
+                      "scope": "#/properties/numeris",
                       "options": {
-                        "display": "creatableMultiSelect",
                         "placeholder": "Įrašykite transporto Nr."
-                      },
-                      "rule": {
-                        "effect": "SHOW",
-                        "condition": {
-                          "scope": "#/properties/rusis",
-                          "schema": {
-                            "not": {
-                              "const": "Kita"
-                            }
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "type": "Control",
-                      "scope": "#/properties/plombos-numeris",
-                      "options": {
-                        "display": "creatableMultiSelect",
-                        "placeholder": "Įrašykite plombos Nr."
-                      },
-                      "rule": {
-                        "effect": "SHOW",
-                        "condition": {
-                          "scope": "#/properties/rusis",
-                          "schema": {
-                            "not": {
-                              "const": "Kita"
-                            }
-                          }
-                        }
                       }
                     }
                   ]
@@ -368,6 +354,60 @@
           ],
           "label": "Transporto priemonės",
           "description": "Transporto priemonės, naudojamos produktų gabenimui.\nNurodyti planuojamas naudoti plombas. Esant nuotolinio sertifikavimo atvejui pateiktas (-i) plombos (-ų) numeris (-iai) bus nurodytas (-i) eksporto veterinarijos sertifikate."
+        },
+
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/siunta/properties/transporto-priemones-dalys",
+              "options": {
+                "addLabel": "Pridėti transporto priemonės dalį",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/dalis"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/dalis-kita",
+                      "options": {
+                        "placeholder": "Įrašykite transporto dalį"
+                      },
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/dalis",
+                          "schema": {
+                            "const": "Kita"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/numeris",
+                      "options": {
+                        "placeholder": "Įrašykite transporto dalies Nr."
+                      }
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/plombos-nr",
+                      "options": {
+                        "placeholder": "Įrašykite plombos Nr."
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "label": "Transporto priemonės dalys",
+          "description": "Pasirinkite transporto priemonės dalis ir nurodykite planuojamas naudoti plombas. Nuotolinio sertifikavimo atveju plombos numeris (-iai) bus pateiktas (-i) eksporto veterinarijos sertifikate."
         }
       ],
       "label": "Siunta"
@@ -428,7 +468,7 @@
                               "scope": "#/properties/kpn-kodas",
 
                               "options": {
-                                "display": "tree",
+                                "display": "treeSelect",
                                 "labelFormat": "${name} - ${id}",
                                 "value": "id",
                                 "fetchOptionsFrom": "kpn/getTree"
@@ -555,6 +595,20 @@
                             {
                               "type": "Control",
                               "scope": "#/properties/gamintojo-pavadinimas"
+                            },
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/gamintojo-kodas",
+                              "options": { "placeholder": "123456789" },
+                              "rule": {
+                                "effect": "SHOW",
+                                "condition": {
+                                  "scope": "#/properties/salis",
+                                  "schema": {
+                                    "const": "LTU"
+                                  }
+                                }
+                              }
                             }
                           ]
                         },
@@ -874,20 +928,6 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/gavejas/properties/asmuo/properties/imones-kodas",
-                  "options": { "placeholder": "123456789" },
-                  "rule": {
-                    "effect": "SHOW",
-                    "condition": {
-                      "scope": "#/properties/gavejas/properties/asmuo/properties/tipas",
-                      "schema": {
-                        "const": "Juridinis asmuo"
-                      }
-                    }
-                  }
-                },
-                {
-                  "type": "Control",
                   "scope": "#/properties/gavejas/properties/asmuo/properties/vardas-pavarde",
                   "rule": {
                     "effect": "SHOW",
@@ -963,11 +1003,17 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/gavejas/properties/atsakingas-asmuo/properties/telefono-nr"
+                  "scope": "#/properties/gavejas/properties/atsakingas-asmuo/properties/telefono-nr",
+                  "options": {
+                    "placeholder": "+37060000000 arba 06000000"
+                  }
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/gavejas/properties/atsakingas-asmuo/properties/el-pastas"
+                  "scope": "#/properties/gavejas/properties/atsakingas-asmuo/properties/el-pastas",
+                  "options": {
+                    "placeholder": "vardas.pavarde@domenas.lt"
+                  }
                 }
               ]
             }

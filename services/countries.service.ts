@@ -8,6 +8,9 @@ interface Fields extends CommonFields {
   id: string;
   name: string;
   iso: string;
+  search: string;
+  es: boolean;
+  elpa: boolean;
 }
 
 interface Populates extends CommonPopulates {}
@@ -48,6 +51,18 @@ export type Country<
         type: 'string',
         columnName: 'salIso2',
       },
+      search: {
+        type: 'string',
+        columnName: 'salSearch',
+      },
+      es: {
+        type: 'boolean',
+        columnName: 'salEs',
+      },
+      elpa: {
+        type: 'boolean',
+        columnName: 'salElpa',
+      },
     },
   },
 })
@@ -70,6 +85,6 @@ export default class extends moleculer.Service {
 
   @Action()
   async seedDB() {
-    await this.seedCsv('salys', ['id', 'name', 'iso']);
+    await this.seedCsv('salys', ['id', 'name', 'iso', 'search', 'es', 'elpa']);
   }
 }

@@ -11,6 +11,9 @@ exports.up = function (knex) {
       table.string('id');
       table.string('salPavad');
       table.string('salIso2');
+      table.string('salSearch');
+      table.boolean('salEs');
+      table.boolean('salElpa');
     })
     .createTable('kpnKodai', (table) => {
       table.integer('id');

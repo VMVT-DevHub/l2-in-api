@@ -1,11 +1,10 @@
 'use strict';
 
+import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import moleculer, { Context } from 'moleculer';
 import { Action, Method, Service } from 'moleculer-decorators';
 import DbConnection from '../mixins/database.mixin';
-
-import Ajv from 'ajv';
 import {
   COMMON_DEFAULT_SCOPES,
   COMMON_FIELDS,
@@ -192,8 +191,8 @@ export default class extends moleculer.Service {
 
     const ajv = new Ajv({
       allErrors: true,
+      strict: false,
     });
-
     addFormats(ajv);
 
     const validate = ajv.compile(formSchema.schema);

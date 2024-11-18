@@ -7,6 +7,7 @@
       "type": "object",
       "title": "Siuntėjas",
       "additionalProperties": false,
+      "default": {},
       "properties": {
         "asmuo": {
           "$ref": "#/definitions/asmuo-su-kodu"
@@ -21,22 +22,50 @@
           "$ref": "#/definitions/atsakingas-asmuo"
         }
       },
-      "required": ["asmuo", "adresas", "patvirtinimo-iregistravimo-nr", "atsakingas-asmuo"]
+      "required": ["asmuo", "adresas", "patvirtinimo-iregistravimo-nr", "atsakingas-asmuo"],
+      "errorMessage": {
+        "required": {
+          "asmuo": "Siuntėjas: Asmuo su kodu privalomas.",
+          "adresas": "Siuntėjas: Adresas privalomas.",
+          "patvirtinimo-iregistravimo-nr": "Siuntėjas: Patvirtinimo ir įregistravimo numeris privalomas.",
+          "atsakingas-asmuo": "Siuntėjas: Atsakingas asmuo privalomas."
+        }
+      }
     },
     "marsrutas": {
       "type": "object",
       "title": "Kelionės maršrutas",
       "additionalProperties": false,
+      "validateEuTransit": true,
+      "default": {},
       "required": ["eksportuojanti-salis", "tranzitines-salys", "importuojanti-salis"],
+      "errorMessage": {
+        "required": {
+          "eksportuojanti-salis": "Maršrutas: Eksportuojanti šalis turi būti nurodyta.",
+          "tranzitines-salys": "Maršrutas: Tranzitinės šalys turi būti pateiktos.",
+          "importuojanti-salis": "Maršrutas: Importuojanti šalis turi būti nurodyta."
+        }
+      },
       "properties": {
         "eksportuojanti-salis": {
           "type": "object",
           "additionalProperties": false,
+          "default": {},
           "required": ["salis"],
+          "errorMessage": {
+            "required": {
+              "salis": "Maršrutas: Eksportuojanti šalis yra privaloma."
+            }
+          },
           "properties": {
             "salis": {
               "title": "Eksportuojanti šalis",
-              "$ref": "#/definitions/salis"
+              "$ref": "#/definitions/salis",
+              "default": "LTU"
+            },
+            "pkp-out": {
+              "title": "Išvažiavimo PKP",
+              "type": "string"
             }
           }
         },
@@ -45,14 +74,24 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["salis", "pkp"],
+            "required": ["salis"],
+            "errorMessage": {
+              "required": {
+                "salis": "Maršrutas: Tranzitinė šalis yra privaloma.",
+                "pkp": "Maršrutas: PKP pavadinimas privalomas."
+              }
+            },
             "properties": {
               "salis": {
                 "title": "Tranzitinė šalis",
                 "$ref": "#/definitions/salis"
               },
               "pkp": {
-                "title": "PKP pavadinimas",
+                "title": "Įvažiavimo PKP",
+                "type": "string"
+              },
+              "pkp-out": {
+                "title": "Išvažiavimo PKP",
                 "type": "string"
               }
             }
@@ -61,14 +100,20 @@
         "importuojanti-salis": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["salis", "pkp"],
+          "required": ["salis"],
+          "errorMessage": {
+            "required": {
+              "salis": "Maršrutas: Importuojanti šalis yra privaloma.",
+              "pkp": "Maršrutas: PKP pavadinimas privalomas."
+            }
+          },
           "properties": {
             "salis": {
               "title": "Importuojanti šalis",
               "$ref": "#/definitions/salis"
             },
             "pkp": {
-              "title": "PKP pavadinimas",
+              "title": "Įvažiavimo PKP",
               "type": "string"
             }
           }
@@ -96,28 +141,64 @@
             "additionalProperties": false,
             "properties": {
               "rusis": {
-                "$ref": "#/definitions/transporto-priemones-rusis"
+                "title": "Transporto priemonės rūšis",
+                "type": "string",
+                "enum": ["Autokelių transporto priemonė", "Traukinys", "Lėktuvas", "Laivas", "Kita"]
               },
               "rusis-kita": {
                 "title": "Nurodykite transporto rūšį",
                 "type": "string"
               },
-              "valstybinis-numeris": {
+              "numeris": {
                 "title": "Transporto priemonės Nr.",
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "plombos-numeris": {
-                "title": "Plombos numeris",
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
+                "type": "string"
               }
             },
-            "required": ["rusis", "plombos-numeris"]
+            "required": ["rusis"],
+            "errorMessage": {
+              "required": {
+                "rusis": "Siunta: Transporto priemonės rūšis yra privaloma."
+              }
+            }
+          }
+        },
+        "transporto-priemones-dalys": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["dalis"],
+            "errorMessage": {
+              "required": {
+                "dalis": "Siunta: Transporto priemonės dalis yra privaloma."
+              }
+            },
+            "properties": {
+              "dalis": {
+                "title": "Transporto priemonės dalis",
+                "type": "string",
+                "enum": [
+                  "Konteineris",
+                  "Cisterna",
+                  "Vagonas",
+                  "Priekaba",
+                  "Puspriekabė",
+                  "Dėžė",
+                  "Narvas",
+                  "Kita"
+                ]
+              },
+              "dalis-kita": {
+                "title": "Nurodykite transporto priemonės dalį",
+                "type": "string"
+              },
+              "numeris": {
+                "type": "string"
+              },
+              "plombos-nr": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -142,7 +223,16 @@
           "$ref": "#/definitions/laikas"
         }
       },
-      "required": ["laikas", "data", "patvirtinimo-iregistravimo-nr", "adresas", "asmuo"]
+      "required": ["laikas", "data", "patvirtinimo-iregistravimo-nr", "adresas", "asmuo"],
+      "errorMessage": {
+        "required": {
+          "laikas": "Pakrovimo vieta: Laikas privalomas.",
+          "data": "Pakrovimo vieta: Data yra privaloma.",
+          "patvirtinimo-iregistravimo-nr": "Pakrovimo vieta: Patvirtinimo ar įregistravimo numeris privalomas.",
+          "adresas": "Pakrovimo vieta: Adresas privalomas.",
+          "asmuo": "Pakrovimo vieta: Asmuo privalomas."
+        }
+      }
     },
     "prekes": {
       "type": "array",
@@ -220,6 +310,10 @@
             "title": "Prekės gamintojo pavadinimas",
             "type": "string"
           },
+          "gamintojo-kodas": {
+            "title": "Prekės gamintojo kodas",
+            "$ref": "#/definitions/imones-kodas"
+          },
           "gamintojo-patvirtinimo-iregistravimo-nr": {
             "title": "Gamintojo patvirtinimo ar įregistravimo nr.",
             "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
@@ -248,6 +342,24 @@
           "adresas",
           "gamintojo-patvirtinimo-iregistravimo-nr"
         ],
+        "errorMessage": {
+          "required": {
+            "kpn-kodas": "Prekės: KPN kodas privalomas.",
+            "pavadinimas": "Prekės: Pavadinimas privalomas.",
+            "pagaminimo-data": "Prekės: Pagaminimo data yra privaloma.",
+            "partijos-numeris": "Prekės: Partijos numeris privalomas.",
+            "tinkamumo-naudoti-terminas": "Prekės: Tinkamumo naudoti terminas privalomas.",
+            "pakuotes-tipas": "Prekės: Pakuotės tipas privalomas.",
+            "pakuociu-skaicius": "Prekės: Pakuočių skaičius privalomas.",
+            "kiekis": "Prekės: Kiekis privalomas.",
+            "patvirtinimo-nr": "Prekės: Patvirtinimo numeris privalomas.",
+            "laikymo-ir-transportavimo-salygos": "Prekės: Laikymo ir transportavimo sąlygos yra privalomos.",
+            "salis": "Prekės: Šalis yra privaloma.",
+            "gamintojo-pavadinimas": "Prekės: Gamintojo pavadinimas privalomas.",
+            "adresas": "Prekės: Adresas privalomas.",
+            "gamintojo-patvirtinimo-iregistravimo-nr": "Prekės: Gamintojo patvirtinimo ar įregistravimo numeris privalomas."
+          }
+        },
         "if": {
           "properties": {
             "salis": {
@@ -286,11 +398,32 @@
           }
         },
         "then": {
-          "required": ["sertifikatas"]
+          "required": ["sertifikatas"],
+          "errorMessage": {
+            "required": {
+              "sertifikatas": "Prekės: Sertifikatas privalomas."
+            }
+          }
+        },
+        "else": {
+          "if": {
+            "properties": {
+              "salis": {
+                "enum": ["LTU"]
+              }
+            }
+          },
+          "then": {
+            "required": ["gamintojo-kodas"],
+            "errorMessage": {
+              "required": {
+                "gamintojo-kodas": "Prekės: Gamintojo kodas privalomas."
+              }
+            }
+          }
         }
       }
     },
-
     "zaliavos": {
       "type": "array",
       "items": {
@@ -313,7 +446,13 @@
                 "enum": ["kg", "t", "vnt", "doz"]
               }
             },
-            "required": ["kiekis", "matas"]
+            "required": ["kiekis", "matas"],
+            "errorMessage": {
+              "required": {
+                "kiekis": "Žaliavos: Kiekis privalomas.",
+                "matas": "Žaliavos: Matas privalomas"
+              }
+            }
           },
           "gamintojas": {
             "type": "object",
@@ -332,7 +471,14 @@
                 "type": "string"
               }
             },
-            "required": ["imones-pavadinimas", "adresas", "patvirtinimo-numeris"]
+            "required": ["imones-pavadinimas", "adresas", "patvirtinimo-numeris"],
+            "errorMessage": {
+              "required": {
+                "imones-pavadinimas": "Žaliavos: Gamintojo įmonės pavadinimas privalomas.",
+                "adresas": "Žaliavos: Gamintojo adresas privalomas.",
+                "patvirtinimo-numeris": "Žaliavos: Gamintojo patvirtinimo numeris privalomas."
+              }
+            }
           },
           "gavimo-data": {
             "title": "Žaliavos gavimo data",
@@ -354,15 +500,26 @@
           "gavimo-data",
           "partijos-numeris",
           "pagamintos-prekes-kiekis"
-        ]
+        ],
+        "errorMessage": {
+          "required": {
+            "pavadinimas": "Žaliavos: Pavadinimas privalomas.",
+            "kiekis": "Žaliavos: Kiekis privalomas.",
+            "gamintojas": "Žaliavos: Gamintojas privalomas.",
+            "gavimo-data": "Žaliavos: Gavimo data yra privaloma.",
+            "partijos-numeris": "Žaliavos: Partijos numeris privalomas.",
+            "pagamintos-prekes-kiekis": "Žaliavos: Pagamintos prekės kiekis privalomas."
+          }
+        }
       }
     },
     "gavejas": {
       "type": "object",
       "additionalProperties": false,
+      "default": {},
       "properties": {
         "asmuo": {
-          "$ref": "#/definitions/asmuo-su-imones-kodu"
+          "$ref": "#/definitions/asmuo-be-kodo"
         },
         "adresas": {
           "$ref": "#/definitions/adresas"
@@ -373,6 +530,7 @@
         "paskirties-vieta": {
           "type": "object",
           "additionalProperties": false,
+          "default": {},
           "properties": {
             "asmuo": {
               "$ref": "#/definitions/asmuo-be-kodo"
@@ -384,7 +542,14 @@
               "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
             }
           },
-          "required": ["patvirtinimo-iregistravimo-nr", "adresas", "asmuo"]
+          "required": ["patvirtinimo-iregistravimo-nr", "adresas", "asmuo"],
+          "errorMessage": {
+            "required": {
+              "patvirtinimo-iregistravimo-nr": "Gavėjas: Patvirtinimo ir registravimo numeris privalomas paskirties vietoje.",
+              "adresas": "Gavėjas: Adresas privalomas paskirties vietoje.",
+              "asmuo": "Gavėjas: Asmuo privalomas paskirties vietoje."
+            }
+          }
         }
       }
     },
@@ -418,10 +583,23 @@
           "type": "boolean"
         }
       },
-      "required": ["apmokejimas", "sutikimas"]
+      "required": ["apmokejimas", "sutikimas"],
+      "errorMessage": {
+        "required": {
+          "apmokejimas": "Dokumentai: Apmokėjimas privalomas.",
+          "sutikimas": "Dokumentai: Sutikimas yra būtinas ir turi būti pateiktas pažymint laukelį."
+        }
+      }
     }
   },
   "required": ["siuntejas", "marsrutas", "gavejas"],
+  "errorMessage": {
+    "required": {
+      "siuntejas": "Siuntėjo informacija yra privaloma.",
+      "marsrutas": "Kelionės maršruto informacija yra privaloma.",
+      "gavejas": "Gavėjo informacija yra privaloma."
+    }
+  },
   "definitions": {
     "asmens-tipas": {
       "title": "Asmens tipas",
@@ -432,27 +610,24 @@
     "asmuo-be-kodo": {
       "type": "object",
       "required": ["tipas"],
+      "default": {},
       "if": { "properties": { "tipas": { "const": "Fizinis asmuo" } } },
-      "then": { "required": ["vardas-pavarde"] },
-      "else": { "required": ["imones-pavadinimas"] },
-      "properties": {
-        "tipas": {
-          "$ref": "#/definitions/asmens-tipas"
-        },
-        "imones-pavadinimas": {
-          "$ref": "#/definitions/imones-pavadinimas"
-        },
-        "vardas-pavarde": {
-          "$ref": "#/definitions/vardas-pavarde"
+      "then": {
+        "required": ["vardas-pavarde"],
+        "errorMessage": {
+          "required": {
+            "vardas-pavarde": "Vardas ir pavardė yra privalomi."
+          }
         }
-      }
-    },
-    "asmuo-su-imones-kodu": {
-      "type": "object",
-      "required": ["tipas"],
-      "if": { "properties": { "tipas": { "const": "Fizinis asmuo" } } },
-      "then": { "required": ["vardas-pavarde"] },
-      "else": { "required": ["imones-pavadinimas", "imones-kodas"] },
+      },
+      "else": {
+        "required": ["imones-pavadinimas"],
+        "errorMessage": {
+          "required": {
+            "imones-pavadinimas": "Įmonės pavadinimas privalomas."
+          }
+        }
+      },
       "properties": {
         "tipas": {
           "$ref": "#/definitions/asmens-tipas"
@@ -462,18 +637,32 @@
         },
         "vardas-pavarde": {
           "$ref": "#/definitions/vardas-pavarde"
-        },
-        "imones-kodas": {
-          "$ref": "#/definitions/imones-kodas"
         }
       }
     },
     "asmuo-su-kodu": {
       "type": "object",
       "required": ["tipas"],
+      "default": {},
       "if": { "properties": { "tipas": { "const": "Fizinis asmuo" } } },
-      "then": { "required": ["vardas-pavarde", "asmens-kodas"] },
-      "else": { "required": ["imones-pavadinimas", "imones-kodas"] },
+      "then": {
+        "required": ["vardas-pavarde", "asmens-kodas"],
+        "errorMessage": {
+          "required": {
+            "vardas-pavarde": "Vardas ir pavardė yra privalomi.",
+            "asmens-kodas": "Asmens kodas privalomas."
+          }
+        }
+      },
+      "else": {
+        "required": ["imones-pavadinimas", "imones-kodas"],
+        "errorMessage": {
+          "required": {
+            "imones-pavadinimas": "Įmonės pavadinimas privalomas.",
+            "imones-kodas": "Įmonės kodas privalomas."
+          }
+        }
+      },
       "properties": {
         "tipas": {
           "$ref": "#/definitions/asmens-tipas"
@@ -503,21 +692,39 @@
         "pareigos": {
           "title": "Pareigos",
           "type": "string",
-          "maxLength": 100
+          "maxLength": 100,
+          "errorMessage": {
+            "maxLength": "Pareigos negali būti ilgesnės nei 100 simbolių."
+          }
         },
         "telefono-nr": {
           "title": "Telefono nr.",
           "type": "string",
-          "pattern": "^\\+?[\\d\\s\\-\\(\\)]{8,15}$"
+          "pattern": "^\\+?[\\d\\s\\-\\(\\)]{8,15}$",
+          "errorMessage": {
+            "pattern": "Telefono numeris turi būti galiojantis"
+          }
         },
         "el-pastas": {
           "title": "El. paštas",
           "type": "string",
           "format": "email",
-          "maxLength": 254
+          "maxLength": 254,
+          "errorMessage": {
+            "format": "El. paštas turi būti galiojantis",
+            "maxLength": "El. paštas negali būti ilgesnis nei 254 simboliai."
+          }
         }
       },
-      "required": ["vardas-pavarde", "pareigos", "telefono-nr", "el-pastas"]
+      "required": ["vardas-pavarde", "pareigos", "telefono-nr", "el-pastas"],
+      "errorMessage": {
+        "required": {
+          "vardas-pavarde": "Vardas ir pavardė yra privalomi.",
+          "pareigos": "Pareigos yra privalomos.",
+          "telefono-nr": "Telefono numeris privalomas.",
+          "el-pastas": "El. paštas privalomas."
+        }
+      }
     },
     "adresas": {
       "title": "Adresas",
@@ -548,16 +755,27 @@
     "imones-kodas": {
       "title": "Juridinio asmens kodas",
       "type": "string",
-      "pattern": "\\d{9}"
+      "pattern": "\\d{9}",
+      "errorMessage": {
+        "pattern": "Juridinio asmens kodas turi būti galiojantis"
+      }
     },
     "asmens-kodas": {
       "title": "Asmens kodas",
       "type": "string",
-      "pattern": "[0-9]{11}"
+      "pattern": "[0-9]{11}",
+      "errorMessage": {
+        "pattern": "Asmens kodas turi būti galiojantis"
+      }
     },
     "dokumentas": {
       "type": "object",
       "required": ["url"],
+      "errorMessage": {
+        "required": {
+          "url": "Failas privalomas."
+        }
+      },
       "properties": {
         "url": {
           "type": "string",
@@ -570,18 +788,6 @@
           "type": "number"
         }
       }
-    },
-    "transporto-priemones-rusis": {
-      "title": "Transporto priemonės rūšis",
-      "type": "string",
-      "enum": [
-        "Lėktuvas",
-        "Laivas",
-        "Geležinkelio vagonas",
-        "Autokelių transporto priemonė",
-        "Konteineris (Konteinerio numeris)",
-        "Kita"
-      ]
     },
     "salis": {
       "type": "string",
