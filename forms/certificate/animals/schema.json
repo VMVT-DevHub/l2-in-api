@@ -37,7 +37,6 @@
       "title": "Kelionės maršrutas",
       "additionalProperties": false,
       "default": {},
-      "validateEuTransit": true,
       "required": ["eksportuojanti-salis", "tranzitines-salys", "importuojanti-salis"],
       "errorMessage": {
         "required": {
