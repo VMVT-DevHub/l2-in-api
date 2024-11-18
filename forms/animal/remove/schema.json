@@ -28,14 +28,14 @@
         },
         "sutikimas": {
           "type": "boolean",
-          "title": "Suprantu kad bus panaikintas maisto tvarkymo subjektas"
+          "title": "Suprantu, kad bus panaikintas veterinarinės kontrolės subjektas"
         }
       },
       "required": ["registracijos-nr", "sutikimas"],
       "errorMessage": {
         "required": {
           "registracijos-nr": "Subjektas: Registracijos patvirtinimo numeris privalomas.",
-          "sutikimas": "Subjektas: Patvirtinimas dėl maisto tvarkymo subjekto panaikinimo privalomas."
+          "sutikimas": "Subjektas: Patvirtinimas dėl veterinarinės kontrolės subjekto panaikinimo privalomas."
         }
       }
     }

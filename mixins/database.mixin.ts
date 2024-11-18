@@ -36,9 +36,9 @@ export default function (opts: any = {}) {
           });
 
           for (const key in values) {
-            const value = values[key?.trim()];
-            const column = columns[key?.trim() as any];
-            obj[column] = value?.trim();
+            const value = values[key];
+            const column = columns[key as any];
+            obj[column] = typeof value === 'string' ? value.trim() : value;
           }
 
           records.push(obj);

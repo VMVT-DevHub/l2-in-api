@@ -77,8 +77,6 @@ export default class UsersService extends moleculer.Service {
       scope,
     });
 
-    if (user && user.id) return user;
-
     const dataToSave = {
       code: authUser.personalCode,
       firstName: authUser.firstName,

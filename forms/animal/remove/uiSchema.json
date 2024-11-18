@@ -1,0 +1,43 @@
+{
+  "type": "Categorization",
+  "options": {
+    "display": "form"
+  },
+  "elements": [
+    {
+      "type": "Category",
+      "label": "Pareiškėjas",
+      "elements": [
+        {
+          "$ref": "forms/food/uiDefs.json#/definitions/atsakingas-asmuo"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Valstybinės veterinarinės kontrolės subjektas (veiklavietė)",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Duomenys apie veterinarinės kontrolės subjektą (veiklavietę)",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/subjektas/properties/registracijos-nr"
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Sutikimas",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/subjektas/properties/sutikimas"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

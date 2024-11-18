@@ -27,22 +27,6 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "pavadinimas": {
-              "type": "string",
-              "title": "Maisto tvarkymo subjekto pavadinimas",
-              "maxLength": 256,
-              "errorMessage": {
-                "maxLength": "Subjektas: Pavadinimas negali būti ilgesnis nei 256 simboliai."
-              }
-            },
-            "laikina-vieta": {
-              "title": "Maisto tvarkymo veikla steigiama laikiname statinyje / naudojami laikini prekybos įrenginiai",
-              "type": "boolean"
-            },
-            "adresas-sutampa": {
-              "title": "Maisto tvarkymo vietos adresas sutampa su subjekto buveinės (korespondencijos adresu)",
-              "type": "boolean"
-            },
             "darbuotoju-skaicius": {
               "title": "Darbuotojų skaičius",
               "type": "string",
@@ -64,13 +48,12 @@
             "patalpu-tipas": {
               "title": "Patalpų tipas",
               "type": "string",
-              "enum": ["Mobilios/ Kilnojamos", "Namų ūkio", "Komercinės"]
+              "enum": ["Mobilios/ Kilnojamos", "Komercinės", "Žemės sklypas"]
             }
           },
-          "required": ["pavadinimas", "darbuotoju-skaicius", "pamainu-skaicius", "patalpu-tipas"],
+          "required": ["darbuotoju-skaicius", "pamainu-skaicius", "patalpu-tipas"],
           "errorMessage": {
             "required": {
-              "pavadinimas": "Subjektas: Pavadinimas privalomas.",
               "darbuotoju-skaicius": "Subjektas: Darbuotojų skaičius privalomas.",
               "pamainu-skaicius": "Subjektas: Pamainų skaičius privalomas.",
               "patalpu-tipas": "Subjektas: Patalpų tipas privalomas."
@@ -81,6 +64,10 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
+            "sutampa-su-buveines-adresu": {
+              "type": "boolean",
+              "title": "Veterinarinės kontrolės subjekto vietos adresas sutampa su subjekto buveinės (korespondencijos adresu)"
+            },
             "savivaldybe": {
               "type": "number",
               "title": "Savivaldybė"
@@ -100,6 +87,13 @@
             "buto-nr": {
               "type": "number",
               "title": "Buto Nr."
+            },
+            "sklypu-nr": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "title": "Kadastrinio sklypo Nr."
             }
           },
           "required": ["savivaldybe", "miestas", "gatve", "namo-nr"],
@@ -231,51 +225,16 @@
             }
           }
         },
-        "gamybos-apimtys": {
-          "type": "array",
-          "default": [{}],
-          "title": "Projektinės gamybos apimtys",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "tipas": {
-                "type": "string",
-                "title": "Produkcijos tiekimo rinkai tipas",
-                "enum": [
-                  "Pagamintos produkcijos kiekis",
-                  "Importuojamos iš trečiųjų šalių produkcijos kiekis",
-                  "Paskerstų gyvulių skaičius"
-                ]
-              },
-              "skaicius-vienetas": {
-                "type": "object",
-                "properties": {
-                  "skaicius": {
-                    "title": "Nurodyti skaičių",
-                    "type": "number"
-                  },
-                  "matavimo-vienetas": {
-                    "type": "string",
-                    "title": "Matavimo vienetas",
-                    "enum": ["t/metus", "ltr./metus"]
-                  }
-                },
-                "required": ["skaicius", "matavimo-vienetas"],
-                "errorMessage": {
-                  "required": {
-                    "skaicius": "Subjektas: Skaičius privalomas.",
-                    "matavimo-vienetas": "Subjektas: Matavimo vienetas privalomas."
-                  }
-                }
-              }
+        "koordinates": {
+          "type": "object",
+          "properties": {
+            "platuma": {
+              "type": "number",
+              "title": "Platuma"
             },
-            "required": ["tipas", "skaicius-vienetas"],
-            "errorMessage": {
-              "required": {
-                "tipas": "Subjektas: Produkcijos tiekimo rinkai tipas privalomas.",
-                "skaicius-vienetas": "Subjektas: Skaičius ir matavimo vienetas yra privalomi."
-              }
+            "ilguma": {
+              "type": "number",
+              "title": "Ilguma"
             }
           }
         },
@@ -284,17 +243,25 @@
           "additionalProperties": false,
           "title": "Mastas",
           "properties": {
+            "tik-lt": {
+              "type": "boolean",
+              "title": "Prekyba tik Lietuvos Respublikos teritorijoje"
+            },
+            "importas": {
+              "type": "boolean",
+              "title": "Importas"
+            },
+            "lt-ir-es-rinka": {
+              "type": "boolean",
+              "title": "Prekyba Lietuvos rinkai ir (ar) ES rinkai"
+            },
             "trecios-salys": {
               "type": "boolean",
-              "title": "Pagamintas produktas eksportuojamas į trečiąsias šalis"
+              "title": "Eksportas į trečiąsias šalis"
             },
-            "es-rinka": {
+            "kita": {
               "type": "boolean",
-              "title": "Produktas tiekiamas ES rinkai"
-            },
-            "mazi-kiekiai": {
-              "type": "boolean",
-              "title": "Vykdoma gamyba mažais kiekiais"
+              "title": "Kita (pvz. veterinarinės paslaugos) "
             }
           }
         }
@@ -327,65 +294,52 @@
       "type": "object",
       "additionalProperties": false,
       "default": {},
+      "required": ["pagrindine-veikla"],
+      "errorMessage": {
+        "required": {
+          "pagrindine": "Veiklos: Pagrindinė veikla yra privaloma."
+        }
+      },
       "properties": {
-        "veiklos": {
-          "type": "object",
-          "additionalProperties": false,
-          "default": {},
-          "properties": {
-            "pagrindine": {
-              "title": "Pagrindinė veikla",
-              "$ref": "#/definitions/veiklos"
-            },
-            "papildomos": {
-              "type": "array",
-              "title": "Papildoma veikla",
-              "items": {
-                "$ref": "#/definitions/veiklos"
+        "pagrindine-veikla": {
+          "title": "Pagrindinė veikla",
+          "$ref": "#/definitions/veiklos"
+        },
+        "veiklos-kodai": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kodas": {
+                "type": "number",
+                "title": "Veiklos kodas"
+              },
+              "detalizacija": {
+                "type": "number",
+                "title": "Detalizacija"
               }
             }
-          },
-          "required": ["pagrindine"],
-          "errorMessage": {
-            "required": {
-              "pagrindine": "Veiklos: Pagrindinė veikla yra privaloma."
-            }
           }
         },
-        "asortimentas": {
-          "type": "object",
-          "additionalProperties": false,
-          "title": "Maisto produktų asortimentas",
-          "properties": {
-            "sgn": {
-              "type": "boolean",
-              "title": "Produktas su saugoma geografine nuoroda (SGN), Produktas su saugoma kilmės vietos nuoroda (SKVN), Garantuotas tradicinis gaminys (GTG)"
-            },
-            "nkp": {
-              "type": "boolean",
-              "title": "Pagal nacionalinę maisto kokybės sistemą pagamintas produktas (NKP)"
-            },
-            "ekologiski": {
-              "type": "boolean",
-              "title": "Ekologiški maisto produktai"
-            },
-            "alkoholiniai": {
-              "type": "boolean",
-              "title": "Alkoholiniai gėrimai"
-            },
-            "kanapiu": {
-              "type": "boolean",
-              "title": "Maisto produktai, pagaminti iš pluoštinių kanapių arba kurių sudėtyje yra pluoštinių kanapių"
-            }
-          }
-        },
-        "savikontroles-sistema": {
+        "transporto-priemones": {
           "type": "array",
-          "title": "Savikontrolės sistema",
           "items": {
-            "type": "number",
-            "fetchEnumFrom": "selfControl.getLeafIds"
+            "type": "object",
+            "properties": {
+              "marke": {
+                "type": "string",
+                "title": "Transporto priemonės markė"
+              },
+              "valstybinis-nr": {
+                "type": "string",
+                "title": "Transporto priemonės valstybinis registracijos Nr."
+              }
+            }
           }
+        },
+        "gyvunu-skaicius": {
+          "type": "number",
+          "title": "Gyvūnų skaičius"
         }
       }
     },
@@ -393,22 +347,31 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "patalpu-projektas": {
-          "$ref": "#/definitions/dokumentas"
-        },
         "proceso-aprasymas": {
           "$ref": "#/definitions/dokumentas"
         },
-        "tvarkymo-vieta": {
+        "kontroles-programa": {
           "$ref": "#/definitions/dokumentas"
         },
-        "registracijos-liudijimas": {
+        "nuoteku-programa": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "gyvuniniu-produktu-tvarkymo-programa": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "kenkeju-kontroles-programa": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "valymo-programa": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "higienos-mokymo-programa": {
+          "$ref": "#/definitions/dokumentas"
+        },
+        "laboratoriniai-tyrimai": {
           "$ref": "#/definitions/dokumentas"
         },
         "rinkliava": {
-          "$ref": "#/definitions/dokumentas"
-        },
-        "pavedimo-kopija": {
           "$ref": "#/definitions/dokumentas"
         },
         "papildomi-dokumentai": {
@@ -419,14 +382,6 @@
         },
         "papildoma-informacija": {
           "type": "string"
-        },
-        "isipareigojimas": {
-          "title": "Įsipareigoju: Laikytis mano vykdomą maisto tvarkymo veiklą reglamentuojančių teisės aktų reikalavimų; Netvarkyti maisto, jei statiniai ir patalpos neatitinka statybą ir jos priežiūrą ir statinių naudojimą reglamentuojančių teisės aktų reikalavimų; Apie ūkinės komercinės veiklos pasikeitimus nedelsiant informuoti Valstybinės maisto ir veterinarijos tarnybos Paslaugų departamentą.",
-          "type": "boolean"
-        },
-        "susipazinimas": {
-          "title": "Esu susipažinęs, kad: daigus auginantis maisto tvarkymo subjektas patvirtinamas ne vėliau kaip per 10 (dešimt) darbo dienų (nuo visų dokumentų gavimo dienos), arba, vadovaujantis Maisto tvarkymo subjektų patvirtinimo ir registravimo tvarkos aprašo, patvirtinto Valstybinės maisto ir veterinarijos tarnybos direktoriaus 2008 m. spalio 15 d. įsakymo Nr. B1-527 „Dėl Maisto tvarkymo subjektų patvirtinimo ir registravimo tvarkos aprašo patvirtinimo“, 24 punktu, atsisakoma suteikti patvirtinimą; maisto tvarkymo subjektas, siekiantis įgyti teisę vykdyti maisto tvarkymo veiklą, nurodytą Aprašo 1 priedo 1 punkte, registruojamas ne vėliau kaip per 10 (dešimt) darbo dienų (nuo visų dokumentų gavimo dienos), įtraukiant maisto tvarkymo subjektą į Valstybinės maisto ir veterinarijos tarnybos tvarkomą Maisto tvarkymo subjektų sąrašą ir suteikiant jam atpažinimo numerį, arba, vadovaujantis Aprašo 36 punktu, per šį terminą atsisakoma jį registruoti; maisto tvarkymo subjektas, siekiantis įgyti teisę vykdyti maisto tvarkymo veiklą, nurodytą Aprašo 1 priedo 2 punkte, registruojamas ne vėliau kaip per 5 (penkias) darbo dienas (nuo visų dokumentų gavimo dienos), įtraukiant maisto tvarkymo subjektą į Valstybinės maisto ir veterinarijos tarnybos tvarkomą Maisto tvarkymo subjektų sąrašą ir suteikiant jam atpažinimo numerį, arba, vadovaujantis Aprašo 47 punktu, per šį terminą atsisakoma jį registruoti; laikotarpis, per kurį maisto tvarkymo subjektas turi pateikti trūkstamus duomenis ar dokumentus arba pašalinti nurodytus neatitikimus teisės aktų reikalavimams, į nurodytus dokumentų išnagrinėjimo terminus neįskaičiuojamas; atsakymo dėl patvirtinimo / registravimo nepateikimas per teisės aktų nustatytą terminą nelaikomas patvirtinimu / registravimu.",
-          "type": "boolean"
         },
         "sutikimas": {
           "title": "Sutinku gauti informacinius pranešimus iš VMVT, susijusius su mano vykdoma veikla.",
@@ -439,9 +394,26 @@
     "veiklos": {
       "type": "string",
       "enum": [
-        "Maisto produktų gamyba (sezoninė)",
-        "Bulvių perdirbimas ir konservavimas",
-        "Vaisių, uogų ir daržovių sulčių gamyba"
+        "Kanopinių gyvūnų (galvijų, avių, ožkų, arklių) surinkimas prekybai su kitomis ES valstybėmis",
+        "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų genetinės medžiagos produktų, t.y. spermos, oocitų ir embrionų, skirtų dirbtiniam dauginimui paruošimas",
+        "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų genetinės medžiagos produktų, t.y. spermos, oocitų ir embrionų, skirtų dirbtiniam dauginimui saugojimas",
+        "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų spermos surinkimas",
+        "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų embrionų gamyba",
+        "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų embrionų surinkimo",
+        "Naminių paukščių laikymas",
+        "Viščiukų broilerių, kalakutų ir kitų naminių paukščių laikymas su tikslu paskersti žmonių maistui",
+        "Gyvūnų vežimas",
+        "Ūkinių gyvūnų, ketinamų eksportuoti į trečiąsias šalis karantinavimas",
+        "Gyvūnų",
+        "Žuvų veisimas",
+        "Gyvūnų vežimas",
+        "Dedeklinių vištaičių auginimas iki dėslumo periodo pradžios",
+        "Eržilų spermos, embrionų ir oocitų surinkimas ir arba laikymas",
+        "Šunų, kačių ir šeškų surinkimas toliau išvežti juos į kitas ES valstybes",
+        "Gyvūnų augintinių, įvežtų iš trečiųjų valstybių karantinavimas iki jie atitiks ES reikalavimus",
+        "Galimai užsikėtusių akvakultūros gyvūnų laikinas laikymas",
+        "Dekoratyviniais tikslais laikomi akvakultūros gyvūnai",
+        "Popierinis prekiautojas"
       ],
       "default": ""
     },

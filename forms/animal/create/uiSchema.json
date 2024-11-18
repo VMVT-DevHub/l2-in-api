@@ -15,27 +15,12 @@
     },
     {
       "type": "Category",
-      "label": "Maisto tvarkymo subjektas (veiklavietė)",
+      "label": "Valstybinės veterinarinės kontrolės subjektas (veiklavietė)",
       "elements": [
         {
           "type": "Group",
-          "label": "Duomenys apie maisto tvarkymo subjektą (veiklavietę)",
+          "label": "Duomenys apie veterinarinės kontrolės  subjektą (veiklavietę)",
           "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/duomenys/properties/pavadinimas"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/duomenys/properties/laikina-vieta",
-              "options": {
-                "description": "Žymima tuo atveju, kai numatoma vykdyti maisto tvarkymo veiklą laikinuosiuose statiniuose ar tik naudojant laikinuosius prekybos įrenginius, nurodomas maisto tvarkymo vietos adresas pagal artimiausio statinio adresą, pažymėkite, kad maisto tvarkymo vieta yra prie minėto statinio"
-              }
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/duomenys/properties/adresas-sutampa"
-            },
             {
               "type": "HorizontalLayout",
               "elements": [
@@ -57,8 +42,51 @@
         },
         {
           "type": "Group",
-          "label": "Maisto tvarkymo subjekto (veiklavietės) adresas",
+          "label": "Darbo laikas",
           "elements": [
+            {
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 1
+              },
+              "label": "Darbo laikas",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/subjektas/properties/darbo-laikas/properties/menesiai",
+                  "options": {
+                    "display": "buttonMultiSelect",
+                    "props": {
+                      "radius": 0.4,
+                      "buttonWidth": "15rem",
+                      "variant": "outline"
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/subjektas/properties/darbo-laikas/properties/savaites-dienos",
+                  "options": {
+                    "display": "buttonMultiSelect",
+                    "props": {
+                      "buttonWidth": "15rem",
+                      "radius": 0.4,
+                      "variant": "outline"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Valstybinės veterinarinės kontrolės subjekto (veiklavietės) adresas",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/subjektas/properties/adresas/properties/sutampa-su-buveines-adresu"
+            },
             {
               "type": "HorizontalLayout",
               "elements": [
@@ -169,45 +197,49 @@
             }
           ]
         },
+
         {
           "type": "Group",
-          "label": "Darbo laikas",
+          "label": "Kadastrinio sklypo numeriai",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/subjektas/properties/adresas/properties/sklypu-nr",
+              "options": {
+                "display": "creatableMultiSelect",
+                "placeholder": "Įrašykite"
+              }
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/subjektas/properties/duomenys/properties/patalpu-tipas",
+              "schema": {
+                "const": "Žemės sklypas"
+              }
+            }
+          }
+        },
+        {
+          "type": "Group",
+          "label": "WGS koordinatės",
           "elements": [
             {
               "type": "HorizontalLayout",
-              "options": {
-                "columns": 1
-              },
-              "label": "Darbo laikas",
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/darbo-laikas/properties/menesiai",
+                  "scope": "#/properties/subjektas/properties/koordinates/properties/platuma",
                   "options": {
-                    "display": "buttonMultiSelect",
-                    "props": {
-                      "radius": 0.4,
-                      "buttonWidth": "15rem",
-                      "variant": "outline",
-                      "selectAllLabel": "Pažymėti visus",
-                      "deselectAllLabel": "Atžymėti visus",
-                      "showSelectAllCount": 6
-                    }
+                    "placeholder": "Pvz.: 54.7090"
                   }
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/darbo-laikas/properties/savaites-dienos",
+                  "scope": "#/properties/subjektas/properties/koordinates/properties/ilguma",
                   "options": {
-                    "display": "buttonMultiSelect",
-                    "props": {
-                      "buttonWidth": "15rem",
-                      "radius": 0.4,
-                      "variant": "outline",
-                      "selectAllLabel": "Pažymėti visas",
-                      "deselectAllLabel": "Atžymėti visas",
-                      "showSelectAllCount": 4
-                    }
+                    "placeholder": "Pvz.: 25.2474"
                   }
                 }
               ]
@@ -268,55 +300,27 @@
         },
         {
           "type": "Group",
-          "label": "Projektinės gamybos apimtys",
+          "label": "Mastas",
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/subjektas/properties/gamybos-apimtys",
-              "options": {
-                "addLabel": "Pridėti tipą",
-                "detail": {
-                  "type": "HorizontalLayout",
-                  "elements": [
-                    {
-                      "type": "Control",
-                      "scope": "#/properties/tipas"
-                    },
-                    {
-                      "type": "Control",
-
-                      "label": "Skaičius / vienetai",
-                      "scope": "#/properties/skaicius-vienetas",
-                      "options": {
-                        "display": "combinedInput",
-                        "inputKey": "skaicius",
-                        "optionKey": "matavimo-vienetas",
-                        "props": {
-                          "optionsWidth": 12
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Mastas",
-          "elements": [
+              "scope": "#/properties/subjektas/properties/mastas/properties/tik-lt"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/subjektas/properties/mastas/properties/importas"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/subjektas/properties/mastas/properties/lt-ir-es-rinka"
+            },
             {
               "type": "Control",
               "scope": "#/properties/subjektas/properties/mastas/properties/trecios-salys"
             },
             {
               "type": "Control",
-              "scope": "#/properties/subjektas/properties/mastas/properties/es-rinka"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/mastas/properties/mazi-kiekiai"
+              "scope": "#/properties/subjektas/properties/mastas/properties/kita"
             }
           ]
         }
@@ -328,28 +332,41 @@
       "elements": [
         {
           "type": "Group",
-          "label": "Veiklos",
+          "label": "Pagrindinė veikla",
           "elements": [
             {
               "type": "HorizontalLayout",
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/veiklos/properties/pagrindine"
+                  "scope": "#/properties/veiklos/properties/pagrindine-veikla"
                 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Veiklos kodai",
+          "elements": [
             {
               "type": "Control",
-              "label": "Veiklos",
-              "scope": "#/properties/veiklos/properties/veiklos/properties/papildomos",
+              "scope": "#/properties/veiklos/properties/veiklos-kodai",
               "options": {
-                "uniqueItems": true,
-                "addLabel": "Pridėti papildomą veiklą",
+                "display": "addMore",
+                "addLabel": "Pridėti veiklos kodą",
                 "detail": {
-                  "label": "Papildoma veikla",
-                  "type": "Control",
-                  "scope": "#"
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/kodas"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/detalizacija"
+                    }
+                  ]
                 }
               }
             }
@@ -357,43 +374,43 @@
         },
         {
           "type": "Group",
-          "label": "Maisto produktų asortimentas",
+          "label": "Transporto priemonės",
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/veiklos/properties/asortimentas/properties/sgn"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/veiklos/properties/asortimentas/properties/nkp"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/veiklos/properties/asortimentas/properties/ekologiski"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/veiklos/properties/asortimentas/properties/alkoholiniai"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/veiklos/properties/asortimentas/properties/kanapiu"
+              "scope": "#/properties/veiklos/properties/transporto-priemones",
+              "options": {
+                "display": "addMore",
+                "addLabel": "Pridėti transporto priemonę",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/marke"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/valstybinis-nr"
+                    }
+                  ]
+                }
+              }
             }
           ]
         },
         {
           "type": "Group",
-          "label": "Savikontrolės sistema",
+          "label": "Gyvūnų skaičius",
           "elements": [
             {
-              "type": "Control",
-              "scope": "#/properties/veiklos/properties/savikontroles-sistema",
-              "options": {
-                "display": "multiTreeSelect",
-                "labelFormat": "${name}",
-                "value": "id",
-                "fetchOptionsFrom": "selfControl/getTree"
-              }
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/gyvunu-skaicius"
+                }
+              ]
             }
           ]
         }
@@ -405,20 +422,7 @@
       "elements": [
         {
           "type": "Group",
-          "label": "Maisto tvarkymo patalpų projektas",
-          "description": "Maisto tvarkymo patalpų projektas (planas) su įrenginių išdėstymu (numatytais atvejais)",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/patalpu-projektas",
-              "label": "",
-              "options": { "display": "upload" }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Maisto tvarkymo proceso aprašymas",
+          "label": "Ūkio subjekto patalpų, teritorijos,kuriose numatoma vykdyti veiklą, schema ir technologinio proceso aprašymas",
           "elements": [
             {
               "type": "Control",
@@ -430,12 +434,24 @@
         },
         {
           "type": "Group",
-          "label": "Teisė naudotis maisto tvarkymo vieta",
-          "description": "Dokumento, kuriuo įrodoma teisė naudotis maisto tvarkymo vieta, įskaitant transporto priemones, kuriose numatoma vykdyti su maisto tvarkymu susijusią veiklą, kopija",
+          "label": "Geriamojo vandens kontrolės programa",
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/tvarkymo-vieta",
+              "scope": "#/properties/dokumentai/properties/kontroles-programa",
+              "label": "",
+              "options": { "display": "upload" }
+            }
+          ]
+        },
+
+        {
+          "type": "Group",
+          "label": "Nuotekų surinkimo ir nukenksminimo programa",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/nuoteku-programa",
               "label": "",
               "options": { "display": "upload" }
             }
@@ -443,12 +459,59 @@
         },
         {
           "type": "Group",
-          "label": "Transporto priemonės registracijos liudijimo kopija",
-          "description": "Transporto priemonės registracijos liudijimo kopija (numatytais atvejais)",
+          "label": "Šalutinių gyvūninių produktų tvarkymo programa",
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/registracijos-liudijimas",
+              "scope": "#/properties/dokumentai/properties/gyvuniniu-produktu-tvarkymo-programa",
+              "label": "",
+              "options": { "display": "upload" }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Kenkėjų kontrolės programa",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/kenkeju-kontroles-programa",
+              "label": "",
+              "options": { "display": "upload" }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Valymo, plovimo ir dezinkefavimo programa",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/valymo-programa",
+              "label": "",
+              "options": { "display": "upload" }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Personalo higienos ir profesinio mokymo programa",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/higienos-mokymo-programa",
+              "label": "",
+              "options": { "display": "upload" }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Personalo higienos ir profesinio mokymo programa",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/laboratoriniai-tyrimai",
               "label": "",
               "options": { "display": "upload" }
             }
@@ -466,18 +529,7 @@
             }
           ]
         },
-        {
-          "type": "Group",
-          "label": "Pavedimo kopija",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/pavedimo-kopija",
-              "label": "",
-              "options": { "display": "upload" }
-            }
-          ]
-        },
+
         {
           "type": "Group",
           "label": "Kiti dokumentai",
@@ -512,14 +564,6 @@
           "label": "Sutikimas",
           "description": "Patvirtinimas duomenų patikimumo.",
           "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/isipareigojimas"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/susipazinimas"
-            },
             {
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/sutikimas"

@@ -1,0 +1,16 @@
+{
+  "title": "Valstybinės veterinarinės kontrolės subjektų prašymai",
+  "columns": [
+    {
+      "name": "name",
+      "title": "Vardas",
+      "path": "$.pareiskejas.atsakingas-asmuo.vardas"
+    },
+    {
+      "name": "lastName",
+      "title": "Pavardė",
+      "path": "$.pareiskejas.atsakingas-asmuo.pavarde"
+    }
+  ],
+  "forms": ["create", "remove"]
+}
