@@ -9,7 +9,7 @@
       "label": "Pareiškėjas",
       "elements": [
         {
-          "$ref": "forms/food/uiDefs.json#/definitions/atsakingas-asmuo"
+          "$ref": "forms/animal/uiDefs.json#/definitions/atsakingas-asmuo"
         }
       ]
     },
@@ -59,7 +59,10 @@
                     "props": {
                       "radius": 0.4,
                       "buttonWidth": "15rem",
-                      "variant": "outline"
+                      "variant": "outline",
+                      "selectAllLabel": "Pažymėti visus",
+                      "deselectAllLabel": "Atžymėti visus",
+                      "showSelectAllCount": 6
                     }
                   }
                 },
@@ -71,7 +74,10 @@
                     "props": {
                       "buttonWidth": "15rem",
                       "radius": 0.4,
-                      "variant": "outline"
+                      "variant": "outline",
+                      "selectAllLabel": "Pažymėti visas",
+                      "deselectAllLabel": "Atžymėti visas",
+                      "showSelectAllCount": 4
                     }
                   }
                 }

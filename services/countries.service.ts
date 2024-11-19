@@ -83,6 +83,16 @@ export default class extends moleculer.Service {
     return (await this.findEntities(ctx, { fields: ['id'] })).map((item: Country) => item.id);
   }
 
+  @Action({
+    rest: 'GET /es',
+    auth: RestrictionType.PUBLIC,
+  })
+  async getEsIds(ctx: Context<any>) {
+    return (await this.findEntities(ctx, { fields: ['id'], query: { es: true } })).map(
+      (item: Country) => item.id,
+    );
+  }
+
   @Action()
   async seedDB() {
     await this.seedCsv('salys', ['id', 'name', 'iso', 'search', 'es', 'elpa']);

@@ -8,7 +8,7 @@
       "additionalProperties": false,
       "properties": {
         "atsakingas-asmuo": {
-          "$ref": "forms/food/defs.json#/definitions/atsakingas-asmuo"
+          "$ref": "forms/animal/defs.json#/definitions/atsakingas-asmuo"
         }
       },
       "required": ["atsakingas-asmuo"],
@@ -402,11 +402,9 @@
         "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų embrionų surinkimo",
         "Naminių paukščių laikymas",
         "Viščiukų broilerių, kalakutų ir kitų naminių paukščių laikymas su tikslu paskersti žmonių maistui",
-        "Gyvūnų vežimas",
         "Ūkinių gyvūnų, ketinamų eksportuoti į trečiąsias šalis karantinavimas",
         "Gyvūnų",
         "Žuvų veisimas",
-        "Gyvūnų vežimas",
         "Dedeklinių vištaičių auginimas iki dėslumo periodo pradžios",
         "Eržilų spermos, embrionų ir oocitų surinkimas ir arba laikymas",
         "Šunų, kačių ir šeškų surinkimas toliau išvežti juos į kitas ES valstybes",
