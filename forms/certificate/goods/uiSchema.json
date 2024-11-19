@@ -151,7 +151,35 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/pkp-out"
+                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/pkp-out",
+                  "rule": {
+                    "effect": "HIDE",
+                    "condition": {
+                      "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis",
+                      "schema": {
+                        "const": "LTU"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/pkp-out",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis",
+                      "schema": {
+                        "const": "LTU"
+                      }
+                    }
+                  },
+                  "options": {
+                    "display": "customEnum",
+                    "labelFormat": "${name}",
+                    "value": "name",
+                    "fetchOptionsFrom": "pkp"
+                  }
                 }
               ]
             },
@@ -177,13 +205,70 @@
                             "fetchOptionsFrom": "countries/getCountries"
                           }
                         },
+
                         {
                           "type": "Control",
-                          "scope": "#/properties/pkp"
+                          "scope": "#/properties/pkp",
+                          "rule": {
+                            "effect": "HIDE",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          }
                         },
                         {
                           "type": "Control",
-                          "scope": "#/properties/pkp-out"
+                          "scope": "#/properties/pkp",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          },
+                          "options": {
+                            "display": "customEnum",
+                            "labelFormat": "${name}",
+                            "value": "name",
+                            "fetchOptionsFrom": "pkp"
+                          }
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/pkp-out",
+                          "rule": {
+                            "effect": "HIDE",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/pkp-out",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          },
+                          "options": {
+                            "display": "customEnum",
+                            "labelFormat": "${name}",
+                            "value": "name",
+                            "fetchOptionsFrom": "pkp"
+                          }
                         }
                       ]
                     }
@@ -207,7 +292,35 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/pkp"
+                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/pkp",
+                  "rule": {
+                    "effect": "HIDE",
+                    "condition": {
+                      "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
+                      "schema": {
+                        "const": "LTU"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/pkp",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
+                      "schema": {
+                        "const": "LTU"
+                      }
+                    }
+                  },
+                  "options": {
+                    "display": "customEnum",
+                    "labelFormat": "${name}",
+                    "value": "name",
+                    "fetchOptionsFrom": "pkp"
+                  }
                 }
               ]
             }
