@@ -151,7 +151,35 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/pkp-out"
+                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/pkp-out",
+                  "rule": {
+                    "effect": "HIDE",
+                    "condition": {
+                      "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis",
+                      "schema": {
+                        "const": "LTU"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/pkp-out",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis",
+                      "schema": {
+                        "const": "LTU"
+                      }
+                    }
+                  },
+                  "options": {
+                    "display": "customEnum",
+                    "labelFormat": "${name}",
+                    "value": "name",
+                    "fetchOptionsFrom": "pkp"
+                  }
                 }
               ]
             },
@@ -179,11 +207,67 @@
                         },
                         {
                           "type": "Control",
-                          "scope": "#/properties/pkp"
+                          "scope": "#/properties/pkp",
+                          "rule": {
+                            "effect": "HIDE",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          }
                         },
                         {
                           "type": "Control",
-                          "scope": "#/properties/pkp-out"
+                          "scope": "#/properties/pkp",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          },
+                          "options": {
+                            "display": "customEnum",
+                            "labelFormat": "${name}",
+                            "value": "name",
+                            "fetchOptionsFrom": "pkp"
+                          }
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/pkp-out",
+                          "rule": {
+                            "effect": "HIDE",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/pkp-out",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          },
+                          "options": {
+                            "display": "customEnum",
+                            "labelFormat": "${name}",
+                            "value": "name",
+                            "fetchOptionsFrom": "pkp"
+                          }
                         },
                         {
                           "type": "Control",
@@ -215,7 +299,35 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/pkp"
+                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/pkp",
+                  "rule": {
+                    "effect": "HIDE",
+                    "condition": {
+                      "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
+                      "schema": {
+                        "const": "LTU"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/pkp",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
+                      "schema": {
+                        "const": "LTU"
+                      }
+                    }
+                  },
+                  "options": {
+                    "display": "customEnum",
+                    "labelFormat": "${name}",
+                    "value": "name",
+                    "fetchOptionsFrom": "pkp"
+                  }
                 }
               ]
             }
@@ -352,7 +464,7 @@
             }
           ],
           "label": "Transporto priemonės",
-          "description": "Transporto priemonės, naudojamos produktų gabenimui.\nNurodyti planuojamas naudoti plombas. Esant nuotolinio sertifikavimo atvejui pateiktas (-i) plombos (-ų) numeris (-iai) bus nurodytas (-i) eksporto veterinarijos sertifikate."
+          "description": "Šios informacijos neprivaloma pateikti, kai prašoma išduoti veterinarijos sertifikatą gyvūnams augintiniams, vežamiems nekomerciniais tikslais, kai gyvūno augintinio savininkas kartu vežasi ne daugiau kaip 5 gyvūnus augintinius, kurių nuosavybės teisės nebus niekaip perleidžiamos kitiems asmenims, arba savininkui negalint vežtis kartu juos veža jo įgaliotas asmuo."
         },
         {
           "type": "Group",

@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "atsakingas-asmuo": {
+    "atsakingas-asmuo-evv": {
       "type": "Group",
       "label": "Atsakingojo / įgaliotojo asmens kontaktiniai duomenys",
       "elements": [

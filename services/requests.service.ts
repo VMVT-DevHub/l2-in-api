@@ -224,11 +224,12 @@ export default class extends moleculer.Service {
     const editingPermissions = this.hasPermissionToEdit(entity, user, profile);
 
     if (editingPermissions.edit) {
-      // TODO: disable other statuses to be converted to drafts
-      return (
-        [RequestStatus.SUBMITTED, RequestStatus.CREATED, RequestStatus.DRAFT].includes(value) ||
-        error
-      );
+      const validTransitions: { [key: string]: RequestStatus[] } = {
+        [RequestStatus.DRAFT]: [RequestStatus.DRAFT, RequestStatus.CREATED],
+        [RequestStatus.RETURNED]: [RequestStatus.SUBMITTED],
+      };
+
+      return validTransitions?.[entity?.status]?.includes(value) || error;
     } else if (editingPermissions.validate) {
       return (
         [RequestStatus.REJECTED, RequestStatus.RETURNED, RequestStatus.APPROVED].includes(value) ||

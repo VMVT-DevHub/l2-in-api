@@ -1,0 +1,201 @@
+{
+  "definitions": {
+    "asmens-tipas": {
+      "title": "Asmens tipas",
+      "type": "string",
+      "enum": ["Juridinis asmuo", "Fizinis asmuo"],
+      "default": "Juridinis asmuo"
+    },
+    "imones-pavadinimas": {
+      "title": "Ūkio subjekto pavadinimas",
+      "type": "string"
+    },
+    "imones-kodas": {
+      "title": "Juridinio asmens kodas",
+      "type": "string",
+      "pattern": "\\d{9}",
+      "errorMessage": {
+        "pattern": "Juridinio asmens kodas turi būti galiojantis"
+      }
+    },
+    "vardas-pavarde": {
+      "title": "Vardas, pavardė",
+      "type": "string"
+    },
+    "asmens-kodas": {
+      "title": "Asmens kodas",
+      "type": "string",
+      "pattern": "[0-9]{11}",
+      "errorMessage": {
+        "pattern": "Asmens kodas turi būti galiojantis"
+      }
+    },
+    "asmuo-be-kodo": {
+      "type": "object",
+      "required": ["tipas"],
+      "default": {},
+      "if": { "properties": { "tipas": { "const": "Fizinis asmuo" } } },
+      "then": {
+        "required": ["vardas-pavarde"],
+        "errorMessage": {
+          "required": {
+            "vardas-pavarde": "Vardas ir pavardė yra privalomi."
+          }
+        }
+      },
+      "else": {
+        "required": ["imones-pavadinimas"],
+        "errorMessage": {
+          "required": {
+            "imones-pavadinimas": "Įmonės pavadinimas privalomas."
+          }
+        }
+      },
+      "properties": {
+        "tipas": {
+          "$ref": "#/definitions/asmens-tipas"
+        },
+        "imones-pavadinimas": {
+          "$ref": "#/definitions/imones-pavadinimas"
+        },
+        "vardas-pavarde": {
+          "$ref": "#/definitions/vardas-pavarde"
+        }
+      }
+    },
+    "asmuo-su-kodu-validacija": {
+      "if": { "properties": { "tipas": { "const": "Fizinis asmuo" } } },
+      "then": {
+        "required": ["vardas-pavarde", "asmens-kodas"],
+        "errorMessage": {
+          "required": {
+            "vardas-pavarde": "Vardas ir pavardė yra privalomi.",
+            "asmens-kodas": "Asmens kodas privalomas."
+          }
+        }
+      },
+      "else": {
+        "required": ["imones-pavadinimas", "imones-kodas"],
+        "errorMessage": {
+          "required": {
+            "imones-pavadinimas": "Įmonės pavadinimas privalomas.",
+            "imones-kodas": "Įmonės kodas privalomas."
+          }
+        }
+      }
+    },
+    "asmuo-su-kodu-be-validacijos": {
+      "type": "object",
+      "default": {},
+      "required": ["tipas"],
+      "properties": {
+        "tipas": {
+          "$ref": "#/definitions/asmens-tipas"
+        },
+        "imones-pavadinimas": {
+          "$ref": "#/definitions/imones-pavadinimas"
+        },
+        "vardas-pavarde": {
+          "$ref": "#/definitions/vardas-pavarde"
+        },
+        "imones-kodas": {
+          "$ref": "#/definitions/imones-kodas"
+        },
+        "asmens-kodas": {
+          "$ref": "#/definitions/asmens-kodas"
+        }
+      }
+    },
+    "asmuo-su-kodu": {
+      "default": {},
+      "allOf": [
+        {
+          "$ref": "#/definitions/asmuo-su-kodu-validacija"
+        },
+        {
+          "$ref": "#/definitions/asmuo-su-kodu-be-validacijos"
+        }
+      ]
+    },
+    "dokumentas": {
+      "type": "object",
+      "required": ["url"],
+      "errorMessage": {
+        "required": {
+          "url": "Failas privalomas."
+        }
+      },
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "url"
+        },
+        "name": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        }
+      }
+    },
+    "telefono-nr": {
+      "title": "Telefono nr.",
+      "type": "string",
+      "pattern": "^\\+?[\\d\\s\\-\\(\\)]{8,15}$",
+      "errorMessage": {
+        "pattern": "Telefono numeris turi būti galiojantis"
+      }
+    },
+    "el-pastas": {
+      "title": "El. paštas",
+      "type": "string",
+      "format": "email",
+      "maxLength": 254,
+      "errorMessage": {
+        "format": "El. paštas turi būti galiojantis",
+        "maxLength": "El. paštas negali būti ilgesnis nei 254 simboliai."
+      }
+    },
+    "atsakingas-asmuo-evv": {
+      "title": "Atsakingas asmuo",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "vardas": {
+          "title": "Vardas",
+          "type": "string",
+          "readOnly": true
+        },
+        "pavarde": {
+          "title": "Pavardė",
+          "type": "string",
+          "readOnly": true
+        },
+        "pareigos": {
+          "title": "Pareigos",
+          "type": "string",
+          "maxLength": 100,
+          "errorMessage": {
+            "maxLength": "Pareigos negali būti ilgesnės nei 100 simbolių."
+          }
+        },
+        "telefono-nr": {
+          "$ref": "#/definitions/telefono-nr"
+        },
+        "el-pastas": {
+          "$ref": "#/definitions/el-pastas"
+        }
+      },
+      "required": ["vardas", "pavarde", "pareigos", "telefono-nr", "el-pastas"],
+      "errorMessage": {
+        "required": {
+          "vardas": "Atsakingas asmuo: Vardas privalomas.",
+          "pavarde": "Atsakingas asmuo: Pavardė yra privaloma.",
+          "pareigos": "Atsakingas asmuo: Pareigos yra privalomos.",
+          "telefono-nr": "Atsakingas asmuo: Telefono numeris privalomas.",
+          "el-pastas": "Atsakingas asmuo: El. paštas privalomas."
+        }
+      }
+    }
+  }
+}

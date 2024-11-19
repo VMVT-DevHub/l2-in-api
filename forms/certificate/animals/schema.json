@@ -10,7 +10,7 @@
       "default": {},
       "properties": {
         "asmuo": {
-          "$ref": "#/definitions/asmuo-su-kodu"
+          "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu"
         },
         "adresas": {
           "$ref": "#/definitions/adresas"
@@ -38,11 +38,10 @@
       "additionalProperties": false,
       "default": {},
       "validateEuTransit": true,
-      "required": ["eksportuojanti-salis", "tranzitines-salys", "importuojanti-salis"],
+      "required": ["eksportuojanti-salis", "importuojanti-salis"],
       "errorMessage": {
         "required": {
           "eksportuojanti-salis": "Maršrutas: Eksportuojanti šalis turi būti nurodyta.",
-          "tranzitines-salys": "Maršrutas: Tranzitinės šalys turi būti pateiktos.",
           "importuojanti-salis": "Maršrutas: Importuojanti šalis turi būti nurodyta."
         }
       },
@@ -135,6 +134,7 @@
       "type": "object",
       "title": "Vežėjo kontaktinė informacija",
       "additionalProperties": false,
+      "default": {},
       "required": [
         "asmuo",
         "adresas",
@@ -153,7 +153,7 @@
       },
       "properties": {
         "asmuo": {
-          "$ref": "#/definitions/asmuo-su-kodu"
+          "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu"
         },
         "adresas": {
           "$ref": "#/definitions/adresas"
@@ -262,6 +262,7 @@
     "pakrovimo-vieta": {
       "type": "object",
       "additionalProperties": false,
+      "default": {},
       "required": [
         "atvykimo-data",
         "atvykimo-laikas",
@@ -286,7 +287,7 @@
       },
       "properties": {
         "asmuo": {
-          "$ref": "#/definitions/asmuo-su-kodu"
+          "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu"
         },
         "adresas": {
           "$ref": "#/definitions/adresas"
@@ -395,7 +396,7 @@
       "default": {},
       "properties": {
         "asmuo": {
-          "$ref": "#/definitions/asmuo-be-kodo"
+          "$ref": "forms/global/defs.json#/definitions/asmuo-be-kodo"
         },
         "adresas": {
           "$ref": "#/definitions/adresas"
@@ -406,7 +407,7 @@
           "default": {},
           "properties": {
             "asmuo": {
-              "$ref": "#/definitions/asmuo-be-kodo"
+              "$ref": "forms/global/defs.json#/definitions/asmuo-be-kodo"
             },
             "adresas": {
               "$ref": "#/definitions/adresas"
@@ -436,21 +437,21 @@
       "additionalProperties": false,
       "properties": {
         "apmokejimas": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "marsruto-planas": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "uzkreciamuju-ligu-tyrimo-protokolas": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "saskaita-faktura": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "papildomi-dokumentai": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/dokumentas"
+            "$ref": "forms/global/defs.json#/definitions/dokumentas"
           }
         },
         "papildoma-informacija": {
@@ -480,97 +481,13 @@
     }
   },
   "definitions": {
-    "asmens-tipas": {
-      "title": "Asmens tipas",
-      "type": "string",
-      "enum": ["Juridinis asmuo", "Fizinis asmuo"],
-      "default": "Juridinis asmuo"
-    },
-    "asmuo-be-kodo": {
-      "type": "object",
-      "required": ["tipas"],
-      "default": {},
-      "if": { "properties": { "tipas": { "const": "Fizinis asmuo" } } },
-      "then": {
-        "required": ["vardas-pavarde"],
-        "errorMessage": {
-          "required": {
-            "vardas-pavarde": "Vardas ir pavardė yra privalomi."
-          }
-        }
-      },
-      "else": {
-        "required": ["imones-pavadinimas"],
-        "errorMessage": {
-          "required": {
-            "imones-pavadinimas": "Įmonės pavadinimas privalomas."
-          }
-        }
-      },
-      "properties": {
-        "tipas": {
-          "$ref": "#/definitions/asmens-tipas"
-        },
-        "imones-pavadinimas": {
-          "$ref": "#/definitions/imones-pavadinimas"
-        },
-        "vardas-pavarde": {
-          "$ref": "#/definitions/vardas-pavarde"
-        }
-      }
-    },
-    "asmuo-su-kodu": {
-      "type": "object",
-      "required": ["tipas"],
-      "default": {},
-      "if": {
-        "properties": {
-          "tipas": { "const": "Fizinis asmuo" }
-        }
-      },
-      "then": {
-        "required": ["vardas-pavarde", "asmens-kodas"],
-        "errorMessage": {
-          "required": {
-            "vardas-pavarde": "Vardas ir pavardė yra privalomi.",
-            "asmens-kodas": "Asmens kodas privalomas."
-          }
-        }
-      },
-      "else": {
-        "required": ["imones-pavadinimas", "imones-kodas"],
-        "errorMessage": {
-          "required": {
-            "imones-pavadinimas": "Įmonės pavadinimas privalomas.",
-            "imones-kodas": "Įmonės kodas privalomas."
-          }
-        }
-      },
-      "properties": {
-        "tipas": {
-          "$ref": "#/definitions/asmens-tipas"
-        },
-        "imones-pavadinimas": {
-          "$ref": "#/definitions/imones-pavadinimas"
-        },
-        "vardas-pavarde": {
-          "$ref": "#/definitions/vardas-pavarde"
-        },
-        "imones-kodas": {
-          "$ref": "#/definitions/imones-kodas"
-        },
-        "asmens-kodas": {
-          "$ref": "#/definitions/asmens-kodas"
-        }
-      }
-    },
     "atsakingas-asmuo": {
       "title": "Atsakingas asmuo",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "vardas-pavarde": {
-          "$ref": "#/definitions/vardas-pavarde"
+          "$ref": "forms/global/defs.json#/definitions/vardas-pavarde"
         },
         "pareigos": {
           "title": "Pareigos",
@@ -581,22 +498,10 @@
           }
         },
         "telefono-nr": {
-          "title": "Telefono nr.",
-          "type": "string",
-          "pattern": "^\\+?[\\d\\s\\-\\(\\)]{8,15}$",
-          "errorMessage": {
-            "pattern": "Telefono numeris turi būti galiojantis"
-          }
+          "$ref": "forms/global/defs.json#/definitions/telefono-nr"
         },
         "el-pastas": {
-          "title": "El. paštas",
-          "type": "string",
-          "format": "email",
-          "maxLength": 254,
-          "errorMessage": {
-            "format": "El. paštas turi būti galiojantis",
-            "maxLength": "El. paštas negali būti ilgesnis nei 254 simboliai."
-          }
+          "$ref": "forms/global/defs.json#/definitions/el-pastas"
         }
       },
       "required": ["vardas-pavarde", "pareigos", "telefono-nr", "el-pastas"],
@@ -642,51 +547,6 @@
     "data": {
       "type": "string",
       "format": "date"
-    },
-    "imones-pavadinimas": {
-      "title": "Ūkio subjekto pavadinimas",
-      "type": "string"
-    },
-    "vardas-pavarde": {
-      "title": "Vardas, pavardė",
-      "type": "string"
-    },
-    "imones-kodas": {
-      "title": "Juridinio asmens kodas",
-      "type": "string",
-      "pattern": "^[0-9]{9}",
-      "errorMessage": {
-        "pattern": "Juridinio asmens kodas turi būti galiojantis"
-      }
-    },
-    "asmens-kodas": {
-      "title": "Asmens kodas",
-      "type": "string",
-      "pattern": "^[0-9]{11}",
-      "errorMessage": {
-        "pattern": "Asmens kodas turi būti galiojantis"
-      }
-    },
-    "dokumentas": {
-      "type": "object",
-      "required": ["url"],
-      "errorMessage": {
-        "required": {
-          "url": "Failas privalomas."
-        }
-      },
-      "properties": {
-        "url": {
-          "type": "string",
-          "format": "url"
-        },
-        "name": {
-          "type": "string"
-        },
-        "size": {
-          "type": "number"
-        }
-      }
     },
     "salis": {
       "type": "string",

@@ -8,7 +8,7 @@
       "additionalProperties": false,
       "properties": {
         "atsakingas-asmuo": {
-          "$ref": "forms/animal/defs.json#/definitions/atsakingas-asmuo"
+          "$ref": "forms/global/defs.json#/definitions/atsakingas-asmuo-evv"
         }
       },
       "required": ["atsakingas-asmuo"],
@@ -348,36 +348,36 @@
       "additionalProperties": false,
       "properties": {
         "proceso-aprasymas": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "kontroles-programa": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "nuoteku-programa": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "gyvuniniu-produktu-tvarkymo-programa": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "kenkeju-kontroles-programa": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "valymo-programa": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "higienos-mokymo-programa": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "laboratoriniai-tyrimai": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "rinkliava": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "papildomi-dokumentai": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/dokumentas"
+            "$ref": "forms/global/defs.json#/definitions/dokumentas"
           }
         },
         "papildoma-informacija": {

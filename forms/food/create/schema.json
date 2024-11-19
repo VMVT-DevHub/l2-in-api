@@ -8,7 +8,7 @@
       "additionalProperties": false,
       "properties": {
         "atsakingas-asmuo": {
-          "$ref": "forms/food/defs.json#/definitions/atsakingas-asmuo"
+          "$ref": "forms/global/defs.json#/definitions/atsakingas-asmuo-evv"
         }
       },
       "required": ["atsakingas-asmuo"],
@@ -394,27 +394,27 @@
       "additionalProperties": false,
       "properties": {
         "patalpu-projektas": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "proceso-aprasymas": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "tvarkymo-vieta": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "registracijos-liudijimas": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "rinkliava": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "pavedimo-kopija": {
-          "$ref": "#/definitions/dokumentas"
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "papildomi-dokumentai": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/dokumentas"
+            "$ref": "forms/global/defs.json#/definitions/dokumentas"
           }
         },
         "papildoma-informacija": {

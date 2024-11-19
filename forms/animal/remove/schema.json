@@ -8,7 +8,7 @@
       "additionalProperties": false,
       "properties": {
         "atsakingas-asmuo": {
-          "$ref": "forms/animal/defs.json#/definitions/atsakingas-asmuo"
+          "$ref": "forms/global/defs.json#/definitions/atsakingas-asmuo-evv"
         }
       },
       "required": ["atsakingas-asmuo"],
