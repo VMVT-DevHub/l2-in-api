@@ -9,7 +9,7 @@
       "label": "Pareiškėjas",
       "elements": [
         {
-          "$ref": "forms/animal/uiDefs.json#/definitions/atsakingas-asmuo"
+          "$ref": "forms/global/uiDefs.json#/definitions/atsakingas-asmuo-evv"
         }
       ]
     },
