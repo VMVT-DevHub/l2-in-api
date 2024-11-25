@@ -230,11 +230,20 @@
           "properties": {
             "platuma": {
               "type": "number",
-              "title": "Platuma"
+              "title": "Platuma",
+              "format": "double"
             },
             "ilguma": {
               "type": "number",
-              "title": "Ilguma"
+              "title": "Ilguma",
+              "format": "double"
+            }
+          },
+          "required": ["platuma", "ilguma"],
+          "errorMessage": {
+            "required": {
+              "ilguma": "Koordinatės: Ilguma yra privaloma.",
+              "platuma": "Koordinatės: Platuma yra privaloma."
             }
           }
         },
@@ -266,14 +275,13 @@
           }
         }
       },
-      "required": ["duomenys", "adresas", "darbo-laikas", "elektronine-prekyba", "gamybos-apimtys"],
+      "required": ["duomenys", "adresas", "darbo-laikas", "elektronine-prekyba"],
       "errorMessage": {
         "required": {
           "duomenys": "Subjektas: Duomenys yra privalomi.",
           "adresas": "Subjektas: Adresas privalomas.",
           "darbo-laikas": "Subjektas: Darbo laikas privalomas.",
-          "elektronine-prekyba": "Subjektas: Elektroninė prekyba yra privaloma.",
-          "gamybos-apimtys": "Subjektas: Gamybos apimtys yra privalomos."
+          "elektronine-prekyba": "Subjektas: Elektroninė prekyba yra privaloma."
         }
       },
       "if": {
