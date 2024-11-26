@@ -297,7 +297,8 @@
           },
           "kiekis": {
             "title": "Kiekis (neto / bruto, kg.)",
-            "type": "number"
+            "type": "number",
+            "format": "double"
           },
           "patvirtinimo-nr": {
             "title": "Patvirtinimo Nr.",

@@ -189,11 +189,11 @@
       "required": ["vardas", "pavarde", "pareigos", "telefono-nr", "el-pastas"],
       "errorMessage": {
         "required": {
-          "vardas": "Atsakingas asmuo: Vardas privalomas.",
-          "pavarde": "Atsakingas asmuo: Pavardė yra privaloma.",
-          "pareigos": "Atsakingas asmuo: Pareigos yra privalomos.",
-          "telefono-nr": "Atsakingas asmuo: Telefono numeris privalomas.",
-          "el-pastas": "Atsakingas asmuo: El. paštas privalomas."
+          "vardas": "Pareiškėjas: Vardas privalomas.",
+          "pavarde": "Pareiškėjas: Pavardė yra privaloma.",
+          "pareigos": "Pareiškėjas: Pareigos yra privalomos.",
+          "telefono-nr": "Pareiškėjas: Telefono numeris privalomas.",
+          "el-pastas": "Pareiškėjas: El. paštas privalomas."
         }
       }
     }

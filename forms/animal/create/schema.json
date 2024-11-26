@@ -74,7 +74,7 @@
             },
             "miestas": {
               "type": "number",
-              "title": "Miestas"
+              "title": "Miestas / Gyvenvietė"
             },
             "gatve": {
               "type": "number",
@@ -100,7 +100,7 @@
           "errorMessage": {
             "required": {
               "savivaldybe": "Subjektas: Savivaldybė yra privaloma.",
-              "miestas": "Subjektas: Miestas privalomas.",
+              "miestas": "Subjektas: Miestas / Gyvenvietė privaloma.",
               "gatve": "Subjektas: Gatvė yra privaloma.",
               "namo-nr": "Subjektas: Namo numeris privalomas.",
               "buto-nr": "Subjektas: Buto numeris privalomas."
@@ -293,7 +293,7 @@
         "required": ["mobilios-patalpos"],
         "errorMessage": {
           "required": {
-            "mobilios-patalpos": "Subjektas: Mobilios patalpos yra privalomos"
+            "mobilios-patalpos": "Subjektas: Patalpų tipas yra privalomas"
           }
         }
       }
@@ -323,7 +323,7 @@
                 "title": "Veiklos kodas"
               },
               "detalizacija": {
-                "type": "number",
+                "type": "string",
                 "title": "Detalizacija"
               }
             }

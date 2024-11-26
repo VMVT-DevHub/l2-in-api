@@ -61,7 +61,7 @@
                       "buttonWidth": "15rem",
                       "variant": "outline",
                       "selectAllLabel": "Pažymėti visus",
-                      "deselectAllLabel": "Atžymėti visus",
+                      "deselectAllLabel": "Panaikinti žymėjimą",
                       "showSelectAllCount": 6
                     }
                   }
@@ -76,7 +76,7 @@
                       "radius": 0.4,
                       "variant": "outline",
                       "selectAllLabel": "Pažymėti visas",
-                      "deselectAllLabel": "Atžymėti visas",
+                      "deselectAllLabel": "Panaikinti žymėjimą",
                       "showSelectAllCount": 4
                     }
                   }
