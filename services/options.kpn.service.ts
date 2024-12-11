@@ -1,6 +1,6 @@
 'use strict';
 import moleculer, { Context } from 'moleculer';
-import { Action, Service } from 'moleculer-decorators';
+import { Action, Method, Service } from 'moleculer-decorators';
 import DbConnection from '../mixins/database.mixin';
 import { CommonPopulates, RestrictionType, Table } from '../types';
 
@@ -25,7 +25,7 @@ export type KPN<
 > = Table<Fields, Populates, P, F>;
 
 @Service({
-  name: 'kpn',
+  name: 'options.kpn',
   mixins: [
     DbConnection({
       collection: 'kpnKodai',
@@ -90,68 +90,19 @@ export default class extends moleculer.Service {
   async getTree(ctx: Context) {
     const result: KPN[] = await this.findEntities(ctx);
 
-    const formatTree = (data: KPN[], depth: number) => {
-      const group: any = {};
-
-      for (const item of data) {
-        const currentId = item[`l${depth}`];
-        if (group[currentId] || !currentId) continue;
-
-        group[currentId] = {
-          id: currentId,
-          name: item[`l${depth}Name`],
-        };
-
-        const children = data.filter(
-          (item: any) => item[`l${depth}`] === currentId && item[`l${depth + 1}`],
-        );
-
-        if (children.length) {
-          group[currentId].disabled = true;
-          group[currentId].children = formatTree(children, depth + 1);
-        }
-      }
-
-      return Object.values(group);
-    };
-
-    return formatTree(result, 1);
+    return this.formatTree(result, 1, true);
   }
 
   @Action({
-    rest: 'GET /parentIds',
+    rest: 'GET /animalsTree',
     auth: RestrictionType.PUBLIC,
   })
-  async getParentIds(ctx: Context) {
-    const result: KPN[] = (await this.findEntities(ctx)).filter(
-      (item: any) => item.l1 == '01000000',
-    );
+  async getAnimalsTree(ctx: Context) {
+    const result: KPN[] = await this.findEntities(ctx);
 
-    const ids = result.map((obj) => obj?.l2);
+    const filteredResults = result.filter((item: any) => item.l1 === '01000000');
 
-    return [...new Set(ids)];
-  }
-
-  @Action({
-    rest: 'GET /parents',
-    auth: RestrictionType.PUBLIC,
-  })
-  async getParents(ctx: Context) {
-    const result: KPN[] = (await this.findEntities(ctx)).filter(
-      (item: any) => item.l1 == '01000000',
-    );
-    const group: any = {};
-
-    for (const item of result) {
-      const currentId = item.l2;
-
-      group[currentId] = {
-        id: item.l2,
-        name: item.l2Name,
-      };
-    }
-
-    return Object.values(group);
+    return this.formatTree(filteredResults, 2, false);
   }
 
   @Action({
@@ -185,6 +136,32 @@ export default class extends moleculer.Service {
     formatFlatIds(result, 1);
 
     return Object.keys(leafMap);
+  }
+
+  @Method
+  formatTree(data: KPN[], depth: number, parentDisable = false) {
+    const group: any = {};
+
+    for (const item of data) {
+      const currentId = item[`l${depth}`];
+      if (group[currentId] || !currentId) continue;
+
+      group[currentId] = {
+        id: currentId,
+        name: item[`l${depth}Name`],
+      };
+
+      const children = data.filter(
+        (item: any) => item[`l${depth}`] === currentId && item[`l${depth + 1}`],
+      );
+
+      if (children.length) {
+        group[currentId].disabled = parentDisable;
+        group[currentId].children = this.formatTree(children, depth + 1, parentDisable);
+      }
+    }
+
+    return Object.values(group);
   }
 
   @Action()

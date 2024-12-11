@@ -135,6 +135,12 @@
         },
         "size": {
           "type": "number"
+        },
+        "requestId": {
+          "type": "number"
+        },
+        "sharepointFileId": {
+          "type": "string"
         }
       }
     },

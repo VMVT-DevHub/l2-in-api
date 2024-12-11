@@ -4,7 +4,7 @@ import { Action, Service } from 'moleculer-decorators';
 import { RestrictionType } from '../types';
 
 @Service({
-  name: 'selfControl',
+  name: 'options.selfControl',
 })
 export default class extends moleculer.Service {
   @Action({

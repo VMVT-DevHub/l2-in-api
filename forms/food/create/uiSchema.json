@@ -392,7 +392,7 @@
                 "display": "multiTreeSelect",
                 "labelFormat": "${name}",
                 "value": "id",
-                "fetchOptionsFrom": "selfControl/getTree"
+                "fetchOptionsFrom": "options/selfControl/tree"
               }
             }
           ]

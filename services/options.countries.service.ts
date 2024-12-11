@@ -21,7 +21,7 @@ export type Country<
 > = Table<Fields, Populates, P, F>;
 
 @Service({
-  name: 'countries',
+  name: 'options.countries',
   mixins: [
     DbConnection({
       collection: 'salys',
@@ -65,16 +65,14 @@ export type Country<
       },
     },
   },
+  actions: {
+    find: {
+      auth: RestrictionType.PUBLIC,
+      rest: 'GET /all',
+    },
+  },
 })
 export default class extends moleculer.Service {
-  @Action({
-    rest: 'GET /',
-    auth: RestrictionType.PUBLIC,
-  })
-  async getCountries(ctx: Context<any>) {
-    return this.findEntities(ctx);
-  }
-
   @Action({
     rest: 'GET /ids',
     auth: RestrictionType.PUBLIC,

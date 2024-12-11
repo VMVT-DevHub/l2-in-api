@@ -27,6 +27,7 @@ export enum RequestStatus {
   APPROVED = 'APPROVED', // patvirtinta
   REJECTED = 'REJECTED', // atmesta
   RETURNED = 'RETURNED', // grazinta taisyti
+  COMPLETED = 'COMPLETED', // isduotas
 }
 
 interface Fields extends CommonFields {
@@ -152,7 +153,9 @@ export default class extends moleculer.Service {
 
     if (
       !request?.id ||
-      [RequestStatus.APPROVED, RequestStatus.REJECTED].includes(request?.status)
+      [RequestStatus.APPROVED, RequestStatus.REJECTED, RequestStatus.COMPLETED].includes(
+        request?.status,
+      )
     ) {
       return invalid;
     }
@@ -184,7 +187,15 @@ export default class extends moleculer.Service {
     const formType = ctx.params?.formType || request?.formType;
 
     // do not validate if Draft, and admin actions
-    if ([RequestStatus.DRAFT, RequestStatus.REJECTED, RequestStatus.RETURNED].includes(status))
+    if (
+      [
+        RequestStatus.DRAFT,
+        RequestStatus.REJECTED,
+        RequestStatus.RETURNED,
+        RequestStatus.COMPLETED,
+        RequestStatus.APPROVED,
+      ].includes(status)
+    )
       return true;
 
     const formSchema: Form = await ctx.call('formTypes.form', { form, formType });
@@ -232,8 +243,12 @@ export default class extends moleculer.Service {
       return validTransitions?.[entity?.status]?.includes(value) || error;
     } else if (editingPermissions.validate) {
       return (
-        [RequestStatus.REJECTED, RequestStatus.RETURNED, RequestStatus.APPROVED].includes(value) ||
-        error
+        [
+          RequestStatus.REJECTED,
+          RequestStatus.RETURNED,
+          RequestStatus.APPROVED,
+          RequestStatus.COMPLETED,
+        ].includes(value) || error
       );
     }
 

@@ -4,14 +4,14 @@ import { Action, Service } from 'moleculer-decorators';
 import { RestrictionType } from '../types';
 
 @Service({
-  name: 'pkp',
+  name: 'options.pkp',
 })
 export default class extends moleculer.Service {
   @Action({
-    rest: 'GET /',
+    rest: 'GET /all',
     auth: RestrictionType.PUBLIC,
   })
-  async getItems() {
+  async find() {
     return [
       { name: 'Kenos PKP' },
       { name: 'Kybartų automobilių kelių PKP' },

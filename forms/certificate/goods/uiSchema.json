@@ -146,7 +146,7 @@
                     "labelFormat": "${name}",
                     "value": "id",
                     "display": "timelineCountryStart",
-                    "fetchOptionsFrom": "countries/getCountries"
+                    "fetchOptionsFrom": "options/countries/all"
                   }
                 },
                 {
@@ -178,7 +178,7 @@
                     "display": "customEnum",
                     "labelFormat": "${name}",
                     "value": "name",
-                    "fetchOptionsFrom": "pkp"
+                    "fetchOptionsFrom": "options/pkp/all"
                   }
                 }
               ]
@@ -202,7 +202,7 @@
                             "labelFormat": "${name}",
                             "value": "id",
                             "display": "timelineCountryStep",
-                            "fetchOptionsFrom": "countries/getCountries"
+                            "fetchOptionsFrom": "options/countries/all"
                           }
                         },
 
@@ -235,7 +235,7 @@
                             "display": "customEnum",
                             "labelFormat": "${name}",
                             "value": "name",
-                            "fetchOptionsFrom": "pkp"
+                            "fetchOptionsFrom": "options/pkp/all"
                           }
                         },
                         {
@@ -267,7 +267,7 @@
                             "display": "customEnum",
                             "labelFormat": "${name}",
                             "value": "name",
-                            "fetchOptionsFrom": "pkp"
+                            "fetchOptionsFrom": "options/pkp/all"
                           }
                         }
                       ]
@@ -287,7 +287,7 @@
                     "labelFormat": "${name}",
                     "value": "id",
                     "display": "timelineCountryEnd",
-                    "fetchOptionsFrom": "countries/getCountries"
+                    "fetchOptionsFrom": "options/countries/all"
                   }
                 },
                 {
@@ -319,7 +319,7 @@
                     "display": "customEnum",
                     "labelFormat": "${name}",
                     "value": "name",
-                    "fetchOptionsFrom": "pkp"
+                    "fetchOptionsFrom": "options/pkp/all"
                   }
                 }
               ]
@@ -435,7 +435,15 @@
                   "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/rusis"
+                      "scope": "#/properties/rusis-id",
+                      "options": {
+                        "labelFormat": "${name}",
+                        "value": "id",
+                        "fetchOptionsFrom": "options/transportTypes/all",
+                        "onChangeSet": {
+                          "rusis": "name"
+                        }
+                      }
                     },
                     {
                       "type": "Control",
@@ -446,9 +454,9 @@
                       "rule": {
                         "effect": "SHOW",
                         "condition": {
-                          "scope": "#/properties/rusis",
+                          "scope": "#/properties/rusis-id",
                           "schema": {
-                            "const": "Kita"
+                            "const": "0"
                           }
                         }
                       }
@@ -482,7 +490,15 @@
                   "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/dalis"
+                      "scope": "#/properties/dalis-id",
+                      "options": {
+                        "labelFormat": "${name}",
+                        "value": "id",
+                        "fetchOptionsFrom": "options/transportParts/all",
+                        "onChangeSet": {
+                          "dalis": "name"
+                        }
+                      }
                     },
                     {
                       "type": "Control",
@@ -493,9 +509,9 @@
                       "rule": {
                         "effect": "SHOW",
                         "condition": {
-                          "scope": "#/properties/dalis",
+                          "scope": "#/properties/dalis-id",
                           "schema": {
-                            "const": "Kita"
+                            "const": "0"
                           }
                         }
                       }
@@ -584,7 +600,7 @@
                                 "display": "treeSelect",
                                 "labelFormat": "${name} - ${id}",
                                 "value": "id",
-                                "fetchOptionsFrom": "kpn/getTree"
+                                "fetchOptionsFrom": "options/kpn/tree"
                               }
                             },
                             {
@@ -702,17 +718,29 @@
                                 "labelFormat": "${name}",
                                 "value": "id",
                                 "display": "countrySelect",
-                                "fetchOptionsFrom": "countries/getCountries"
+                                "fetchOptionsFrom": "options/countries/all",
+                                "onChangeClear": ["gamintojo-pavadinimas", "asmuo"]
                               }
                             },
                             {
                               "type": "Control",
-                              "scope": "#/properties/gamintojo-pavadinimas"
+                              "scope": "#/properties/gamintojo-pavadinimas",
+                              "rule": {
+                                "effect": "SHOW",
+                                "condition": {
+                                  "scope": "#/properties/salis",
+                                  "schema": {
+                                    "not": {
+                                      "const": "LTU"
+                                    }
+                                  }
+                                }
+                              }
                             },
                             {
                               "type": "Control",
-                              "scope": "#/properties/gamintojo-kodas",
-                              "options": { "placeholder": "123456789" },
+                              "options": { "display": "buttonGroup" },
+                              "scope": "#/properties/asmuo/properties/tipas",
                               "rule": {
                                 "effect": "SHOW",
                                 "condition": {
@@ -725,6 +753,68 @@
                             }
                           ]
                         },
+                        {
+                          "type": "HorizontalLayout",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          },
+                          "elements": [
+                            {
+                              "type": "HorizontalLayout",
+                              "rule": {
+                                "effect": "SHOW",
+                                "condition": {
+                                  "scope": "#/properties/asmuo/properties/tipas",
+                                  "schema": {
+                                    "const": "Juridinis asmuo"
+                                  }
+                                }
+                              },
+                              "elements": [
+                                {
+                                  "type": "Control",
+                                  "scope": "#/properties/asmuo/properties/imones-pavadinimas",
+                                  "label": "Prekės gamintojo pavadinimas"
+                                },
+                                {
+                                  "type": "Control",
+                                  "scope": "#/properties/asmuo/properties/imones-kodas",
+                                  "options": { "placeholder": "123456789" }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "HorizontalLayout",
+                              "rule": {
+                                "effect": "SHOW",
+                                "condition": {
+                                  "scope": "#/properties/asmuo/properties/tipas",
+                                  "schema": {
+                                    "const": "Fizinis asmuo"
+                                  }
+                                }
+                              },
+                              "elements": [
+                                {
+                                  "type": "Control",
+                                  "scope": "#/properties/asmuo/properties/vardas-pavarde"
+                                },
+                                {
+                                  "type": "Control",
+                                  "scope": "#/properties/asmuo/properties/asmens-kodas",
+                                  "options": { "placeholder": "12345678900" }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+
                         {
                           "type": "HorizontalLayout",
                           "elements": [
@@ -840,6 +930,17 @@
                 {
                   "type": "Control",
                   "scope": "#/properties/pakrovimo-vieta/properties/adresas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/savivaldybe-id",
+                  "options": {
+                    "display": "boundariesSelect",
+                    "fetchOptionsFromBoundaries": "savivaldybe",
+                    "onChangeSet": {
+                      "savivaldybe": "name"
+                    }
+                  }
                 },
                 {
                   "type": "Control",
@@ -1195,7 +1296,7 @@
                     "labelFormat": "${name}",
                     "value": "id",
                     "display": "countrySelect",
-                    "fetchOptionsFrom": "countries/getCountries"
+                    "fetchOptionsFrom": "options/countries/all"
                   },
                   "rule": {
                     "effect": "DISABLE",

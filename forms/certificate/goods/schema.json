@@ -162,10 +162,14 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-              "rusis": {
+              "rusis-id": {
                 "title": "Transporto priemonės rūšis",
                 "type": "string",
-                "enum": ["Autokelių transporto priemonė", "Traukinys", "Lėktuvas", "Laivas", "Kita"]
+                "fetchEnumFrom": "options.transportTypes.findIds"
+              },
+              "rusis": {
+                "title": "Transporto priemonės rūšis",
+                "type": "string"
               },
               "rusis-kita": {
                 "title": "Nurodykite transporto rūšį",
@@ -176,10 +180,10 @@
                 "type": "string"
               }
             },
-            "required": ["rusis"],
+            "required": ["rusis-id"],
             "errorMessage": {
               "required": {
-                "rusis": "Siunta: Transporto priemonės rūšis yra privaloma."
+                "rusis-id": "Siunta: Transporto priemonės rūšis yra privaloma."
               }
             }
           }
@@ -189,26 +193,21 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["dalis", "plombos-nr"],
+            "required": ["dalis-id", "plombos-nr"],
             "errorMessage": {
               "required": {
-                "dalis": "Siunta: Transporto priemonės dalis yra privaloma."
+                "dalis-id": "Siunta: Transporto priemonės dalis yra privaloma."
               }
             },
             "properties": {
-              "dalis": {
+              "dalis-id": {
                 "title": "Transporto priemonės dalis",
                 "type": "string",
-                "enum": [
-                  "Konteineris",
-                  "Cisterna",
-                  "Vagonas",
-                  "Priekaba",
-                  "Puspriekabė",
-                  "Dėžė",
-                  "Narvas",
-                  "Kita"
-                ]
+                "fetchEnumFrom": "options.transportParts.findIds"
+              },
+              "dalis": {
+                "title": "Transporto priemonės dalis",
+                "type": "string"
               },
               "dalis-kita": {
                 "title": "Nurodykite transporto priemonės dalį",
@@ -236,6 +235,14 @@
         "adresas": {
           "$ref": "#/definitions/adresas"
         },
+        "savivaldybe-id": {
+          "type": "number",
+          "title": "Savivaldybė"
+        },
+        "savivaldybe": {
+          "type": "string",
+          "title": "Savivaldybė"
+        },
         "patvirtinimo-iregistravimo-nr": {
           "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
         },
@@ -246,13 +253,21 @@
           "$ref": "#/definitions/laikas"
         }
       },
-      "required": ["laikas", "data", "patvirtinimo-iregistravimo-nr", "adresas", "asmuo"],
+      "required": [
+        "laikas",
+        "data",
+        "patvirtinimo-iregistravimo-nr",
+        "adresas",
+        "savivaldybe-id",
+        "asmuo"
+      ],
       "errorMessage": {
         "required": {
           "laikas": "Pakrovimo vieta: Laikas privalomas.",
           "data": "Pakrovimo vieta: Data yra privaloma.",
           "patvirtinimo-iregistravimo-nr": "Pakrovimo vieta: Patvirtinimo ar įregistravimo numeris privalomas.",
           "adresas": "Pakrovimo vieta: Adresas privalomas.",
+          "savivaldybe-id": "Pakrovimo vieta: Savivaldybė privaloma.",
           "asmuo": "Pakrovimo vieta: Asmuo privalomas."
         }
       }
@@ -262,11 +277,12 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
+        "default": {},
         "properties": {
           "kpn-kodas": {
             "title": "KPN kodas",
             "type": "string",
-            "fetchEnumFrom": "kpn.getLeafIds"
+            "fetchEnumFrom": "options.kpn.getLeafIds"
           },
           "pavadinimas": {
             "title": "Pavadinimas",
@@ -330,6 +346,9 @@
             "title": "Šalis",
             "$ref": "#/definitions/salis"
           },
+          "asmuo": {
+            "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu"
+          },
           "gamintojo-pavadinimas": {
             "title": "Prekės gamintojo pavadinimas",
             "type": "string"
@@ -379,7 +398,7 @@
             "patvirtinimo-nr": "Prekės: Patvirtinimo numeris privalomas.",
             "laikymo-ir-transportavimo-salygos": "Prekės: Laikymo ir transportavimo sąlygos yra privalomos.",
             "salis": "Prekės: Šalis yra privaloma.",
-            "gamintojo-pavadinimas": "Prekės: Gamintojo pavadinimas privalomas.",
+
             "adresas": "Prekės: Adresas privalomas.",
             "gamintojo-patvirtinimo-iregistravimo-nr": "Prekės: Gamintojo patvirtinimo ar įregistravimo numeris privalomas."
           }
@@ -422,10 +441,11 @@
           }
         },
         "then": {
-          "required": ["sertifikatas"],
+          "required": ["sertifikatas", "gamintojo-pavadinimas"],
           "errorMessage": {
             "required": {
-              "sertifikatas": "Prekės: Sertifikatas privalomas."
+              "sertifikatas": "Prekės: Sertifikatas privalomas.",
+              "gamintojo-pavadinimas": "Prekės: Gamintojo pavadinimas privalomas."
             }
           }
         },
@@ -438,10 +458,18 @@
             }
           },
           "then": {
-            "required": ["gamintojo-kodas"],
+            "required": ["asmuo"],
             "errorMessage": {
               "required": {
-                "gamintojo-kodas": "Prekės: Gamintojo kodas privalomas."
+                "asmuo": "Prekės: Gamintojas privalomas."
+              }
+            }
+          },
+          "else": {
+            "required": ["gamintojo-pavadinimas"],
+            "errorMessage": {
+              "required": {
+                "gamintojo-pavadinimas": "Prekės: Gamintojo pavadinimas privalomas."
               }
             }
           }
@@ -678,7 +706,7 @@
     },
     "salis": {
       "type": "string",
-      "fetchEnumFrom": "countries.getCountryIds"
+      "fetchEnumFrom": "options.countries.getCountryIds"
     }
   }
 }
