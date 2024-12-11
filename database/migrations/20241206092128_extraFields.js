@@ -11,8 +11,8 @@ exports.up = function (knex) {
       table.string('inspectorEmail');
       table.string('assignedId');
     })
-    .raw(`ALTER TYPE "request_status" ADD VALUE 'COMPLETED'`)
-    .raw(`ALTER TYPE "request_history_type" ADD VALUE 'COMPLETED'`);
+    .raw(`ALTER TYPE "${schema}"."request_status" ADD VALUE 'COMPLETED'`)
+    .raw(`ALTER TYPE "${schema}"."request_history_type" ADD VALUE 'COMPLETED'`);
 };
 
 /**
