@@ -1,5 +1,4 @@
 'use strict';
-import { createHash } from 'crypto';
 import Moleculer, { Context, RestSchema } from 'moleculer';
 import { Action, Method, Service } from 'moleculer-decorators';
 import { throwUploadError } from '../types';
@@ -63,17 +62,23 @@ export default class SharePointService extends Moleculer.Service {
   }
 
   @Method
-  async uploadFile(token: string, file: any, name: string, mimeType: string, fileNameHash: string) {
-    const url = `${this.settings.baseUrl}/${process.env.SHARE_POINT_DRIVE_ID}/root:/${process.env.SHARE_POINT_FOLDER}/${fileNameHash}:/content`;
+  async uploadFile(
+    token: string,
+    fileStream: any,
+    mimeType: string,
+    name: string,
+    requestId: string,
+  ) {
+    const uploadUrl = `${this.settings.baseUrl}/${process.env.SHARE_POINT_DRIVE_ID}/root:/${requestId}/${name}:/content`;
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(uploadUrl, {
         method: 'PUT',
         headers: {
           Authorization: token,
           'Content-Type': mimeType,
         },
-        body: file,
+        body: fileStream,
         //@ts-ignore
         duplex: 'half',
       });
@@ -83,9 +88,9 @@ export default class SharePointService extends Moleculer.Service {
       }
 
       const responseData = await response.json();
-      const { size, '@microsoft.graph.downloadUrl': downloadUrl } = responseData;
+      const { id, size, '@microsoft.graph.downloadUrl': url } = responseData;
 
-      return { name, url: downloadUrl, size };
+      return { name, url, size, requestId: Number(requestId), sharepointFileId: id };
     } catch ({}) {
       throwUploadError();
     }
@@ -98,17 +103,19 @@ export default class SharePointService extends Moleculer.Service {
       type: 'multipart',
     },
   })
-  async uploadFiles(ctx: Context<{}, { filename: string; mimetype: string } & UserAuthMeta>) {
+  async uploadFiles(
+    ctx: Context<
+      {},
+      { filename: string; mimetype: string; $multipart: { requestId: string } } & UserAuthMeta
+    >,
+  ) {
     const token = await this.getToken();
     const fileStream = ctx.params;
     const fileName = ctx?.meta?.filename ?? '';
     const mimeType = ctx?.meta?.mimetype ?? '';
-    const timestamp = Date.now().toString();
-    const fileNameHash = createHash('md5')
-      .update(fileName + timestamp)
-      .digest('hex');
+    const requestId = ctx?.meta?.['$multipart']?.requestId ?? '';
 
-    return this.uploadFile(token, fileStream, fileName, mimeType, fileNameHash);
+    return this.uploadFile(token, fileStream, mimeType, fileName, requestId);
   }
 
   created() {

@@ -384,7 +384,7 @@
           "title": "Savikontrolės sistema",
           "items": {
             "type": "number",
-            "fetchEnumFrom": "selfControl.getLeafIds"
+            "fetchEnumFrom": "options.selfControl.getLeafIds"
           }
         }
       }

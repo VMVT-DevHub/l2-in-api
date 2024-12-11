@@ -146,7 +146,7 @@
                     "labelFormat": "${name}",
                     "value": "id",
                     "display": "timelineCountryStart",
-                    "fetchOptionsFrom": "countries/getCountries"
+                    "fetchOptionsFrom": "options/countries/all"
                   }
                 },
                 {
@@ -178,7 +178,7 @@
                     "display": "customEnum",
                     "labelFormat": "${name}",
                     "value": "name",
-                    "fetchOptionsFrom": "pkp"
+                    "fetchOptionsFrom": "options/pkp/all"
                   }
                 }
               ]
@@ -202,7 +202,7 @@
                             "labelFormat": "${name}",
                             "value": "id",
                             "display": "timelineCountryStep",
-                            "fetchOptionsFrom": "countries/getCountries"
+                            "fetchOptionsFrom": "options/countries/all"
                           }
                         },
                         {
@@ -234,7 +234,7 @@
                             "display": "customEnum",
                             "labelFormat": "${name}",
                             "value": "name",
-                            "fetchOptionsFrom": "pkp"
+                            "fetchOptionsFrom": "options/pkp/all"
                           }
                         },
                         {
@@ -266,7 +266,7 @@
                             "display": "customEnum",
                             "labelFormat": "${name}",
                             "value": "name",
-                            "fetchOptionsFrom": "pkp"
+                            "fetchOptionsFrom": "options/pkp/all"
                           }
                         },
                         {
@@ -294,7 +294,7 @@
                     "labelFormat": "${name}",
                     "value": "id",
                     "display": "timelineCountryEnd",
-                    "fetchOptionsFrom": "countries/getCountries"
+                    "fetchOptionsFrom": "options/countries/all"
                   }
                 },
                 {
@@ -326,7 +326,7 @@
                     "display": "customEnum",
                     "labelFormat": "${name}",
                     "value": "name",
-                    "fetchOptionsFrom": "pkp"
+                    "fetchOptionsFrom": "options/pkp/all"
                   }
                 }
               ]
@@ -433,7 +433,15 @@
                   "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/rusis"
+                      "scope": "#/properties/rusis-id",
+                      "options": {
+                        "labelFormat": "${name}",
+                        "value": "id",
+                        "fetchOptionsFrom": "options/transportTypes/all",
+                        "onChangeSet": {
+                          "rusis": "name"
+                        }
+                      }
                     },
                     {
                       "type": "Control",
@@ -444,9 +452,9 @@
                       "rule": {
                         "effect": "SHOW",
                         "condition": {
-                          "scope": "#/properties/rusis",
+                          "scope": "#/properties/rusis-id",
                           "schema": {
-                            "const": "Kita"
+                            "const": "0"
                           }
                         }
                       }
@@ -464,7 +472,7 @@
             }
           ],
           "label": "Transporto priemonės",
-          "description": "Šios informacijos neprivaloma pateikti, kai prašoma išduoti veterinarijos sertifikatą gyvūnams augintiniams, vežamiems nekomerciniais tikslais, kai gyvūno augintinio savininkas kartu vežasi ne daugiau kaip 5 gyvūnus augintinius, kurių nuosavybės teisės nebus niekaip perleidžiamos kitiems asmenims, arba savininkui negalint vežtis kartu juos veža jo įgaliotas asmuo."
+          "description": "Šios informacijos neprivaloma pateikti, kai prašoma išduoti veterinarijos sertifikatą gyvūnams augintiniams, vežamiems nekomerciniais tikslais, kai gyvūno augintinio savininkas kartu vežasi ne daugiau kaip 5 gyvūnus augintinius, kurių nuosavybės teisės nebus niekaip perleidžiamos kitiems asmenims, arba savininkui negalint vežtis kartu juos veža jo įgaliotas asmuo. Kelių transporto priemonės gyvūnams vežti patvirtinimo pažymėjimo numeris taikomas, kai gyvūnai vežami ilgų kelionių (kelionių, trunkančių ilgiau kaip 8 valandas nuo tada, kai pajudėjo pirmasis siuntos gyvūnas) metu."
         },
         {
           "type": "Group",
@@ -479,7 +487,15 @@
                   "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/dalis"
+                      "scope": "#/properties/dalis-id",
+                      "options": {
+                        "labelFormat": "${name}",
+                        "value": "id",
+                        "fetchOptionsFrom": "options/transportParts/all",
+                        "onChangeSet": {
+                          "dalis": "name"
+                        }
+                      }
                     },
                     {
                       "type": "Control",
@@ -490,9 +506,9 @@
                       "rule": {
                         "effect": "SHOW",
                         "condition": {
-                          "scope": "#/properties/dalis",
+                          "scope": "#/properties/dalis-id",
                           "schema": {
-                            "const": "Kita"
+                            "const": "0"
                           }
                         }
                       }
@@ -548,7 +564,7 @@
             }
           ],
           "label": "Vežamų gyvūnų prižiūrėtojas",
-          "description": "Atsakingo už gyvūnų vežimą asmens kompetencijos pažymėjimų² numeriai"
+          "description": "Atsakingo už gyvūnų vežimą asmens kompetencijos pažymėjimų² numeriai. Taikoma, kai vežami naminiai arklinių šeimos gyvūnai, galvijai, avys, ožkos, kiaulės arba naminiai paukščiai."
         }
       ],
       "label": "Vežėjas"
@@ -624,6 +640,17 @@
                 {
                   "type": "Control",
                   "scope": "#/properties/pakrovimo-vieta/properties/adresas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/savivaldybe-id",
+                  "options": {
+                    "display": "boundariesSelect",
+                    "fetchOptionsFromBoundaries": "savivaldybe",
+                    "onChangeSet": {
+                      "savivaldybe": "name"
+                    }
+                  }
                 },
                 {
                   "type": "Control",
@@ -708,7 +735,7 @@
                     },
                     {
                       "label": "KN kodas",
-                      "scope": "#/properties/kodas"
+                      "scope": "#/properties/kodas/properties/reiksme"
                     },
                     {
                       "label": "Gyvūnų skaičius",
@@ -740,9 +767,12 @@
                           "scope": "#/properties/kodas",
                           "label": "Nomenklatūrinis pavadinimas ir kodas",
                           "options": {
+                            "display": "treeSelect",
                             "labelFormat": "${name} - ${id}",
                             "value": "id",
-                            "fetchOptionsFrom": "kpn/getParents"
+                            "parentKey": "tevine-reiksme",
+                            "valueKey": "reiksme",
+                            "fetchOptionsFrom": "options/kpn/animalsTree"
                           }
                         }
                       ]
@@ -766,11 +796,97 @@
                         {
                           "label": "Siuntos paskirtis",
                           "type": "Control",
-                          "scope": "#/properties/siuntos-paskirtis"
+                          "scope": "#/properties/siuntos-paskirtis",
+                          "options": {
+                            "onChangeClear": ["asmuo"]
+                          }
                         },
                         {
                           "type": "Control",
                           "scope": "#/properties/svoris"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "HorizontalLayout",
+                      "elements": [
+                        {
+                          "type": "Control",
+                          "options": { "display": "buttonGroup" },
+                          "scope": "#/properties/asmuo/properties/tipas",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/siuntos-paskirtis",
+                              "schema": {
+                                "const": "Skersti"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "HorizontalLayout",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/siuntos-paskirtis",
+                          "schema": {
+                            "const": "Skersti"
+                          }
+                        }
+                      },
+                      "elements": [
+                        {
+                          "type": "HorizontalLayout",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/asmuo/properties/tipas",
+                              "schema": {
+                                "const": "Juridinis asmuo"
+                              }
+                            }
+                          },
+                          "elements": [
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/asmuo/properties/imones-pavadinimas",
+                              "label": "Gamintojo pavadinimas"
+                            },
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/asmuo/properties/imones-kodas",
+                              "label": "Gamintojo kodas",
+                              "options": { "placeholder": "123456789" }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "HorizontalLayout",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/asmuo/properties/tipas",
+                              "schema": {
+                                "const": "Fizinis asmuo"
+                              }
+                            }
+                          },
+                          "elements": [
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/asmuo/properties/vardas-pavarde",
+                              "label": "Gamintojo vardas, pavardė"
+                            },
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/asmuo/properties/asmens-kodas",
+                              "label": "Gamintojo asmens kodas",
+                              "options": { "placeholder": "12345678900" }
+                            }
+                          ]
                         }
                       ]
                     },
@@ -790,7 +906,7 @@
                           "rule": {
                             "effect": "SHOW",
                             "condition": {
-                              "scope": "#/properties/kodas",
+                              "scope": "#/properties/kodas/properties/tevine-reiksme",
                               "schema": {
                                 "enum": ["01050000", "01060000"]
                               }
@@ -806,7 +922,7 @@
                       "rule": {
                         "effect": "SHOW",
                         "condition": {
-                          "scope": "#/properties/kodas",
+                          "scope": "#/properties/kodas/properties/tevine-reiksme",
                           "schema": {
                             "const": "01050000"
                           }
@@ -830,7 +946,7 @@
                       "rule": {
                         "effect": "SHOW",
                         "condition": {
-                          "scope": "#/properties/kodas",
+                          "scope": "#/properties/kodas/properties/tevine-reiksme",
                           "schema": {
                             "enum": ["01010000", "01020000", "01040000", "01060000"]
                           }
@@ -984,7 +1100,7 @@
                     "labelFormat": "${name}",
                     "value": "id",
                     "display": "countrySelect",
-                    "fetchOptionsFrom": "countries/getCountries"
+                    "fetchOptionsFrom": "options/countries/all"
                   }
                 },
                 {

@@ -166,17 +166,21 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["rusis"],
+            "required": ["rusis-id"],
             "errorMessage": {
               "required": {
-                "rusis": "Vežėjas: Transporto rūšis yra privaloma."
+                "rusis-id": "Vežėjas: Transporto rūšis yra privaloma."
               }
             },
             "properties": {
-              "rusis": {
+              "rusis-id": {
                 "title": "Transporto priemonės rūšis",
                 "type": "string",
-                "enum": ["Autokelių transporto priemonė", "Traukinys", "Lėktuvas", "Laivas", "Kita"]
+                "fetchEnumFrom": "options.transportTypes.findIds"
+              },
+              "rusis": {
+                "title": "Transporto priemonės rūšis",
+                "type": "string"
               },
               "rusis-kita": {
                 "title": "Nurodykite transporto rūšį",
@@ -194,26 +198,21 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["dalis"],
+            "required": ["dalis-id"],
             "errorMessage": {
               "required": {
-                "dalis": "Vežėjas: Transporto priemonės dalis yra privaloma."
+                "dalis-id": "Vežėjas: Transporto priemonės dalis yra privaloma."
               }
             },
             "properties": {
-              "dalis": {
+              "dalis-id": {
                 "title": "Transporto priemonės dalis",
                 "type": "string",
-                "enum": [
-                  "Konteineris",
-                  "Cisterna",
-                  "Vagonas",
-                  "Priekaba",
-                  "Puspriekabė",
-                  "Dėžė",
-                  "Narvas",
-                  "Kita"
-                ]
+                "fetchEnumFrom": "options.transportParts.findIds"
+              },
+              "dalis": {
+                "title": "Transporto priemonės dalis",
+                "type": "string"
               },
               "dalis-kita": {
                 "title": "Nurodykite transporto priemonės dalį",
@@ -271,6 +270,7 @@
         "pakrovimo-data",
         "patvirtinimo-iregistravimo-nr",
         "adresas",
+        "savivaldybe-id",
         "asmuo"
       ],
       "errorMessage": {
@@ -282,6 +282,7 @@
           "pakrovimo-data": "Pakrovimo vieta: Pakrovimo data yra privaloma.",
           "patvirtinimo-iregistravimo-nr": "Pakrovimo vieta: Patvirtinimo ir registravimo numeris privalomas.",
           "adresas": "Pakrovimo vieta: Adresas privalomas.",
+          "savivaldybe-id": "Pakrovimo vieta: Savivaldybė privaloma.",
           "asmuo": "Pakrovimo vieta: Asmuo su kodu privalomas."
         }
       },
@@ -291,6 +292,14 @@
         },
         "adresas": {
           "$ref": "#/definitions/adresas"
+        },
+        "savivaldybe-id": {
+          "type": "number",
+          "title": "Savivaldybė"
+        },
+        "savivaldybe": {
+          "type": "string",
+          "title": "Savivaldybė"
         },
         "patvirtinimo-iregistravimo-nr": {
           "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
@@ -340,6 +349,22 @@
             "atpazinimo-priemone": "Atpažinimo priemonė yra privaloma."
           }
         },
+
+        "if": {
+          "properties": {
+            "siuntos-paskirtis": {
+              "enum": ["Skersti"]
+            }
+          }
+        },
+        "then": {
+          "required": ["asmuo"],
+          "errorMessage": {
+            "required": {
+              "asmuo": "Gamintojas privalomas."
+            }
+          }
+        },
         "properties": {
           "kodas": {
             "title": "Nomenklatūrinis pavadinimas ir kodas",
@@ -356,6 +381,9 @@
           "siuntos-paskirtis": {
             "title": "Siuntos paskirtis",
             "$ref": "#/definitions/gyvuno-siuntos-paskirtis"
+          },
+          "asmuo": {
+            "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu"
           },
           "svoris": {
             "type": "number",
@@ -519,13 +547,22 @@
       "type": "string"
     },
     "gyvuno-kodas": {
-      "type": "string",
-      "fetchEnumFrom": "kpn.getParentIds"
+      "type": "object",
+      "properties": {
+        "tevine-reiksme": {
+          "type": "string"
+        },
+        "reiksme": {
+          "type": "string"
+        }
+      }
     },
+
     "gyvuno-atpazinimo-priemone": {
       "type": "string",
       "enum": ["Ausų įsagos", "Mikroschema", "Pasas", "Bandos numeris", "Tatuiruotė"]
     },
+
     "gyvuno-siuntos-paskirtis": {
       "type": "string",
       "enum": [
@@ -550,7 +587,7 @@
     },
     "salis": {
       "type": "string",
-      "fetchEnumFrom": "countries.getCountryIds"
+      "fetchEnumFrom": "options.countries.getCountryIds"
     }
   }
 }

@@ -22,6 +22,7 @@ export enum RequestHistoryTypes {
   RETURNED = 'RETURNED',
   APPROVED = 'APPROVED',
   DELETED = 'DELETED',
+  COMPLETED = 'COMPLETED',
 }
 
 interface Fields extends CommonFields {
@@ -105,6 +106,7 @@ export default class extends moleculer.Service {
         [RequestStatus.REJECTED]: RequestHistoryTypes.REJECTED,
         [RequestStatus.RETURNED]: RequestHistoryTypes.RETURNED,
         [RequestStatus.APPROVED]: RequestHistoryTypes.APPROVED,
+        [RequestStatus.COMPLETED]: RequestHistoryTypes.COMPLETED,
       };
 
       await this.createRequestHistory(ctx, data, typesByStatus[data.status]);
