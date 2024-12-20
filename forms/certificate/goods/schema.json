@@ -277,7 +277,9 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "default": {},
+        "default": {
+          "asmuo": null
+        },
         "properties": {
           "kpn-kodas": {
             "title": "KPN kodas",

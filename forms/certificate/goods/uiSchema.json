@@ -18,7 +18,15 @@
               "elements": [
                 {
                   "type": "Control",
-                  "options": { "display": "buttonGroup" },
+                  "options": {
+                    "display": "buttonGroup",
+                    "onChangeClear": [
+                      "vardas-pavarde",
+                      "asmens-kodas",
+                      "imones-kodas",
+                      "imones-pavadinimas"
+                    ]
+                  },
                   "scope": "#/properties/siuntejas/properties/asmuo/properties/tipas"
                 }
               ]
@@ -345,7 +353,15 @@
               "elements": [
                 {
                   "type": "Control",
-                  "options": { "display": "buttonGroup" },
+                  "options": {
+                    "display": "buttonGroup",
+                    "onChangeClear": [
+                      "vardas-pavarde",
+                      "asmens-kodas",
+                      "imones-kodas",
+                      "imones-pavadinimas"
+                    ]
+                  },
                   "scope": "#/properties/siunta/properties/asmuo/properties/tipas"
                 }
               ]
@@ -739,7 +755,15 @@
                             },
                             {
                               "type": "Control",
-                              "options": { "display": "buttonGroup" },
+                              "options": {
+                                "display": "buttonGroup",
+                                "onChangeClear": [
+                                  "vardas-pavarde",
+                                  "asmens-kodas",
+                                  "imones-kodas",
+                                  "imones-pavadinimas"
+                                ]
+                              },
                               "scope": "#/properties/asmuo/properties/tipas",
                               "rule": {
                                 "effect": "SHOW",
@@ -873,7 +897,15 @@
               "elements": [
                 {
                   "type": "Control",
-                  "options": { "display": "buttonGroup" },
+                  "options": {
+                    "display": "buttonGroup",
+                    "onChangeClear": [
+                      "vardas-pavarde",
+                      "asmens-kodas",
+                      "imones-kodas",
+                      "imones-pavadinimas"
+                    ]
+                  },
                   "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/tipas"
                 }
               ]
@@ -1120,7 +1152,10 @@
                 {
                   "type": "Control",
                   "scope": "#/properties/gavejas/properties/asmuo/properties/tipas",
-                  "options": { "display": "buttonGroup" }
+                  "options": {
+                    "display": "buttonGroup",
+                    "onChangeClear": ["vardas-pavarde", "imones-pavadinimas"]
+                  }
                 }
               ]
             },
@@ -1246,7 +1281,10 @@
                 {
                   "type": "Control",
                   "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/asmuo/properties/tipas",
-                  "options": { "display": "buttonGroup" }
+                  "options": {
+                    "display": "buttonGroup",
+                    "onChangeClear": ["vardas-pavarde", "imones-pavadinimas"]
+                  }
                 }
               ]
             },
