@@ -277,9 +277,6 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "default": {
-          "asmuo": null
-        },
         "properties": {
           "kpn-kodas": {
             "title": "KPN kodas",
@@ -349,7 +346,7 @@
             "$ref": "#/definitions/salis"
           },
           "asmuo": {
-            "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu"
+            "allOf": [{ "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu" }]
           },
           "gamintojo-pavadinimas": {
             "title": "Prekės gamintojo pavadinimas",

@@ -261,9 +261,7 @@
     "pakrovimo-vieta": {
       "type": "object",
       "additionalProperties": false,
-      "default": {
-        "asmuo": null
-      },
+      "default": {},
       "required": [
         "atvykimo-data",
         "atvykimo-laikas",
