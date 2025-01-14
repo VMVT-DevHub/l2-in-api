@@ -90,7 +90,7 @@ export default class extends moleculer.Service {
   async getTree(ctx: Context) {
     const result: KPN[] = await this.findEntities(ctx);
 
-    return this.formatTree(result, 1, true);
+    return this.formatTree(result, 1, false);
   }
 
   @Action({
@@ -139,7 +139,7 @@ export default class extends moleculer.Service {
   }
 
   @Method
-  formatTree(data: KPN[], depth: number, parentDisable = false) {
+  formatTree(data: KPN[], depth: number, parentSelectable = true) {
     const group: any = {};
 
     for (const item of data) {
@@ -148,7 +148,9 @@ export default class extends moleculer.Service {
 
       group[currentId] = {
         id: currentId,
-        name: item[`l${depth}Name`],
+        name:
+          item[`l${depth}Name`].charAt(0).toUpperCase() +
+          item[`l${depth}Name`].slice(1).toLowerCase(),
       };
 
       const children = data.filter(
@@ -156,8 +158,10 @@ export default class extends moleculer.Service {
       );
 
       if (children.length) {
-        group[currentId].disabled = parentDisable;
-        group[currentId].children = this.formatTree(children, depth + 1, parentDisable);
+        group[currentId].selectable = parentSelectable;
+        group[currentId].children = this.formatTree(children, depth + 1, parentSelectable);
+      } else {
+        group[currentId].isLeaf = true;
       }
     }
 
