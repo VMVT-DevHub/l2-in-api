@@ -383,7 +383,7 @@
             "$ref": "#/definitions/gyvuno-siuntos-paskirtis"
           },
           "asmuo": {
-            "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu"
+            "allOf": [{ "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu" }]
           },
           "svoris": {
             "type": "number",
@@ -513,6 +513,7 @@
       "title": "Atsakingas asmuo",
       "type": "object",
       "additionalProperties": false,
+      "default": {},
       "properties": {
         "vardas-pavarde": {
           "$ref": "forms/global/defs.json#/definitions/vardas-pavarde"
