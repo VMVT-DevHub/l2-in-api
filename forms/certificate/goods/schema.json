@@ -41,6 +41,7 @@
           "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
         },
         "atsakingas-asmuo": {
+          "default": {},
           "$ref": "#/definitions/atsakingas-asmuo"
         }
       },
@@ -657,7 +658,6 @@
       "title": "Atsakingas asmuo",
       "type": "object",
       "additionalProperties": false,
-      "default": {},
       "properties": {
         "vardas-pavarde": {
           "$ref": "forms/global/defs.json#/definitions/vardas-pavarde"
