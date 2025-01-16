@@ -606,6 +606,7 @@
     "dokumentai": {
       "type": "object",
       "additionalProperties": false,
+      "default": {},
       "properties": {
         "apmokejimas": {
           "$ref": "forms/global/defs.json#/definitions/dokumentas"
@@ -633,10 +634,11 @@
           "type": "boolean"
         }
       },
-      "required": ["apmokejimas", "sutikimas"],
+      "required": ["apmokejimas", "laboratoriniai-tyrimai", "sutikimas"],
       "errorMessage": {
         "required": {
           "apmokejimas": "Dokumentai: Apmokėjimas privalomas.",
+          "laboratoriniai-tyrimai": "Dokumentai: Laboratoriniai tyrimai privalomi",
           "sutikimas": "Dokumentai: Sutikimas yra būtinas ir turi būti pateiktas pažymint laukelį."
         }
       }

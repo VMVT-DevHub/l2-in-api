@@ -463,6 +463,7 @@
     "dokumentai": {
       "type": "object",
       "additionalProperties": false,
+      "default": {},
       "properties": {
         "apmokejimas": {
           "$ref": "forms/global/defs.json#/definitions/dokumentas"
