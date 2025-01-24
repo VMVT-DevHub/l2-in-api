@@ -311,10 +311,28 @@
             "title": "Pakuočių skaičius (vnt.)",
             "type": "number"
           },
+          "excel-dokumentas": {
+            "$ref": "forms/global/defs.json#/definitions/dokumentas"
+          },
           "kiekis": {
-            "title": "Kiekis (neto / bruto, kg.)",
-            "type": "number",
-            "format": "double"
+            "title": "Kiekis (neto / bruto)",
+            "type": "object",
+            "properties": {
+              "kiekis": {
+                "type": "number"
+              },
+              "matas": {
+                "type": "string",
+                "enum": ["kg", "vnt", "doz"]
+              }
+            },
+            "required": ["kiekis", "matas"],
+            "errorMessage": {
+              "required": {
+                "kiekis": "Prekės: Kiekis privalomas.",
+                "matas": "Prekės: Matas privalomas"
+              }
+            }
           },
           "patvirtinimo-nr": {
             "title": "Patvirtinimo Nr.",
