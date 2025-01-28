@@ -333,7 +333,7 @@
               ]
             }
           ],
-          "description": "Nurodykite šalis ir pasienio kontrolės postus (PKP), kuriuo vyks produktų transportavimas.",
+          "description": "Nurodykite šalis ir pasienio kontrolės postus (PKP), kuriuo vyks produktų transportavimas. <ul><li>Jei prekių siunta tiesiogiai vyksta iš Lietuvos į importuojačią šalį be tranzito per kitas šalis, išvykimo iš Lietuvos PKP nurodyti privaloma, o atvykimo į šalį importuotoją PKP nurodomas jei yra žinomas.</li><li>Jei prekių siunta vyksta tranzitu per kitą (-as) ES šalį (-is) išvykimo PKP nurodyti tik prie tos ES šalies, kuri yra paskutinė tranzitinių šalių sąraše, prie Lietuvos išvykimo PKP nenurodomas, atvykimo į šalį importuotoją PKP nurodomas jei žinomas.</li></ul>",
           "label": "Kelionės maršrutas"
         }
       ],
