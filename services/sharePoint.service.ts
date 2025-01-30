@@ -123,8 +123,7 @@ export default class SharePointService extends Moleculer.Service {
       process.env.SHARE_POINT_TENANT_ID &&
       process.env.SHARE_POINT_CLIENT_ID &&
       process.env.SHARE_POINT_CLIENT_SECRET &&
-      process.env.SHARE_POINT_DRIVE_ID &&
-      process.env.SHARE_POINT_FOLDER;
+      process.env.SHARE_POINT_DRIVE_ID;
 
     if (process.env.NODE_ENV !== 'local' && !hasSecrets) {
       this.broker.fatal('SharePoint is not configured');
