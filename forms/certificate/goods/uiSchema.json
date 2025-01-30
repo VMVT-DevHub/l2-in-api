@@ -659,14 +659,26 @@
                         {
                           "type": "HorizontalLayout",
                           "options": {
-                            "bottomLabel": "Turite nurodyti partijos Nr., pagaminimo datą ir tinkamumo vartoti terminą produkto, kuris buvo pagamintas anksčiausiai ir kurio tinkamumo vartoti terminas trumpiausias, o visų kitų partijų ir datų informaciją pateikiama pridedant excel dokumentą. Laukelyje 'Kiekis' turi būti nurodytas visų partijų svoris."
+                            "bottomLabel": "Laukuose turite nurodyti partijos Nr., pagaminimo datą ir tinkamumo vartoti terminą produkto, kuris buvo pagamintas anksčiausiai ir kurio tinkamumo vartoti terminas trumpiausias, o visų kitų partijų ir datų informaciją pateikiama pridedant excel dokumentą. Laukelyje 'Kiekis' turi būti nurodytas visų partijų svoris."
                           },
                           "elements": [
                             {
                               "type": "Control",
                               "scope": "#/properties/excel-dokumentas",
                               "label": "Pridėkite papildomus partijos numerius.",
-                              "options": { "display": "upload" }
+                              "options": {
+                                "display": "upload",
+                                "text": {
+                                  "pressToWant": "Paspauskite norėdami",
+                                  "uploadOrDragFilesHere": "įkelti arba įtempkite failus čia",
+                                  "fileTypesAndMaxSize": "XLS, XLSX (maks. 20MB)"
+                                },
+                                "availableMimeTypes": [
+                                  "application/vnd.ms-excel",
+                                  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                ],
+                                "availableExtensionsTypes": [".xls", ".xlsx"]
+                              }
                             }
                           ]
                         },
