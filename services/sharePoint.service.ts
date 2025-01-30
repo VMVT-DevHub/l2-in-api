@@ -99,21 +99,21 @@ export default class SharePointService extends Moleculer.Service {
   @Action({
     rest: <RestSchema>{
       method: 'POST',
-      path: '/upload',
+      path: '/upload/:requestId',
       type: 'multipart',
     },
   })
   async uploadFiles(
     ctx: Context<
       {},
-      { filename: string; mimetype: string; $multipart: { requestId: string } } & UserAuthMeta
+      { filename: string; mimetype: string; $params: { requestId: string } } & UserAuthMeta
     >,
   ) {
     const token = await this.getToken();
     const fileStream = ctx.params;
     const fileName = ctx?.meta?.filename ?? '';
     const mimeType = ctx?.meta?.mimetype ?? '';
-    const requestId = ctx?.meta?.['$multipart']?.requestId ?? '';
+    const requestId = ctx?.meta?.['$params']?.requestId ?? '';
 
     return this.uploadFile(token, fileStream, mimeType, fileName, requestId);
   }
