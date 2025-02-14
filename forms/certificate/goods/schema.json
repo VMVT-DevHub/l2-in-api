@@ -146,7 +146,6 @@
       "type": "object",
       "title": "Vežėjo kontaktinė informacija",
       "additionalProperties": false,
-      "default": {},
       "properties": {
         "asmuo": {
           "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu-be-validacijos"
@@ -223,6 +222,13 @@
             }
           }
         }
+      },
+      "required": ["transporto-priemones", "transporto-priemones-dalys"],
+      "errorMessage": {
+        "required": {
+          "transporto-priemones": "Siunta: transporto premonės informacija yra privaloma.",
+          "transporto-priemones-dalys": "Siunta: transporto priemonės dalies infromacija yra privaloma."
+        }
       }
     },
     "pakrovimo-vieta": {
@@ -275,9 +281,11 @@
     },
     "prekes": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
         "additionalProperties": false,
+        "default": {},
         "properties": {
           "kpn-kodas": {
             "title": "KPN kodas",
@@ -365,7 +373,8 @@
             "$ref": "#/definitions/salis"
           },
           "asmuo": {
-            "allOf": [{ "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu" }]
+            "allOf": [{ "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu" }],
+            "default" :  {"tipas":  "Juridinis asmuo"}
           },
           "gamintojo-pavadinimas": {
             "title": "Prekės gamintojo pavadinimas",
@@ -491,6 +500,9 @@
             }
           }
         }
+      },
+      "errorMessage": {
+        "minItems": "Prekės: Turi būti nurodyta bent viena prekė."
       }
     },
     "zaliavos": {
@@ -663,12 +675,14 @@
       }
     }
   },
-  "required": ["siuntejas", "marsrutas", "gavejas"],
+  "required": ["siuntejas", "marsrutas", "gavejas", "prekes", "siunta"],
   "errorMessage": {
     "required": {
       "siuntejas": "Siuntėjo informacija yra privaloma.",
       "marsrutas": "Kelionės maršruto informacija yra privaloma.",
-      "gavejas": "Gavėjo informacija yra privaloma."
+      "gavejas": "Gavėjo informacija yra privaloma.",
+      "prekes": "Prekių informacija yra privaloma.",
+      "siunta": "Siuntos informacija yra privaloma."
     }
   },
   "definitions": {
