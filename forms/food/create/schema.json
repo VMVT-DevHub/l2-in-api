@@ -25,6 +25,7 @@
       "properties": {
         "duomenys": {
           "type": "object",
+          "default": {},
           "additionalProperties": false,
           "properties": {
             "pavadinimas": {

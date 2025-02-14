@@ -701,6 +701,11 @@
                   "type": "Control",
                   "scope": "#/properties/pakrovimo-vieta/properties/pakrovimo-laikas",
                   "label": "Numatomas pakrovimo pradžios laikas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/bandos-nr",
+                  "label": "Bandos Nr."
                 }
               ]
             }
@@ -754,10 +759,6 @@
                   "title": { "scope": "#/properties/rusis" },
                   "bottom": [
                     {
-                      "label": "Paskirtis",
-                      "scope": "#/properties/siuntos-paskirtis"
-                    },
-                    {
                       "label": "KN kodas",
                       "scope": "#/properties/kodas/properties/reiksme"
                     },
@@ -774,8 +775,8 @@
                       "scope": "#/properties/svoris"
                     },
                     {
-                      "label": "Bandos Nr.",
-                      "scope": "#/properties/bandos-nr"
+                      "label": "Paskirtis",
+                      "scope": "#/properties/siuntos-paskirtis"
                     }
                   ]
                 },
@@ -845,30 +846,12 @@
                               "imones-pavadinimas"
                             ]
                           },
-                          "scope": "#/properties/asmuo/properties/tipas",
-                          "rule": {
-                            "effect": "SHOW",
-                            "condition": {
-                              "scope": "#/properties/siuntos-paskirtis",
-                              "schema": {
-                                "const": "Skersti"
-                              }
-                            }
-                          }
+                          "scope": "#/properties/asmuo/properties/tipas"
                         }
                       ]
                     },
                     {
                       "type": "HorizontalLayout",
-                      "rule": {
-                        "effect": "SHOW",
-                        "condition": {
-                          "scope": "#/properties/siuntos-paskirtis",
-                          "schema": {
-                            "const": "Skersti"
-                          }
-                        }
-                      },
                       "elements": [
                         {
                           "type": "HorizontalLayout",
@@ -885,12 +868,12 @@
                             {
                               "type": "Control",
                               "scope": "#/properties/asmuo/properties/imones-pavadinimas",
-                              "label": "Gamintojo pavadinimas"
+                              "label": "Savininko pavadinimas"
                             },
                             {
                               "type": "Control",
                               "scope": "#/properties/asmuo/properties/imones-kodas",
-                              "label": "Gamintojo kodas",
+                              "label": "Savininko kodas",
                               "options": { "placeholder": "123456789" }
                             }
                           ]
@@ -910,12 +893,12 @@
                             {
                               "type": "Control",
                               "scope": "#/properties/asmuo/properties/vardas-pavarde",
-                              "label": "Gamintojo vardas, pavardė"
+                              "label": "Savininko vardas, pavardė"
                             },
                             {
                               "type": "Control",
                               "scope": "#/properties/asmuo/properties/asmens-kodas",
-                              "label": "Gamintojo asmens kodas",
+                              "label": "Savininko asmens kodas",
                               "options": { "placeholder": "12345678900" }
                             }
                           ]
@@ -930,10 +913,7 @@
                           "label": "Atpažinimo priemonė",
                           "scope": "#/properties/atpazinimo-priemone"
                         },
-                        {
-                          "type": "Control",
-                          "scope": "#/properties/bandos-nr"
-                        },
+
                         {
                           "rule": {
                             "effect": "SHOW",

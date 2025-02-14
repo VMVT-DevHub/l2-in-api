@@ -15,7 +15,7 @@
     {
       "name": "productAmount",
       "title": "Kiekis",
-      "path": "$.prekes[*].kiekis",
+      "path": "$.prekes[*].kiekis.kiekis",
       "mapper": "sum"
     }
   ]

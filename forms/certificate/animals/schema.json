@@ -271,7 +271,8 @@
         "patvirtinimo-iregistravimo-nr",
         "adresas",
         "savivaldybe-id",
-        "asmuo"
+        "asmuo",
+        "bandos-nr"
       ],
       "errorMessage": {
         "required": {
@@ -283,7 +284,8 @@
           "patvirtinimo-iregistravimo-nr": "Pakrovimo vieta: Patvirtinimo ir registravimo numeris privalomas.",
           "adresas": "Pakrovimo vieta: Adresas privalomas.",
           "savivaldybe-id": "Pakrovimo vieta: Savivaldybė privaloma.",
-          "asmuo": "Pakrovimo vieta: Asmuo su kodu privalomas."
+          "asmuo": "Pakrovimo vieta: Asmuo su kodu privalomas.",
+          "bandos-nr": "Pakrovimo vieta: Bandos numeris privalomas"
         }
       },
       "properties": {
@@ -312,6 +314,9 @@
           "$ref": "#/definitions/laikas",
           "title": "Numatomas pakrovimo pradžios laikas"
         },
+        "bandos-nr": {
+          "type": "string"
+        },
         "atvykimo-data": {
           "title": "Numatoma siuntos atvykimo data",
           "$ref": "#/definitions/data"
@@ -322,12 +327,13 @@
         },
         "trukme": {
           "title": "Bendra kelionės trukmė valandomis",
-          "type": "string"
+          "type": "number"
         }
       }
     },
     "gyvunai": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -337,7 +343,8 @@
           "kiekis",
           "siuntos-paskirtis",
           "svoris",
-          "atpazinimo-priemone"
+          "atpazinimo-priemone",
+          "asmuo"
         ],
         "errorMessage": {
           "required": {
@@ -346,25 +353,11 @@
             "kiekis": "Gyvūnų skaičius privalomas.",
             "siuntos-paskirtis": "Siuntos paskirtis yra privaloma.",
             "svoris": "Gyvūno svoris privalomas.",
-            "atpazinimo-priemone": "Atpažinimo priemonė yra privaloma."
+            "atpazinimo-priemone": "Atpažinimo priemonė yra privaloma.",
+            "asmuo": "Gamintojas privalomas."
           }
         },
 
-        "if": {
-          "properties": {
-            "siuntos-paskirtis": {
-              "enum": ["Skersti"]
-            }
-          }
-        },
-        "then": {
-          "required": ["asmuo"],
-          "errorMessage": {
-            "required": {
-              "asmuo": "Gamintojas privalomas."
-            }
-          }
-        },
         "properties": {
           "kodas": {
             "title": "Nomenklatūrinis pavadinimas ir kodas",
@@ -393,10 +386,6 @@
             "$ref": "#/definitions/gyvuno-atpazinimo-priemone",
             "title": "Gyvūno atpažinimo priemonė"
           },
-          "bandos-nr": {
-            "title": "Bandos Nr.",
-            "type": "string"
-          },
           "pakuociu-skaicius": {
             "title": "Pakuočių skaičius",
             "type": "string"
@@ -416,6 +405,9 @@
             }
           }
         }
+      },
+      "errorMessage": {
+        "minItems": "Gyvūnai: Turi būti nurodytas bent vienas gyvūnas."
       }
     },
     "gavejas": {
@@ -501,11 +493,12 @@
       }
     }
   },
-  "required": ["siuntejas", "marsrutas", "gavejas"],
+  "required": ["siuntejas", "marsrutas", "gyvunai", "gavejas"],
   "errorMessage": {
     "required": {
       "siuntejas": "Siuntėjo informacija yra privaloma.",
       "marsrutas": "Kelionės maršruto informacija yra privaloma.",
+      "gyvunai": "Gyvūnų infromacija yra privaloma.",
       "gavejas": "Gavėjo informacija yra privaloma."
     }
   },
