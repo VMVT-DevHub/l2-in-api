@@ -48,10 +48,10 @@
       "required": ["asmuo", "adresas", "patvirtinimo-iregistravimo-nr", "atsakingas-asmuo"],
       "errorMessage": {
         "required": {
-          "asmuo": "Siuntėjas: Asmuo su kodu privalomas.",
-          "adresas": "Siuntėjas: Adresas privalomas.",
-          "patvirtinimo-iregistravimo-nr": "Siuntėjas: Patvirtinimo ir įregistravimo numeris privalomas.",
-          "atsakingas-asmuo": "Siuntėjas: Atsakingas asmuo privalomas."
+          "asmuo": "Asmuo su kodu privalomas.",
+          "adresas": "Adresas privalomas.",
+          "patvirtinimo-iregistravimo-nr": "Patvirtinimo ir įregistravimo numeris privalomas.",
+          "atsakingas-asmuo": "Atsakingas asmuo privalomas."
         }
       }
     },
@@ -64,8 +64,8 @@
       "required": ["eksportuojanti-salis", "importuojanti-salis"],
       "errorMessage": {
         "required": {
-          "eksportuojanti-salis": "Maršrutas: Eksportuojanti šalis turi būti nurodyta.",
-          "importuojanti-salis": "Maršrutas: Importuojanti šalis turi būti nurodyta."
+          "eksportuojanti-salis": "Eksportuojanti šalis turi būti nurodyta.",
+          "importuojanti-salis": "Importuojanti šalis turi būti nurodyta."
         }
       },
       "properties": {
@@ -76,7 +76,7 @@
           "required": ["salis"],
           "errorMessage": {
             "required": {
-              "salis": "Maršrutas: Eksportuojanti šalis yra privaloma."
+              "salis": "Eksportuojanti šalis yra privaloma."
             }
           },
           "properties": {
@@ -99,8 +99,8 @@
             "required": ["salis"],
             "errorMessage": {
               "required": {
-                "salis": "Maršrutas: Tranzitinė šalis yra privaloma.",
-                "pkp": "Maršrutas: PKP pavadinimas privalomas."
+                "salis": "Tranzitinė šalis yra privaloma.",
+                "pkp": "PKP pavadinimas privalomas."
               }
             },
             "properties": {
@@ -125,8 +125,8 @@
           "required": ["salis"],
           "errorMessage": {
             "required": {
-              "salis": "Maršrutas: Importuojanti šalis yra privaloma.",
-              "pkp": "Maršrutas: PKP pavadinimas privalomas."
+              "salis": "Importuojanti šalis yra privaloma.",
+              "pkp": "PKP pavadinimas privalomas."
             }
           },
           "properties": {
@@ -270,12 +270,12 @@
       ],
       "errorMessage": {
         "required": {
-          "laikas": "Pakrovimo vieta: Laikas privalomas.",
-          "data": "Pakrovimo vieta: Data yra privaloma.",
-          "patvirtinimo-iregistravimo-nr": "Pakrovimo vieta: Patvirtinimo ar įregistravimo numeris privalomas.",
-          "adresas": "Pakrovimo vieta: Adresas privalomas.",
-          "savivaldybe-id": "Pakrovimo vieta: Savivaldybė privaloma.",
-          "asmuo": "Pakrovimo vieta: Asmuo privalomas."
+          "laikas": "Laikas privalomas.",
+          "data": "Data yra privaloma.",
+          "patvirtinimo-iregistravimo-nr": "Patvirtinimo ar įregistravimo numeris privalomas.",
+          "adresas": "Adresas privalomas.",
+          "savivaldybe-id": "Savivaldybė privaloma.",
+          "asmuo": "Asmuo privalomas."
         }
       }
     },
@@ -502,7 +502,7 @@
         }
       },
       "errorMessage": {
-        "minItems": "Prekės: Turi būti nurodyta bent viena prekė."
+        "minItems": "Turi būti nurodyta bent viena prekė."
       }
     },
     "zaliavos": {
@@ -626,9 +626,9 @@
           "required": ["patvirtinimo-iregistravimo-nr", "adresas", "asmuo"],
           "errorMessage": {
             "required": {
-              "patvirtinimo-iregistravimo-nr": "Gavėjas: Patvirtinimo ir registravimo numeris privalomas paskirties vietoje.",
-              "adresas": "Gavėjas: Adresas privalomas paskirties vietoje.",
-              "asmuo": "Gavėjas: Asmuo privalomas paskirties vietoje."
+              "patvirtinimo-iregistravimo-nr": "Patvirtinimo ir registravimo numeris privalomas paskirties vietoje.",
+              "adresas": "Adresas privalomas paskirties vietoje.",
+              "asmuo": "Asmuo privalomas paskirties vietoje."
             }
           }
         }
@@ -668,9 +668,9 @@
       "required": ["apmokejimas", "laboratoriniai-tyrimai", "sutikimas"],
       "errorMessage": {
         "required": {
-          "apmokejimas": "Dokumentai: Apmokėjimas privalomas.",
-          "laboratoriniai-tyrimai": "Dokumentai: Laboratoriniai tyrimai privalomi",
-          "sutikimas": "Dokumentai: Sutikimas yra būtinas ir turi būti pateiktas pažymint laukelį."
+          "apmokejimas": "Apmokėjimas privalomas.",
+          "laboratoriniai-tyrimai": "Laboratoriniai tyrimai privalomi.",
+          "sutikimas": "Sutikimas yra būtinas ir turi būti pateiktas pažymint laukelį."
         }
       }
     }

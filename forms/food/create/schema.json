@@ -14,7 +14,7 @@
       "required": ["atsakingas-asmuo"],
       "errorMessage": {
         "required": {
-          "atsakingas-asmuo": "Pareiškėjas: Atsakingas asmuo privalomas."
+          "atsakingas-asmuo": "Atsakingas asmuo privalomas."
         }
       }
     },
@@ -33,7 +33,7 @@
               "title": "Maisto tvarkymo subjekto pavadinimas",
               "maxLength": 256,
               "errorMessage": {
-                "maxLength": "Subjektas: Pavadinimas negali būti ilgesnis nei 256 simboliai."
+                "maxLength": "Pavadinimas negali būti ilgesnis nei 256 simboliai."
               }
             },
             "laikina-vieta": {
@@ -59,7 +59,7 @@
               "title": "Pamainų skaičius",
               "maximum": 99,
               "errorMessage": {
-                "maximum": "Subjektas: Pamainų skaičius negali būti ilgesnis nei 99 simboliai."
+                "maximum": "Pamainų skaičius negali būti ilgesnis nei 99 simboliai."
               }
             },
             "patalpu-tipas": {
@@ -71,10 +71,10 @@
           "required": ["pavadinimas", "darbuotoju-skaicius", "pamainu-skaicius", "patalpu-tipas"],
           "errorMessage": {
             "required": {
-              "pavadinimas": "Subjektas: Pavadinimas privalomas.",
-              "darbuotoju-skaicius": "Subjektas: Darbuotojų skaičius privalomas.",
-              "pamainu-skaicius": "Subjektas: Pamainų skaičius privalomas.",
-              "patalpu-tipas": "Subjektas: Patalpų tipas privalomas."
+              "pavadinimas": "Pavadinimas privalomas.",
+              "darbuotoju-skaicius": "Darbuotojų skaičius privalomas.",
+              "pamainu-skaicius": "Pamainų skaičius privalomas.",
+              "patalpu-tipas": "Patalpų tipas privalomas."
             }
           }
         },
@@ -106,11 +106,11 @@
           "required": ["savivaldybe", "miestas", "gatve", "namo-nr"],
           "errorMessage": {
             "required": {
-              "savivaldybe": "Subjektas: Savivaldybė yra privaloma.",
-              "miestas": "Subjektas: Miestas / Gyvenvietė privaloma.",
-              "gatve": "Subjektas: Gatvė yra privaloma.",
-              "namo-nr": "Subjektas: Namo numeris privalomas.",
-              "buto-nr": "Subjektas: Buto numeris privalomas."
+              "savivaldybe": "Savivaldybė yra privaloma.",
+              "miestas": "Miestas / Gyvenvietė privaloma.",
+              "gatve": "Gatvė yra privaloma.",
+              "namo-nr": "Namo numeris privalomas.",
+              "buto-nr": "Buto numeris privalomas."
             }
           }
         },
@@ -161,8 +161,8 @@
           "required": ["menesiai", "savaites-dienos"],
           "errorMessage": {
             "required": {
-              "menesiai": "Subjektas: Darbo mėnesiai yra privalomi.",
-              "savaites-dienos": "Subjektas: Darbo dienos yra privalomos."
+              "menesiai": "Darbo mėnesiai yra privalomi.",
+              "savaites-dienos": "Darbo dienos yra privalomos."
             }
           }
         },
@@ -189,7 +189,7 @@
           "required": ["ar-vykdoma"],
           "errorMessage": {
             "required": {
-              "ar-vykdoma": "Subjektas: Ar vykdoma elektroninė prekyba yra privaloma."
+              "ar-vykdoma": "Ar vykdoma elektroninė prekyba yra privaloma."
             }
           },
           "if": { "properties": { "ar-vykdoma": { "const": "Taip" } } },
@@ -197,7 +197,7 @@
             "required": ["svetaines-adresas"],
             "errorMessage": {
               "required": {
-                "svetaines-adresas": "Subjektas: Internetinės svetainės adresas privalomas, jei vykdoma elektroninė prekyba."
+                "svetaines-adresas": "Internetinės svetainės adresas privalomas, jei vykdoma elektroninė prekyba."
               }
             }
           }
@@ -212,7 +212,7 @@
               "title": "Transporto priemonės markė",
               "maxLength": 50,
               "errorMessage": {
-                "maxLength": "Subjektas: Transporto priemonės markė negali būti ilgesnis nei 256 simboliai."
+                "maxLength": "Transporto priemonės markė negali būti ilgesnis nei 256 simboliai."
               }
             },
             "valstybinis-nr": {
@@ -220,15 +220,15 @@
               "title": "Transporto priemonės valstybinis registracijos Nr.",
               "maxLength": 8,
               "errorMessage": {
-                "maxLength": "Subjektas: Transporto priemonės valstybinis registracijos Nr. negali būti ilgesnis nei 8 simboliai."
+                "maxLength": "Transporto priemonės valstybinis registracijos Nr. negali būti ilgesnis nei 8 simboliai."
               }
             }
           },
           "required": ["marke", "valstybinis-nr"],
           "errorMessage": {
             "required": {
-              "marke": "Subjektas: Transporto priemonės markė yra privaloma.",
-              "valstybinis-nr": "Subjektas: Transporto priemonės valstybinis registracijos Nr. privalomas."
+              "marke": "Transporto priemonės markė yra privaloma.",
+              "valstybinis-nr": "Transporto priemonės valstybinis registracijos Nr. privalomas."
             }
           }
         },
@@ -265,8 +265,8 @@
                 "required": ["skaicius", "matavimo-vienetas"],
                 "errorMessage": {
                   "required": {
-                    "skaicius": "Subjektas: Skaičius privalomas.",
-                    "matavimo-vienetas": "Subjektas: Matavimo vienetas privalomas."
+                    "skaicius": "Skaičius privalomas.",
+                    "matavimo-vienetas": "Matavimo vienetas privalomas."
                   }
                 }
               }
@@ -274,8 +274,8 @@
             "required": ["tipas", "skaicius-vienetas"],
             "errorMessage": {
               "required": {
-                "tipas": "Subjektas: Produkcijos tiekimo rinkai tipas privalomas.",
-                "skaicius-vienetas": "Subjektas: Skaičius ir matavimo vienetas yra privalomi."
+                "tipas": "Produkcijos tiekimo rinkai tipas privalomas.",
+                "skaicius-vienetas": "Skaičius ir matavimo vienetas yra privalomi."
               }
             }
           }
@@ -303,11 +303,11 @@
       "required": ["duomenys", "adresas", "darbo-laikas", "elektronine-prekyba", "gamybos-apimtys"],
       "errorMessage": {
         "required": {
-          "duomenys": "Subjektas: Duomenys yra privalomi.",
-          "adresas": "Subjektas: Adresas privalomas.",
-          "darbo-laikas": "Subjektas: Darbo laikas privalomas.",
-          "elektronine-prekyba": "Subjektas: Elektroninė prekyba yra privaloma.",
-          "gamybos-apimtys": "Subjektas: Gamybos apimtys yra privalomos."
+          "duomenys": "Duomenys yra privalomi.",
+          "adresas": "Adresas privalomas.",
+          "darbo-laikas": "Darbo laikas privalomas.",
+          "elektronine-prekyba": "Elektroninė prekyba yra privaloma.",
+          "gamybos-apimtys": "Gamybos apimtys yra privalomos."
         }
       },
       "if": {
@@ -319,7 +319,7 @@
         "required": ["mobilios-patalpos"],
         "errorMessage": {
           "required": {
-            "mobilios-patalpos": "Subjektas: Patalpų tipas yra privalomas"
+            "mobilios-patalpos": "Patalpų tipas yra privalomas"
           }
         }
       }
@@ -336,6 +336,9 @@
           "properties": {
             "pagrindine": {
               "title": "Pagrindinė veikla",
+              "errorMessage": {
+                "enum": "Pagrindinė veikla yra privaloma."
+              },
               "$ref": "#/definitions/veiklos"
             },
             "papildomos": {
@@ -349,7 +352,7 @@
           "required": ["pagrindine"],
           "errorMessage": {
             "required": {
-              "pagrindine": "Veiklos: Pagrindinė veikla yra privaloma."
+              "pagrindine": "Pagrindinė veikla yra privaloma."
             }
           }
         },

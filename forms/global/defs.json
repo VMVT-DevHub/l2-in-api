@@ -195,11 +195,11 @@
       "required": ["vardas", "pavarde", "pareigos", "telefono-nr", "el-pastas"],
       "errorMessage": {
         "required": {
-          "vardas": "Pareiškėjas: Vardas privalomas.",
-          "pavarde": "Pareiškėjas: Pavardė yra privaloma.",
-          "pareigos": "Pareiškėjas: Pareigos yra privalomos.",
-          "telefono-nr": "Pareiškėjas: Telefono numeris privalomas.",
-          "el-pastas": "Pareiškėjas: El. paštas privalomas."
+          "vardas": "Vardas privalomas.",
+          "pavarde": "Pavardė yra privaloma.",
+          "pareigos": "Pareigos yra privalomos.",
+          "telefono-nr": "Telefono numeris privalomas.",
+          "el-pastas": "El. paštas privalomas."
         }
       }
     }

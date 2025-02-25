@@ -14,7 +14,7 @@
       "required": ["atsakingas-asmuo"],
       "errorMessage": {
         "required": {
-          "atsakingas-asmuo": "Pareiškėjas: Atsakingas asmuo privalomas."
+          "atsakingas-asmuo": "Atsakingas asmuo privalomas."
         }
       }
     },
@@ -43,7 +43,7 @@
               "title": "Pamainų skaičius",
               "maximum": 99,
               "errorMessage": {
-                "maximum": "Subjektas: Pamainų skaičius negali būti ilgesnis nei 99 simboliai."
+                "maximum": "Pamainų skaičius negali būti ilgesnis nei 99 simboliai."
               }
             },
             "patalpu-tipas": {
@@ -55,9 +55,9 @@
           "required": ["darbuotoju-skaicius", "pamainu-skaicius", "patalpu-tipas"],
           "errorMessage": {
             "required": {
-              "darbuotoju-skaicius": "Subjektas: Darbuotojų skaičius privalomas.",
-              "pamainu-skaicius": "Subjektas: Pamainų skaičius privalomas.",
-              "patalpu-tipas": "Subjektas: Patalpų tipas privalomas."
+              "darbuotoju-skaicius": "Darbuotojų skaičius privalomas.",
+              "pamainu-skaicius": "Pamainų skaičius privalomas.",
+              "patalpu-tipas": "Patalpų tipas privalomas."
             }
           }
         },
@@ -100,11 +100,11 @@
           "required": ["savivaldybe", "miestas", "gatve", "namo-nr"],
           "errorMessage": {
             "required": {
-              "savivaldybe": "Subjektas: Savivaldybė yra privaloma.",
-              "miestas": "Subjektas: Miestas / Gyvenvietė privaloma.",
-              "gatve": "Subjektas: Gatvė yra privaloma.",
-              "namo-nr": "Subjektas: Namo numeris privalomas.",
-              "buto-nr": "Subjektas: Buto numeris privalomas."
+              "savivaldybe": "Savivaldybė yra privaloma.",
+              "miestas": "Miestas / Gyvenvietė privaloma.",
+              "gatve": "Gatvė yra privaloma.",
+              "namo-nr": "Namo numeris privalomas.",
+              "buto-nr": "Buto numeris privalomas."
             }
           }
         },
@@ -155,8 +155,8 @@
           "required": ["menesiai", "savaites-dienos"],
           "errorMessage": {
             "required": {
-              "menesiai": "Subjektas: Darbo mėnesiai yra privalomi.",
-              "savaites-dienos": "Subjektas: Darbo dienos yra privalomos."
+              "menesiai": "Darbo mėnesiai yra privalomi.",
+              "savaites-dienos": "Darbo dienos yra privalomos."
             }
           }
         },
@@ -183,7 +183,7 @@
           "required": ["ar-vykdoma"],
           "errorMessage": {
             "required": {
-              "ar-vykdoma": "Subjektas: Ar vykdoma elektroninė prekyba yra privaloma."
+              "ar-vykdoma": "Ar vykdoma elektroninė prekyba yra privaloma."
             }
           },
           "if": { "properties": { "ar-vykdoma": { "const": "Taip" } } },
@@ -191,7 +191,7 @@
             "required": ["svetaines-adresas"],
             "errorMessage": {
               "required": {
-                "svetaines-adresas": "Subjektas: Internetinės svetainės adresas privalomas, jei vykdoma elektroninė prekyba."
+                "svetaines-adresas": "Internetinės svetainės adresas privalomas, jei vykdoma elektroninė prekyba."
               }
             }
           }
@@ -206,7 +206,7 @@
               "title": "Transporto priemonės markė",
               "maxLength": 50,
               "errorMessage": {
-                "maxLength": "Subjektas: Transporto priemonės markė negali būti ilgesnis nei 256 simboliai."
+                "maxLength": "Transporto priemonės markė negali būti ilgesnis nei 256 simboliai."
               }
             },
             "valstybinis-nr": {
@@ -214,15 +214,15 @@
               "title": "Transporto priemonės valstybinis registracijos Nr.",
               "maxLength": 8,
               "errorMessage": {
-                "maxLength": "Subjektas: Transporto priemonės valstybinis registracijos Nr. negali būti ilgesnis nei 8 simboliai."
+                "maxLength": "Transporto priemonės valstybinis registracijos Nr. negali būti ilgesnis nei 8 simboliai."
               }
             }
           },
           "required": ["marke", "valstybinis-nr"],
           "errorMessage": {
             "required": {
-              "marke": "Subjektas: Transporto priemonės markė yra privaloma.",
-              "valstybinis-nr": "Subjektas: Transporto priemonės valstybinis registracijos Nr. privalomas."
+              "marke": "Transporto priemonės markė yra privaloma.",
+              "valstybinis-nr": "Transporto priemonės valstybinis registracijos Nr. privalomas."
             }
           }
         },
@@ -279,10 +279,10 @@
       "required": ["duomenys", "adresas", "darbo-laikas", "elektronine-prekyba"],
       "errorMessage": {
         "required": {
-          "duomenys": "Subjektas: Duomenys yra privalomi.",
-          "adresas": "Subjektas: Adresas privalomas.",
-          "darbo-laikas": "Subjektas: Darbo laikas privalomas.",
-          "elektronine-prekyba": "Subjektas: Elektroninė prekyba yra privaloma."
+          "duomenys": "Duomenys yra privalomi.",
+          "adresas": "Adresas privalomas.",
+          "darbo-laikas": "Darbo laikas privalomas.",
+          "elektronine-prekyba": "Elektroninė prekyba yra privaloma."
         }
       },
       "if": {
@@ -294,7 +294,7 @@
         "required": ["mobilios-patalpos"],
         "errorMessage": {
           "required": {
-            "mobilios-patalpos": "Subjektas: Patalpų tipas yra privalomas"
+            "mobilios-patalpos": "Patalpų tipas yra privalomas"
           }
         }
       }
@@ -306,13 +306,37 @@
       "required": ["pagrindine-veikla"],
       "errorMessage": {
         "required": {
-          "pagrindine": "Veiklos: Pagrindinė veikla yra privaloma."
+          "pagrindine-veikla": "Pagrindinė veikla yra privaloma."
         }
       },
       "properties": {
         "pagrindine-veikla": {
           "title": "Pagrindinė veikla",
-          "$ref": "#/definitions/veiklos"
+          "type": "string",
+          "enum": [
+            "Kanopinių gyvūnų (galvijų, avių, ožkų, arklių) surinkimas prekybai su kitomis ES valstybėmis",
+            "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų genetinės medžiagos produktų, t.y. spermos, oocitų ir embrionų, skirtų dirbtiniam dauginimui paruošimas",
+            "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų genetinės medžiagos produktų, t.y. spermos, oocitų ir embrionų, skirtų dirbtiniam dauginimui saugojimas",
+            "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų spermos surinkimas",
+            "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų embrionų gamyba",
+            "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų embrionų surinkimo",
+            "Naminių paukščių laikymas",
+            "Viščiukų broilerių, kalakutų ir kitų naminių paukščių laikymas su tikslu paskersti žmonių maistui",
+            "Ūkinių gyvūnų, ketinamų eksportuoti į trečiąsias šalis karantinavimas",
+            "Gyvūnų",
+            "Žuvų veisimas",
+            "Dedeklinių vištaičių auginimas iki dėslumo periodo pradžios",
+            "Eržilų spermos, embrionų ir oocitų surinkimas ir arba laikymas",
+            "Šunų, kačių ir šeškų surinkimas toliau išvežti juos į kitas ES valstybes",
+            "Gyvūnų augintinių, įvežtų iš trečiųjų valstybių karantinavimas iki jie atitiks ES reikalavimus",
+            "Galimai užsikėtusių akvakultūros gyvūnų laikinas laikymas",
+            "Dekoratyviniais tikslais laikomi akvakultūros gyvūnai",
+            "Popierinis prekiautojas"
+          ],
+          "default": "",
+          "errorMessage": {
+            "enum": "Pagrindinė veikla yra privaloma."
+          }
         },
         "veiklos-kodai": {
           "type": "array",
@@ -400,30 +424,6 @@
     }
   },
   "definitions": {
-    "veiklos": {
-      "type": "string",
-      "enum": [
-        "Kanopinių gyvūnų (galvijų, avių, ožkų, arklių) surinkimas prekybai su kitomis ES valstybėmis",
-        "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų genetinės medžiagos produktų, t.y. spermos, oocitų ir embrionų, skirtų dirbtiniam dauginimui paruošimas",
-        "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų genetinės medžiagos produktų, t.y. spermos, oocitų ir embrionų, skirtų dirbtiniam dauginimui saugojimas",
-        "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų spermos surinkimas",
-        "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų embrionų gamyba",
-        "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų embrionų surinkimo",
-        "Naminių paukščių laikymas",
-        "Viščiukų broilerių, kalakutų ir kitų naminių paukščių laikymas su tikslu paskersti žmonių maistui",
-        "Ūkinių gyvūnų, ketinamų eksportuoti į trečiąsias šalis karantinavimas",
-        "Gyvūnų",
-        "Žuvų veisimas",
-        "Dedeklinių vištaičių auginimas iki dėslumo periodo pradžios",
-        "Eržilų spermos, embrionų ir oocitų surinkimas ir arba laikymas",
-        "Šunų, kačių ir šeškų surinkimas toliau išvežti juos į kitas ES valstybes",
-        "Gyvūnų augintinių, įvežtų iš trečiųjų valstybių karantinavimas iki jie atitiks ES reikalavimus",
-        "Galimai užsikėtusių akvakultūros gyvūnų laikinas laikymas",
-        "Dekoratyviniais tikslais laikomi akvakultūros gyvūnai",
-        "Popierinis prekiautojas"
-      ],
-      "default": ""
-    },
     "dokumentas": {
       "type": "object",
       "properties": {
