@@ -1,11 +1,21 @@
 {
   "type": "Categorization",
   "options": {
-    "display": "form"
+    "display": "form",
+    "labels": {
+      "siuntejas": "Siuntėjas",
+      "marsrutas" : "Maršrutas",
+      "vezejas": "Vežėjas",
+      "pakrovimo-vieta": "Pakrovimo vieta",
+      "gyvunai": "Gyvūnai",
+      "gavejas": "Gavėjas",
+      "dokumentai": "Dokumentai"
+    }
   },
   "elements": [
     {
       "type": "Category",
+      "label": "Siuntėjas",
       "elements": [
         {
           "type": "Group",
@@ -131,11 +141,12 @@
           ],
           "label": "Atsakingas asmuo"
         }
-      ],
-      "label": "Siuntėjas"
+      ]
+
     },
     {
       "type": "Category",
+      "label": "Maršrutas",
       "elements": [
         {
           "type": "Group",
@@ -343,11 +354,11 @@
           "description": "Nurodykite šalis ir pasienio kontrolės postus (PKP), kuriuo vyks produktų transportavimas.",
           "label": "Kelionės maršrutas"
         }
-      ],
-      "label": "Maršrutas"
+      ]
     },
     {
       "type": "Category",
+      "label": "Vežėjas",
       "elements": [
         {
           "type": "Group",
@@ -582,11 +593,11 @@
           "label": "Vežamų gyvūnų prižiūrėtojas",
           "description": "Atsakingo už gyvūnų vežimą asmens kompetencijos pažymėjimų² numeriai. Taikoma, kai vežami naminiai arklinių šeimos gyvūnai, galvijai, avys, ožkos, kiaulės arba naminiai paukščiai."
         }
-      ],
-      "label": "Vežėjas"
+      ]
     },
     {
       "type": "Category",
+      "label": "Pakrovimo vieta",
       "elements": [
         {
           "type": "Group",
@@ -626,6 +637,7 @@
               "elements": [
                 {
                   "type": "Control",
+                  "label": "Ūkio subjekto pavadinimas (Laikytojas)",
                   "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/imones-pavadinimas"
                 },
                 {
@@ -740,11 +752,11 @@
           "label": "Atvykimo informacija",
           "description": "Numatoma (planuojama) siuntos atvykimo į paskirties vietą data ir laikas. Nurodyti kelionės trukmę valandomis nuo pakrovimo pradžios iki atvykimo į paskirties vietą, įskaitant poilsio laiką."
         }
-      ],
-      "label": "Pakrovimo vieta"
+      ]
     },
     {
       "type": "Category",
+      "label": "Gyvūnai",
       "elements": [
         {
           "type": "Group",
@@ -989,12 +1001,11 @@
           "label": "Siunčiami gyvūnai",
           "description": "Sąrašas su visa gabenamų gyvūnų informacija."
         }
-      ],
-      "label": "Gyvūnai"
+      ]
     },
-
     {
       "type": "Category",
+      "label": "Gavėjas",
       "elements": [
         {
           "type": "Group",
@@ -1130,11 +1141,11 @@
           ],
           "label": "Paskirties vieta"
         }
-      ],
-      "label": "Gavėjas"
+      ]
     },
     {
       "type": "Category",
+      "label": "Dokumentai",
       "elements": [
         {
           "type": "Group",
@@ -1229,8 +1240,8 @@
           "label": "Sutikimas",
           "description": "Patvirtinimas duomenų patikimumo."
         }
-      ],
-      "label": "Dokumentai"
+      ]
+
     }
   ]
 }

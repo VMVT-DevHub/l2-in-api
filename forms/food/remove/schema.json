@@ -14,13 +14,14 @@
       "required": ["atsakingas-asmuo"],
       "errorMessage": {
         "required": {
-          "atsakingas-asmuo": "Pareiškėjas: Atsakingas asmuo privalomas."
+          "atsakingas-asmuo": "Atsakingas asmuo privalomas."
         }
       }
     },
     "subjektas": {
       "type": "object",
       "additionalProperties": false,
+      "default": {},
       "properties": {
         "registracijos-nr": {
           "type": "string",
@@ -34,8 +35,8 @@
       "required": ["registracijos-nr", "sutikimas"],
       "errorMessage": {
         "required": {
-          "registracijos-nr": "Subjektas: Registracijos patvirtinimo numeris privalomas.",
-          "sutikimas": "Subjektas: Patvirtinimas dėl maisto tvarkymo subjekto panaikinimo privalomas."
+          "registracijos-nr": "Registracijos patvirtinimo numeris privalomas.",
+          "sutikimas": "Patvirtinimas dėl maisto tvarkymo subjekto panaikinimo privalomas."
         }
       }
     }

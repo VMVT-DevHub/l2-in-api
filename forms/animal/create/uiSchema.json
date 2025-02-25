@@ -1,7 +1,13 @@
 {
   "type": "Categorization",
   "options": {
-    "display": "form"
+    "display": "form",
+    "labels": {
+      "pareiskejas": "Pareiškėjas",
+      "subjektas": "Subjektas",
+      "veiklos": "Veiklos",
+      "dokumentai": "Dokumentai"
+    }
   },
   "elements": [
     {
