@@ -374,7 +374,7 @@
           },
           "asmuo": {
             "allOf": [{ "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu" }],
-            "default" :  {"tipas":  "Juridinis asmuo"}
+            "default": { "tipas": "Juridinis asmuo" }
           },
           "gamintojo-pavadinimas": {
             "title": "Prekės gamintojo pavadinimas",
@@ -643,7 +643,10 @@
           "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "laboratoriniai-tyrimai": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
+          "type": "array",
+          "items": {
+            "$ref": "forms/global/defs.json#/definitions/dokumentas"
+          }
         },
         "vaztarastis": {
           "$ref": "forms/global/defs.json#/definitions/dokumentas"
