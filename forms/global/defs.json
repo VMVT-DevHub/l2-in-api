@@ -1,17 +1,17 @@
 {
   "definitions": {
     "asmens-tipas": {
-      "title": "Asmens tipas",
+      "title": "Asmens tipas *",
       "type": "string",
       "enum": ["Juridinis asmuo", "Fizinis asmuo"],
       "default": "Juridinis asmuo"
     },
     "imones-pavadinimas": {
-      "title": "Ūkio subjekto pavadinimas",
+      "title": "Ūkio subjekto pavadinimas *",
       "type": "string"
     },
     "imones-kodas": {
-      "title": "Juridinio asmens kodas",
+      "title": "Juridinio asmens kodas *",
       "type": "string",
       "pattern": "\\d{9}",
       "errorMessage": {
@@ -19,11 +19,11 @@
       }
     },
     "vardas-pavarde": {
-      "title": "Vardas, pavardė",
+      "title": "Vardas, pavardė *",
       "type": "string"
     },
     "asmens-kodas": {
-      "title": "Asmens kodas",
+      "title": "Asmens kodas *",
       "type": "string",
       "pattern": "[0-9]{11}",
       "errorMessage": {
@@ -145,7 +145,7 @@
       }
     },
     "telefono-nr": {
-      "title": "Telefono nr.",
+      "title": "Telefono nr. *",
       "type": "string",
       "pattern": "^\\+?[\\d\\s\\-\\(\\)]{8,15}$",
       "errorMessage": {
@@ -153,7 +153,7 @@
       }
     },
     "el-pastas": {
-      "title": "El. paštas",
+      "title": "El. paštas *",
       "type": "string",
       "format": "email",
       "maxLength": 254,
@@ -178,7 +178,7 @@
           "readOnly": true
         },
         "pareigos": {
-          "title": "Pareigos",
+          "title": "Pareigos *",
           "type": "string",
           "maxLength": 100,
           "errorMessage": {

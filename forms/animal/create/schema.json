@@ -29,7 +29,7 @@
           "additionalProperties": false,
           "properties": {
             "darbuotoju-skaicius": {
-              "title": "Darbuotojų skaičius",
+              "title": "Darbuotojų skaičius *",
               "type": "string",
               "enum": [
                 "250 ir daugiau",
@@ -40,14 +40,14 @@
             },
             "pamainu-skaicius": {
               "type": "number",
-              "title": "Pamainų skaičius",
+              "title": "Pamainų skaičius *",
               "maximum": 99,
               "errorMessage": {
                 "maximum": "Pamainų skaičius negali būti ilgesnis nei 99 simboliai."
               }
             },
             "patalpu-tipas": {
-              "title": "Patalpų tipas",
+              "title": "Patalpų tipas *",
               "type": "string",
               "enum": ["Mobilios/ Kilnojamos", "Komercinės", "Žemės sklypas"]
             }
@@ -64,6 +64,7 @@
         "adresas": {
           "type": "object",
           "additionalProperties": false,
+          "default": {},
           "properties": {
             "sutampa-su-buveines-adresu": {
               "type": "boolean",
@@ -71,19 +72,19 @@
             },
             "savivaldybe": {
               "type": "number",
-              "title": "Savivaldybė"
+              "title": "Savivaldybė *"
             },
             "miestas": {
               "type": "number",
-              "title": "Miestas / Gyvenvietė"
+              "title": "Miestas / Gyvenvietė *"
             },
             "gatve": {
               "type": "number",
-              "title": "Gatvė"
+              "title": "Gatvė *"
             },
             "namo-nr": {
               "type": "number",
-              "title": "Namo Nr."
+              "title": "Namo Nr. *"
             },
             "buto-nr": {
               "type": "number",
@@ -114,7 +115,7 @@
           "properties": {
             "menesiai": {
               "type": "array",
-              "title": "Pasirinkite darbo mėnesius",
+              "title": "Pasirinkite darbo mėnesius *",
               "items": {
                 "type": "string",
                 "enum": [
@@ -136,7 +137,7 @@
             },
             "savaites-dienos": {
               "type": "array",
-              "title": "Pasirinkite darbo dienas",
+              "title": "Pasirinkite darbo dienas *",
               "items": {
                 "type": "string",
                 "enum": [
@@ -166,7 +167,7 @@
           "title": "Elektroninė prekyba",
           "properties": {
             "ar-vykdoma": {
-              "title": "Ar vykdo elektroninę prekybą",
+              "title": "Ar vykdo elektroninę prekybą *",
               "type": "string",
               "enum": ["Taip", "Ne"]
             },
@@ -311,7 +312,7 @@
       },
       "properties": {
         "pagrindine-veikla": {
-          "title": "Pagrindinė veikla",
+          "title": "Pagrindinė veikla *",
           "type": "string",
           "enum": [
             "Kanopinių gyvūnų (galvijų, avių, ožkų, arklių) surinkimas prekybai su kitomis ES valstybėmis",

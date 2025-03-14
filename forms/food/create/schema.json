@@ -30,7 +30,7 @@
           "properties": {
             "pavadinimas": {
               "type": "string",
-              "title": "Maisto tvarkymo subjekto pavadinimas",
+              "title": "Maisto tvarkymo subjekto pavadinimas *",
               "maxLength": 256,
               "errorMessage": {
                 "maxLength": "Pavadinimas negali būti ilgesnis nei 256 simboliai."
@@ -45,7 +45,7 @@
               "type": "boolean"
             },
             "darbuotoju-skaicius": {
-              "title": "Darbuotojų skaičius",
+              "title": "Darbuotojų skaičius *",
               "type": "string",
               "enum": [
                 "250 ir daugiau",
@@ -56,14 +56,14 @@
             },
             "pamainu-skaicius": {
               "type": "number",
-              "title": "Pamainų skaičius",
+              "title": "Pamainų skaičius *",
               "maximum": 99,
               "errorMessage": {
                 "maximum": "Pamainų skaičius negali būti ilgesnis nei 99 simboliai."
               }
             },
             "patalpu-tipas": {
-              "title": "Patalpų tipas",
+              "title": "Patalpų tipas *",
               "type": "string",
               "enum": ["Mobilios/ Kilnojamos", "Namų ūkio", "Komercinės"]
             }
@@ -80,23 +80,24 @@
         },
         "adresas": {
           "type": "object",
+          "default": {},
           "additionalProperties": false,
           "properties": {
             "savivaldybe": {
               "type": "number",
-              "title": "Savivaldybė"
+              "title": "Savivaldybė *"
             },
             "miestas": {
               "type": "number",
-              "title": "Miestas / Gyvenvietė"
+              "title": "Miestas / Gyvenvietė *"
             },
             "gatve": {
               "type": "number",
-              "title": "Gatvė"
+              "title": "Gatvė *"
             },
             "namo-nr": {
               "type": "number",
-              "title": "Namo Nr."
+              "title": "Namo Nr. *"
             },
             "buto-nr": {
               "type": "number",
@@ -120,7 +121,7 @@
           "properties": {
             "menesiai": {
               "type": "array",
-              "title": "Pasirinkite darbo mėnesius",
+              "title": "Pasirinkite darbo mėnesius *",
               "items": {
                 "type": "string",
                 "enum": [
@@ -142,7 +143,7 @@
             },
             "savaites-dienos": {
               "type": "array",
-              "title": "Pasirinkite darbo dienas",
+              "title": "Pasirinkite darbo dienas *",
               "items": {
                 "type": "string",
                 "enum": [
@@ -172,7 +173,7 @@
           "title": "Elektroninė prekyba",
           "properties": {
             "ar-vykdoma": {
-              "title": "Ar vykdo elektroninę prekybą",
+              "title": "Ar vykdo elektroninę prekybą *",
               "type": "string",
               "enum": ["Taip", "Ne"]
             },
@@ -242,7 +243,7 @@
             "properties": {
               "tipas": {
                 "type": "string",
-                "title": "Produkcijos tiekimo rinkai tipas",
+                "title": "Produkcijos tiekimo rinkai tipas *",
                 "enum": [
                   "Pagamintos produkcijos kiekis",
                   "Importuojamos iš trečiųjų šalių produkcijos kiekis",
@@ -335,7 +336,7 @@
           "default": {},
           "properties": {
             "pagrindine": {
-              "title": "Pagrindinė veikla",
+              "title": "Pagrindinė veikla *",
               "errorMessage": {
                 "enum": "Pagrindinė veikla yra privaloma."
               },

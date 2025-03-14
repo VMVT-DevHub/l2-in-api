@@ -25,7 +25,7 @@
       "properties": {
         "registracijos-nr": {
           "type": "string",
-          "title": "Registracijos patvirtinimo Nr."
+          "title": "Registracijos patvirtinimo Nr. *"
         },
         "sutikimas": {
           "type": "boolean",

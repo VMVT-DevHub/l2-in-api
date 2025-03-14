@@ -163,7 +163,7 @@
             "additionalProperties": false,
             "properties": {
               "rusis-id": {
-                "title": "Transporto priemonės rūšis",
+                "title": "Transporto priemonės rūšis *",
                 "type": "string",
                 "fetchEnumFrom": "options.transportTypes.findIds"
               },
@@ -201,7 +201,7 @@
             },
             "properties": {
               "dalis-id": {
-                "title": "Transporto priemonės dalis",
+                "title": "Transporto priemonės dalis *",
                 "type": "string",
                 "fetchEnumFrom": "options.transportParts.findIds"
               },
@@ -217,6 +217,7 @@
                 "type": "string"
               },
               "plombos-nr": {
+                "title": "Plombos Nr *",
                 "type": "string"
               }
             }
@@ -244,11 +245,22 @@
         },
         "savivaldybe-id": {
           "type": "number",
-          "title": "Savivaldybė"
+          "title": "Savivaldybė *"
         },
         "savivaldybe": {
           "type": "string",
           "title": "Savivaldybė"
+        },
+        "pasienio-postas": {
+          "type": "string",
+          "title": "Pasienio postas",
+          "enum": [
+            "Klaipėdos apygardos paslaugų skyrius",
+            "Malkų įlankos PKP",
+            "Molo PKP",
+            "Pilies PKP",
+            "Laistų patikros centras"
+          ]
         },
         "patvirtinimo-iregistravimo-nr": {
           "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
@@ -258,6 +270,21 @@
         },
         "laikas": {
           "$ref": "#/definitions/laikas"
+        }
+      },
+      "if": {
+        "properties": {
+          "savivaldybe-id": {
+            "enum": [21, 55]
+          }
+        }
+      },
+      "then": {
+        "required": ["pasienio-postas"],
+        "errorMessage": {
+          "required": {
+            "pasienio-postas": "Pasienio postas privalomas."
+          }
         }
       },
       "required": [
@@ -288,12 +315,12 @@
         "default": {},
         "properties": {
           "kpn-kodas": {
-            "title": "KPN kodas",
+            "title": "KPN kodas *",
             "type": "string",
             "fetchEnumFrom": "options.kpn.getLeafIds"
           },
           "pavadinimas": {
-            "title": "Pavadinimas",
+            "title": "Pavadinimas *",
             "type": "string"
           },
           "komercinis-lotyniskas-pavadinimas": {
@@ -304,26 +331,25 @@
             "$ref": "#/definitions/data"
           },
           "partijos-numeris": {
-            "title": "Partijos nr.",
+            "title": "Partijos nr. *",
             "type": "string"
           },
           "tinkamumo-naudoti-terminas": {
-            "title": "Tinkamumo naudoti (vartoti) terminas",
             "$ref": "#/definitions/data"
           },
           "pakuotes-tipas": {
-            "title": "Pakuotės tipas",
+            "title": "Pakuotės tipas *",
             "type": "string"
           },
           "pakuociu-skaicius": {
-            "title": "Pakuočių skaičius (vnt.)",
+            "title": "Pakuočių skaičius (vnt.) *",
             "type": "number"
           },
           "excel-dokumentas": {
             "$ref": "forms/global/defs.json#/definitions/dokumentas"
           },
           "kiekis": {
-            "title": "Kiekis (neto / bruto)",
+            "title": "Kiekis (neto / bruto) *",
             "type": "object",
             "properties": {
               "kiekis": {
@@ -343,11 +369,11 @@
             }
           },
           "patvirtinimo-nr": {
-            "title": "Patvirtinimo Nr.",
+            "title": "Patvirtinimo Nr. *",
             "type": "string"
           },
           "laikymo-ir-transportavimo-salygos": {
-            "title": "Laikymo ir transportavimo sąlygos",
+            "title": "Laikymo ir transportavimo sąlygos *",
             "type": "string",
             "enum": ["Aplinkos", "Atvėsintas", "Užšaldytas"]
           },
@@ -369,15 +395,13 @@
             "type": "string"
           },
           "salis": {
-            "title": "Šalis",
             "$ref": "#/definitions/salis"
           },
           "asmuo": {
-            "allOf": [{ "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu" }],
-            "default": { "tipas": "Juridinis asmuo" }
+            "allOf": [{ "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu" }]
           },
           "gamintojo-pavadinimas": {
-            "title": "Prekės gamintojo pavadinimas",
+            "title": "Prekės gamintojo pavadinimas *",
             "type": "string"
           },
           "gamintojo-kodas": {
@@ -392,7 +416,7 @@
             "$ref": "#/definitions/adresas"
           },
           "sertifikatas": {
-            "title": "Pridėkite pirminį prekės sertifikatą",
+            "title": "Pridėkite pirminį prekės sertifikatą *",
             "$ref": "forms/global/defs.json#/definitions/dokumentas"
           }
         },
@@ -603,7 +627,8 @@
           "$ref": "forms/global/defs.json#/definitions/asmuo-be-kodo"
         },
         "adresas": {
-          "$ref": "#/definitions/adresas"
+          "title": "Adresas",
+          "type": "string"
         },
         "atsakingas-asmuo": {
           "$ref": "#/definitions/atsakingas-asmuo"
@@ -698,7 +723,7 @@
           "$ref": "forms/global/defs.json#/definitions/vardas-pavarde"
         },
         "pareigos": {
-          "title": "Pareigos",
+          "title": "Pareigos *",
           "type": "string",
           "maxLength": 100,
           "errorMessage": {
@@ -723,11 +748,11 @@
       }
     },
     "adresas": {
-      "title": "Adresas",
+      "title": "Adresas *",
       "type": "string"
     },
     "patvirtinimo-iregistravimo-nr": {
-      "title": "Patvirtinimo/Įregistravimo Nr.",
+      "title": "Patvirtinimo/Įregistravimo Nr. *",
       "type": "string"
     },
     "laikas": {

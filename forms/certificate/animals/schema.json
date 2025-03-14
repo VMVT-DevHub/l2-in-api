@@ -174,7 +174,7 @@
             },
             "properties": {
               "rusis-id": {
-                "title": "Transporto priemonės rūšis",
+                "title": "Transporto priemonės rūšis *",
                 "type": "string",
                 "fetchEnumFrom": "options.transportTypes.findIds"
               },
@@ -206,7 +206,7 @@
             },
             "properties": {
               "dalis-id": {
-                "title": "Transporto priemonės dalis",
+                "title": "Transporto priemonės dalis *",
                 "type": "string",
                 "fetchEnumFrom": "options.transportParts.findIds"
               },
@@ -222,7 +222,8 @@
                 "type": "string"
               },
               "patvirtinimo-iregistravimo-nr": {
-                "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
+                "title": "Patvirtinimo/Įregistravimo Nr.",
+                "type": "string"
               }
             }
           }
@@ -242,15 +243,15 @@
             },
             "properties": {
               "vardas": {
-                "title": "Vardas",
+                "title": "Vardas *",
                 "type": "string"
               },
               "pavarde": {
-                "title": "Pavardė",
+                "title": "Pavardė *",
                 "type": "string"
               },
               "pazymejimo-nr": {
-                "title": "Kompetencijos pažymėjimo Nr.",
+                "title": "Kompetencijos pažymėjimo Nr. *",
                 "type": "string"
               }
             }
@@ -276,16 +277,29 @@
       ],
       "errorMessage": {
         "required": {
-          "atvykimo-data": "Atvykimo data yra privaloma.",
-          "atvykimo-laikas": "Atvykimo laikas privalomas.",
+          "atvykimo-laikas": "Atvykimo data ir laikas privalomi.",
           "trukme": "Kelionės trukmė yra privaloma.",
-          "pakrovimo-laikas": "Pakrovimo laikas privalomas.",
-          "pakrovimo-data": "Pakrovimo data yra privaloma.",
+          "pakrovimo-laikas": "Pakrovimo data ir laikas privalomi.",
           "patvirtinimo-iregistravimo-nr": "Patvirtinimo ir registravimo numeris privalomas.",
           "adresas": "Adresas privalomas.",
           "savivaldybe-id": "Savivaldybė privaloma.",
           "asmuo": "Asmuo su kodu privalomas.",
           "bandos-nr": "Bandos numeris privalomas"
+        }
+      },
+      "if": {
+        "properties": {
+          "savivaldybe-id": {
+            "enum": [21, 55]
+          }
+        }
+      },
+      "then": {
+        "required": ["pasienio-postas"],
+        "errorMessage": {
+          "required": {
+            "pasienio-postas": "Pasienio postas privalomas."
+          }
         }
       },
       "properties": {
@@ -297,33 +311,36 @@
         },
         "savivaldybe-id": {
           "type": "number",
-          "title": "Savivaldybė"
+          "title": "Savivaldybė *"
         },
         "savivaldybe": {
           "type": "string",
           "title": "Savivaldybė"
         },
+        "pasienio-postas": {
+          "type": "string",
+          "title": "Pasienio postas",
+          "enum": [
+            "Klaipėdos apygardos paslaugų skyrius",
+            "Malkų įlankos PKP",
+            "Molo PKP",
+            "Pilies PKP",
+            "Laistų patikros centras"
+          ]
+        },
         "patvirtinimo-iregistravimo-nr": {
           "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
         },
-        "pakrovimo-data": {
-          "$ref": "#/definitions/data",
-          "title": "Numatoma pakrovimo pradžios data"
-        },
         "pakrovimo-laikas": {
-          "$ref": "#/definitions/laikas",
+          "$ref": "#/definitions/data-laikas",
           "title": "Numatomas pakrovimo pradžios laikas"
         },
         "bandos-nr": {
           "type": "string"
         },
-        "atvykimo-data": {
-          "title": "Numatoma siuntos atvykimo data",
-          "$ref": "#/definitions/data"
-        },
         "atvykimo-laikas": {
           "title": "Numatomas siuntos atvykimo laikas",
-          "$ref": "#/definitions/laikas"
+          "$ref": "#/definitions/data-laikas"
         },
         "trukme": {
           "title": "Bendra kelionės trukmė valandomis",
@@ -365,14 +382,14 @@
           },
           "rusis": {
             "type": "string",
-            "title": "Gyvūnų rūšis"
+            "title": "Gyvūnų rūšis *"
           },
           "kiekis": {
             "type": "number",
-            "title": "Gyvūnų skaičius, vnt"
+            "title": "Gyvūnų skaičius, vnt *"
           },
           "siuntos-paskirtis": {
-            "title": "Siuntos paskirtis",
+            "title": "Siuntos paskirtis *",
             "$ref": "#/definitions/gyvuno-siuntos-paskirtis"
           },
           "asmuo": {
@@ -380,7 +397,7 @@
           },
           "svoris": {
             "type": "number",
-            "title": "Bendras svoris, kg"
+            "title": "Bendras svoris, kg *"
           },
           "atpazinimo-priemone": {
             "$ref": "#/definitions/gyvuno-atpazinimo-priemone",
@@ -419,7 +436,8 @@
           "$ref": "forms/global/defs.json#/definitions/asmuo-be-kodo"
         },
         "adresas": {
-          "$ref": "#/definitions/adresas"
+          "title": "Adresas",
+          "type": "string"
         },
         "paskirties-vieta": {
           "type": "object",
@@ -483,7 +501,6 @@
           "type": "boolean"
         }
       },
-
       "required": ["apmokejimas", "sutikimas"],
       "errorMessage": {
         "required": {
@@ -513,7 +530,7 @@
           "$ref": "forms/global/defs.json#/definitions/vardas-pavarde"
         },
         "pareigos": {
-          "title": "Pareigos",
+          "title": "Pareigos *",
           "type": "string",
           "maxLength": 100,
           "errorMessage": {
@@ -538,7 +555,7 @@
       }
     },
     "adresas": {
-      "title": "Adresas",
+      "title": "Adresas *",
       "type": "string"
     },
     "gyvuno-kodas": {
@@ -552,12 +569,10 @@
         }
       }
     },
-
     "gyvuno-atpazinimo-priemone": {
       "type": "string",
       "enum": ["Ausų įsagos", "Mikroschema", "Pasas", "Bandos numeris", "Tatuiruotė"]
     },
-
     "gyvuno-siuntos-paskirtis": {
       "type": "string",
       "enum": [
@@ -569,7 +584,7 @@
       ]
     },
     "patvirtinimo-iregistravimo-nr": {
-      "title": "Patvirtinimo/Įregistravimo Nr.",
+      "title": "Patvirtinimo/Įregistravimo Nr. *",
       "type": "string"
     },
     "laikas": {
@@ -579,6 +594,10 @@
     "data": {
       "type": "string",
       "format": "date"
+    },
+    "data-laikas": {
+      "type": "string",
+      "format": "date-time"
     },
     "salis": {
       "type": "string",
