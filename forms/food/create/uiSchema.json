@@ -291,7 +291,7 @@
                     {
                       "type": "Control",
 
-                      "label": "Skaičius / vienetai",
+                      "label": "Skaičius / vienetai *",
                       "scope": "#/properties/skaicius-vienetas",
                       "options": {
                         "display": "combinedInput",

@@ -4,7 +4,7 @@
     "display": "form",
     "labels": {
       "siuntejas": "Siuntėjas",
-      "marsrutas" : "Maršrutas",
+      "marsrutas": "Maršrutas",
       "siunta": "Siunta",
       "prekes": "Prekės",
       "pakrovimo-vieta": "Pakrovimo vieta",
@@ -160,7 +160,7 @@
               "elements": [
                 {
                   "type": "Control",
-                  "label": "Eksportuojanti šalis",
+                  "label": "Eksportuojanti šalis *",
                   "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis",
                   "options": {
                     "labelFormat": "${name}",
@@ -301,7 +301,7 @@
               "elements": [
                 {
                   "type": "Control",
-                  "label": "Importuojanti šalis",
+                  "label": "Importuojanti šalis *",
                   "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
                   "options": {
                     "labelFormat": "${name}",
@@ -648,8 +648,11 @@
                             },
                             {
                               "type": "Control",
-                              "label": "Pagaminimo data (laikotarpis)",
-                              "scope": "#/properties/pagaminimo-data"
+                              "label": "Pagaminimo data (laikotarpis) *",
+                              "scope": "#/properties/pagaminimo-data",
+                              "options": {
+                                "maxDate": "tinkamumo-naudoti-terminas"
+                              }
                             }
                           ]
                         },
@@ -663,8 +666,11 @@
                             },
                             {
                               "type": "Control",
-                              "label": "Tinkamumo naudoti (vartoti) terminas",
-                              "scope": "#/properties/tinkamumo-naudoti-terminas"
+                              "label": "Tinkamumo naudoti (vartoti) terminas *",
+                              "scope": "#/properties/tinkamumo-naudoti-terminas",
+                              "options": {
+                                "minDate": "pagaminimo-data"
+                              }
                             }
                           ]
                         },
@@ -681,6 +687,7 @@
                               "label": "Pridėkite papildomus partijos numerius.",
                               "options": {
                                 "display": "upload",
+                                "clearOnCopy": true,
                                 "text": {
                                   "pressToWant": "Paspauskite norėdami",
                                   "uploadOrDragFilesHere": "įkelti arba įtempkite failus čia",
@@ -776,7 +783,7 @@
                           "elements": [
                             {
                               "type": "Control",
-                              "label": "Šalis",
+                              "label": "Šalis *",
                               "scope": "#/properties/salis",
                               "options": {
                                 "labelFormat": "${name}",
@@ -851,8 +858,7 @@
                               "elements": [
                                 {
                                   "type": "Control",
-                                  "scope": "#/properties/asmuo/properties/imones-pavadinimas",
-                                  "label": "Prekės gamintojo pavadinimas"
+                                  "scope": "#/properties/asmuo/properties/imones-pavadinimas"
                                 },
                                 {
                                   "type": "Control",
@@ -915,7 +921,7 @@
                               }
                             }
                           },
-                          "options": { "display": "upload" }
+                          "options": { "display": "upload", "clearOnCopy": true }
                         }
                       ],
                       "label": "Prekės kilmė"
@@ -1024,6 +1030,19 @@
                 },
                 {
                   "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/pasienio-postas",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/pakrovimo-vieta/properties/savivaldybe-id",
+                      "schema": {
+                        "enum": [21, 55]
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
                   "scope": "#/properties/pakrovimo-vieta/properties/patvirtinimo-iregistravimo-nr"
                 }
               ]
@@ -1040,12 +1059,12 @@
               "elements": [
                 {
                   "type": "Control",
-                  "label": "Numatoma pakrovimo pradžios data",
+                  "label": "Numatoma pakrovimo pradžios data *",
                   "scope": "#/properties/pakrovimo-vieta/properties/data"
                 },
                 {
                   "type": "Control",
-                  "label": "Numatoma pakrovimo pradžios laikas",
+                  "label": "Numatoma pakrovimo pradžios laikas *",
                   "scope": "#/properties/pakrovimo-vieta/properties/laikas"
                 }
               ]
@@ -1418,7 +1437,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/apmokejimas",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "clearOnCopy": true }
             }
           ],
           "label": "Mokėjimo pavedimas"
@@ -1432,7 +1451,8 @@
               "label": "",
               "options": {
                 "display": "upload",
-                "multi": true
+                "multi": true,
+                "clearOnCopy": true
               }
             }
           ],
@@ -1446,7 +1466,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/vaztarastis",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "clearOnCopy": true }
             }
           ],
           "label": "Važtaraštis",
@@ -1459,7 +1479,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/saskaita-faktura",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "clearOnCopy": true }
             }
           ],
           "label": "Sąskaita faktūra",
@@ -1474,7 +1494,8 @@
               "label": "",
               "options": {
                 "display": "upload",
-                "multi": true
+                "multi": true,
+                "clearOnCopy": true
               }
             }
           ],

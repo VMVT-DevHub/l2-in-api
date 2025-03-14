@@ -4,7 +4,7 @@
     "display": "form",
     "labels": {
       "siuntejas": "Siuntėjas",
-      "marsrutas" : "Maršrutas",
+      "marsrutas": "Maršrutas",
       "vezejas": "Vežėjas",
       "pakrovimo-vieta": "Pakrovimo vieta",
       "gyvunai": "Gyvūnai",
@@ -142,7 +142,6 @@
           "label": "Atsakingas asmuo"
         }
       ]
-
     },
     {
       "type": "Category",
@@ -159,7 +158,7 @@
               "elements": [
                 {
                   "type": "Control",
-                  "label": "Eksportuojanti šalis",
+                  "label": "Eksportuojanti šalis *",
                   "scope": "#/properties/marsrutas/properties/eksportuojanti-salis/properties/salis",
                   "options": {
                     "labelFormat": "${name}",
@@ -307,7 +306,7 @@
               "elements": [
                 {
                   "type": "Control",
-                  "label": "Importuojanti šalis",
+                  "label": "Importuojanti šalis *",
                   "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
                   "options": {
                     "labelFormat": "${name}",
@@ -590,7 +589,7 @@
               }
             }
           ],
-          "label": "Vežamų gyvūnų prižiūrėtojas",
+          "label": "Vežamų gyvūnų prižiūrėtojas *",
           "description": "Atsakingo už gyvūnų vežimą asmens kompetencijos pažymėjimų² numeriai. Taikoma, kai vežami naminiai arklinių šeimos gyvūnai, galvijai, avys, ožkos, kiaulės arba naminiai paukščiai."
         }
       ]
@@ -690,6 +689,19 @@
                 },
                 {
                   "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/pasienio-postas",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/pakrovimo-vieta/properties/savivaldybe-id",
+                      "schema": {
+                        "enum": [21, 55]
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
                   "scope": "#/properties/pakrovimo-vieta/properties/patvirtinimo-iregistravimo-nr"
                 }
               ]
@@ -706,20 +718,24 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/pakrovimo-vieta/properties/pakrovimo-data",
-                  "label": "Numatoma pakrovimo pradžios data"
-                },
-                {
-                  "type": "Control",
                   "scope": "#/properties/pakrovimo-vieta/properties/pakrovimo-laikas",
-                  "label": "Numatomas pakrovimo pradžios laikas"
+                  "options" : {
+                    "maxDate": "pakrovimo-vieta.atvykimo-laikas",
+                    "labels": {
+                      "date": "Numatoma pakrovimo pradžios data *",
+                      "time": " Numatomas pakrovimo pradžios laikas *"
+                    }
+                  }
                 },
                 {
                   "type": "Control",
                   "scope": "#/properties/pakrovimo-vieta/properties/bandos-nr",
-                  "label": "Bandos Nr."
+                  "label": "Bandos Nr. *"
                 }
-              ]
+              ],
+              "options": {
+                "columns": 3
+              }
             }
           ],
           "label": "Pakrovimo informacija",
@@ -733,20 +749,24 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/pakrovimo-vieta/properties/atvykimo-data",
-                  "label": "Numatoma siuntos atvykimo data"
-                },
-                {
-                  "type": "Control",
                   "scope": "#/properties/pakrovimo-vieta/properties/atvykimo-laikas",
-                  "label": "Numatomas siuntos atvykimo laikas"
+                  "options" : {
+                    "minDate": "pakrovimo-vieta.pakrovimo-laikas",
+                    "labels": {
+                      "date": "Numatoma siuntos atvykimo data *",
+                      "time": "Numatomas siuntos atvykimo laikas *"
+                    }
+                  }
                 },
                 {
                   "type": "Control",
                   "scope": "#/properties/pakrovimo-vieta/properties/trukme",
-                  "label": "Bendra kelionės trukmė valandomis"
+                  "label": "Bendra kelionės trukmė valandomis *"
                 }
-              ]
+              ],
+              "options": {
+                "columns": 3
+              }
             }
           ],
           "label": "Atvykimo informacija",
@@ -802,7 +822,7 @@
                         {
                           "type": "Control",
                           "scope": "#/properties/kodas",
-                          "label": "Nomenklatūrinis pavadinimas ir kodas",
+                          "label": "Nomenklatūrinis pavadinimas ir kodas *",
                           "options": {
                             "display": "treeSelect",
                             "labelFormat": "${name} - ${id}",
@@ -831,7 +851,6 @@
                       "type": "HorizontalLayout",
                       "elements": [
                         {
-                          "label": "Siuntos paskirtis",
                           "type": "Control",
                           "scope": "#/properties/siuntos-paskirtis",
                           "options": {
@@ -880,12 +899,12 @@
                             {
                               "type": "Control",
                               "scope": "#/properties/asmuo/properties/imones-pavadinimas",
-                              "label": "Savininko pavadinimas"
+                              "label": "Savininko pavadinimas *"
                             },
                             {
                               "type": "Control",
                               "scope": "#/properties/asmuo/properties/imones-kodas",
-                              "label": "Savininko kodas",
+                              "label": "Savininko kodas *",
                               "options": { "placeholder": "123456789" }
                             }
                           ]
@@ -905,12 +924,12 @@
                             {
                               "type": "Control",
                               "scope": "#/properties/asmuo/properties/vardas-pavarde",
-                              "label": "Savininko vardas, pavardė"
+                              "label": "Savininko vardas, pavardė *"
                             },
                             {
                               "type": "Control",
                               "scope": "#/properties/asmuo/properties/asmens-kodas",
-                              "label": "Savininko asmens kodas",
+                              "label": "Savininko asmens kodas *",
                               "options": { "placeholder": "12345678900" }
                             }
                           ]
@@ -922,7 +941,7 @@
                       "elements": [
                         {
                           "type": "Control",
-                          "label": "Atpažinimo priemonė",
+                          "label": "Atpažinimo priemonė *",
                           "scope": "#/properties/atpazinimo-priemone"
                         },
 
@@ -1123,7 +1142,7 @@
               "elements": [
                 {
                   "type": "Control",
-                  "label": "Šalis",
+                  "label": "Šalis *",
                   "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/salis",
                   "options": {
                     "labelFormat": "${name}",
@@ -1241,7 +1260,6 @@
           "description": "Patvirtinimas duomenų patikimumo."
         }
       ]
-
     }
   ]
 }
