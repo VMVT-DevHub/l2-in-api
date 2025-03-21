@@ -1522,7 +1522,10 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/sutikimas"
+              "scope": "#/properties/dokumentai/properties/sutikimas",
+              "options": {
+                "clearOnCopy": true
+              }
             }
           ],
           "label": "Sutikimas",

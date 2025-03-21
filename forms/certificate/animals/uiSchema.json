@@ -719,7 +719,7 @@
                 {
                   "type": "Control",
                   "scope": "#/properties/pakrovimo-vieta/properties/pakrovimo-laikas",
-                  "options" : {
+                  "options": {
                     "maxDate": "pakrovimo-vieta.atvykimo-laikas",
                     "labels": {
                       "date": "Numatoma pakrovimo pradžios data *",
@@ -750,7 +750,7 @@
                 {
                   "type": "Control",
                   "scope": "#/properties/pakrovimo-vieta/properties/atvykimo-laikas",
-                  "options" : {
+                  "options": {
                     "minDate": "pakrovimo-vieta.pakrovimo-laikas",
                     "labels": {
                       "date": "Numatoma siuntos atvykimo data *",
@@ -1173,7 +1173,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/apmokejimas",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "clearOnCopy": true }
             }
           ],
           "label": "Mokėjimo pavedimas"
@@ -1185,7 +1185,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/marsruto-planas",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "clearOnCopy": true }
             }
           ],
           "label": "Maršruto planas",
@@ -1198,7 +1198,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/uzkreciamuju-ligu-tyrimo-protokolas",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "clearOnCopy": true }
             }
           ],
           "label": "Gyvūnų užkrečiamųjų ligų tyrimo protokolai",
@@ -1211,7 +1211,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/saskaita-faktura",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "clearOnCopy": true }
             }
           ],
           "label": "Sąskaita faktūra",
@@ -1226,7 +1226,8 @@
               "label": "",
               "options": {
                 "display": "upload",
-                "multi": true
+                "multi": true,
+                "clearOnCopy": true
               }
             }
           ],
@@ -1253,7 +1254,10 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/sutikimas"
+              "scope": "#/properties/dokumentai/properties/sutikimas",
+              "options": {
+                "clearOnCopy": true
+              }
             }
           ],
           "label": "Sutikimas",

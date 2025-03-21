@@ -264,11 +264,9 @@
       "additionalProperties": false,
       "default": {},
       "required": [
-        "atvykimo-data",
         "atvykimo-laikas",
         "trukme",
         "pakrovimo-laikas",
-        "pakrovimo-data",
         "patvirtinimo-iregistravimo-nr",
         "adresas",
         "savivaldybe-id",
