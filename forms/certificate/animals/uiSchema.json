@@ -1196,9 +1196,13 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/uzkreciamuju-ligu-tyrimo-protokolas",
+              "scope": "#/properties/dokumentai/properties/uzkreciamuju-ligu-tyrimo-protokolai",
               "label": "",
-              "options": { "display": "upload", "clearOnCopy": true }
+              "options": {
+                "display": "upload",
+                "clearOnCopy": true,
+                "multi": true
+              }
             }
           ],
           "label": "Gyvūnų užkrečiamųjų ligų tyrimo protokolai",
