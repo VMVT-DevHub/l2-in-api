@@ -479,8 +479,11 @@
         "marsruto-planas": {
           "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
-        "uzkreciamuju-ligu-tyrimo-protokolas": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
+        "uzkreciamuju-ligu-tyrimo-protokolai": {
+          "type": "array",
+          "items": {
+            "$ref": "forms/global/defs.json#/definitions/dokumentas"
+          }
         },
         "saskaita-faktura": {
           "$ref": "forms/global/defs.json#/definitions/dokumentas"
