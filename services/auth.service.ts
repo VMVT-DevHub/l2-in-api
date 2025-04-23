@@ -98,7 +98,7 @@ export default class AuthService extends moleculer.Service {
 
   @Action({
     params: {
-      id: 'number',
+      token: 'string',
     },
   })
   async finish(ctx: Context<{ token: string }, ResponseHeadersMeta>) {
