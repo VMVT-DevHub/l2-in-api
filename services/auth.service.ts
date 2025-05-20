@@ -79,8 +79,12 @@ export default class AuthService extends moleculer.Service {
       const user: User = await ctx.call('users.findOrCreate', { authUser });
       const tenant: Tenant = await ctx.call('tenants.findOrCreate', { authUser });
 
-      if (user && tenant) {
-        await ctx.call('tenantUsers.findOrCreate', { user, tenant, role: TenantUserRole.ADMIN });
+      if (user?.id && tenant?.id) {
+        await ctx.call('tenantUsers.findOrCreate', {
+          user: user.id,
+          tenant: tenant.id,
+          role: TenantUserRole.ADMIN,
+        });
       }
 
       await this.startSession(ctx, user);
