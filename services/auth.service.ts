@@ -42,7 +42,7 @@ export default class AuthService extends moleculer.Service {
         host: string;
         url: string;
       } = await ctx.call('http.post', {
-        url: `${process.env.VIISP_HOST}/auth/sign`,
+        url: `${process.env.VIISP_HOST}/sign`,
         opt: {
           responseType: 'json',
           json: ctx.params,
@@ -68,7 +68,7 @@ export default class AuthService extends moleculer.Service {
       const { ticket } = ctx.params;
 
       const authUser: UserEvartai = await ctx.call('http.get', {
-        url: `${process.env.VIISP_HOST}/auth/data?ticket=${ticket}`,
+        url: `${process.env.VIISP_HOST}/data?ticket=${ticket}`,
         opt: {
           responseType: 'json',
         },
