@@ -761,7 +761,10 @@
                 {
                   "type": "Control",
                   "scope": "#/properties/pakrovimo-vieta/properties/trukme",
-                  "label": "Bendra kelionės trukmė valandomis *"
+                  "label": "Bendra kelionės trukmė valandomis *",
+                  "options": {
+                    "readOnly": true
+                  }
                 }
               ],
               "options": {
@@ -1142,13 +1145,24 @@
               "elements": [
                 {
                   "type": "Control",
-                  "label": "Šalis *",
-                  "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/salis",
+                  "label": "Šalis",
+                  "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
                   "options": {
                     "labelFormat": "${name}",
                     "value": "id",
                     "display": "countrySelect",
                     "fetchOptionsFrom": "options/countries/all"
+                  },
+                  "rule": {
+                    "effect": "DISABLE",
+                    "condition": {
+                      "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
+                      "schema": {
+                        "contains": {
+                          "const": ""
+                        }
+                      }
+                    }
                   }
                 },
                 {
