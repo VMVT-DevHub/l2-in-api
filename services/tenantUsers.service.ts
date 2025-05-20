@@ -66,8 +66,8 @@ export interface TenantUser extends CommonFields {
 export default class extends moleculer.Service {
   @Action({
     params: {
-      user: 'number',
-      tenant: 'number',
+      user: 'number|convert',
+      tenant: 'number|convert',
       role: 'string',
     },
   })
