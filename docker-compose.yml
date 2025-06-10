@@ -21,16 +21,6 @@ services:
     ports:
       - 5191:6379
 
-  viisp-auth-helper:
-    image: ghcr.io/aplinkosministerija/viisp-auth-helper:1.2.1
-    environment:
-      VIISP_PID: ${VIISP_PID}
-      KEYSTORE_BASE64: ${VIISP_KEYSTORE_BASE64}
-      KEYSTORE_PASSWORD: ${VIISP_KEYSTORE_PASSWORD}
-      VIISP_POSTBACK_URL: ${VIISP_POSTBACK_URL}
-    ports:
-      - 5190:8080
-
 networks:
   internal:
 
