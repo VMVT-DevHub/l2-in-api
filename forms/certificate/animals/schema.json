@@ -456,10 +456,9 @@
               "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
             }
           },
-          "required": ["salis", "patvirtinimo-iregistravimo-nr", "adresas", "asmuo"],
+          "required": [ "patvirtinimo-iregistravimo-nr", "adresas", "asmuo"],
           "errorMessage": {
             "required": {
-              "salis": "Šalis yra privaloma.",
               "patvirtinimo-iregistravimo-nr": "Patvirtinimo ir registravimo numeris privalomas.",
               "adresas": "Adresas paskirties vietoje privalomas.",
               "asmuo": "Asmuo paskirties vietoje privalomas."
