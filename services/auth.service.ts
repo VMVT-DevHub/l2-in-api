@@ -30,12 +30,9 @@ export default class AuthService extends moleculer.Service {
 
   @Action({
     rest: 'POST /sign',
-    params: {
-      appHost: 'string',
-    },
     auth: RestrictionType.PUBLIC,
   })
-  async sign(ctx: Context<{ appHost: string }, ResponseHeadersMeta>) {
+  async sign(ctx: Context<{}, ResponseHeadersMeta>) {
     try {
       const response: {
         ticket: string;
@@ -59,11 +56,10 @@ export default class AuthService extends moleculer.Service {
     rest: 'POST /login',
     params: {
       ticket: 'string',
-      customData: 'string',
     },
     auth: RestrictionType.PUBLIC,
   })
-  async login(ctx: Context<{ ticket: string; customData: string }, ResponseHeadersMeta>) {
+  async login(ctx: Context<{ ticket: string }, ResponseHeadersMeta>) {
     try {
       const { ticket } = ctx.params;
 
@@ -128,10 +124,7 @@ export default class AuthService extends moleculer.Service {
   }
 
   @Method
-  async startSession(
-    ctx: Context<{ customData: string }, ResponseHeadersMeta & MetaSession>,
-    user: User,
-  ) {
+  async startSession(ctx: Context<{}, ResponseHeadersMeta & MetaSession>, user: User) {
     const token = generateToken(user, process.env.ACCESS_JWT_SECRET);
     ctx.meta.$responseHeaders = {
       'Set-Cookie': cookie.serialize('vmvt-auth-token', token, {
@@ -140,8 +133,7 @@ export default class AuthService extends moleculer.Service {
         maxAge: 60 * 60 * 24, // 1 day
       }),
     };
-    const customData = JSON.parse(ctx.params.customData);
     ctx.meta.$statusCode = 302;
-    ctx.meta.$location = customData?.appHost;
+    ctx.meta.$location = process.env.FRONTEND_URL;
   }
 }
