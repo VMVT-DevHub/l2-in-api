@@ -321,7 +321,11 @@
           },
           "pavadinimas": {
             "title": "Pavadinimas *",
-            "type": "string"
+            "type": "string",
+            "maxLength": 254,
+            "errorMessage": {
+              "maxLength": "Pavadinimas negali būti ilgesnės nei 255 simboliai."
+            }
           },
           "komercinis-lotyniskas-pavadinimas": {
             "title": "Komercinis / lotyniškas pavadinimas (jeigu taikoma)",
@@ -452,7 +456,6 @@
             "patvirtinimo-nr": "Prekės: Patvirtinimo numeris privalomas.",
             "laikymo-ir-transportavimo-salygos": "Prekės: Laikymo ir transportavimo sąlygos yra privalomos.",
             "salis": "Prekės: Šalis yra privaloma.",
-
             "adresas": "Prekės: Adresas privalomas.",
             "gamintojo-patvirtinimo-iregistravimo-nr": "Prekės: Gamintojo patvirtinimo ar įregistravimo numeris privalomas."
           }

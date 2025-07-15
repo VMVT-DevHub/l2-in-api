@@ -501,7 +501,7 @@
           "type": "boolean"
         }
       },
-      "required": ["apmokejimas", "sutikimas"],
+      "required": ["apmokejimas", "sutikimas", "uzkreciamuju-ligu-tyrimo-protokolai"],
       "errorMessage": {
         "required": {
           "apmokejimas": "Apmokėjimas privalomas.",
