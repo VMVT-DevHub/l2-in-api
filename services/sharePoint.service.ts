@@ -61,6 +61,32 @@ export default class SharePointService extends Moleculer.Service {
     return sharePointToken;
   }
 
+  /**
+   * Fetches a fresh download URL for a SharePoint file using its itemId (file ID).
+   * @param itemId The SharePoint file ID (itemId)
+   * @returns The direct download URL for the file
+   */
+  @Method
+  async getDownloadUrl(itemId: string): Promise<string> {
+    const token = await this.getToken();
+    const url = `${this.settings.baseUrl}/${process.env.SHARE_POINT_DRIVE_ID}/items/${itemId}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch file info: ${response.status}`);
+    }
+    const data = await response.json();
+    if (!data['@microsoft.graph.downloadUrl']) {
+      throw new Error('Download URL not found in response');
+    }
+    return data['@microsoft.graph.downloadUrl'];
+  }
+
   @Method
   async uploadFile(
     token: string,
@@ -128,5 +154,16 @@ export default class SharePointService extends Moleculer.Service {
     if (process.env.NODE_ENV !== 'local' && !hasSecrets) {
       this.broker.fatal('SharePoint is not configured');
     }
+  }
+
+  @Action({
+    rest: <RestSchema>{
+      method: 'GET',
+      path: '/downloadUrl/:itemId',
+    },
+  })
+  async getDownloadUrlAction(ctx: Context<{ itemId: string }, { $params: { itemId: string } }>) {
+    const itemId = ctx?.meta?.['$params']?.itemId ?? ctx.params?.itemId;
+    return await this.getDownloadUrl(itemId);
   }
 }
