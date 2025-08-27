@@ -45,12 +45,11 @@
           "$ref": "#/definitions/atsakingas-asmuo"
         }
       },
-      "required": ["asmuo", "adresas", "patvirtinimo-iregistravimo-nr", "atsakingas-asmuo"],
+      "required": ["asmuo", "adresas", "atsakingas-asmuo"],
       "errorMessage": {
         "required": {
           "asmuo": "Asmuo su kodu privalomas.",
           "adresas": "Adresas privalomas.",
-          "patvirtinimo-iregistravimo-nr": "Patvirtinimo ir įregistravimo numeris privalomas.",
           "atsakingas-asmuo": "Atsakingas asmuo privalomas."
         }
       }
@@ -193,7 +192,7 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["dalis-id", "plombos-nr"],
+            "required": ["dalis-id"],
             "errorMessage": {
               "required": {
                 "dalis-id": "Siunta: Transporto priemonės dalis yra privaloma."
@@ -217,7 +216,7 @@
                 "type": "string"
               },
               "plombos-nr": {
-                "title": "Plombos Nr *",
+                "title": "Plombos Nr",
                 "type": "string"
               }
             }
@@ -759,7 +758,7 @@
       "type": "string"
     },
     "patvirtinimo-iregistravimo-nr": {
-      "title": "Patvirtinimo/Įregistravimo Nr. *",
+      "title": "Patvirtinimo/Įregistravimo Nr.",
       "type": "string"
     },
     "laikas": {
