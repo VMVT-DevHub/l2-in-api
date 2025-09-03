@@ -35,8 +35,18 @@ export default class AuthService extends moleculer.Service {
   })
   async sign(ctx: Context<{}, ResponseHeadersMeta>) {
     try {
+      const response: {
+        ticket: string;
+        host: string;
+        url: string;
+      } = await ctx.call('http.get', {
+        url: `${process.env.VIISP_HOST}`,
+        opt: {
+          responseType: 'json',
+        },
+      });
       ctx.meta.$statusCode = 302;
-      ctx.meta.$location = process.env.IMVIS_HOST;
+      ctx.meta.$location = response?.url;
     } catch (err) {
       throwBadRequestError('Cannot sign ticket', err);
     }
