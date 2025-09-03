@@ -319,10 +319,27 @@ export interface EntityChangedParams<T> {
 export interface UserEvartai {
   firstName?: string;
   lastName?: string;
+  name?: string;
   personalCode: string;
   companyCode?: string;
   email?: string;
   phone?: string;
+  companyName?: string;
+  companyEmail?: string;
+  companyPhone?: string;
+}
+
+export interface ViispUserRaw {
+  id?: string;
+  name?: string;
+  firstName?: string;
+  lastName?: string;
+  ak?: string | number;
+  personalCode?: string | number;
+  email?: string;
+  phone?: string;
+  company?: { code?: string; name?: string; email?: string; phone?: string } | null;
+  companyCode?: string;
   companyName?: string;
   companyEmail?: string;
   companyPhone?: string;
