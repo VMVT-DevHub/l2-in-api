@@ -77,6 +77,7 @@ export default class AuthService extends moleculer.Service {
       }
 
       const authUser: UserEvartai = {
+        uuid: res.id,
         firstName,
         lastName,
         personalCode: String(res.ak ?? res.personalCode ?? '').trim(),
