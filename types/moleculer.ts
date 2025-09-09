@@ -317,6 +317,7 @@ export interface EntityChangedParams<T> {
 }
 
 export interface UserEvartai {
+  uuid: string;
   firstName?: string;
   lastName?: string;
   name?: string;
