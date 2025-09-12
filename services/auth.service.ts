@@ -12,6 +12,7 @@ import {
   throwBadRequestError,
   throwUnauthorizedError,
   UserEvartai,
+  ViispUserRaw,
 } from '../types';
 import { Tenant } from './tenants.service';
 import { TenantUserRole } from './tenantUsers.service';
@@ -38,11 +39,10 @@ export default class AuthService extends moleculer.Service {
         ticket: string;
         host: string;
         url: string;
-      } = await ctx.call('http.post', {
-        url: `${process.env.VIISP_HOST}/sign`,
+      } = await ctx.call('http.get', {
+        url: `${process.env.VIISP_HOST}`,
         opt: {
           responseType: 'json',
-          json: ctx.params,
         },
       });
       ctx.meta.$statusCode = 302;
@@ -63,14 +63,35 @@ export default class AuthService extends moleculer.Service {
     try {
       const { ticket } = ctx.params;
 
-      const authUser: UserEvartai = await ctx.call('http.get', {
-        url: `${process.env.VIISP_HOST}/data?ticket=${ticket}`,
-        opt: {
-          responseType: 'json',
-        },
+      const res: ViispUserRaw = await ctx.call('http.get', {
+        url: `${process.env.VIISP_HOST}/${ticket}`,
+        opt: { responseType: 'json' },
       });
 
-      if (!authUser) throwUnauthorizedError('Login unsuccessful');
+      let firstName = res.firstName;
+      let lastName = res.lastName;
+      if (!firstName && !lastName && typeof res.name === 'string') {
+        const [ln, fn] = res.name.split(',').map((s) => s.trim());
+        lastName = ln || undefined;
+        firstName = fn || undefined;
+      }
+
+      const authUser: UserEvartai = {
+        uuid: res.id,
+        firstName,
+        lastName,
+        personalCode: String(res.ak ?? res.personalCode ?? '').trim(),
+        companyCode: (res.company?.code ?? res.companyCode)?.toString(),
+        email: res.email,
+        phone: res.phone,
+        companyName: res.companyName ?? res.company?.name,
+        companyEmail: res.companyEmail ?? res.company?.email,
+        companyPhone: res.companyPhone ?? res.company?.phone,
+      };
+
+      if (!authUser.personalCode) {
+        throwUnauthorizedError('Missing personalCode from identity provider');
+      }
 
       const user: User = await ctx.call('users.findOrCreate', { authUser });
       const tenant: Tenant = await ctx.call('tenants.findOrCreate', { authUser });
