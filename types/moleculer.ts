@@ -346,6 +346,19 @@ export interface ViispUserRaw {
   companyPhone?: string;
 }
 
+export interface UserRoles {
+  orgs: {
+    id: number;
+    roles: string[];
+  }[];
+}
+
+export type SessionBlob = {
+  userId: number;
+  companyCode: string | null;
+  roles: { orgs: { id: number; roles: string[] }[] } | null;
+};
+
 export type ResponseHeadersMeta = {
   $responseHeaders?: Record<string, string>;
   $statusCode?: number;
@@ -356,5 +369,7 @@ export interface MetaSession {
   session?: {
     token: string;
     user: User;
+    companyCode?: string | null;
+    roles?: UserRoles | null;
   };
 }

@@ -12,10 +12,9 @@ import {
   throwBadRequestError,
   throwUnauthorizedError,
   UserEvartai,
+  UserRoles,
   ViispUserRaw,
 } from '../types';
-import { Tenant } from './tenants.service';
-import { TenantUserRole } from './tenantUsers.service';
 import { User } from './users.service';
 
 @Service({
@@ -93,18 +92,13 @@ export default class AuthService extends moleculer.Service {
         throwUnauthorizedError('Missing personalCode from identity provider');
       }
 
+      const userRoles: UserRoles = await ctx.call('http.get', {
+        url: `${process.env.VIISP_HOST}/roles/${authUser.uuid}`,
+        opt: { responseType: 'json' },
+      });
+
       const user: User = await ctx.call('users.findOrCreate', { authUser });
-      const tenant: Tenant = await ctx.call('tenants.findOrCreate', { authUser });
-
-      if (user?.id && tenant?.id) {
-        await ctx.call('tenantUsers.findOrCreate', {
-          user: user.id,
-          tenant: tenant.id,
-          role: TenantUserRole.ADMIN,
-        });
-      }
-
-      await this.startSession(ctx, user);
+      await this.startSession(ctx, user, authUser.companyCode, userRoles);
     } catch (err) {
       throwBadRequestError('Cannot login', err);
     }
@@ -114,7 +108,14 @@ export default class AuthService extends moleculer.Service {
     rest: 'GET /me',
   })
   async me(ctx: Context<unknown, MetaSession>) {
-    return ctx.meta.session?.user;
+    const session = ctx.meta.session;
+    if (!session) return null;
+
+    return {
+      ...session.user,
+      companyCode: session.companyCode ?? null,
+      roles: session.roles ?? { orgs: [] },
+    };
   }
 
   @Action({
@@ -145,8 +146,26 @@ export default class AuthService extends moleculer.Service {
   }
 
   @Method
-  async startSession(ctx: Context<{}, ResponseHeadersMeta & MetaSession>, user: User) {
-    const token = generateToken(user, process.env.ACCESS_JWT_SECRET);
+  async startSession(
+    ctx: Context<{}, ResponseHeadersMeta & MetaSession>,
+    user: User,
+    companyCode?: string,
+    userRoles?: UserRoles,
+  ) {
+    const sid = crypto.randomUUID();
+
+    await this.broker.cacher?.set(
+      `sess:${sid}`,
+      {
+        userId: user.id,
+        companyCode: companyCode ?? null,
+        roles: userRoles ?? null,
+      },
+      60 * 60 * 24,
+    );
+
+    const token = generateToken({ sub: String(user.id), sid }, process.env.ACCESS_JWT_SECRET);
+
     ctx.meta.$responseHeaders = {
       'Set-Cookie': cookie.serialize('vmvt-auth-token', token, {
         path: '/',
