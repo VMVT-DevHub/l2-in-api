@@ -1,6 +1,5 @@
 import { IncomingMessage } from 'http';
 import moleculer, { ActionParamSchema, ActionSchema, Context } from 'moleculer';
-import { UserAuthMeta } from '../services/api.service';
 import { User, UserType } from '../services/users.service';
 
 import { DbAdapter, DbContextParameters, DbServiceSettings } from 'moleculer-db';
@@ -16,7 +15,7 @@ export type MultipartMeta = {
 };
 
 export type FieldHookCallback<T = any> = {
-  ctx: Context<T, UserAuthMeta>;
+  ctx: Context<T, MetaSession>;
   value: any;
   params: T;
   field: any;
@@ -335,8 +334,8 @@ export interface ViispUserRaw {
   name?: string;
   firstName?: string;
   lastName?: string;
-  ak?: string | number;
-  personalCode?: string | number;
+  ak: number;
+  personalCode?: number;
   email?: string;
   phone?: string;
   company?: { code?: string; name?: string; email?: string; phone?: string } | null;
@@ -356,6 +355,7 @@ export interface UserRoles {
 export type SessionBlob = {
   userId: number;
   companyCode: string | null;
+  activeOrgCode: string | null;
   roles: { orgs: { id: number; roles: string[] }[] } | null;
 };
 
@@ -368,8 +368,14 @@ export type ResponseHeadersMeta = {
 export interface MetaSession {
   session?: {
     token: string;
+    sid: string;
     user: User;
     companyCode?: string | null;
+    activeOrgCode?: string | null;
     roles?: UserRoles | null;
   };
+}
+
+export interface ActiveOrgResponse {
+  activeOrgCode: string | null;
 }

@@ -8,10 +8,6 @@ import ApiGateway, { IncomingRequest, Route } from 'moleculer-web';
 import { MetaSession, RestrictionType, SessionBlob } from '../types';
 import { User } from './users.service';
 
-export interface UserAuthMeta {
-  session: { user: User; token: string; profile: any };
-}
-
 @Service({
   name: 'api',
   mixins: [ApiGateway],
@@ -136,8 +132,10 @@ export default class ApiService extends moleculer.Service {
 
     ctx.meta.session = {
       token,
+      sid,
       user,
       companyCode: session?.companyCode ?? null,
+      activeOrgCode: session?.activeOrgCode,
       roles: session?.roles ?? null,
     };
     return;

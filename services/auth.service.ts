@@ -6,6 +6,7 @@ import moleculer, { Context } from 'moleculer';
 import { Action, Method, Service } from 'moleculer-decorators';
 
 import {
+  ActiveOrgResponse,
   MetaSession,
   ResponseHeadersMeta,
   RestrictionType,
@@ -61,6 +62,7 @@ export default class AuthService extends moleculer.Service {
   async login(ctx: Context<{ ticket: string }, ResponseHeadersMeta>) {
     try {
       const { ticket } = ctx.params;
+      let userRoles: UserRoles = null;
 
       const res: ViispUserRaw = await ctx.call('http.get', {
         url: `${process.env.VIISP_HOST}/${ticket}`,
@@ -92,10 +94,12 @@ export default class AuthService extends moleculer.Service {
         throwUnauthorizedError('Missing personalCode from identity provider');
       }
 
-      const userRoles: UserRoles = await ctx.call('http.get', {
-        url: `${process.env.VIISP_HOST}/roles/${authUser.uuid}`,
-        opt: { responseType: 'json' },
-      });
+      if (!authUser.companyCode) {
+        userRoles = await ctx.call('http.get', {
+          url: `${process.env.VIISP_HOST}/roles/${authUser.uuid}`,
+          opt: { responseType: 'json' },
+        });
+      }
 
       const user: User = await ctx.call('users.findOrCreate', { authUser });
       await this.startSession(ctx, user, authUser.companyCode, userRoles);
@@ -114,8 +118,46 @@ export default class AuthService extends moleculer.Service {
     return {
       ...session.user,
       companyCode: session.companyCode ?? null,
+      activeOrgCode: session.activeOrgCode ?? null,
       roles: session.roles ?? { orgs: [] },
     };
+  }
+
+  @Action({
+    rest: 'POST /session/active-org',
+    params: { orgCode: { type: 'string', empty: false, trim: true, pattern: '^[0-9]+$' } },
+  })
+  async setActiveOrg(ctx: Context<{ orgCode: string }, MetaSession>): Promise<ActiveOrgResponse> {
+    const session = ctx.meta.session!;
+    const delegatedIds: string[] = (session.roles?.orgs ?? []).map((o) => String(o.id));
+
+    if (!delegatedIds.includes(ctx.params.orgCode)) {
+      throwBadRequestError('You do not have access to this organisation');
+    }
+
+    const key = `sess:${session.sid}`;
+    const blob = (await this.broker.cacher?.get(key)) || {};
+    await this.broker.cacher?.set(
+      key,
+      { ...blob, activeOrgCode: ctx.params.orgCode },
+      60 * 60 * 24,
+    );
+
+    session.activeOrgCode = ctx.params.orgCode;
+    return { activeOrgCode: session.activeOrgCode };
+  }
+
+  @Action({ rest: 'DELETE /session/active-org' })
+  async clearActiveOrg(ctx: Context<unknown, MetaSession>): Promise<ActiveOrgResponse> {
+    const session = ctx.meta.session;
+    if (!session?.user?.id) return { activeOrgCode: null };
+
+    const key = `sess:${session.sid}`;
+    const blob = (await this.broker.cacher?.get(key)) || {};
+    await this.broker.cacher?.set(key, { ...blob, activeOrgCode: null }, 60 * 60 * 24);
+
+    session.activeOrgCode = null;
+    return { activeOrgCode: null };
   }
 
   @Action({
@@ -160,6 +202,7 @@ export default class AuthService extends moleculer.Service {
         userId: user.id,
         companyCode: companyCode ?? null,
         roles: userRoles ?? null,
+        activeOrgCode: companyCode ?? null,
       },
       60 * 60 * 24,
     );
