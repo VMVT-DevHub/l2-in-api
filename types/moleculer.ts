@@ -345,16 +345,18 @@ export interface ViispUserRaw {
   companyPhone?: string;
 }
 
-export interface UserRoles {
+export interface DelegatedOrgs {
   orgs: {
     id: number;
     roles: string[];
+    orgName?: string;
   }[];
 }
 
 export type SessionBlob = {
   userId: number;
   companyCode: string | null;
+  companyName: string | null;
   activeOrgCode: string | null;
   roles: { orgs: { id: number; roles: string[] }[] } | null;
 };
@@ -371,8 +373,9 @@ export interface MetaSession {
     sid: string;
     user: User;
     companyCode?: string | null;
+    companyName?: string | null;
     activeOrgCode?: string | null;
-    roles?: UserRoles | null;
+    roles?: DelegatedOrgs | null;
   };
 }
 
