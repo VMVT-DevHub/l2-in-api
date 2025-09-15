@@ -8,7 +8,6 @@ const tableName = 'requests';
 exports.up = async function up(knex) {
   await knex.schema.withSchema(schema).alterTable(tableName, (table) => {
     table.bigInteger('company_code').nullable();
-    table.dropColumn('tenant_id');
   });
 };
 
@@ -19,7 +18,6 @@ exports.up = async function up(knex) {
 exports.down = async function down(knex) {
   await knex.schema.withSchema(schema).alterTable(tableName, (table) => {
     table.dropColumn('company_code');
-    table.integer('tenant_id').nullable();
   });
 };
 
