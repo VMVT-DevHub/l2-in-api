@@ -1494,8 +1494,17 @@
               "label": "",
               "options": {
                 "display": "upload",
+                "clearOnCopy": true,
                 "multi": true,
-                "clearOnCopy": true
+                "text": {
+                  "pressToWant": "Paspauskite norėdami",
+                  "uploadOrDragFilesHere": "įkelti arba įtempkite failus čia",
+                  "fileTypesAndMaxSize": "PDF, PNG, JPEG, JPG, MP4, AVI, MOV (maks. 65MB)"
+                },
+                "availableMimeTypes": [
+                  "video/x-msvideo", "video/avi", "video/mp4", "video/quicktime", "image/png", "image/jpg", "image/jpeg", "application/pdf"
+                ],
+                "availableExtensionsTypes": [".png",".jpg" , ".jpeg", ".pdf", ".avi", ".mp4", ".mov"]
               }
             }
           ],

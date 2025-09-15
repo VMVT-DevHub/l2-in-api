@@ -127,6 +127,7 @@ const populatePermissions = (field: string) => {
         type: 'object',
         required: true,
         validate: 'validateData',
+        populate: 'populateDataWithStatus',
       },
 
       ...COMMON_FIELDS,
