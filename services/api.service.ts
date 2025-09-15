@@ -5,12 +5,8 @@ import cookie from 'cookie';
 import moleculer, { Context } from 'moleculer';
 import { Action, Method, Service } from 'moleculer-decorators';
 import ApiGateway, { IncomingRequest, Route } from 'moleculer-web';
-import { MetaSession, RestrictionType } from '../types';
+import { MetaSession, RestrictionType, SessionBlob } from '../types';
 import { User } from './users.service';
-
-export interface UserAuthMeta {
-  session: { user: User; token: string; profile: any };
-}
 
 @Service({
   name: 'api',
@@ -114,16 +110,35 @@ export default class ApiService extends moleculer.Service {
       return;
     }
 
-    const data: { id: number } = await verifyToken(token, process.env.ACCESS_JWT_SECRET);
-    if (data?.id) {
-      const user: User = await ctx.call('users.resolve', { id: data.id });
-      if (user) {
-        ctx.meta.session = { token, user };
-        return;
-      }
+    const data: any = await verifyToken(token, process.env.ACCESS_JWT_SECRET);
+    const userId = Number(data?.sub);
+    const sid = data?.sid;
+    if (!userId || !sid) {
+      await ctx.call('auth.finish', { token });
+      return;
     }
 
-    await ctx.call('auth.finish', { token });
+    const user: User = await ctx.call('users.resolve', { id: userId });
+    if (!user) {
+      await ctx.call('auth.finish', { token });
+      return;
+    }
+
+    const session = (await this.broker.cacher?.get(`sess:${sid}`)) as SessionBlob | null;
+    if (!session) {
+      await ctx.call('auth.finish', { token });
+      return;
+    }
+
+    ctx.meta.session = {
+      token,
+      sid,
+      user,
+      companyCode: session?.companyCode ?? null,
+      activeOrgCode: session?.activeOrgCode,
+      roles: session?.roles ?? null,
+    };
+    return;
   }
 
   @Method

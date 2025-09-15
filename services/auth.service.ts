@@ -6,16 +6,16 @@ import moleculer, { Context } from 'moleculer';
 import { Action, Method, Service } from 'moleculer-decorators';
 
 import {
+  ActiveOrgResponse,
   MetaSession,
   ResponseHeadersMeta,
   RestrictionType,
   throwBadRequestError,
   throwUnauthorizedError,
   UserEvartai,
+  UserRoles,
   ViispUserRaw,
 } from '../types';
-import { Tenant } from './tenants.service';
-import { TenantUserRole } from './tenantUsers.service';
 import { User } from './users.service';
 
 @Service({
@@ -62,6 +62,7 @@ export default class AuthService extends moleculer.Service {
   async login(ctx: Context<{ ticket: string }, ResponseHeadersMeta>) {
     try {
       const { ticket } = ctx.params;
+      let userRoles: UserRoles = null;
 
       const res: ViispUserRaw = await ctx.call('http.get', {
         url: `${process.env.VIISP_HOST}/${ticket}`,
@@ -93,18 +94,15 @@ export default class AuthService extends moleculer.Service {
         throwUnauthorizedError('Missing personalCode from identity provider');
       }
 
-      const user: User = await ctx.call('users.findOrCreate', { authUser });
-      const tenant: Tenant = await ctx.call('tenants.findOrCreate', { authUser });
-
-      if (user?.id && tenant?.id) {
-        await ctx.call('tenantUsers.findOrCreate', {
-          user: user.id,
-          tenant: tenant.id,
-          role: TenantUserRole.ADMIN,
+      if (!authUser.companyCode) {
+        userRoles = await ctx.call('http.get', {
+          url: `${process.env.VIISP_HOST}/roles/${authUser.uuid}`,
+          opt: { responseType: 'json' },
         });
       }
 
-      await this.startSession(ctx, user);
+      const user: User = await ctx.call('users.findOrCreate', { authUser });
+      await this.startSession(ctx, user, authUser.companyCode, userRoles);
     } catch (err) {
       throwBadRequestError('Cannot login', err);
     }
@@ -114,7 +112,52 @@ export default class AuthService extends moleculer.Service {
     rest: 'GET /me',
   })
   async me(ctx: Context<unknown, MetaSession>) {
-    return ctx.meta.session?.user;
+    const session = ctx.meta.session;
+    if (!session) return null;
+
+    return {
+      ...session.user,
+      companyCode: session.companyCode ?? null,
+      activeOrgCode: session.activeOrgCode ?? null,
+      roles: session.roles ?? { orgs: [] },
+    };
+  }
+
+  @Action({
+    rest: 'POST /session/active-org',
+    params: { orgCode: { type: 'string', empty: false, trim: true, pattern: '^[0-9]+$' } },
+  })
+  async setActiveOrg(ctx: Context<{ orgCode: string }, MetaSession>): Promise<ActiveOrgResponse> {
+    const session = ctx.meta.session!;
+    const delegatedIds: string[] = (session.roles?.orgs ?? []).map((o) => String(o.id));
+
+    if (!delegatedIds.includes(ctx.params.orgCode)) {
+      throwBadRequestError('You do not have access to this organisation');
+    }
+
+    const key = `sess:${session.sid}`;
+    const blob = (await this.broker.cacher?.get(key)) || {};
+    await this.broker.cacher?.set(
+      key,
+      { ...blob, activeOrgCode: ctx.params.orgCode },
+      60 * 60 * 24,
+    );
+
+    session.activeOrgCode = ctx.params.orgCode;
+    return { activeOrgCode: session.activeOrgCode };
+  }
+
+  @Action({ rest: 'DELETE /session/active-org' })
+  async clearActiveOrg(ctx: Context<unknown, MetaSession>): Promise<ActiveOrgResponse> {
+    const session = ctx.meta.session;
+    if (!session?.user?.id) return { activeOrgCode: null };
+
+    const key = `sess:${session.sid}`;
+    const blob = (await this.broker.cacher?.get(key)) || {};
+    await this.broker.cacher?.set(key, { ...blob, activeOrgCode: null }, 60 * 60 * 24);
+
+    session.activeOrgCode = null;
+    return { activeOrgCode: null };
   }
 
   @Action({
@@ -145,8 +188,27 @@ export default class AuthService extends moleculer.Service {
   }
 
   @Method
-  async startSession(ctx: Context<{}, ResponseHeadersMeta & MetaSession>, user: User) {
-    const token = generateToken(user, process.env.ACCESS_JWT_SECRET);
+  async startSession(
+    ctx: Context<{}, ResponseHeadersMeta & MetaSession>,
+    user: User,
+    companyCode?: string,
+    userRoles?: UserRoles,
+  ) {
+    const sid = crypto.randomUUID();
+
+    await this.broker.cacher?.set(
+      `sess:${sid}`,
+      {
+        userId: user.id,
+        companyCode: companyCode ?? null,
+        roles: userRoles ?? null,
+        activeOrgCode: companyCode ?? null,
+      },
+      60 * 60 * 24,
+    );
+
+    const token = generateToken({ sub: String(user.id), sid }, process.env.ACCESS_JWT_SECRET);
+
     ctx.meta.$responseHeaders = {
       'Set-Cookie': cookie.serialize('vmvt-auth-token', token, {
         path: '/',

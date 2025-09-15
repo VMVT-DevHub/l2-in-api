@@ -1,8 +1,7 @@
 'use strict';
 import Moleculer, { Context, RestSchema } from 'moleculer';
 import { Action, Method, Service } from 'moleculer-decorators';
-import { throwUploadError } from '../types';
-import { UserAuthMeta } from './api.service';
+import { MetaSession, throwUploadError } from '../types';
 
 @Service({
   name: 'sharepoint',
@@ -132,7 +131,7 @@ export default class SharePointService extends Moleculer.Service {
   async uploadFiles(
     ctx: Context<
       {},
-      { filename: string; mimetype: string; $params: { requestId: string } } & UserAuthMeta
+      { filename: string; mimetype: string; $params: { requestId: string } } & MetaSession
     >,
   ) {
     const token = await this.getToken();

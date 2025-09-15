@@ -12,12 +12,11 @@ import {
   CommonFields,
   CommonPopulates,
   FieldHookCallback,
+  MetaSession,
   Table,
 } from '../types';
 import { VISIBLE_TO_CREATOR_OR_ADMIN_SCOPE } from '../utils/scopes';
-import { UserAuthMeta } from './api.service';
 import { Form } from './formTypes.service';
-import { Tenant } from './tenants.service';
 import { User } from './users.service';
 
 export enum RequestStatus {
@@ -35,13 +34,11 @@ interface Fields extends CommonFields {
   status: RequestStatus;
   formType: string;
   form: string;
-  tenant: Tenant['id'];
+  companyCode: string;
   data: any;
 }
 
-interface Populates extends CommonPopulates {
-  tenant: Tenant;
-}
+interface Populates extends CommonPopulates {}
 
 export type Request<
   P extends keyof Populates = never,
@@ -49,10 +46,12 @@ export type Request<
 > = Table<Fields, Populates, P, F>;
 
 const populatePermissions = (field: string) => {
-  return function (ctx: Context<{}, UserAuthMeta>, _values: any, requests: any[]) {
-    const { profile, user } = ctx?.meta?.session;
+  return function (ctx: Context<{}, MetaSession>, _values: any, requests: any[]) {
+    const session = ctx.meta.session;
+    const user = session?.user;
+
     return requests.map((r: any) => {
-      const editingPermissions = this.hasPermissionToEdit(r, user, profile);
+      const editingPermissions = this.hasPermissionToEdit(r, user, session.activeOrgCode ?? null);
       return !!editingPermissions[field];
     });
   };
@@ -104,10 +103,12 @@ const populatePermissions = (field: string) => {
         },
       },
 
-      tenant: {
-        type: 'number',
-        columnName: 'tenantId',
-        populate: 'tenants.resolve',
+      companyCode: {
+        type: 'string',
+        columnName: 'company_code',
+        columnType: 'bigint',
+        immutable: true,
+        set: 'setCompanyCode',
       },
 
       canEdit: {
@@ -143,14 +144,9 @@ export default class extends moleculer.Service {
   hasPermissionToEdit(
     request: any,
     user?: User,
-    profile?: Tenant,
-  ): {
-    edit: boolean;
-    validate: boolean;
-  } {
+    activeOrgCode?: string | null,
+  ): { edit: boolean; validate: boolean } {
     const invalid = { edit: false, validate: false };
-
-    const tenant = request.tenant || request.tenantId;
 
     if (
       !request?.id ||
@@ -162,16 +158,17 @@ export default class extends moleculer.Service {
     }
 
     if (!user?.id) {
-      return {
-        edit: true,
-        validate: true,
-      };
+      return invalid;
     }
 
-    const isCreatedByUser = !tenant && user && user.id === request.createdBy;
-    const isCreatedByTenant = profile && profile.id === tenant;
+    const reqCompany: string | null = request?.companyCode ?? null;
+    const isSelfRow = reqCompany == null && request?.createdBy === user.id;
 
-    if (isCreatedByTenant || isCreatedByUser) {
+    const actor = activeOrgCode ?? null;
+    const isActorOrgMatch =
+      reqCompany != null && actor != null && String(reqCompany) === String(actor);
+
+    if (isSelfRow || isActorOrgMatch) {
       return {
         validate: false,
         edit: [RequestStatus.RETURNED, RequestStatus.DRAFT].includes(request.status),
@@ -225,35 +222,42 @@ export default class extends moleculer.Service {
 
   @Method
   validateStatus({ ctx, value, entity }: FieldHookCallback) {
-    const { user, profile } = ctx.meta.session;
-    if (!value || !user?.id) return true;
+    const s = ctx.meta.session;
+    if (!value || !s?.user?.id) return true;
 
     const error = `Cannot set status with value ${value}`;
+
     if (!entity?.id) {
       return [RequestStatus.CREATED, RequestStatus.DRAFT].includes(value) || error;
     }
 
-    const editingPermissions = this.hasPermissionToEdit(entity, user, profile);
+    const canEdit = this.hasPermissionToEdit(entity, s.user, s.activeOrgCode ?? null).edit;
 
-    if (editingPermissions.edit) {
-      const validTransitions: { [key: string]: RequestStatus[] } = {
-        [RequestStatus.DRAFT]: [RequestStatus.DRAFT, RequestStatus.CREATED],
-        [RequestStatus.RETURNED]: [RequestStatus.SUBMITTED],
-      };
+    if (!canEdit) return error;
 
-      return validTransitions?.[entity?.status]?.includes(value) || error;
-    } else if (editingPermissions.validate) {
-      return (
-        [
-          RequestStatus.REJECTED,
-          RequestStatus.RETURNED,
-          RequestStatus.APPROVED,
-          RequestStatus.COMPLETED,
-        ].includes(value) || error
-      );
-    }
+    const allowed: Record<string, RequestStatus[]> = {
+      [RequestStatus.DRAFT]: [RequestStatus.DRAFT, RequestStatus.CREATED],
+      [RequestStatus.RETURNED]: [RequestStatus.SUBMITTED],
+    };
 
-    return error;
+    return allowed?.[entity.status]?.includes(value) || error;
+  }
+
+  @Method
+  setCompanyCode({ ctx, value, entity }: FieldHookCallback<Request>): string | null {
+    if (entity?.id) return entity.companyCode ?? null;
+
+    const session = (ctx.meta.session ?? {}) as {
+      activeOrgCode?: string | null;
+      companyCode?: string | null;
+    };
+
+    const companyCode = value ?? session.activeOrgCode ?? null;
+    if (companyCode == null) return null;
+
+    const str = String(companyCode).trim();
+
+    return /^\d+$/.test(str) ? str : null;
   }
 
   @Action({
