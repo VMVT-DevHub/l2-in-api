@@ -7,14 +7,14 @@ import { Action, Method, Service } from 'moleculer-decorators';
 
 import {
   ActiveOrgResponse,
+  DelegatedOrgs,
   MetaSession,
   ResponseHeadersMeta,
   RestrictionType,
+  UserEvartai,
+  ViispUserRaw,
   throwBadRequestError,
   throwUnauthorizedError,
-  UserEvartai,
-  UserRoles,
-  ViispUserRaw,
 } from '../types';
 import { User } from './users.service';
 
@@ -62,7 +62,7 @@ export default class AuthService extends moleculer.Service {
   async login(ctx: Context<{ ticket: string }, ResponseHeadersMeta>) {
     try {
       const { ticket } = ctx.params;
-      let userRoles: UserRoles = null;
+      let userRoles: DelegatedOrgs = null;
 
       const res: ViispUserRaw = await ctx.call('http.get', {
         url: `${process.env.VIISP_HOST}/${ticket}`,
@@ -94,15 +94,28 @@ export default class AuthService extends moleculer.Service {
         throwUnauthorizedError('Missing personalCode from identity provider');
       }
 
+      if (authUser.companyCode && !authUser.companyName) {
+        authUser.companyName = await this.getOrgName(ctx, Number(authUser.companyCode));
+      }
+
       if (!authUser.companyCode) {
-        userRoles = await ctx.call('http.get', {
+        const rawRoles: DelegatedOrgs = await ctx.call('http.get', {
           url: `${process.env.VIISP_HOST}/roles/${authUser.uuid}`,
           opt: { responseType: 'json' },
         });
+
+        const eligible = (rawRoles?.orgs ?? []).filter(
+          (o) => Array.isArray(o.roles) && o.roles.includes('user'),
+        );
+
+        if (eligible.length > 0) {
+          const orgsWithNames = await this.resolveDelegatedOrgs(ctx, eligible);
+          userRoles = orgsWithNames;
+        }
       }
 
       const user: User = await ctx.call('users.findOrCreate', { authUser });
-      await this.startSession(ctx, user, authUser.companyCode, userRoles);
+      await this.startSession(ctx, user, authUser.companyCode, authUser.companyName, userRoles);
     } catch (err) {
       throwBadRequestError('Cannot login', err);
     }
@@ -118,6 +131,7 @@ export default class AuthService extends moleculer.Service {
     return {
       ...session.user,
       companyCode: session.companyCode ?? null,
+      companyName: session.companyName ?? null,
       activeOrgCode: session.activeOrgCode ?? null,
       roles: session.roles ?? { orgs: [] },
     };
@@ -192,7 +206,8 @@ export default class AuthService extends moleculer.Service {
     ctx: Context<{}, ResponseHeadersMeta & MetaSession>,
     user: User,
     companyCode?: string,
-    userRoles?: UserRoles,
+    companyName?: string,
+    userRoles?: DelegatedOrgs,
   ) {
     const sid = crypto.randomUUID();
 
@@ -201,6 +216,7 @@ export default class AuthService extends moleculer.Service {
       {
         userId: user.id,
         companyCode: companyCode ?? null,
+        companyName: companyName ?? null,
         roles: userRoles ?? null,
         activeOrgCode: companyCode ?? null,
       },
@@ -218,5 +234,35 @@ export default class AuthService extends moleculer.Service {
     };
     ctx.meta.$statusCode = 302;
     ctx.meta.$location = process.env.FRONTEND_URL;
+  }
+
+  @Method
+  async getOrgName(ctx: Context, id: number): Promise<string> {
+    try {
+      const details = await ctx.call('http.get', {
+        url: `https://registrai.vmvt.lt/jar/details?id=${id}`,
+        opt: { responseType: 'json' },
+      });
+
+      const d = details as any;
+      return typeof d?.pavad === 'string' && d.pavad.trim() ? d.pavad.trim() : 'UNKNOWN';
+    } catch {
+      return 'UNKNOWN';
+    }
+  }
+
+  @Method
+  async resolveDelegatedOrgs(
+    ctx: Context,
+    eligible: DelegatedOrgs['orgs'],
+  ): Promise<DelegatedOrgs> {
+    const resolved: DelegatedOrgs = { orgs: [] };
+
+    for (const org of eligible) {
+      const orgName = await this.getOrgName(ctx, org.id);
+      resolved.orgs.push({ ...org, orgName });
+    }
+
+    return resolved;
   }
 }

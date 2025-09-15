@@ -135,6 +135,7 @@ export default class ApiService extends moleculer.Service {
       sid,
       user,
       companyCode: session?.companyCode ?? null,
+      companyName: session?.companyName ?? null,
       activeOrgCode: session?.activeOrgCode,
       roles: session?.roles ?? null,
     };
