@@ -99,12 +99,21 @@ export default class AuthService extends moleculer.Service {
       }
 
       if (!authUser.companyCode) {
-        const rawRoles: DelegatedOrgs = await ctx.call('http.get', {
+        const rawRoles = (await ctx.call('http.get', {
           url: `${process.env.VIISP_HOST}/roles/${authUser.uuid}`,
           opt: { responseType: 'json' },
-        });
+        })) as unknown;
 
-        const eligible = (rawRoles?.orgs ?? []).filter(
+        const roles: DelegatedOrgs = {
+          orgs:
+            (rawRoles as any)?.orgs?.map((o: any) => ({
+              ...o,
+              id: String(o.id),
+              roles: Array.isArray(o.roles) ? o.roles.map(String) : [],
+            })) ?? [],
+        };
+
+        const eligible = (roles?.orgs ?? []).filter(
           (o) => Array.isArray(o.roles) && o.roles.includes('user'),
         );
 
@@ -245,9 +254,9 @@ export default class AuthService extends moleculer.Service {
       });
 
       const d = details as any;
-      return typeof d?.pavad === 'string' && d.pavad.trim() ? d.pavad.trim() : 'UNKNOWN';
+      return typeof d?.pavad === 'string' && d.pavad.trim() ? d.pavad.trim() : null;
     } catch {
-      return 'UNKNOWN';
+      return null;
     }
   }
 
@@ -259,7 +268,7 @@ export default class AuthService extends moleculer.Service {
     const resolved: DelegatedOrgs = { orgs: [] };
 
     for (const org of eligible) {
-      const orgName = await this.getOrgName(ctx, org.id);
+      const orgName = await this.getOrgName(ctx, Number(org.id));
       resolved.orgs.push({ ...org, orgName });
     }
 

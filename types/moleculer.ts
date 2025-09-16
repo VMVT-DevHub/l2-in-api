@@ -347,7 +347,7 @@ export interface ViispUserRaw {
 
 export interface DelegatedOrgs {
   orgs: {
-    id: number;
+    id: string;
     roles: string[];
     orgName?: string;
   }[];
@@ -358,7 +358,7 @@ export type SessionBlob = {
   companyCode: string | null;
   companyName: string | null;
   activeOrgCode: string | null;
-  roles: { orgs: { id: number; roles: string[] }[] } | null;
+  roles: { orgs: { id: string; roles: string[] }[] } | null;
 };
 
 export type ResponseHeadersMeta = {
