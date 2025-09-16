@@ -79,3 +79,7 @@ pull request. For more information, see the [contribution guidelines](./CONTRIBU
 ## License
 
 This project is licensed under the [MIT License](./LICENSE).
+
+## IMPORTANT NOTE FOR LOCAL DEV
+
+Place seed files in the database/ folder so the schemas get populated correctly when developing locally.
