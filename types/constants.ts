@@ -113,7 +113,7 @@ export function throwBadRequestError(message?: string, data?: any): Errors.Molec
     message || `Bad request.`,
     400,
     'BAD_REQUEST',
-    data,
+    IS_PRODUCTION ? undefined : data,
   );
 }
 
@@ -127,3 +127,5 @@ export function throwUploadError(status?: number, message?: string) {
 }
 
 export const COMMON_DEFAULT_SCOPES = ['notDeleted'];
+
+export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
