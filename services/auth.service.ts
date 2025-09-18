@@ -222,23 +222,19 @@ export default class AuthService extends moleculer.Service {
   @Action({
     rest: 'POST /delegate/org',
     params: {
-      orgId: { type: 'string', empty: false, trim: true, pattern: '^[0-9]+$' },
       ak: { type: 'string', empty: false, trim: true, pattern: '^[0-9]{6,20}$' },
       firstName: { type: 'string', empty: false, trim: true },
       lastName: { type: 'string', empty: false, trim: true },
     },
   })
   async delegateUserToOrg(
-    ctx: Context<{ orgId: string; ak: string; firstName: string; lastName: string }, MetaSession>,
+    ctx: Context<{ ak: string; firstName: string; lastName: string }, MetaSession>,
   ) {
     const session = ctx.meta.session;
     if (!session?.user?.id) throwUnauthorizedError('Not authenticated');
     if (!session.companyCode) throwUnauthorizedError('Only company users can delegate');
-    if (String(session.companyCode) !== String(ctx.params.orgId)) {
-      throwBadRequestError('You cannot manage roles for this organisation');
-    }
 
-    const { orgId, ak, firstName, lastName } = ctx.params;
+    const { ak, firstName, lastName } = ctx.params;
 
     try {
       const createUrl = `${VIISP_BASE_URL}/user`;
@@ -255,13 +251,13 @@ export default class AuthService extends moleculer.Service {
       const userGuid: string = String(createRes?.id ?? '');
       if (!userGuid) throwBadRequestError('Upstream did not return user GUID');
 
-      const roleUrl = `${VIISP_BASE_URL}/roles/org/${orgId}/${userGuid}/user`;
+      const roleUrl = `${VIISP_BASE_URL}/roles/org/${session.companyCode}/${userGuid}/user`;
       await ctx.call('http.post', {
         url: roleUrl,
         opt: { responseType: 'json', headers: viispHeaders() },
       });
 
-      return { orgId: String(orgId), userGuid, role: 'user' };
+      return { orgId: String(session.companyCode), userGuid, role: 'user' };
     } catch (err) {
       throwBadRequestError('Cannot delegate user to organisation', err);
     }
