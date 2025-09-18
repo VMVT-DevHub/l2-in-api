@@ -18,6 +18,10 @@ import {
 } from '../types';
 import { User } from './users.service';
 
+const VIISP_BASE_URL = process.env.VIISP_HOST;
+const VIISP_API_KEY = process.env.VIISP_API_KEY!;
+const viispHeaders = () => ({ 'x-api-Key': VIISP_API_KEY, Accept: 'application/json' });
+
 @Service({
   name: 'auth',
 })
@@ -40,9 +44,10 @@ export default class AuthService extends moleculer.Service {
         host: string;
         url: string;
       } = await ctx.call('http.get', {
-        url: `${process.env.VIISP_HOST}`,
+        url: `${VIISP_BASE_URL}`,
         opt: {
           responseType: 'json',
+          headers: viispHeaders(),
         },
       });
       ctx.meta.$statusCode = 302;
@@ -65,8 +70,8 @@ export default class AuthService extends moleculer.Service {
       let userRoles: DelegatedOrgs = null;
 
       const res: ViispUserRaw = await ctx.call('http.get', {
-        url: `${process.env.VIISP_HOST}/${ticket}`,
-        opt: { responseType: 'json' },
+        url: `${VIISP_BASE_URL}/${ticket}`,
+        opt: { responseType: 'json', headers: viispHeaders() },
       });
 
       let firstName = res.firstName;
@@ -99,12 +104,21 @@ export default class AuthService extends moleculer.Service {
       }
 
       if (!authUser.companyCode) {
-        const rawRoles: DelegatedOrgs = await ctx.call('http.get', {
-          url: `${process.env.VIISP_HOST}/roles/${authUser.uuid}`,
-          opt: { responseType: 'json' },
-        });
+        const rawRoles = (await ctx.call('http.get', {
+          url: `${VIISP_BASE_URL}/roles/${authUser.uuid}`,
+          opt: { responseType: 'json', headers: viispHeaders() },
+        })) as unknown;
 
-        const eligible = (rawRoles?.orgs ?? []).filter(
+        const roles: DelegatedOrgs = {
+          orgs:
+            (rawRoles as any)?.orgs?.map((o: any) => ({
+              ...o,
+              id: String(o.id),
+              roles: Array.isArray(o.roles) ? o.roles.map(String) : [],
+            })) ?? [],
+        };
+
+        const eligible = (roles?.orgs ?? []).filter(
           (o) => Array.isArray(o.roles) && o.roles.includes('user'),
         );
 
@@ -184,6 +198,98 @@ export default class AuthService extends moleculer.Service {
   }
 
   @Action({
+    rest: 'GET /delegate/org/users',
+  })
+  async listDelegatedUsers(ctx: Context<unknown, MetaSession>) {
+    const session = ctx.meta.session;
+    if (!session?.user?.id) throwUnauthorizedError('Not authenticated');
+    if (!session.companyCode) throwUnauthorizedError('Only company users can view delegates');
+
+    const orgId = String(session.companyCode);
+
+    try {
+      const url = `${VIISP_BASE_URL}/roles/org/${orgId}`;
+      const res = await ctx.call('http.get', {
+        url,
+        opt: { responseType: 'json', headers: viispHeaders() },
+      });
+      return res;
+    } catch (err) {
+      throwBadRequestError('Cannot fetch delegated users', err);
+    }
+  }
+
+  @Action({
+    rest: 'POST /delegate/org',
+    params: {
+      ak: { type: 'string', empty: false, trim: true, pattern: '^[0-9]{6,20}$' },
+      firstName: { type: 'string', empty: false, trim: true },
+      lastName: { type: 'string', empty: false, trim: true },
+    },
+  })
+  async delegateUserToOrg(
+    ctx: Context<{ ak: string; firstName: string; lastName: string }, MetaSession>,
+  ) {
+    const session = ctx.meta.session;
+    if (!session?.user?.id) throwUnauthorizedError('Not authenticated');
+    if (!session.companyCode) throwUnauthorizedError('Only company users can delegate');
+
+    const { ak, firstName, lastName } = ctx.params;
+
+    try {
+      const createUrl = `${VIISP_BASE_URL}/user`;
+
+      const createRes: any = await ctx.call('http.post', {
+        url: createUrl,
+        opt: {
+          json: { ak, firstName, lastName },
+          responseType: 'json',
+          headers: viispHeaders(),
+        },
+      });
+
+      const userGuid: string = String(createRes?.id ?? '');
+      if (!userGuid) throwBadRequestError('Upstream did not return user GUID');
+
+      const roleUrl = `${VIISP_BASE_URL}/roles/org/${session.companyCode}/${userGuid}/user`;
+      await ctx.call('http.post', {
+        url: roleUrl,
+        opt: { responseType: 'json', headers: viispHeaders() },
+      });
+
+      return { orgId: String(session.companyCode), userGuid, role: 'user' };
+    } catch (err) {
+      throwBadRequestError('Cannot delegate user to organisation', err);
+    }
+  }
+
+  @Action({
+    rest: 'DELETE /delegate/org/:userGuid',
+    params: {
+      userGuid: { type: 'string', empty: false, trim: true },
+    },
+  })
+  async removeDelegatedUser(ctx: Context<{ userGuid: string }, MetaSession>) {
+    const session = ctx.meta.session;
+    if (!session?.user?.id) throwUnauthorizedError('Not authenticated');
+    if (!session.companyCode) throwUnauthorizedError('Only company users can remove delegates');
+
+    const orgId = String(session.companyCode);
+    const { userGuid } = ctx.params;
+
+    try {
+      const url = `${VIISP_BASE_URL}/roles/org/${orgId}/${userGuid}/user`;
+      await ctx.call('http.delete', {
+        url,
+        opt: { responseType: 'json', headers: viispHeaders() },
+      });
+      return { orgId, userGuid, removed: true };
+    } catch (err) {
+      throwBadRequestError('Cannot remove delegated user', err);
+    }
+  }
+
+  @Action({
     rest: 'POST /cancel',
   })
   async cancel(ctx: Context<unknown, MetaSession & ResponseHeadersMeta>) {
@@ -245,9 +351,9 @@ export default class AuthService extends moleculer.Service {
       });
 
       const d = details as any;
-      return typeof d?.pavad === 'string' && d.pavad.trim() ? d.pavad.trim() : 'UNKNOWN';
+      return typeof d?.pavad === 'string' && d.pavad.trim() ? d.pavad.trim() : null;
     } catch {
-      return 'UNKNOWN';
+      return null;
     }
   }
 
@@ -259,7 +365,7 @@ export default class AuthService extends moleculer.Service {
     const resolved: DelegatedOrgs = { orgs: [] };
 
     for (const org of eligible) {
-      const orgName = await this.getOrgName(ctx, org.id);
+      const orgName = await this.getOrgName(ctx, Number(org.id));
       resolved.orgs.push({ ...org, orgName });
     }
 
