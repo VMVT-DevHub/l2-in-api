@@ -14,8 +14,8 @@ export const VISIBLE_TO_CREATOR_OR_ADMIN_SCOPE = {
       const activeOrgCode = session.activeOrgCode ?? null;
 
       if (activeOrgCode != null && String(activeOrgCode).trim() !== '') {
-        // Only rows I created for the selected org
-        return { ...query, createdBy: userId, companyCode: activeOrgCode };
+        // Only rows created for the selected org
+        return { ...query, companyCode: activeOrgCode };
       }
 
       // No active org, all rows I created with "Fizinis asmuo"
