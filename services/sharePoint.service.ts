@@ -87,6 +87,121 @@ export default class SharePointService extends Moleculer.Service {
   }
 
   @Method
+  async uploadChunks(uploadUrl: string, fileStream: any, fileSize: string, requestId: string) {
+    const fullFileSize = Number(fileSize);
+    const chunkSize = 327680 * 15; // ~4.9mb
+    let currentAmountSent = 0;
+
+    async function streamToBuffer(stream: NodeJS.ReadableStream) {
+      const chunks: Buffer[] = [];
+      for await (const chunk of stream) {
+        chunks.push(Buffer.from(chunk));
+      }
+      return Buffer.concat(chunks);
+    }
+
+    const fileBuffer = await streamToBuffer(fileStream);
+
+    let responseData;
+
+    while (currentAmountSent < fullFileSize) {
+      const chunkEnd = Math.min(currentAmountSent + chunkSize, fileBuffer.length);
+
+      try {
+        const chunk = fileBuffer.subarray(currentAmountSent, chunkEnd);
+        const response = await fetch(uploadUrl, {
+          method: 'PUT',
+          headers: {
+            'Content-Length': `${chunk.length}`,
+            'Content-Range': `bytes ${currentAmountSent}-${chunkEnd - 1}/${fullFileSize}`,
+          },
+          body: chunk,
+        });
+
+        if (!response.ok) {
+          throwUploadError(response.status);
+        }
+        responseData = await response.json();
+        currentAmountSent += chunk.length;
+      } catch ({ e }) {
+        console.log(e);
+        throwUploadError();
+      }
+    }
+
+    const { name, id, size, '@microsoft.graph.downloadUrl': url } = responseData;
+
+    return { name, url, size, requestId: Number(requestId), sharepointFileId: id };
+  }
+  @Method
+  async createFile(
+    token: string,
+    fileStream: any,
+    fileSize: any,
+    mimeType: string,
+    name: string,
+    requestId: string,
+  ) {
+    const uploadUrl = `${this.settings.baseUrl}/${process.env.SHARE_POINT_DRIVE_ID}/root:/${requestId}/${name}:/createUploadSession`;
+
+    try {
+      const response = await fetch(uploadUrl, {
+        method: 'POST',
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          item: {
+            '@microsoft.graph.conflictBehavior': 'replace',
+            name: name,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throwUploadError(response.status);
+      }
+
+      const responseData: any = await response.json();
+      const { uploadUrl: fileUploadUrl, expirationDateTime } = responseData;
+
+      return this.uploadChunks(fileUploadUrl, fileStream, fileSize, requestId);
+    } catch ({}) {
+      throwUploadError();
+    }
+  }
+
+  @Action({
+    rest: <RestSchema>{
+      method: 'POST',
+      path: '/createFiles/:requestId',
+      type: 'multipart',
+    },
+    timeout: 0,
+  })
+  async createFiles(
+    ctx: Context<
+      {},
+      {
+        filename: string;
+        mimetype: string;
+        $params: { requestId: string; fileSize: string };
+        fields: any;
+      } & MetaSession
+    >,
+  ) {
+    const token = await this.getToken();
+    const fileStream = ctx.params;
+    const fileName = ctx?.meta?.filename ?? '';
+    const mimeType = ctx?.meta?.mimetype ?? '';
+    const requestId = ctx?.meta?.['$params']?.requestId ?? '';
+    const fileSize = ctx?.meta?.['$params']?.fileSize ?? '';
+
+    return this.createFile(token, fileStream, fileSize, mimeType, fileName, requestId);
+  }
+
+  @Method
   async uploadFile(
     token: string,
     fileStream: any,
