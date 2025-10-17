@@ -242,6 +242,7 @@ export default class SharePointService extends Moleculer.Service {
       path: '/upload/:requestId',
       type: 'multipart',
     },
+    timeout: 0,
   })
   async uploadFiles(
     ctx: Context<
