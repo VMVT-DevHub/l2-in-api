@@ -129,7 +129,7 @@ export default class SharePointService extends Moleculer.Service {
       }
     }
 
-    const { name, id, size, '@microsoft.graph.downloadUrl': url } = responseData;
+    const { name, id, webUrl: url, size } = responseData;
 
     return { name, url, size, requestId: Number(requestId), sharepointFileId: id };
   }
