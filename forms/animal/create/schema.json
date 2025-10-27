@@ -93,7 +93,7 @@
             "sklypu-nr": {
               "type": "array",
               "items": {
-                "type": "number"
+                "type": "string"
               },
               "title": "Kadastrinio sklypo Nr."
             }
@@ -177,7 +177,8 @@
               "format": "url",
               "maxLength": 512,
               "errorMessage": {
-                "maxLength": "Internetinės svetainės adresas: Pavadinimas negali būti ilgesnis nei 256 simboliai."
+                "maxLength": "Internetinės svetainės adresas: Pavadinimas negali būti ilgesnis nei 256 simboliai.",
+                "format": "Internetinės svetainės adresas: adresas turi turėti 'adresas.lt' formatą"
               }
             }
           },
