@@ -440,7 +440,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/proceso-aprasymas",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "certType":"vet" }
             }
           ]
         },
@@ -452,7 +452,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/kontroles-programa",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "certType":"vet" }
             }
           ]
         },
@@ -465,7 +465,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/nuoteku-programa",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "certType":"vet" }
             }
           ]
         },
@@ -477,7 +477,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/gyvuniniu-produktu-tvarkymo-programa",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "certType":"vet" }
             }
           ]
         },
@@ -489,7 +489,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/kenkeju-kontroles-programa",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "certType":"vet" }
             }
           ]
         },
@@ -501,7 +501,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/valymo-programa",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "certType":"vet" }
             }
           ]
         },
@@ -513,7 +513,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/higienos-mokymo-programa",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "certType":"vet" }
             }
           ]
         },
@@ -525,7 +525,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/laboratoriniai-tyrimai",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "certType":"vet" }
             }
           ]
         },
@@ -537,7 +537,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/rinkliava",
               "label": "",
-              "options": { "display": "upload" }
+              "options": { "display": "upload", "certType":"vet" }
             }
           ]
         },
@@ -553,7 +553,8 @@
               "label": "",
               "options": {
                 "display": "upload",
-                "multi": true
+                "multi": true, 
+                "certType":"vet"
               }
             }
           ]

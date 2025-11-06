@@ -1184,7 +1184,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/apmokejimas",
               "label": "",
-              "options": { "display": "upload", "clearOnCopy": true }
+              "options": { "display": "upload", "clearOnCopy": true, "certType":"ser" }
             }
           ],
           "label": "Mokėjimo pavedimas"
@@ -1196,7 +1196,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/marsruto-planas",
               "label": "",
-              "options": { "display": "upload", "clearOnCopy": true }
+              "options": { "display": "upload", "clearOnCopy": true, "certType":"ser" }
             }
           ],
           "label": "Maršruto planas",
@@ -1212,7 +1212,8 @@
               "options": {
                 "display": "upload",
                 "clearOnCopy": true,
-                "multi": true
+                "multi": true, 
+                "certType":"ser"
               }
             }
           ],
@@ -1226,7 +1227,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/saskaita-faktura",
               "label": "",
-              "options": { "display": "upload", "clearOnCopy": true }
+              "options": { "display": "upload", "clearOnCopy": true, "certType":"ser" }
             }
           ],
           "label": "Sąskaita faktūra",
@@ -1243,6 +1244,7 @@
                 "display": "upload",
                 "clearOnCopy": true,
                 "multi": true,
+                "certType":"ser",
                 "text": {
                   "pressToWant": "Paspauskite norėdami",
                   "uploadOrDragFilesHere": "įkelti arba įtempkite failus čia",
@@ -1267,7 +1269,8 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/papildoma-informacija",
               "options": {
-                "display": "textarea"
+                "display": "textarea",
+                "certType":"ser"
               }
             }
           ],
@@ -1281,7 +1284,8 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/sutikimas",
               "options": {
-                "clearOnCopy": true
+                "clearOnCopy": true, 
+                "certType":"ser"
               }
             }
           ],
