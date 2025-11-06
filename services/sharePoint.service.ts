@@ -3,6 +3,8 @@ import Moleculer, { Context, RestSchema } from 'moleculer';
 import { Action, Method, Service } from 'moleculer-decorators';
 import { MetaSession, throwUploadError } from '../types';
 
+type certType = 'ser' | 'vet'; //first 3 letters  of the req name
+
 @Service({
   name: 'sharepoint',
   settings: {
@@ -11,7 +13,7 @@ import { MetaSession, throwUploadError } from '../types';
 })
 export default class SharePointService extends Moleculer.Service {
   @Method
-  async authenticate() {
+  async authenticate(certType: certType) {
     const url = `https://login.microsoftonline.com/${process.env.SHARE_POINT_TENANT_ID}/oauth2/v2.0/token`;
 
     const postData = new URLSearchParams({
@@ -41,19 +43,19 @@ export default class SharePointService extends Moleculer.Service {
     const { token_type, expires_in, access_token } = response;
 
     await this.broker.cacher.set(
-      `${this.name}.token`,
+      `${this.name}_${certType}.token`,
       { token: `${token_type} ${access_token}` },
       expires_in - 60,
     );
   }
 
   @Method
-  async getToken() {
-    const tokenKey = `${this.name}.token`;
+  async getToken(certType?: certType) {
+    // await this.broker.cacher.del(`${this.name}_${certType}.token`);
+    const tokenKey = `${this.name}_${certType}.token`;
     let sharePointToken = (await this.broker.cacher.get(tokenKey))?.token;
-
     if (!sharePointToken) {
-      await this.authenticate();
+      await this.authenticate(certType);
       sharePointToken = (await this.broker.cacher.get(tokenKey))?.token;
     }
 
@@ -66,9 +68,15 @@ export default class SharePointService extends Moleculer.Service {
    * @returns The direct download URL for the file
    */
   @Method
-  async getDownloadUrl(itemId: string): Promise<string> {
-    const token = await this.getToken();
-    const url = `${this.settings.baseUrl}/${process.env.SHARE_POINT_DRIVE_ID}/items/${itemId}`;
+  async getDownloadUrl(itemId: string, certType: certType): Promise<string> {
+    const token = await this.getToken(certType);
+
+    const requestEnvDrive = {
+      ser: process.env.SHARE_POINT_DRIVE_ID,
+      vet: process.env.SHARE_POINT_DRIVE_ID_VET || process.env.SHARE_POINT_DRIVE_ID,
+    };
+
+    const url = `${this.settings.baseUrl}/${requestEnvDrive[certType]}/items/${itemId}`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -141,9 +149,13 @@ export default class SharePointService extends Moleculer.Service {
     mimeType: string,
     name: string,
     requestId: string,
+    certType: certType,
   ) {
-    const uploadUrl = `${this.settings.baseUrl}/${process.env.SHARE_POINT_DRIVE_ID}/root:/${requestId}/${name}:/createUploadSession`;
-
+    const requestEnvDrive = {
+      ser: process.env.SHARE_POINT_DRIVE_ID,
+      vet: process.env.SHARE_POINT_DRIVE_ID_VET || process.env.SHARE_POINT_DRIVE_ID,
+    };
+    const uploadUrl = `${this.settings.baseUrl}/${requestEnvDrive[certType]}/root:/${requestId}/${name}:/createUploadSession`;
     try {
       const response = await fetch(uploadUrl, {
         method: 'POST',
@@ -167,7 +179,7 @@ export default class SharePointService extends Moleculer.Service {
       const { uploadUrl: fileUploadUrl, expirationDateTime } = responseData;
 
       return this.uploadChunks(fileUploadUrl, fileStream, fileSize, requestId);
-    } catch ({}) {
+    } catch (error) {
       throwUploadError();
     }
   }
@@ -186,19 +198,20 @@ export default class SharePointService extends Moleculer.Service {
       {
         filename: string;
         mimetype: string;
-        $params: { requestId: string; fileSize: string };
+        $params: { requestId: string; fileSize: string; certType: certType };
         fields: any;
       } & MetaSession
     >,
   ) {
-    const token = await this.getToken();
     const fileStream = ctx.params;
     const fileName = ctx?.meta?.filename ?? '';
     const mimeType = ctx?.meta?.mimetype ?? '';
     const requestId = ctx?.meta?.['$params']?.requestId ?? '';
     const fileSize = ctx?.meta?.['$params']?.fileSize ?? '';
+    const certType = ctx?.meta?.['$params']?.certType ?? 'ser';
+    const token = await this.getToken(certType);
 
-    return this.createFile(token, fileStream, fileSize, mimeType, fileName, requestId);
+    return this.createFile(token, fileStream, fileSize, mimeType, fileName, requestId, certType);
   }
 
   @Method
@@ -277,8 +290,14 @@ export default class SharePointService extends Moleculer.Service {
       path: '/downloadUrl/:itemId',
     },
   })
-  async getDownloadUrlAction(ctx: Context<{ itemId: string }, { $params: { itemId: string } }>) {
+  async getDownloadUrlAction(
+    ctx: Context<
+      { itemId: string; certType: certType },
+      { $params: { itemId: string; certType: certType } }
+    >,
+  ) {
     const itemId = ctx?.meta?.['$params']?.itemId ?? ctx.params?.itemId;
-    return await this.getDownloadUrl(itemId);
+    const certType = ctx?.meta?.['$params']?.certType ?? ctx.params?.certType;
+    return await this.getDownloadUrl(itemId, certType);
   }
 }
