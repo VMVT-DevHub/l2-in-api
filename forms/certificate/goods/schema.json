@@ -45,12 +45,13 @@
           "$ref": "#/definitions/atsakingas-asmuo"
         }
       },
-      "required": ["asmuo", "adresas", "atsakingas-asmuo"],
+      "required": ["asmuo", "adresas", "atsakingas-asmuo", "patvirtinimo-iregistravimo-nr"],
       "errorMessage": {
         "required": {
           "asmuo": "Asmuo su kodu privalomas.",
           "adresas": "Adresas privalomas.",
-          "atsakingas-asmuo": "Atsakingas asmuo privalomas."
+          "atsakingas-asmuo": "Atsakingas asmuo privalomas.",
+          "patvirtinimo-iregistravimo-nr":"Patvirtinimo ar įregistravimo numeris privalomas."
         }
       }
     },
@@ -417,7 +418,7 @@
           },
           "gamintojo-patvirtinimo-iregistravimo-nr": {
             "title": "Gamintojo patvirtinimo ar įregistravimo nr.",
-            "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
+            "type": "string"
           },
           "adresas": {
             "$ref": "#/definitions/adresas"
@@ -439,8 +440,7 @@
           "patvirtinimo-nr",
           "laikymo-ir-transportavimo-salygos",
           "salis",
-          "adresas",
-          "gamintojo-patvirtinimo-iregistravimo-nr"
+          "adresas"
         ],
         "errorMessage": {
           "required": {
@@ -455,8 +455,7 @@
             "patvirtinimo-nr": "Prekės: Patvirtinimo numeris privalomas.",
             "laikymo-ir-transportavimo-salygos": "Prekės: Laikymo ir transportavimo sąlygos yra privalomos.",
             "salis": "Prekės: Šalis yra privaloma.",
-            "adresas": "Prekės: Adresas privalomas.",
-            "gamintojo-patvirtinimo-iregistravimo-nr": "Prekės: Gamintojo patvirtinimo ar įregistravimo numeris privalomas."
+            "adresas": "Prekės: Adresas privalomas."
           }
         },
         "if": {
@@ -651,13 +650,13 @@
               "$ref": "#/definitions/adresas"
             },
             "patvirtinimo-iregistravimo-nr": {
-              "$ref": "#/definitions/patvirtinimo-iregistravimo-nr"
+              "title": "Patvirtinimo/Įregistravimo Nr.",
+              "type": "string"
             }
           },
-          "required": ["patvirtinimo-iregistravimo-nr", "adresas", "asmuo"],
+          "required": ["adresas", "asmuo"],
           "errorMessage": {
             "required": {
-              "patvirtinimo-iregistravimo-nr": "Patvirtinimo ir registravimo numeris privalomas paskirties vietoje.",
               "adresas": "Adresas privalomas paskirties vietoje.",
               "asmuo": "Asmuo privalomas paskirties vietoje."
             }
@@ -758,7 +757,7 @@
       "type": "string"
     },
     "patvirtinimo-iregistravimo-nr": {
-      "title": "Patvirtinimo/Įregistravimo Nr.",
+      "title": "Patvirtinimo/Įregistravimo Nr. *",
       "type": "string"
     },
     "laikas": {
