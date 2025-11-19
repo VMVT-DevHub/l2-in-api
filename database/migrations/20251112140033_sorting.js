@@ -21,7 +21,7 @@ exports.up = async function (knex) {
     });
 
   await knex.raw(`
-         CREATE OR REPLACE FUNCTION update_for_sort()
+    CREATE OR REPLACE FUNCTION ${schema}.update_for_sort()
     RETURNS TRIGGER AS $$
     BEGIN
       NEW."product_names" := (
@@ -41,12 +41,12 @@ exports.up = async function (knex) {
     END;
     $$ LANGUAGE plpgsql;
 
-    DROP TRIGGER IF EXISTS info_for_sort_trigger ON requests;
+    DROP TRIGGER IF EXISTS info_for_sort_trigger ON ${schema}.requests;
 
     CREATE TRIGGER info_for_sort_trigger
-    BEFORE INSERT OR UPDATE ON requests
+    BEFORE INSERT OR UPDATE ON ${schema}.requests
     FOR EACH ROW
-    EXECUTE FUNCTION update_for_sort();
+    EXECUTE FUNCTION ${schema}.update_for_sort();
     `);
 };
 
@@ -59,9 +59,10 @@ exports.down = async function (knex) {
   await knex.raw(`DROP INDEX IF EXISTS "${schema}"."requests_importCountry_idx"`);
   await knex.raw(`DROP INDEX IF EXISTS "${schema}"."requests_importAmount_idx"`);
 
-  await knex.raw(`DROP TRIGGER IF EXISTS info_for_sort_trigger ON requests;`);
-  await knex.raw(`DROP FUNCTION IF EXISTS update_for_sort();`);
-  await knex.schema.alterTable('requests', (table) => {
+  await knex.raw(`DROP TRIGGER IF EXISTS info_for_sort_trigger ON ${schema}.requests;`);
+  await knex.raw(`DROP FUNCTION IF EXISTS ${schema}.update_for_sort();`);
+
+  await knex.schema.withSchema(schema).alterTable('requests', (table) => {
     table.dropColumn('product_names');
     table.dropColumn('import_country');
     table.dropColumn('import_amount');
