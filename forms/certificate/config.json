@@ -14,9 +14,9 @@
     },
     {
       "name": "productAmount",
-      "title": "Kiekis",
-      "path": "$.prekes[*].kiekis.kiekis",
-      "mapper": "sum"
+      "title": "Matas",
+      "path": "$.prekes[*]",
+      "mapper": "kiekisMatas"
     }
   ]
 }

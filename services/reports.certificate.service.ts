@@ -61,6 +61,12 @@ export default class extends moleculer.Service {
             (acc: number, number: string | number) => (acc += Number(number) || 0),
             0,
           );
+        } else if (column.mapper === 'kiekisMatas') {
+          responseValue = value.map((v: any) => {
+            const kiekis = v?.['kiekis-matas']?.kiekis;
+            const matas = v?.['kiekis-matas']?.matas;
+            return `${kiekis} ${matas}`;
+          });
         }
         acc[column.name] = responseValue;
         return acc;

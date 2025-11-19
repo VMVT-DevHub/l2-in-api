@@ -275,10 +275,11 @@ export default class extends moleculer.Service {
       type?: string;
       page?: number;
       pageSize?: number;
+      sort?: string[];
     }>,
   ) {
     return ctx.call(`requests.histories.list`, {
-      sort: '-createdAt',
+      sort: ctx.params.sort,
       query: {
         request: ctx.params.id,
       },
