@@ -33,9 +33,7 @@ exports.up = async function (knex) {
 
       NEW."import_amount" := (
         SELECT array_agg(
-        trim(
-          both '"' from ((elem->'kiekis-matas'->>'kiekis') || ' ' || (elem->'kiekis-matas'->>'matas'))
-          )
+         (elem->'kiekis-matas'->>'kiekis') || ' ' || (elem->'kiekis-matas'->>'matas')
         )
        FROM jsonb_array_elements(NEW."data"->'prekes') AS item(elem)
       );
