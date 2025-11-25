@@ -111,6 +111,18 @@ const populatePermissions = (field: string) => {
         set: 'setCompanyCode',
       },
 
+      submittedAt: {
+        type: 'date',
+        columnType: 'datetime',
+        readonly: true,
+        set: 'setSubmittedAt',
+      },
+
+      completedAt: {
+        type: 'date',
+        columnType: 'datetime',
+      },
+
       canEdit: {
         type: 'boolean',
         virtual: true,
@@ -171,7 +183,12 @@ export default class extends moleculer.Service {
     if (isSelfRow || isActorOrgMatch) {
       return {
         validate: false,
-        edit: [RequestStatus.RETURNED, RequestStatus.DRAFT].includes(request.status),
+        edit: [
+          RequestStatus.RETURNED,
+          RequestStatus.DRAFT,
+          RequestStatus.CREATED,
+          RequestStatus.SUBMITTED,
+        ].includes(request.status),
       };
     }
 
@@ -238,9 +255,26 @@ export default class extends moleculer.Service {
     const allowed: Record<string, RequestStatus[]> = {
       [RequestStatus.DRAFT]: [RequestStatus.DRAFT, RequestStatus.CREATED],
       [RequestStatus.RETURNED]: [RequestStatus.SUBMITTED],
+      [RequestStatus.CREATED]: [RequestStatus.CREATED, RequestStatus.SUBMITTED],
+      [RequestStatus.SUBMITTED]: [RequestStatus.SUBMITTED, RequestStatus.CREATED],
     };
 
     return allowed?.[entity.status]?.includes(value) || error;
+  }
+
+  @Method
+  setSubmittedAt({ ctx }: FieldHookCallback<Request>): Date | null {
+    const s = ctx.meta.session;
+    if (!s?.user?.id) return null;
+
+    const status = ctx?.params?.status;
+    const date = new Date();
+
+    if ([RequestStatus.CREATED, RequestStatus.SUBMITTED].includes(status)) {
+      return date;
+    } else {
+      return null;
+    }
   }
 
   @Method
