@@ -446,7 +446,8 @@
             "condition": {
               "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
               "schema": {
-                "enum": ["UKR", "GEO", "CHL", "GBR", "CAN", "MDA", "NZL"]
+                "enum": ["UKR", "GEO", "CHL", "GBR", "CAN", "MDA", "NZL", "AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", 
+                "DEU", "GRC", "HUN", "IRL", "ITA", "LVA", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVN", "SVK", "ESP", "SWE"]
               }
             }
           }
