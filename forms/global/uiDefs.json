@@ -9,6 +9,29 @@
           "elements": [
             {
               "type": "Control",
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
+              "options": { 
+                "display": "authField", 
+                "key": "activeOrgCode",
+                "hidden": true 
+              }
+            },
+             {
+              "type": "Control",
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/aob",
+              "options": { 
+                "display": "authField", 
+                "key": "aob",
+                "hidden": true 
+              }
+            }
+          ]
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "type": "Control",
               "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/vardas",
               "options": {
                 "display": "authField",

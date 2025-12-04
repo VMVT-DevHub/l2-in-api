@@ -16,6 +16,119 @@
       "elements": [
         {
           "$ref": "forms/global/uiDefs.json#/definitions/atsakingas-asmuo-evv"
+        },
+        {
+          "type": "Group",
+          "label": "Ūkio subjekto duomenys",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-pavadinimas",
+                   "options": {
+                    "display": "authField",
+                    "key": "companyName"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-teisine-forma",
+                  "options": {
+                    "display": "authField",
+                    "key": "form"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-gyvenviete",
+                  "rule": {
+                    "effect": "HIDE",
+                    "condition": {
+                      "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/aob",
+                      "schema": {"type": "number"},
+                      "failWhenUndefined": true
+                    }
+                  }
+                  
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-adresas",
+                  "options": {
+                    "display": "authField",
+                    "key": "address"
+                  },
+                  "rule": {
+                    "effect": "DISABLE",
+                    "condition": {
+                      "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/aob",
+                      "schema": {"type": "number"},
+                      "failWhenUndefined": true
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-moketojo-kodas"
+                }
+              ]
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
+              "schema": {"type": "string"},
+              "failWhenUndefined": true
+            }
+          }
+        },
+        {
+          "type": "Group",
+          "label": "Ūkio subjekto duomenys",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/fa-duomenys/properties/vardas",
+                  "options": {
+                    "display": "authField",
+                    "key": "firstName"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/fa-duomenys/properties/pavarde",
+                  "options": {
+                    "display": "authField",
+                    "key": "lastName"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/fa-duomenys/properties/fa-moketojo-kodas"
+                }
+              ]
+            }
+          ],
+          "rule": {
+            "effect": "HIDE",
+            "condition": {
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
+              "schema": {"type": "string"},
+              "failWhenUndefined": true
+            }
+          }
         }
       ]
     },

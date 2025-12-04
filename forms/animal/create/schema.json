@@ -9,14 +9,118 @@
       "properties": {
         "atsakingas-asmuo": {
           "$ref": "forms/global/defs.json#/definitions/atsakingas-asmuo-evv"
+        },
+        "ja-duomenys": {
+          "type": "object",
+          "additionalProperties": false,
+          "default": {},
+          "properties": {
+            "ja-pavadinimas": {
+              "type": "string",
+              "title": "Juridinio asmens pavadinimas",
+              "readOnly": true
+              
+            },
+            "ja-teisine-forma": {
+              "type": "string",
+              "title": "Juridinio asmens teisinė foma",
+              "readOnly": true
+
+            },
+            "ja-gyvenviete": {
+              "type": "string",
+              "title": "Gyvenvietė"
+            },
+            "ja-adresas": {
+              "type": "string",
+              "title": "Adresas"
+
+            },
+            "ja-moketojo-kodas": {
+              "type": "string",
+              "title": "Mokesčių mokėtojo identifikacinis kodas",
+              "pattern": "^\\d{9}$",
+              "errorMessage": {
+                "pattern": "Mokesčių mokėtojo identifikacinis kodas turi būti galiojantis"
+              }
+            }
+            }
+        },
+        "fa-duomenys": {
+          "type": "object",
+          "additionalProperties": false,
+          "default": {},
+          "properties": {
+            "vardas": {
+              "type": "string",
+              "title": "Vardas",
+              "readOnly": true
+
+            },
+            "pavarde": {
+              "type": "string",
+              "title": "Pavardė",
+              "readOnly": true
+
+            },
+            "fa-moketojo-kodas": {
+              "type": "string",
+              "title": "Mokesčių mokėtojo identifikacinis kodas",
+              "pattern": "^[0-9]{11}$",
+              "errorMessage": {
+                "pattern": "Mokesčių mokėtojo identifikacinis kodas turi būti galiojantis"
+              }
+            }
+          }
+          
+         
         }
       },
       "required": ["atsakingas-asmuo"],
-      "errorMessage": {
-        "required": {
-          "atsakingas-asmuo": "Atsakingas asmuo privalomas."
+        "allOf": [
+        {
+          "if": {
+            "properties": {
+              "atsakingas-asmuo": {
+                "properties": {
+                  "ja": { "minLength": 1,  "type": "string" }
+                },
+                "required": ["ja"]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "ja-duomenys": {
+                "required": ["ja-pavadinimas", "ja-teisine-forma", "ja-adresas", "ja-moketojo-kodas"],
+                "errorMessage": {
+                  "required": {
+                    "ja-pavadinimas": "Juridinio asmens pavadinimas yra privalomas.",
+                    "ja-teisine-forma": "Juridinio asmens teisinė foma yra privaloma.",
+                    "ja-gyvenviete": "Juridinio asmens gyvenvietė yra privaloma.",
+                    "ja-adresas": "Juridinio asmens adresas yra privalomas.",
+                    "ja-moketojo-kodas": "Juridinio asmens moketojo kodas yra privalomas."
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "fa-duomenys": {
+                "required": ["vardas", "pavarde", "fa-moketojo-kodas"],
+                "errorMessage": {
+                  "required": {
+                    "vardas": "Fizinio asmens vardas yra privalomas.",
+                    "pavarde": "Fizinio asmens pavardė yra privaloma.",
+                    "fa-moketojo-kodas": "Fizinio asmens mokėtojo kodas yra privalomas."
+                  }
+                }
+              }
+            }
+          }
         }
-      }
+      ]
     },
     "subjektas": {
       "type": "object",
@@ -178,7 +282,7 @@
               "maxLength": 512,
               "errorMessage": {
                 "maxLength": "Internetinės svetainės adresas: Pavadinimas negali būti ilgesnis nei 256 simboliai.",
-                "format": "Internetinės svetainės adresas: adresas turi turėti 'adresas.lt' formatą"
+                "format": "Internetinės svetainės adresas turi turėti 'adresas.lt' formatą"
               }
             }
           },
@@ -208,7 +312,7 @@
               "title": "Transporto priemonės markė",
               "maxLength": 50,
               "errorMessage": {
-                "maxLength": "Transporto priemonės markė negali būti ilgesnis nei 256 simboliai."
+                "maxLength": "Transporto priemonės markė negali būti ilgesnė nei 50 simbolių."
               }
             },
             "valstybinis-nr": {
