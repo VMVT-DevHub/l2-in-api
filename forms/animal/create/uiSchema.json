@@ -30,7 +30,7 @@
                 {
                   "type": "Control",
                   "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-pavadinimas",
-                   "options": {
+                  "options": {
                     "display": "authField",
                     "key": "companyName"
                   }
@@ -134,28 +134,146 @@
     },
     {
       "type": "Category",
-      "label": "Valstybinės veterinarinės kontrolės subjektas (veiklavietė)",
+      "label": "Veiklavietė",
       "elements": [
         {
           "type": "Group",
-          "label": "Duomenys apie veterinarinės kontrolės  subjektą (veiklavietę)",
+          "label": "Ūkio subjekto veiklavietės pavadinimas",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/subjektas/properties/duomenys/properties/pavad-sutampa"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/subjektas/properties/duomenys/properties/pavadinimas",
+               "rule": {
+                "effect": "HIDE",
+                "condition": {
+                  "scope": "#/properties/subjektas/properties/duomenys/properties/pavad-sutampa",
+                  "schema": {"const": true}
+                }
+              }
+            }
+          ]
+        },
+
+         {
+          "type": "Group",
+          "label": "Ūkio subjekto veiklavietės adresas",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/subjektas/properties/adresas/properties/ar-nesutampa-adresas"
+            },
+            {    
+              "type": "HorizontalLayout",
+              "elements": [
+              {
+                "type": "Control",
+                "scope": "#/properties/subjektas/properties/adresas/properties/gyvenviete"
+              },
+              {
+                "type": "Control",
+                "scope": "#/properties/subjektas/properties/adresas/properties/adresas",
+                "options":{
+                    "display": "authField",
+                    "key": "address"
+                }
+              }],
+              "rule": {
+                "effect": "ENABLE",
+                "condition": {
+                  "scope": "#/properties/subjektas/properties/adresas/properties/ar-nesutampa-adresas",
+                  "schema": {"const": true},
+                  "failWhenUndefined": true
+                }
+                }
+              },
+            {
+              "type": "Control",
+              "scope": "#/properties/subjektas/properties/adresas/properties/ar-laikinas-adresas"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/subjektas/properties/adresas/properties/ar-bus-koordinates"
+            }
+          ]
+        },
+         {
+          "type": "Group",
+          "label": "WGS koordinatės",
           "elements": [
             {
               "type": "HorizontalLayout",
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/duomenys/properties/darbuotoju-skaicius"
+                  "scope": "#/properties/subjektas/properties/koordinates/properties/platuma",
+                  "options": {
+                    "placeholder": "Pvz.: 54.7090"
+                  }
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/duomenys/properties/pamainu-skaicius"
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/duomenys/properties/patalpu-tipas"
+                  "scope": "#/properties/subjektas/properties/koordinates/properties/ilguma",
+                  "options": {
+                    "placeholder": "Pvz.: 25.2474"
+                  }
                 }
               ]
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/subjektas/properties/adresas/properties/ar-bus-koordinates",
+              "schema": {"const": true},
+              "failWhenUndefined": true
+            }
+            }
+        },
+        {
+          "type": "Group",
+          "label": "Duomenys apie statinius / patalpas",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/subjektas/properties/patalpos",
+              "options": {
+                "display": "addMore",
+                "addLabel": "Pridėti statinį",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/numeris",
+                       "options": {
+                        "placeholder": "xxxx-xxxx-xxxx:xxxx"
+                      }
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/paskirtis"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/pagrindas"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Duomenys apie statinius / patalpas",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/subjektas/properties/darbuotojai/properties/skaicius"
             }
           ]
         },
@@ -199,7 +317,29 @@
                       "showSelectAllCount": 4
                     }
                   }
+                },
+                {
+                   "type": "HorizontalLayout",
+                   "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/subjektas/properties/darbo-laikas/properties/valandos"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/subjektas/properties/darbo-laikas/properties/valandos-kita",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/subjektas/properties/darbo-laikas/properties/valandos",
+                          "schema": {"const": "Kita"},
+                          "failWhenUndefined": true
+                        }
+                      }
+                    }
+                  ]
                 }
+                
               ]
             }
           ]
@@ -210,14 +350,14 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/subjektas/properties/adresas/properties/sutampa-su-buveines-adresu"
+              "scope": "#/properties/subjektas/properties/adresas-temp/properties/sutampa-su-buveines-adresu"
             },
             {
               "type": "HorizontalLayout",
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas/properties/savivaldybe",
+                  "scope": "#/properties/subjektas/properties/adresas-temp/properties/savivaldybe",
                   "options": {
                     "display": "boundariesSelect",
                     "fetchOptionsFromBoundaries": "savivaldybe",
@@ -226,19 +366,19 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas/properties/miestas",
+                  "scope": "#/properties/subjektas/properties/adresas-temp/properties/miestas",
                   "options": {
                     "display": "boundariesSelect",
                     "fetchOptionsFromBoundaries": "miestas",
                     "params": {
-                      "municipality": "#/properties/subjektas/properties/adresas/properties/savivaldybe"
+                      "municipality": "#/properties/subjektas/properties/adresas-temp/properties/savivaldybe"
                     },
                     "onChangeClear": ["gatve", "namo-nr", "buto-nr"]
                   },
                   "rule": {
                     "effect": "DISABLE",
                     "condition": {
-                      "scope": "#/properties/subjektas/properties/adresas/properties",
+                      "scope": "#/properties/subjektas/properties/adresas-temp/properties",
                       "schema": {
                         "properties": {
                           "savivaldybe": {
@@ -252,7 +392,7 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas/properties/gatve",
+                  "scope": "#/properties/subjektas/properties/adresas-temp/properties/gatve",
                   "options": {
                     "display": "boundariesSelect",
                     "fetchOptionsFromBoundaries": "gatve",
@@ -261,7 +401,7 @@
                   "rule": {
                     "effect": "DISABLE",
                     "condition": {
-                      "scope": "#/properties/subjektas/properties/adresas/properties",
+                      "scope": "#/properties/subjektas/properties/adresas-temp/properties",
                       "schema": {
                         "properties": {
                           "miestas": {
@@ -275,7 +415,7 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas/properties/namo-nr",
+                  "scope": "#/properties/subjektas/properties/adresas-temp/properties/namo-nr",
                   "options": {
                     "display": "boundariesSelect",
                     "fetchOptionsFromBoundaries": "namo-nr",
@@ -284,7 +424,7 @@
                   "rule": {
                     "effect": "DISABLE",
                     "condition": {
-                      "scope": "#/properties/subjektas/properties/adresas/properties",
+                      "scope": "#/properties/subjektas/properties/adresas-temp/properties",
                       "schema": {
                         "properties": {
                           "gatve": {
@@ -298,7 +438,7 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas/properties/buto-nr",
+                  "scope": "#/properties/subjektas/properties/adresas-temp/properties/buto-nr",
                   "options": {
                     "display": "boundariesSelect",
                     "fetchOptionsFromBoundaries": "buto-nr"
@@ -306,7 +446,7 @@
                   "rule": {
                     "effect": "DISABLE",
                     "condition": {
-                      "scope": "#/properties/subjektas/properties/adresas/properties",
+                      "scope": "#/properties/subjektas/properties/adresas-temp/properties",
                       "schema": {
                         "properties": {
                           "namo-nr": {
@@ -319,133 +459,6 @@
                   }
                 }
               ]
-            }
-          ]
-        },
-
-        {
-          "type": "Group",
-          "label": "Kadastrinio sklypo numeriai",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/adresas/properties/sklypu-nr",
-              "options": {
-                "display": "creatableMultiSelect",
-                "placeholder": "Įrašykite"
-              }
-            }
-          ],
-          "rule": {
-            "effect": "SHOW",
-            "condition": {
-              "scope": "#/properties/subjektas/properties/duomenys/properties/patalpu-tipas",
-              "schema": {
-                "const": "Žemės sklypas"
-              }
-            }
-          }
-        },
-        {
-          "type": "Group",
-          "label": "WGS koordinatės",
-          "elements": [
-            {
-              "type": "HorizontalLayout",
-              "elements": [
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/koordinates/properties/platuma",
-                  "options": {
-                    "placeholder": "Pvz.: 54.7090"
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/koordinates/properties/ilguma",
-                  "options": {
-                    "placeholder": "Pvz.: 25.2474"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Elektroninė prekyba",
-          "elements": [
-            {
-              "type": "Control",
-              "options": { "display": "buttonGroup" },
-              "scope": "#/properties/subjektas/properties/elektronine-prekyba/properties/ar-vykdoma"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/elektronine-prekyba/properties/svetaines-adresas",
-              "rule": {
-                "effect": "SHOW",
-                "condition": {
-                  "scope": "#/properties/subjektas/properties/elektronine-prekyba/properties/ar-vykdoma",
-                  "schema": {
-                    "const": "Taip"
-                  }
-                }
-              }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Mobilios/Kilnojamos patalpos",
-          "rule": {
-            "effect": "SHOW",
-            "condition": {
-              "scope": "#/properties/subjektas/properties/duomenys/properties/patalpu-tipas",
-              "schema": {
-                "const": "Mobilios/ Kilnojamos"
-              }
-            }
-          },
-          "elements": [
-            {
-              "type": "HorizontalLayout",
-              "elements": [
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/mobilios-patalpos/properties/marke"
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/mobilios-patalpos/properties/valstybinis-nr"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Mastas",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/mastas/properties/tik-lt"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/mastas/properties/importas"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/mastas/properties/lt-ir-es-rinka"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/mastas/properties/trecios-salys"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/mastas/properties/kita"
             }
           ]
         }

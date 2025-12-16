@@ -132,40 +132,192 @@
           "default": {},
           "additionalProperties": false,
           "properties": {
-            "darbuotoju-skaicius": {
-              "title": "Darbuotojų skaičius *",
-              "type": "string",
-              "enum": [
-                "250 ir daugiau",
-                "50-249 darbuotojai",
-                "10-49 darbuotojai",
-                "1-9 darbuotojai"
-              ]
+            "pavad-sutampa": {
+              "title": "Veiklavietės pavadinimas sutampa su ūkio subjekto pavadinimu",
+              "type": "boolean"
             },
-            "pamainu-skaicius": {
-              "type": "number",
-              "title": "Pamainų skaičius *",
-              "maximum": 99,
-              "errorMessage": {
-                "maximum": "Pamainų skaičius negali būti ilgesnis nei 99 simboliai."
-              }
-            },
-            "patalpu-tipas": {
-              "title": "Patalpų tipas *",
+            "pavadinimas": {
               "type": "string",
-              "enum": ["Mobilios/ Kilnojamos", "Komercinės", "Žemės sklypas"]
+              "title": "Pavadinimas"
             }
           },
-          "required": ["darbuotoju-skaicius", "pamainu-skaicius", "patalpu-tipas"],
+          "required": ["pavadinimas"],
           "errorMessage": {
             "required": {
-              "darbuotoju-skaicius": "Darbuotojų skaičius privalomas.",
-              "pamainu-skaicius": "Pamainų skaičius privalomas.",
-              "patalpu-tipas": "Patalpų tipas privalomas."
+              "pavadinimas": "Pavadinimas yra privalomas."
             }
           }
         },
         "adresas": {
+          "type": "object",
+          "properties": {
+            "ar-nesutampa-adresas": {
+              "type": "boolean",
+              "title": "Veiklavietės adresas nesutampa su ūkio subjekto buveinės adresu"
+            },
+            "gyvenviete": {
+              "type": "string",
+              "title": "Gyvenvietė"
+            },
+            "adresas": {
+              "type": "string",
+              "title": "Adresas"
+            },
+            "ar-laikinas-adresas": {
+              "type": "boolean",
+              "title": "Veterinarinės kontrolės veikla steigiama laikiname statinyje / naudojami laikini prekybos įrenginiai",
+              "description": "Žymima tuo atveju, kai numatoma vykdyti veterinarinės kontrolės veiklą laikinuosiuose statiniuose ar tik naudojant laikinuosius prekybos įrenginius, nurodomas maisto tvarkymo vietos adresas pagal artimiausio statinio adresą, pažymėkite, kad maisto tvarkymo vieta yra prie minėto statinio"
+            },
+            "ar-bus-koordinates": {
+              "type": "boolean",
+              "title": "Adresas bus nurodomas WGS koordinatėmis",
+              "description": "Žymima tuo atveju, kai arti veiklavietės nėra jokio pastato"
+            }
+          },
+          "required": [],
+          "errorMessage": {
+            "required": {
+            
+            }
+          }
+        },
+        "koordinates": {
+          "type": "object",
+          "properties": {
+            "platuma": {
+              "type": "number",
+              "title": "Platuma",
+              "format": "double"
+            },
+            "ilguma": {
+              "type": "number",
+              "title": "Ilguma",
+              "format": "double"
+            }
+          },
+          "required": ["platuma", "ilguma"],
+          "errorMessage": {
+            "required": {
+              "ilguma": "Koordinatės: Ilguma yra privaloma.",
+              "platuma": "Koordinatės: Platuma yra privaloma."
+            }
+          }
+        },
+        "patalpos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "numeris": {
+                "type": "string",
+                "title": "Statinio / patalpų unikalus numeris (Nekilnojamo turto objekto unikalus numeris)",
+                "pattern": "^\\d{4}-\\d{4}-\\d{4}(?::\\d{4})?$",
+                "errorMessage": {
+                  "pattern": "Statinio / patalpų unikalus numeris turi būti galiojantis"
+                }
+              },
+              "paskirtis": {
+                "type": "string",
+                "title": "Veiklai naudojamo statinio / patalpų paskirtis",
+                "enum": [
+                  "Prekybos",
+                  "Paslaugų",
+                  "Gamybos, pramonės",
+                  "Sandėliavimo",
+                  "Gydymo",
+                  "Pagalbinio ūkio",
+                  "Kitų pagalbinių",
+                  "Gyvūnams auginti",
+                  "Žemės ūkio produkcijai tvarkyti"
+                ]
+              },
+              "pagrindas": {
+                "type": "string",
+                "title": "Teritorijos, statinio / patalpos teisėto naudojimo pagrindas",
+                "enum": ["Terminuotas", "Neterminuotas"]
+              }
+            },
+             "required": ["numeris", "paskirtis", "pagrindas"],
+              "errorMessage": {
+                "required": {
+                  "numeris": "Statinio / patalpų unikalus numeris yra privalomas",
+                  "paskirtis": "Statinio / patalpų paskirtis yra privaloma",
+                  "pagrindas": "Statinio / patalpos teisėto naudojimo pagrindas yra privalomas"
+                }
+              }
+              }
+        },
+        "darbuotojai": {
+          "type": "object",
+          "properties": {
+            "skaicius": {
+              "type": "number",
+              "title": "Planuojamas darbuotojų skaičius"
+            }
+          } 
+        },
+        "darbo-laikas": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "menesiai": {
+              "type": "array",
+              "title": "Pasirinkite darbo mėnesius *",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Sausis",
+                  "Vasaris",
+                  "Kovas",
+                  "Balandis",
+                  "Gegužė",
+                  "Birželis",
+                  "Liepa",
+                  "Rugpjūtis",
+                  "Rugsėjis",
+                  "Spalis",
+                  "Lapkritis",
+                  "Gruodis"
+                ],
+                "uniqueItems": true
+              }
+            },
+            "savaites-dienos": {
+              "type": "array",
+              "title": "Pasirinkite darbo dienas *",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Pirmadienis",
+                  "Antradienis",
+                  "Trečiadienis",
+                  "Ketvirtadienis",
+                  "Penktadienis",
+                  "Šeštadienis",
+                  "Sekmadienis"
+                ],
+                "uniqueItems": true
+              }
+            },
+            "valandos": {
+              "type": "string",
+              "title": "Pasirinkite darbo valandas",
+              "enum": ["8:00 - 17:00", "Kita"]
+            },
+            "valandos-kita": {
+              "type": "string",
+              "title": "Nurodykite specifines darbo valandas"
+            }
+          },
+          "required": ["menesiai", "savaites-dienos"],
+          "errorMessage": {
+            "required": {
+              "menesiai": "Darbo mėnesiai yra privalomi.",
+              "savaites-dienos": "Darbo dienos yra privalomos."
+            }
+          }
+        },
+        "adresas-temp": {
           "type": "object",
           "additionalProperties": false,
           "default": {},
@@ -212,175 +364,8 @@
               "buto-nr": "Buto numeris privalomas."
             }
           }
-        },
-        "darbo-laikas": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "menesiai": {
-              "type": "array",
-              "title": "Pasirinkite darbo mėnesius *",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "Sausis",
-                  "Vasaris",
-                  "Kovas",
-                  "Balandis",
-                  "Gegužė",
-                  "Birželis",
-                  "Liepa",
-                  "Rugpjūtis",
-                  "Rugsėjis",
-                  "Spalis",
-                  "Lapkritis",
-                  "Gruodis"
-                ],
-                "uniqueItems": true
-              }
-            },
-            "savaites-dienos": {
-              "type": "array",
-              "title": "Pasirinkite darbo dienas *",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "Pirmadienis",
-                  "Antradienis",
-                  "Trečiadienis",
-                  "Ketvirtadienis",
-                  "Penktadienis",
-                  "Šeštadienis",
-                  "Sekmadienis"
-                ],
-                "uniqueItems": true
-              }
-            }
-          },
-          "required": ["menesiai", "savaites-dienos"],
-          "errorMessage": {
-            "required": {
-              "menesiai": "Darbo mėnesiai yra privalomi.",
-              "savaites-dienos": "Darbo dienos yra privalomos."
-            }
-          }
-        },
-        "elektronine-prekyba": {
-          "type": "object",
-          "additionalProperties": false,
-          "title": "Elektroninė prekyba",
-          "properties": {
-            "ar-vykdoma": {
-              "title": "Ar vykdo elektroninę prekybą *",
-              "type": "string",
-              "enum": ["Taip", "Ne"]
-            },
-            "svetaines-adresas": {
-              "type": "string",
-              "title": "Internetinės svetainės adresas",
-              "format": "url",
-              "maxLength": 512,
-              "errorMessage": {
-                "maxLength": "Internetinės svetainės adresas: Pavadinimas negali būti ilgesnis nei 256 simboliai.",
-                "format": "Internetinės svetainės adresas turi turėti 'adresas.lt' formatą"
-              }
-            }
-          },
-          "required": ["ar-vykdoma"],
-          "errorMessage": {
-            "required": {
-              "ar-vykdoma": "Ar vykdoma elektroninė prekyba yra privaloma."
-            }
-          },
-          "if": { "properties": { "ar-vykdoma": { "const": "Taip" } } },
-          "then": {
-            "required": ["svetaines-adresas"],
-            "errorMessage": {
-              "required": {
-                "svetaines-adresas": "Internetinės svetainės adresas privalomas, jei vykdoma elektroninė prekyba."
-              }
-            }
-          }
-        },
-        "mobilios-patalpos": {
-          "type": "object",
-          "additionalProperties": false,
-          "title": "Mobilios/Kilnojamos patalpos",
-          "properties": {
-            "marke": {
-              "type": "string",
-              "title": "Transporto priemonės markė",
-              "maxLength": 50,
-              "errorMessage": {
-                "maxLength": "Transporto priemonės markė negali būti ilgesnė nei 50 simbolių."
-              }
-            },
-            "valstybinis-nr": {
-              "type": "string",
-              "title": "Transporto priemonės valstybinis registracijos Nr.",
-              "maxLength": 8,
-              "errorMessage": {
-                "maxLength": "Transporto priemonės valstybinis registracijos Nr. negali būti ilgesnis nei 8 simboliai."
-              }
-            }
-          },
-          "required": ["marke", "valstybinis-nr"],
-          "errorMessage": {
-            "required": {
-              "marke": "Transporto priemonės markė yra privaloma.",
-              "valstybinis-nr": "Transporto priemonės valstybinis registracijos Nr. privalomas."
-            }
-          }
-        },
-        "koordinates": {
-          "type": "object",
-          "properties": {
-            "platuma": {
-              "type": "number",
-              "title": "Platuma",
-              "format": "double"
-            },
-            "ilguma": {
-              "type": "number",
-              "title": "Ilguma",
-              "format": "double"
-            }
-          },
-          "required": ["platuma", "ilguma"],
-          "errorMessage": {
-            "required": {
-              "ilguma": "Koordinatės: Ilguma yra privaloma.",
-              "platuma": "Koordinatės: Platuma yra privaloma."
-            }
-          }
-        },
-        "mastas": {
-          "type": "object",
-          "additionalProperties": false,
-          "title": "Mastas",
-          "properties": {
-            "tik-lt": {
-              "type": "boolean",
-              "title": "Prekyba tik Lietuvos Respublikos teritorijoje"
-            },
-            "importas": {
-              "type": "boolean",
-              "title": "Importas"
-            },
-            "lt-ir-es-rinka": {
-              "type": "boolean",
-              "title": "Prekyba Lietuvos rinkai ir (ar) ES rinkai"
-            },
-            "trecios-salys": {
-              "type": "boolean",
-              "title": "Eksportas į trečiąsias šalis"
-            },
-            "kita": {
-              "type": "boolean",
-              "title": "Kita (pvz. veterinarinės paslaugos) "
-            }
-          }
         }
+       
       },
       "required": ["duomenys", "adresas", "darbo-laikas", "elektronine-prekyba"],
       "errorMessage": {
