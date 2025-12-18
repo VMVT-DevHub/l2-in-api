@@ -357,105 +357,9 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas-temp/properties/savivaldybe",
+                  "scope": "#/properties/subjektas/properties/adresas-temp/properties/gyv",
                   "options": {
-                    "display": "boundariesSelect",
-                    "fetchOptionsFromBoundaries": "savivaldybe",
-                    "onChangeClear": ["miestas", "gatve", "namo-nr", "buto-nr"]
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas-temp/properties/miestas",
-                  "options": {
-                    "display": "boundariesSelect",
-                    "fetchOptionsFromBoundaries": "miestas",
-                    "params": {
-                      "municipality": "#/properties/subjektas/properties/adresas-temp/properties/savivaldybe"
-                    },
-                    "onChangeClear": ["gatve", "namo-nr", "buto-nr"]
-                  },
-                  "rule": {
-                    "effect": "DISABLE",
-                    "condition": {
-                      "scope": "#/properties/subjektas/properties/adresas-temp/properties",
-                      "schema": {
-                        "properties": {
-                          "savivaldybe": {
-                            "const": ""
-                          }
-                        }
-                      },
-                      "required": ["savivaldybe"]
-                    }
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas-temp/properties/gatve",
-                  "options": {
-                    "display": "boundariesSelect",
-                    "fetchOptionsFromBoundaries": "gatve",
-                    "onChangeClear": ["namo-nr", "buto-nr"]
-                  },
-                  "rule": {
-                    "effect": "DISABLE",
-                    "condition": {
-                      "scope": "#/properties/subjektas/properties/adresas-temp/properties",
-                      "schema": {
-                        "properties": {
-                          "miestas": {
-                            "const": ""
-                          }
-                        }
-                      },
-                      "required": ["miestas"]
-                    }
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas-temp/properties/namo-nr",
-                  "options": {
-                    "display": "boundariesSelect",
-                    "fetchOptionsFromBoundaries": "namo-nr",
-                    "onChangeClear": ["buto-nr"]
-                  },
-                  "rule": {
-                    "effect": "DISABLE",
-                    "condition": {
-                      "scope": "#/properties/subjektas/properties/adresas-temp/properties",
-                      "schema": {
-                        "properties": {
-                          "gatve": {
-                            "const": ""
-                          }
-                        }
-                      },
-                      "required": ["gatve"]
-                    }
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas-temp/properties/buto-nr",
-                  "options": {
-                    "display": "boundariesSelect",
-                    "fetchOptionsFromBoundaries": "buto-nr"
-                  },
-                  "rule": {
-                    "effect": "DISABLE",
-                    "condition": {
-                      "scope": "#/properties/subjektas/properties/adresas-temp/properties",
-                      "schema": {
-                        "properties": {
-                          "namo-nr": {
-                            "const": ""
-                          }
-                        }
-                      },
-                      "required": ["namo-nr"]
-                    }
+                    "display": "addressSelect"
                   }
                 }
               ]
@@ -560,7 +464,34 @@
       "elements": [
         {
           "type": "Group",
-          "label": "Ūkio subjekto patalpų, teritorijos,kuriose numatoma vykdyti veiklą, schema ir technologinio proceso aprašymas",
+          "label": "Patalpų planas",
+          "description": "Patalpų ir (ar) teritorijos, kuriose numatoma vykdyti veiklą, planas su eksplikacija",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/patalpu-planas",
+              "label": "",
+              "options": { "display": "upload", "certType":"vet" }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Procedūrų aprašai",
+          "description": "Procedūrų, pagrįstų rizikos veiksnių analizės ir svarbių valdymo taškų principais, aprašai",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/proceduru-aprasymas",
+              "label": "",
+              "options": { "display": "upload", "certType":"vet" }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Veiklos proceso aprašymas",
+          "description": "Detalus / trumpas veiklos proceso aprašymas",
           "elements": [
             {
               "type": "Control",
@@ -572,92 +503,8 @@
         },
         {
           "type": "Group",
-          "label": "Geriamojo vandens kontrolės programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/kontroles-programa",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-
-        {
-          "type": "Group",
-          "label": "Nuotekų surinkimo ir nukenksminimo programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/nuoteku-programa",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Šalutinių gyvūninių produktų tvarkymo programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/gyvuniniu-produktu-tvarkymo-programa",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Kenkėjų kontrolės programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/kenkeju-kontroles-programa",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Valymo, plovimo ir dezinkefavimo programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/valymo-programa",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Personalo higienos ir profesinio mokymo programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/higienos-mokymo-programa",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Personalo higienos ir profesinio mokymo programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/laboratoriniai-tyrimai",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-        {
-          "type": "Group",
           "label": "Rinkliava",
+          "description": "Valstybės rinkliavos sumokėjimą patvirtinančio dokumento kopija",
           "elements": [
             {
               "type": "Control",
@@ -667,11 +514,9 @@
             }
           ]
         },
-
         {
           "type": "Group",
           "label": "Kiti dokumentai",
-          "description": "Transporto priemonės registracijos liudijimo kopija (numatytais atvejais)",
           "elements": [
             {
               "type": "Control",
@@ -684,31 +529,107 @@
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Sutikimai",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Papildoma informacija",
+          "description": "Patvirtinimas duomenų patikimumo.",
+           "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/patvirtinu-susipazines"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/patvirtinu-irenges"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/patvirtinu-parenges"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/patvirtinu-pasirenges"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/patvirtinu-nepazeidziant"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/patvirtinu-teisinga"
+            }
+          ]
         },
         {
           "type": "Group",
-          "label": "Papildoma info",
-          "elements": [
+           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/papildoma-informacija",
-              "options": {
-                "display": "textarea"
-              }
+              "scope": "#/properties/sutikimai/properties/isipareigoju-laikytis"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/isipareigoju-nevykdyti"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/isipareigoju-pateikti"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/isipareigoju-dokumentacija"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/isipareigoju-informuoti"
             }
           ]
         },
         {
           "type": "Group",
           "label": "Sutikimas",
-          "description": "Patvirtinimas duomenų patikimumo.",
-          "elements": [
+          "description": "Sutikimas dėl duomenų pateikimo",
+           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/sutikimas"
+              "scope": "#/properties/sutikimai/properties/sutikimas-informuotas"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/sutikimas-ar-yra-email"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/sutikimas-email",
+               "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/sutikimai/properties/sutikimas-ar-yra-email",
+                  "schema": {"const": true}
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Atsakymas",
+          "description": "Pažymėkite būdą, kuriuo pageidaujate gauti atsakymą",
+           "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/atsakymas/properties/ats-gavimas"
             }
           ]
         }
+        
       ]
     }
   ]

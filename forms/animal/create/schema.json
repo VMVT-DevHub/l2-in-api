@@ -326,25 +326,14 @@
               "type": "boolean",
               "title": "Veterinarinės kontrolės subjekto vietos adresas sutampa su subjekto buveinės (korespondencijos adresu)"
             },
-            "savivaldybe": {
-              "type": "number",
-              "title": "Savivaldybė *"
-            },
-            "miestas": {
-              "type": "number",
-              "title": "Miestas / Gyvenvietė *"
-            },
-            "gatve": {
-              "type": "number",
-              "title": "Gatvė *"
-            },
-            "namo-nr": {
-              "type": "number",
-              "title": "Namo Nr. *"
-            },
-            "buto-nr": {
-              "type": "number",
-              "title": "Buto Nr."
+            "gyv": {
+              "type": "object",
+                "properties": {
+                  "gyvId": { "type": "number" },
+                  "gyvName": { "type": "string" },
+                  "adrId": { "type": "number" },
+                  "adrName": { "type": "string" }
+                }
             },
             "sklypu-nr": {
               "type": "array",
@@ -471,28 +460,13 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "patalpu-planas": {
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
+        },
+        "proceduru-aprasymas": {
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
+        },
         "proceso-aprasymas": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
-        },
-        "kontroles-programa": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
-        },
-        "nuoteku-programa": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
-        },
-        "gyvuniniu-produktu-tvarkymo-programa": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
-        },
-        "kenkeju-kontroles-programa": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
-        },
-        "valymo-programa": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
-        },
-        "higienos-mokymo-programa": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
-        },
-        "laboratoriniai-tyrimai": {
           "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "rinkliava": {
@@ -503,17 +477,102 @@
           "items": {
             "$ref": "forms/global/defs.json#/definitions/dokumentas"
           }
+        }
+      }
+    },
+    "sutikimai": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "patvirtinu-susipazines": {
+          "type": "boolean",
+          "title": "esu susipažinęs su mano planuojamai vykdyti veiklai taikomais veterinarijos srities teisės aktų reikalavimais"
         },
-        "papildoma-informacija": {
-          "type": "string"
+        "patvirtinu-irenges": {
+          "type": "boolean",
+          "title": "esu įrengęs mano planuojamai vykdyti veiklai reikalingą teritoriją / statinius / patalpas pagal tokiai veiklai taikomų teisės aktų reikalavimus"
         },
-        "sutikimas": {
-          "title": "Sutinku gauti informacinius pranešimus iš VMVT, susijusius su mano vykdoma veikla.",
-          "type": "boolean"
+        "patvirtinu-parenges": {
+          "type": "boolean",
+          "title": "pagal teisės aktų reikalavimus esu parengęs visą dokumentaciją, kuri reikalinga mano planuojamai vykdyti veiklai"
+        },
+        "patvirtinu-pasirenges": {
+          "type": "boolean",
+          "title": "esu pasirengęs laikytis biologinio saugumo priemonių reikalavimų"
+        },
+        "patvirtinu-nepazeidziant": {
+          "type": "boolean",
+          "title": "statiniai (patalpos), kurie bus naudojami numatomai vykdyti veiklai, gali būti naudojami numatomai vykdyti veiklai nepažeidžiant statybą reglamentuojančių teisės aktų reikalavimų"
+        },
+        "patvirtinu-teisinga": {
+          "type": "boolean",
+          "title": "šiame prašyme ir prie jo pridedamuose dokumentuose pateikta informacija ir duomenys yra teisinga ir atitinka tikrovę"
+        },
+        "isipareigoju-laikytis": {
+          "type": "boolean",
+          "title": "laikytis mano vykdomą veiklą reglamentuojančių veterinarijos srities teisės aktų reikalavimų"
+        },
+        "isipareigoju-nevykdyti": {
+          "type": "boolean",
+          "title": "nevykdyti veiklos, jei statiniai ir (ar) patalpos neatitinka statybą ir jos priežiūrą ir statinių naudojimą reglamentuojančių teisės aktų reikalavimų"
+        },
+        "isipareigoju-pateikti": {
+          "type": "boolean",
+          "title": "pateikti Valstybinės maisto ir veterinarijos tarnybos pareigūnams, atliekantiems veiklos vertinimą vietoje, dokumentų, patvirtinančių mano teisę naudotis patalpomis ir (ar), teritorija, kurioje bus vykdoma veikla, kopijas"
+        },
+        "isipareigoju-dokumentacija": {
+          "type": "boolean",
+          "title": "pateikti Valstybinės maisto ir veterinarijos tarnybos pareigūnams, atliekantiems veiklos vertinimą vietoje, visą dokumentaciją, kuri reikalinga mano planuojamai veiklai vykdyti pagal teisės aktų reikalavimus"
+        },
+        "isipareigoju-informuoti": {
+          "type": "boolean",
+          "title": "apie Apraše nustatyta tvarka patvirtintos ar registruotos veiklos pasikeitimus, veiklos sustabdymą arba nutraukimą  informuoti Valstybinę maisto ir veterinarijos tarnybą Aprašo VI skyriuje nustatyta tvarka"
+        },
+        "sutikimas-informuotas": {
+          "type": "boolean",
+          "title": "Esu informuotas (-a), kad mano asmens duomenys (vardas, pavardė ir gyvenamosios vietos adresas ir koordinatės, kai jis sutampa su veiklavietės adresu),  yra tvarkomi šiais tikslais: asmens, teikiančio šį prašymą, tapatybės nustatymui, patvirtinimo ar registravimo suteikimui, valstybinei veterinarinei kontrolei ir jos planavimui, viešinimui Licencijų informacinėje sistemoje, Europos Komisijos ir VMVT svetainėje."
+        },
+        "sutikimas-ar-yra-email": {
+          "type": "boolean",
+          "title": "Sutinku gauti informaciją apie reikalavimų pakeitimus el. paštu"
+        },
+        "sutikimas-email": {
+          "type": "string",
+          "title": "Įveskite savo el. paštą:"
+        }
+      }, 
+      "required": ["patvirtinu-susipazines","patvirtinu-irenges","patvirtinu-parenges","patvirtinu-pasirenges","patvirtinu-nepazeidziant","patvirtinu-teisinga","isipareigoju-laikytis","isipareigoju-nevykdyti","isipareigoju-pateikti","isipareigoju-dokumentacija","isipareigoju-informuoti","sutikimas-informuotas"],
+      "errorMessage": {
+        "required": {
+          "patvirtinu-susipazines": "Privalote patvirtinti, kad esate susipažinęs su taikomais teisės aktų reikalavimais.",
+          "patvirtinu-irenges": "Privalote patvirtinti, kad esate įrengęs veiklai reikalingą teritoriją ar patalpas.",
+          "patvirtinu-parenges": "Privalote patvirtinti, kad esate parengęs visą reikalingą dokumentaciją.",
+          "patvirtinu-pasirenges": "Privalote patvirtinti pasirengimą laikytis biologinio saugumo reikalavimų.",
+          "patvirtinu-nepazeidziant": "Privalote patvirtinti, kad patalpos naudojamos nepažeidžiant teisės aktų reikalavimų.",
+          "patvirtinu-teisinga": "Privalote patvirtinti, kad pateikti duomenys yra teisingi.",
+          "isipareigoju-laikytis": "Privalote įsipareigoti laikytis veiklą reglamentuojančių teisės aktų.",
+          "isipareigoju-nevykdyti": "Privalote įsipareigoti nevykdyti veiklos neatitinkančiose patalpose.",
+          "isipareigoju-pateikti": "Privalote įsipareigoti pateikti dokumentus VMVT pareigūnams.",
+          "isipareigoju-dokumentacija": "Privalote įsipareigoti pateikti visą veiklai reikalingą dokumentaciją.",
+          "isipareigoju-informuoti": "Privalote įsipareigoti informuoti apie veiklos pasikeitimus nustatyta tvarka.",
+          "sutikimas-informuotas": "Privalote patvirtinti, kad esate informuotas apie asmens duomenų tvarkymą."
+        }
+      }
+    },
+    "atsakymas":{
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ats-gavimas": {
+          "type": "string",
+          "title": "Pažymėkite būdą, kuriuo pageidaujate gauti atsakymą",
+          "enum": ["Nacionalinę elektroninių siuntų pristatymo naudojant pašto tinklą informacinę sistemą", "El. paštu", "Paštu", "Kreipiantis asmeniškai arba per atstovą"]
         }
       }
     }
+
   },
+  
   "definitions": {
     "dokumentas": {
       "type": "object",
