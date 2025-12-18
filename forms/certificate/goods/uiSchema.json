@@ -1441,7 +1441,7 @@
               "options": { "display": "upload", "clearOnCopy": true }
             }
           ],
-          "label": "Mokėjimo pavedimas"
+          "label": "Mokėjimo pavedimas *"
         },
         {
           "type": "Group",
@@ -1457,7 +1457,7 @@
               }
             }
           ],
-          "label": "Laboratoriniai tyrimai",
+          "label": "Laboratoriniai tyrimai *",
           "description": "Tyrimai, atlikti produktų kokybės ar saugos patikrinimui."
         },
         {
