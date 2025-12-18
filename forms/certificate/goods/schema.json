@@ -228,8 +228,8 @@
       "required": ["transporto-priemones", "transporto-priemones-dalys"],
       "errorMessage": {
         "required": {
-          "transporto-priemones": "Siunta: transporto premonės informacija yra privaloma.",
-          "transporto-priemones-dalys": "Siunta: transporto priemonės dalies infromacija yra privaloma."
+          "transporto-priemones": "Transporto premonės informacija yra privaloma.",
+          "transporto-priemones-dalys": "Transporto priemonės dalies infromacija yra privaloma."
         }
       }
     },
