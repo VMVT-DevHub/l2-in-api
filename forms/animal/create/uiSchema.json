@@ -24,7 +24,7 @@
             {
               "type": "HorizontalLayout",
               "options": {
-                "columns": 2
+                "columns": 3
               },
               "elements": [
                 {
@@ -43,40 +43,27 @@
                     "key": "form"
                   }
                 },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-gyvenviete",
-                  "rule": {
-                    "effect": "HIDE",
-                    "condition": {
-                      "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/aob",
-                      "schema": {"type": "number"},
-                      "failWhenUndefined": true
-                    }
-                  }
-                  
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-adresas",
-                  "options": {
-                    "display": "authField",
-                    "key": "address"
-                  },
-                  "rule": {
-                    "effect": "DISABLE",
-                    "condition": {
-                      "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/aob",
-                      "schema": {"type": "number"},
-                      "failWhenUndefined": true
-                    }
-                  }
-                },
+                
                 {
                   "type": "Control",
                   "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-moketojo-kodas"
                 }
               ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-gyv",
+                "options": {
+                "display": "addressSelect"
+              },
+              "rule": {
+                "effect": "DISABLE",
+                "condition": {
+                  "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/aob",
+                  "schema": {"type": "number"},
+                  "failWhenUndefined": true
+                }
+              }
             }
           ],
           "rule": {
@@ -171,14 +158,9 @@
               "elements": [
               {
                 "type": "Control",
-                "scope": "#/properties/subjektas/properties/adresas/properties/gyvenviete"
-              },
-              {
-                "type": "Control",
-                "scope": "#/properties/subjektas/properties/adresas/properties/adresas",
-                "options":{
-                    "display": "authField",
-                    "key": "address"
+                "scope": "#/properties/subjektas/properties/adresas/properties/ja-gyv",
+                  "options": {
+                  "display": "addressSelect"
                 }
               }],
               "rule": {

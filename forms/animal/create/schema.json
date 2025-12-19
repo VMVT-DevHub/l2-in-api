@@ -27,14 +27,14 @@
               "readOnly": true
 
             },
-            "ja-gyvenviete": {
-              "type": "string",
-              "title": "Gyvenvietė"
-            },
-            "ja-adresas": {
-              "type": "string",
-              "title": "Adresas"
-
+            "ja-gyv": {
+              "type": "object",
+                "properties": {
+                  "gyvId": { "type": "number" },
+                  "gyvName": { "type": "string" },
+                  "adrId": { "type": "number" },
+                  "adrName": { "type": "string" }
+                }
             },
             "ja-moketojo-kodas": {
               "type": "string",
@@ -92,7 +92,7 @@
           "then": {
             "properties": {
               "ja-duomenys": {
-                "required": ["ja-pavadinimas", "ja-teisine-forma", "ja-adresas", "ja-moketojo-kodas"],
+                "required": ["ja-pavadinimas", "ja-teisine-forma", "ja-moketojo-kodas"],
                 "errorMessage": {
                   "required": {
                     "ja-pavadinimas": "Juridinio asmens pavadinimas yra privalomas.",
@@ -155,13 +155,14 @@
               "type": "boolean",
               "title": "Veiklavietės adresas nesutampa su ūkio subjekto buveinės adresu"
             },
-            "gyvenviete": {
-              "type": "string",
-              "title": "Gyvenvietė"
-            },
-            "adresas": {
-              "type": "string",
-              "title": "Adresas"
+            "ja-gyv": {
+            "type": "object",
+              "properties": {
+                "gyvId": { "type": "number" },
+                "gyvName": { "type": "string" },
+                "adrId": { "type": "number" },
+                "adrName": { "type": "string" }
+              }
             },
             "ar-laikinas-adresas": {
               "type": "boolean",
@@ -173,13 +174,8 @@
               "title": "Adresas bus nurodomas WGS koordinatėmis",
               "description": "Žymima tuo atveju, kai arti veiklavietės nėra jokio pastato"
             }
-          },
-          "required": [],
-          "errorMessage": {
-            "required": {
-            
-            }
           }
+          
         },
         "koordinates": {
           "type": "object",
