@@ -155,6 +155,8 @@ export default class SharePointService extends Moleculer.Service {
       ser: process.env.SHARE_POINT_DRIVE_ID,
       vet: process.env.SHARE_POINT_DRIVE_ID_VET || process.env.SHARE_POINT_DRIVE_ID,
     };
+    name = name.replace(/["#%*:<>?/\\|]+|[.\s]+$|^(?:CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])$/gi, '-');
+
     const uploadUrl = `${this.settings.baseUrl}/${requestEnvDrive[certType]}/root:/${requestId}/${name}:/createUploadSession`;
     try {
       const response = await fetch(uploadUrl, {
@@ -222,6 +224,8 @@ export default class SharePointService extends Moleculer.Service {
     name: string,
     requestId: string,
   ) {
+    name = name.replace(/["#%*:<>?/\\|]+|[.\s]+$|^(?:CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])$/gi, '-');
+
     const uploadUrl = `${this.settings.baseUrl}/${process.env.SHARE_POINT_DRIVE_ID}/root:/${requestId}/${name}:/content`;
 
     try {
