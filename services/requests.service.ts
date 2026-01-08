@@ -118,6 +118,12 @@ const populatePermissions = (field: string) => {
         set: 'setSubmittedAt',
       },
 
+      hasChanges: {
+        type: 'boolean',
+        columnName: 'has_changes',
+        set: 'setHasChanged',
+      },
+
       completedAt: {
         type: 'date',
         columnType: 'datetime',
@@ -260,6 +266,20 @@ export default class extends moleculer.Service {
     };
 
     return allowed?.[entity.status]?.includes(value) || error;
+  }
+
+  @Method
+  setHasChanged({ ctx }: FieldHookCallback<Request>): boolean | null {
+    const s = ctx.meta.session;
+    if (!s?.user?.id) return null;
+
+    const status = ctx?.params?.status;
+
+    if ([RequestStatus.SUBMITTED].includes(status)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @Method
