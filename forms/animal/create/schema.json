@@ -312,43 +312,6 @@
               "savaites-dienos": "Darbo dienos yra privalomos."
             }
           }
-        },
-        "adresas-temp": {
-          "type": "object",
-          "additionalProperties": false,
-          "default": {},
-          "properties": {
-            "sutampa-su-buveines-adresu": {
-              "type": "boolean",
-              "title": "Veterinarinės kontrolės subjekto vietos adresas sutampa su subjekto buveinės (korespondencijos adresu)"
-            },
-            "gyv": {
-              "type": "object",
-                "properties": {
-                  "gyvId": { "type": "number" },
-                  "gyvName": { "type": "string" },
-                  "adrId": { "type": "number" },
-                  "adrName": { "type": "string" }
-                }
-            },
-            "sklypu-nr": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "title": "Kadastrinio sklypo Nr."
-            }
-          },
-          "required": ["savivaldybe", "miestas", "gatve", "namo-nr"],
-          "errorMessage": {
-            "required": {
-              "savivaldybe": "Savivaldybė yra privaloma.",
-              "miestas": "Miestas / Gyvenvietė privaloma.",
-              "gatve": "Gatvė yra privaloma.",
-              "namo-nr": "Namo numeris privalomas.",
-              "buto-nr": "Buto numeris privalomas."
-            }
-          }
         }
        
       },
@@ -379,40 +342,28 @@
       "type": "object",
       "additionalProperties": false,
       "default": {},
-      "required": ["pagrindine-veikla"],
+      "required": ["veikla"],
       "errorMessage": {
         "required": {
-          "pagrindine-veikla": "Pagrindinė veikla yra privaloma."
+          "veikla": "Pagrindinė veikla yra privaloma."
         }
       },
       "properties": {
-        "pagrindine-veikla": {
+        "veikla": {
           "title": "Pagrindinė veikla *",
           "type": "string",
           "enum": [
-            "Kanopinių gyvūnų (galvijų, avių, ožkų, arklių) surinkimas prekybai su kitomis ES valstybėmis",
-            "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų genetinės medžiagos produktų, t.y. spermos, oocitų ir embrionų, skirtų dirbtiniam dauginimui paruošimas",
-            "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų genetinės medžiagos produktų, t.y. spermos, oocitų ir embrionų, skirtų dirbtiniam dauginimui saugojimas",
-            "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų spermos surinkimas",
-            "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų embrionų gamyba",
-            "Galvijų, kiaulių, avių, ožkų ir arklinių šeimos gyvūnų embrionų surinkimo",
-            "Naminių paukščių laikymas",
-            "Viščiukų broilerių, kalakutų ir kitų naminių paukščių laikymas su tikslu paskersti žmonių maistui",
-            "Ūkinių gyvūnų, ketinamų eksportuoti į trečiąsias šalis karantinavimas",
-            "Gyvūnų",
-            "Žuvų veisimas",
-            "Dedeklinių vištaičių auginimas iki dėslumo periodo pradžios",
-            "Eržilų spermos, embrionų ir oocitų surinkimas ir arba laikymas",
-            "Šunų, kačių ir šeškų surinkimas toliau išvežti juos į kitas ES valstybes",
-            "Gyvūnų augintinių, įvežtų iš trečiųjų valstybių karantinavimas iki jie atitiks ES reikalavimus",
-            "Galimai užsikėtusių akvakultūros gyvūnų laikinas laikymas",
-            "Dekoratyviniais tikslais laikomi akvakultūros gyvūnai",
-            "Popierinis prekiautojas"
+            "73 - Prekiautojo gyvūnais augintiniais patalpos",
+            "16 - Naminių paukščių auginimo ūkis"
           ],
           "default": "",
           "errorMessage": {
             "enum": "Pagrindinė veikla yra privaloma."
           }
+        },
+        "evrk": {
+          "title": "Ekonominės veiklos kodas pagal EVRK *",
+          "type": "string"
         },
         "veiklos-kodai": {
           "type": "array",

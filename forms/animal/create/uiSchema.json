@@ -325,28 +325,6 @@
               ]
             }
           ]
-        },
-        {
-          "type": "Group",
-          "label": "Valstybinės veterinarinės kontrolės subjekto (veiklavietės) adresas",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/adresas-temp/properties/sutampa-su-buveines-adresu"
-            },
-            {
-              "type": "HorizontalLayout",
-              "elements": [
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas-temp/properties/gyv",
-                  "options": {
-                    "display": "addressSelect"
-                  }
-                }
-              ]
-            }
-          ]
         }
       ]
     },
@@ -363,7 +341,11 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/pagrindine-veikla"
+                  "scope": "#/properties/veiklos/properties/veikla"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/evrk"
                 }
               ]
             }
