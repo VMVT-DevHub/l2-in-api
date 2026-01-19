@@ -186,7 +186,14 @@
           }
         },
         "telefono-nr": {
-          "$ref": "#/definitions/telefono-nr"
+          "title": "Telefono nr. *",
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^\\+?[\\d\\s\\-\\(\\)]{8,15}$",
+          "errorMessage": {
+            "pattern": "Telefono numeris turi būti galiojantis",
+            "minLength": "Telefono numeris privalomas."
+          }
         },
         "el-pastas": {
           "$ref": "#/definitions/el-pastas"

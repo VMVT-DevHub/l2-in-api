@@ -4,7 +4,7 @@
     "display": "form",
     "labels": {
       "pareiskejas": "Pareiškėjas",
-      "subjektas": "Subjektas",
+      "veiklaviete": "Veiklavietė",
       "veiklos": "Veiklos",
       "dokumentai": "Dokumentai"
     }
@@ -60,7 +60,7 @@
                 "effect": "DISABLE",
                 "condition": {
                   "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/aob",
-                  "schema": {"type": "number"},
+                  "schema": {"type": "string"},
                   "failWhenUndefined": true
                 }
               }
@@ -129,15 +129,15 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/subjektas/properties/duomenys/properties/pavad-sutampa"
+              "scope": "#/properties/veiklaviete/properties/pavadinimas/properties/pavad-sutampa"
             },
             {
               "type": "Control",
-              "scope": "#/properties/subjektas/properties/duomenys/properties/pavadinimas",
+              "scope": "#/properties/veiklaviete/properties/pavadinimas/properties/pavadinimas",
                "rule": {
                 "effect": "HIDE",
                 "condition": {
-                  "scope": "#/properties/subjektas/properties/duomenys/properties/pavad-sutampa",
+                  "scope": "#/properties/veiklaviete/properties/pavadinimas/properties/pavad-sutampa",
                   "schema": {"const": true}
                 }
               }
@@ -151,14 +151,14 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/subjektas/properties/adresas/properties/ar-nesutampa-adresas"
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-nesutampa-adresas"
             },
             {    
               "type": "HorizontalLayout",
               "elements": [
               {
                 "type": "Control",
-                "scope": "#/properties/subjektas/properties/adresas/properties/ja-gyv",
+                "scope": "#/properties/veiklaviete/properties/adresas/properties/ja-gyv",
                   "options": {
                   "display": "addressSelect"
                 }
@@ -166,7 +166,7 @@
               "rule": {
                 "effect": "ENABLE",
                 "condition": {
-                  "scope": "#/properties/subjektas/properties/adresas/properties/ar-nesutampa-adresas",
+                  "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-nesutampa-adresas",
                   "schema": {"const": true},
                   "failWhenUndefined": true
                 }
@@ -174,11 +174,11 @@
               },
             {
               "type": "Control",
-              "scope": "#/properties/subjektas/properties/adresas/properties/ar-laikinas-adresas"
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-laikinas-adresas"
             },
             {
               "type": "Control",
-              "scope": "#/properties/subjektas/properties/adresas/properties/ar-bus-koordinates"
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-bus-koordinates"
             }
           ]
         },
@@ -191,14 +191,14 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/koordinates/properties/platuma",
+                  "scope": "#/properties/veiklaviete/properties/koordinates/properties/platuma",
                   "options": {
                     "placeholder": "Pvz.: 54.7090"
                   }
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/koordinates/properties/ilguma",
+                  "scope": "#/properties/veiklaviete/properties/koordinates/properties/ilguma",
                   "options": {
                     "placeholder": "Pvz.: 25.2474"
                   }
@@ -209,7 +209,7 @@
           "rule": {
             "effect": "SHOW",
             "condition": {
-              "scope": "#/properties/subjektas/properties/adresas/properties/ar-bus-koordinates",
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-bus-koordinates",
               "schema": {"const": true},
               "failWhenUndefined": true
             }
@@ -221,7 +221,7 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/subjektas/properties/patalpos",
+              "scope": "#/properties/veiklaviete/properties/patalpos",
               "options": {
                 "display": "addMore",
                 "addLabel": "Pridėti statinį",
@@ -255,7 +255,7 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/subjektas/properties/darbuotojai/properties/skaicius"
+              "scope": "#/properties/veiklaviete/properties/darbuotojai/properties/skaicius"
             }
           ]
         },
@@ -272,7 +272,7 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/darbo-laikas/properties/menesiai",
+                  "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/menesiai",
                   "options": {
                     "display": "buttonMultiSelect",
                     "props": {
@@ -287,7 +287,7 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/darbo-laikas/properties/savaites-dienos",
+                  "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/savaites-dienos",
                   "options": {
                     "display": "buttonMultiSelect",
                     "props": {
@@ -305,15 +305,15 @@
                    "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/subjektas/properties/darbo-laikas/properties/valandos"
+                      "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos"
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/subjektas/properties/darbo-laikas/properties/valandos-kita",
+                      "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos-kita",
                       "rule": {
                         "effect": "SHOW",
                         "condition": {
-                          "scope": "#/properties/subjektas/properties/darbo-laikas/properties/valandos",
+                          "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos",
                           "schema": {"const": "Kita"},
                           "failWhenUndefined": true
                         }
@@ -341,7 +341,12 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/veikla"
+                  "scope": "#/properties/veiklos/properties/veikla",
+                  "options": {
+                    "labelFormat": "${code} - ${name}",
+                    "value": "code",
+                    "fetchOptionsFrom": "options/activities/okis"
+                  }
                 },
                 {
                   "type": "Control",
@@ -353,38 +358,261 @@
         },
         {
           "type": "Group",
-          "label": "Veiklos kodai",
+          "label": "Šalutinių gyvūninių produktų veiklos detalizacija",
           "elements": [
             {
+              "type": "HorizontalLayout",
+               "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa"
+                }, 
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/kategorija"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/gyvunu-rusys"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+               "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa-kita"
+                }
+              ],
+              "rule": {
+              "effect": "SHOW",
+              "condition": {
+                "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
+                "schema": {"const": "2.52. OTHER – kiti produktai (nurodykite);"},
+                "failWhenUndefined": true
+                  }
+                }
+              }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/veiklos/properties/veikla",
+              "schema": {
+                "enum": [
+                  "25",
+                  "26",
+                  "27",
+                  "29",
+                  "30",
+                  "31",
+                  "32",
+                  "33",
+                  "34",
+                  "35",
+                  "38",
+                  "39",
+                  "40"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "Group",
+          "label": "Pašarų su ŠGP gaminiais veiklos detalizacija",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+               "options": {
+                "columns": 2
+              },
+              "elements": [
+                
+              ]
+            },
+            {
               "type": "Control",
-              "scope": "#/properties/veiklos/properties/veiklos-kodai",
+              "scope": "#/properties/veiklos/properties/pasaru-detalizacija-68/properties/kodai",
               "options": {
                 "display": "addMore",
-                "addLabel": "Pridėti veiklos kodą",
+                "addLabel": "Pridėti pašarų su ŠGP gaminiais tvarkymo veiklos santrumpą",
                 "detail": {
                   "type": "HorizontalLayout",
+                  "options": {
+                    "columns": 2
+                  },
                   "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/kodas"
+                      "scope": "#/properties/pasaru-kodas"
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/detalizacija"
+                      "scope": "#/properties/sgpg",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/pasaru-kodas",
+                          "schema": {
+                            "enum": ["FEED S", "FEED SE"]
+                          }
+                        }
+                    }
+                }
+                  ]
+                }
+              }
+            },
+            
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklos/properties/pasaru-detalizacija-68/properties/santrupos",
+              "options": {
+                "display": "addMore",
+                "addLabel": "Pridėti pašarų su ŠGP gaminiais santrumpą",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "options": {
+                    "columns": 2
+                  },
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/pasaro-santrupa"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/gyvunas",
+                      "rule": {
+                      "effect": "SHOW",
+                      "condition": {
+                        "scope": "#/properties/pasaro-santrupa",
+                        "schema": {"const": "PAPO"}
+                      }
+                      }
                     }
                   ]
                 }
               }
             }
-          ]
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/veiklos/properties/veikla",
+              "schema": {"const": "68"}
+            }
+          }
+        },
+         {
+          "type": "Group",
+          "label": "Pašarų su ŠGP gaminiais veiklos detalizacija",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+               "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pasaru-kodas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/gyvunai"
+                }
+              ]
+            },
+            
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/santrupos",
+              "options": {
+                "display": "addMore",
+                "addLabel": "Pridėti pašarų su ŠGP gaminiais santrumpą",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "options": {
+                    "columns": 2
+                  },
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/pasaro-santrupa"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/sgpg-santrupa",
+                      "rule": {
+                      "effect": "SHOW",
+                      "condition": {
+                        "scope": "#/properties/pasaro-santrupa",
+                        "schema": {"const": "PAP"}
+                      }
+                      }
+                    }
+                  ]
+                }
+              },
+              "rule": {
+              "effect": "SHOW",
+              "condition": {
+                "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pasaru-kodas",
+                "schema": {"const": "FEED Fcf"}
+              }
+              }
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/veiklos/properties/veikla",
+              "schema": {"const": "79"}
+            }
+          }
         },
         {
           "type": "Group",
           "label": "Transporto priemonės",
           "elements": [
             {
+               "type": "HorizontalLayout",
+               "options": {
+                "columns": 1
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/transporto-priemones/properties/ar-mobilios"
+                }
+              ],
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/veiklos/properties/veikla",
+                  "schema": {
+                    "enum": ["62"]
+                  }
+                }
+              }
+
+            },
+            {
               "type": "Control",
-              "scope": "#/properties/veiklos/properties/transporto-priemones",
+              "scope": "#/properties/veiklos/properties/transporto-priemones/properties/transportas",
               "options": {
                 "display": "addMore",
                 "addLabel": "Pridėti transporto priemonę",
@@ -393,7 +621,15 @@
                   "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/marke"
+                      "scope": "#/properties/tipas",
+                       "options": {
+                        "labelFormat": "${name}",
+                        "value": "id",
+                        "fetchOptionsFrom": "options/transportTypes/all",
+                        "onChangeSet": {
+                          "rusis": "name"
+                        }
+                      }
                     },
                     {
                       "type": "Control",
@@ -403,22 +639,88 @@
                 }
               }
             }
-          ]
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/veiklos/properties/veikla",
+              "schema": {
+                "enum": [
+                  "62",
+                  "78"
+                ]
+              }
+            }
+          }
         },
         {
           "type": "Group",
-          "label": "Gyvūnų skaičius",
+          "label": "Numatomos gamybos  / veiklos apimtys",
           "elements": [
             {
-              "type": "HorizontalLayout",
+               "type": "HorizontalLayout",
+               "options": {
+                "columns": 3
+              },
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/gyvunu-skaicius"
+                  "scope": "#/properties/veiklos/properties/apimtys/properties/laikotarpis"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/apimtys/properties/kiekis"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/apimtys/properties/vienetai"
                 }
               ]
             }
           ]
+        },
+        {
+          "type": "Group",
+          "label": "Genetinės medžiagos produktai",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklos/properties/produktai",
+              "options": {
+                "display": "addMore",
+                "addLabel": "Pridėti produktą",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "options": {
+                    "columns": 3
+                  },
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/kategorija"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/rusis"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/talpyklos"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/veiklos/properties/veikla",
+              "schema": {
+                "enum": ["12","13","15","16","18","19","92"]
+              }
+            }
+          }
         }
       ]
     },
