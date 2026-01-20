@@ -68,13 +68,12 @@
               "enum": ["Mobilios/ Kilnojamos", "Namų ūkio", "Komercinės"]
             }
           },
-          "required": ["pavadinimas", "darbuotoju-skaicius", "pamainu-skaicius", "patalpu-tipas"],
+          "required": ["pavadinimas", "darbuotoju-skaicius", "pamainu-skaicius"],
           "errorMessage": {
             "required": {
               "pavadinimas": "Pavadinimas privalomas.",
               "darbuotoju-skaicius": "Darbuotojų skaičius privalomas.",
-              "pamainu-skaicius": "Pamainų skaičius privalomas.",
-              "patalpu-tipas": "Patalpų tipas privalomas."
+              "pamainu-skaicius": "Pamainų skaičius privalomas."
             }
           }
         },

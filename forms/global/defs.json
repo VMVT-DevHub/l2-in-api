@@ -13,7 +13,7 @@
     "imones-kodas": {
       "title": "Juridinio asmens kodas *",
       "type": "string",
-      "pattern": "\\d{9}",
+      "pattern": "\\d{7}",
       "errorMessage": {
         "pattern": "Juridinio asmens kodas turi būti galiojantis"
       }
@@ -186,10 +186,27 @@
           }
         },
         "telefono-nr": {
-          "$ref": "#/definitions/telefono-nr"
+          "title": "Telefono nr. *",
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^\\+?[\\d\\s\\-\\(\\)]{8,15}$",
+          "errorMessage": {
+            "pattern": "Telefono numeris turi būti galiojantis",
+            "minLength": "Telefono numeris privalomas."
+          }
         },
         "el-pastas": {
           "$ref": "#/definitions/el-pastas"
+        },
+        "ja":{
+          "title":"Juridinio asmens kodas",
+          "type":["string", "null"],
+          "readOnly": true
+        },
+        "aob":{
+          "title":"AOB kodas",
+          "type":"string",
+          "readOnly": true
         }
       },
       "required": ["vardas", "pavarde", "pareigos", "telefono-nr", "el-pastas"],

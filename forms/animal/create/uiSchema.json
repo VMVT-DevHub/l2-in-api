@@ -4,7 +4,7 @@
     "display": "form",
     "labels": {
       "pareiskejas": "Pareiškėjas",
-      "subjektas": "Subjektas",
+      "veiklaviete": "Veiklavietė",
       "veiklos": "Veiklos",
       "dokumentai": "Dokumentai"
     }
@@ -16,33 +16,246 @@
       "elements": [
         {
           "$ref": "forms/global/uiDefs.json#/definitions/atsakingas-asmuo-evv"
+        },
+        {
+          "type": "Group",
+          "label": "Ūkio subjekto duomenys",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 3
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-pavadinimas",
+                  "options": {
+                    "display": "authField",
+                    "key": "companyName"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-teisine-forma",
+                  "options": {
+                    "display": "authField",
+                    "key": "form"
+                  }
+                },
+                
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-moketojo-kodas"
+                }
+              ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-gyv",
+                "options": {
+                "display": "addressSelect"
+              },
+              "rule": {
+                "effect": "DISABLE",
+                "condition": {
+                  "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/aob",
+                  "schema": {"type": "string"},
+                  "failWhenUndefined": true
+                }
+              }
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
+              "schema": {"type": "string"},
+              "failWhenUndefined": true
+            }
+          }
+        },
+        {
+          "type": "Group",
+          "label": "Ūkio subjekto duomenys",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/fa-duomenys/properties/vardas",
+                  "options": {
+                    "display": "authField",
+                    "key": "firstName"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/fa-duomenys/properties/pavarde",
+                  "options": {
+                    "display": "authField",
+                    "key": "lastName"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/fa-duomenys/properties/fa-moketojo-kodas"
+                }
+              ]
+            }
+          ],
+          "rule": {
+            "effect": "HIDE",
+            "condition": {
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
+              "schema": {"type": "string"},
+              "failWhenUndefined": true
+            }
+          }
         }
       ]
     },
     {
       "type": "Category",
-      "label": "Valstybinės veterinarinės kontrolės subjektas (veiklavietė)",
+      "label": "Veiklavietė",
       "elements": [
         {
           "type": "Group",
-          "label": "Duomenys apie veterinarinės kontrolės  subjektą (veiklavietę)",
+          "label": "Ūkio subjekto veiklavietės pavadinimas",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/pavadinimas/properties/pavad-sutampa"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/pavadinimas/properties/pavadinimas",
+               "rule": {
+                "effect": "HIDE",
+                "condition": {
+                  "scope": "#/properties/veiklaviete/properties/pavadinimas/properties/pavad-sutampa",
+                  "schema": {"const": true}
+                }
+              }
+            }
+          ]
+        },
+
+         {
+          "type": "Group",
+          "label": "Ūkio subjekto veiklavietės adresas",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-nesutampa-adresas"
+            },
+            {    
+              "type": "HorizontalLayout",
+              "elements": [
+              {
+                "type": "Control",
+                "scope": "#/properties/veiklaviete/properties/adresas/properties/ja-gyv",
+                  "options": {
+                  "display": "addressSelect"
+                }
+              }],
+              "rule": {
+                "effect": "ENABLE",
+                "condition": {
+                  "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-nesutampa-adresas",
+                  "schema": {"const": true},
+                  "failWhenUndefined": true
+                }
+                }
+              },
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-laikinas-adresas"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-bus-koordinates"
+            }
+          ]
+        },
+         {
+          "type": "Group",
+          "label": "WGS koordinatės",
           "elements": [
             {
               "type": "HorizontalLayout",
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/duomenys/properties/darbuotoju-skaicius"
+                  "scope": "#/properties/veiklaviete/properties/koordinates/properties/platuma",
+                  "options": {
+                    "placeholder": "Pvz.: 54.7090"
+                  }
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/duomenys/properties/pamainu-skaicius"
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/duomenys/properties/patalpu-tipas"
+                  "scope": "#/properties/veiklaviete/properties/koordinates/properties/ilguma",
+                  "options": {
+                    "placeholder": "Pvz.: 25.2474"
+                  }
                 }
               ]
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-bus-koordinates",
+              "schema": {"const": true},
+              "failWhenUndefined": true
+            }
+            }
+        },
+        {
+          "type": "Group",
+          "label": "Duomenys apie statinius / patalpas",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/patalpos",
+              "options": {
+                "display": "addMore",
+                "addLabel": "Pridėti statinį",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/numeris",
+                       "options": {
+                        "placeholder": "xxxx-xxxx-xxxx:xxxx"
+                      }
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/paskirtis"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/pagrindas"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Duomenys apie statinius / patalpas",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/darbuotojai/properties/skaicius"
             }
           ]
         },
@@ -59,7 +272,7 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/darbo-laikas/properties/menesiai",
+                  "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/menesiai",
                   "options": {
                     "display": "buttonMultiSelect",
                     "props": {
@@ -74,7 +287,7 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/subjektas/properties/darbo-laikas/properties/savaites-dienos",
+                  "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/savaites-dienos",
                   "options": {
                     "display": "buttonMultiSelect",
                     "props": {
@@ -86,253 +299,30 @@
                       "showSelectAllCount": 4
                     }
                   }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Valstybinės veterinarinės kontrolės subjekto (veiklavietės) adresas",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/adresas/properties/sutampa-su-buveines-adresu"
-            },
-            {
-              "type": "HorizontalLayout",
-              "elements": [
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas/properties/savivaldybe",
-                  "options": {
-                    "display": "boundariesSelect",
-                    "fetchOptionsFromBoundaries": "savivaldybe",
-                    "onChangeClear": ["miestas", "gatve", "namo-nr", "buto-nr"]
-                  }
                 },
                 {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas/properties/miestas",
-                  "options": {
-                    "display": "boundariesSelect",
-                    "fetchOptionsFromBoundaries": "miestas",
-                    "params": {
-                      "municipality": "#/properties/subjektas/properties/adresas/properties/savivaldybe"
+                   "type": "HorizontalLayout",
+                   "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos"
                     },
-                    "onChangeClear": ["gatve", "namo-nr", "buto-nr"]
-                  },
-                  "rule": {
-                    "effect": "DISABLE",
-                    "condition": {
-                      "scope": "#/properties/subjektas/properties/adresas/properties",
-                      "schema": {
-                        "properties": {
-                          "savivaldybe": {
-                            "const": ""
-                          }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos-kita",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos",
+                          "schema": {"const": "Kita"},
+                          "failWhenUndefined": true
                         }
-                      },
-                      "required": ["savivaldybe"]
+                      }
                     }
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas/properties/gatve",
-                  "options": {
-                    "display": "boundariesSelect",
-                    "fetchOptionsFromBoundaries": "gatve",
-                    "onChangeClear": ["namo-nr", "buto-nr"]
-                  },
-                  "rule": {
-                    "effect": "DISABLE",
-                    "condition": {
-                      "scope": "#/properties/subjektas/properties/adresas/properties",
-                      "schema": {
-                        "properties": {
-                          "miestas": {
-                            "const": ""
-                          }
-                        }
-                      },
-                      "required": ["miestas"]
-                    }
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas/properties/namo-nr",
-                  "options": {
-                    "display": "boundariesSelect",
-                    "fetchOptionsFromBoundaries": "namo-nr",
-                    "onChangeClear": ["buto-nr"]
-                  },
-                  "rule": {
-                    "effect": "DISABLE",
-                    "condition": {
-                      "scope": "#/properties/subjektas/properties/adresas/properties",
-                      "schema": {
-                        "properties": {
-                          "gatve": {
-                            "const": ""
-                          }
-                        }
-                      },
-                      "required": ["gatve"]
-                    }
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/adresas/properties/buto-nr",
-                  "options": {
-                    "display": "boundariesSelect",
-                    "fetchOptionsFromBoundaries": "buto-nr"
-                  },
-                  "rule": {
-                    "effect": "DISABLE",
-                    "condition": {
-                      "scope": "#/properties/subjektas/properties/adresas/properties",
-                      "schema": {
-                        "properties": {
-                          "namo-nr": {
-                            "const": ""
-                          }
-                        }
-                      },
-                      "required": ["namo-nr"]
-                    }
-                  }
+                  ]
                 }
+                
               ]
-            }
-          ]
-        },
-
-        {
-          "type": "Group",
-          "label": "Kadastrinio sklypo numeriai",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/adresas/properties/sklypu-nr",
-              "options": {
-                "display": "creatableMultiSelect",
-                "placeholder": "Įrašykite"
-              }
-            }
-          ],
-          "rule": {
-            "effect": "SHOW",
-            "condition": {
-              "scope": "#/properties/subjektas/properties/duomenys/properties/patalpu-tipas",
-              "schema": {
-                "const": "Žemės sklypas"
-              }
-            }
-          }
-        },
-        {
-          "type": "Group",
-          "label": "WGS koordinatės",
-          "elements": [
-            {
-              "type": "HorizontalLayout",
-              "elements": [
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/koordinates/properties/platuma",
-                  "options": {
-                    "placeholder": "Pvz.: 54.7090"
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/koordinates/properties/ilguma",
-                  "options": {
-                    "placeholder": "Pvz.: 25.2474"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Elektroninė prekyba",
-          "elements": [
-            {
-              "type": "Control",
-              "options": { "display": "buttonGroup" },
-              "scope": "#/properties/subjektas/properties/elektronine-prekyba/properties/ar-vykdoma"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/elektronine-prekyba/properties/svetaines-adresas",
-              "rule": {
-                "effect": "SHOW",
-                "condition": {
-                  "scope": "#/properties/subjektas/properties/elektronine-prekyba/properties/ar-vykdoma",
-                  "schema": {
-                    "const": "Taip"
-                  }
-                }
-              }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Mobilios/Kilnojamos patalpos",
-          "rule": {
-            "effect": "SHOW",
-            "condition": {
-              "scope": "#/properties/subjektas/properties/duomenys/properties/patalpu-tipas",
-              "schema": {
-                "const": "Mobilios/ Kilnojamos"
-              }
-            }
-          },
-          "elements": [
-            {
-              "type": "HorizontalLayout",
-              "elements": [
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/mobilios-patalpos/properties/marke"
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/subjektas/properties/mobilios-patalpos/properties/valstybinis-nr"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Mastas",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/mastas/properties/tik-lt"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/mastas/properties/importas"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/mastas/properties/lt-ir-es-rinka"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/mastas/properties/trecios-salys"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/subjektas/properties/mastas/properties/kita"
             }
           ]
         }
@@ -351,7 +341,16 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/pagrindine-veikla"
+                  "scope": "#/properties/veiklos/properties/veikla",
+                  "options": {
+                    "labelFormat": "${code} - ${name}",
+                    "value": "code",
+                    "fetchOptionsFrom": "options/activities/okis"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/evrk"
                 }
               ]
             }
@@ -359,38 +358,261 @@
         },
         {
           "type": "Group",
-          "label": "Veiklos kodai",
+          "label": "Šalutinių gyvūninių produktų veiklos detalizacija",
           "elements": [
             {
+              "type": "HorizontalLayout",
+               "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa"
+                }, 
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/kategorija"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/gyvunu-rusys"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+               "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa-kita"
+                }
+              ],
+              "rule": {
+              "effect": "SHOW",
+              "condition": {
+                "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
+                "schema": {"const": "2.52. OTHER – kiti produktai (nurodykite);"},
+                "failWhenUndefined": true
+                  }
+                }
+              }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/veiklos/properties/veikla",
+              "schema": {
+                "enum": [
+                  "25",
+                  "26",
+                  "27",
+                  "29",
+                  "30",
+                  "31",
+                  "32",
+                  "33",
+                  "34",
+                  "35",
+                  "38",
+                  "39",
+                  "40"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "Group",
+          "label": "Pašarų su ŠGP gaminiais veiklos detalizacija",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+               "options": {
+                "columns": 2
+              },
+              "elements": [
+                
+              ]
+            },
+            {
               "type": "Control",
-              "scope": "#/properties/veiklos/properties/veiklos-kodai",
+              "scope": "#/properties/veiklos/properties/pasaru-detalizacija-68/properties/kodai",
               "options": {
                 "display": "addMore",
-                "addLabel": "Pridėti veiklos kodą",
+                "addLabel": "Pridėti pašarų su ŠGP gaminiais tvarkymo veiklos santrumpą",
                 "detail": {
                   "type": "HorizontalLayout",
+                  "options": {
+                    "columns": 2
+                  },
                   "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/kodas"
+                      "scope": "#/properties/pasaru-kodas"
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/detalizacija"
+                      "scope": "#/properties/sgpg",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/pasaru-kodas",
+                          "schema": {
+                            "enum": ["FEED S", "FEED SE"]
+                          }
+                        }
+                    }
+                }
+                  ]
+                }
+              }
+            },
+            
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklos/properties/pasaru-detalizacija-68/properties/santrupos",
+              "options": {
+                "display": "addMore",
+                "addLabel": "Pridėti pašarų su ŠGP gaminiais santrumpą",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "options": {
+                    "columns": 2
+                  },
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/pasaro-santrupa"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/gyvunas",
+                      "rule": {
+                      "effect": "SHOW",
+                      "condition": {
+                        "scope": "#/properties/pasaro-santrupa",
+                        "schema": {"const": "PAPO"}
+                      }
+                      }
                     }
                   ]
                 }
               }
             }
-          ]
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/veiklos/properties/veikla",
+              "schema": {"const": "68"}
+            }
+          }
+        },
+         {
+          "type": "Group",
+          "label": "Pašarų su ŠGP gaminiais veiklos detalizacija",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+               "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pasaru-kodas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/gyvunai"
+                }
+              ]
+            },
+            
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/santrupos",
+              "options": {
+                "display": "addMore",
+                "addLabel": "Pridėti pašarų su ŠGP gaminiais santrumpą",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "options": {
+                    "columns": 2
+                  },
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/pasaro-santrupa"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/sgpg-santrupa",
+                      "rule": {
+                      "effect": "SHOW",
+                      "condition": {
+                        "scope": "#/properties/pasaro-santrupa",
+                        "schema": {"const": "PAP"}
+                      }
+                      }
+                    }
+                  ]
+                }
+              },
+              "rule": {
+              "effect": "SHOW",
+              "condition": {
+                "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pasaru-kodas",
+                "schema": {"const": "FEED Fcf"}
+              }
+              }
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/veiklos/properties/veikla",
+              "schema": {"const": "79"}
+            }
+          }
         },
         {
           "type": "Group",
           "label": "Transporto priemonės",
           "elements": [
             {
+               "type": "HorizontalLayout",
+               "options": {
+                "columns": 1
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/transporto-priemones/properties/ar-mobilios"
+                }
+              ],
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/veiklos/properties/veikla",
+                  "schema": {
+                    "enum": ["62"]
+                  }
+                }
+              }
+
+            },
+            {
               "type": "Control",
-              "scope": "#/properties/veiklos/properties/transporto-priemones",
+              "scope": "#/properties/veiklos/properties/transporto-priemones/properties/transportas",
               "options": {
                 "display": "addMore",
                 "addLabel": "Pridėti transporto priemonę",
@@ -399,7 +621,15 @@
                   "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/marke"
+                      "scope": "#/properties/tipas",
+                       "options": {
+                        "labelFormat": "${name}",
+                        "value": "id",
+                        "fetchOptionsFrom": "options/transportTypes/all",
+                        "onChangeSet": {
+                          "rusis": "name"
+                        }
+                      }
                     },
                     {
                       "type": "Control",
@@ -409,22 +639,88 @@
                 }
               }
             }
-          ]
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/veiklos/properties/veikla",
+              "schema": {
+                "enum": [
+                  "62",
+                  "78"
+                ]
+              }
+            }
+          }
         },
         {
           "type": "Group",
-          "label": "Gyvūnų skaičius",
+          "label": "Numatomos gamybos  / veiklos apimtys",
           "elements": [
             {
-              "type": "HorizontalLayout",
+               "type": "HorizontalLayout",
+               "options": {
+                "columns": 3
+              },
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/gyvunu-skaicius"
+                  "scope": "#/properties/veiklos/properties/apimtys/properties/laikotarpis"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/apimtys/properties/kiekis"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/apimtys/properties/vienetai"
                 }
               ]
             }
           ]
+        },
+        {
+          "type": "Group",
+          "label": "Genetinės medžiagos produktai",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklos/properties/produktai",
+              "options": {
+                "display": "addMore",
+                "addLabel": "Pridėti produktą",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "options": {
+                    "columns": 3
+                  },
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/kategorija"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/rusis"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/talpyklos"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/veiklos/properties/veikla",
+              "schema": {
+                "enum": ["12","13","15","16","18","19","92"]
+              }
+            }
+          }
         }
       ]
     },
@@ -434,7 +730,34 @@
       "elements": [
         {
           "type": "Group",
-          "label": "Ūkio subjekto patalpų, teritorijos,kuriose numatoma vykdyti veiklą, schema ir technologinio proceso aprašymas",
+          "label": "Patalpų planas",
+          "description": "Patalpų ir (ar) teritorijos, kuriose numatoma vykdyti veiklą, planas su eksplikacija",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/patalpu-planas",
+              "label": "",
+              "options": { "display": "upload", "certType":"vet" }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Procedūrų aprašai",
+          "description": "Procedūrų, pagrįstų rizikos veiksnių analizės ir svarbių valdymo taškų principais, aprašai",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/proceduru-aprasymas",
+              "label": "",
+              "options": { "display": "upload", "certType":"vet" }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Veiklos proceso aprašymas",
+          "description": "Detalus / trumpas veiklos proceso aprašymas",
           "elements": [
             {
               "type": "Control",
@@ -446,92 +769,8 @@
         },
         {
           "type": "Group",
-          "label": "Geriamojo vandens kontrolės programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/kontroles-programa",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-
-        {
-          "type": "Group",
-          "label": "Nuotekų surinkimo ir nukenksminimo programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/nuoteku-programa",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Šalutinių gyvūninių produktų tvarkymo programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/gyvuniniu-produktu-tvarkymo-programa",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Kenkėjų kontrolės programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/kenkeju-kontroles-programa",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Valymo, plovimo ir dezinkefavimo programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/valymo-programa",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Personalo higienos ir profesinio mokymo programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/higienos-mokymo-programa",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Personalo higienos ir profesinio mokymo programa",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/laboratoriniai-tyrimai",
-              "label": "",
-              "options": { "display": "upload", "certType":"vet" }
-            }
-          ]
-        },
-        {
-          "type": "Group",
           "label": "Rinkliava",
+          "description": "Valstybės rinkliavos sumokėjimą patvirtinančio dokumento kopija",
           "elements": [
             {
               "type": "Control",
@@ -541,11 +780,9 @@
             }
           ]
         },
-
         {
           "type": "Group",
           "label": "Kiti dokumentai",
-          "description": "Transporto priemonės registracijos liudijimo kopija (numatytais atvejais)",
           "elements": [
             {
               "type": "Control",
@@ -558,31 +795,107 @@
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Sutikimai",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Papildoma informacija",
+          "description": "Patvirtinimas duomenų patikimumo.",
+           "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/patvirtinu-susipazines"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/patvirtinu-irenges"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/patvirtinu-parenges"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/patvirtinu-pasirenges"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/patvirtinu-nepazeidziant"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/patvirtinu-teisinga"
+            }
+          ]
         },
         {
           "type": "Group",
-          "label": "Papildoma info",
-          "elements": [
+           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/papildoma-informacija",
-              "options": {
-                "display": "textarea"
-              }
+              "scope": "#/properties/sutikimai/properties/isipareigoju-laikytis"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/isipareigoju-nevykdyti"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/isipareigoju-pateikti"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/isipareigoju-dokumentacija"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/isipareigoju-informuoti"
             }
           ]
         },
         {
           "type": "Group",
           "label": "Sutikimas",
-          "description": "Patvirtinimas duomenų patikimumo.",
-          "elements": [
+          "description": "Sutikimas dėl duomenų pateikimo",
+           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/sutikimas"
+              "scope": "#/properties/sutikimai/properties/sutikimas-informuotas"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/sutikimas-ar-yra-email"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/sutikimas-email",
+               "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/sutikimai/properties/sutikimas-ar-yra-email",
+                  "schema": {"const": true}
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Atsakymas",
+          "description": "Pažymėkite būdą, kuriuo pageidaujate gauti atsakymą",
+           "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/atsakymas/properties/ats-gavimas"
             }
           ]
         }
+        
       ]
     }
   ]

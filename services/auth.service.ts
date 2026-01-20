@@ -127,7 +127,6 @@ export default class AuthService extends moleculer.Service {
           userRoles = orgsWithNames;
         }
       }
-
       const user: User = await ctx.call('users.findOrCreate', { authUser });
       await this.startSession(ctx, user, authUser.companyCode, authUser.companyName, userRoles);
     } catch (err) {
@@ -142,12 +141,21 @@ export default class AuthService extends moleculer.Service {
     const session = ctx.meta.session;
     if (!session) return null;
 
+    const details = await this.getOrgDetails(
+      ctx,
+      Number(session.companyCode || session.activeOrgCode),
+    );
+
     return {
       ...session.user,
       companyCode: session.companyCode ?? null,
-      companyName: session.companyName ?? null,
+      companyName: session.companyName || details?.pavad || null,
       activeOrgCode: session.activeOrgCode ?? null,
       roles: session.roles ?? { orgs: [] },
+      form: details?.forma ?? null,
+      address: details?.adresas ?? null,
+      aob: details?.aobKodas,
+      name: details?.pavad,
     };
   }
 
@@ -352,6 +360,30 @@ export default class AuthService extends moleculer.Service {
 
       const d = details as any;
       return typeof d?.pavad === 'string' && d.pavad.trim() ? d.pavad.trim() : null;
+    } catch {
+      return null;
+    }
+  }
+
+  @Method
+  async getOrgDetails(
+    ctx: Context,
+    id: number,
+  ): Promise<{
+    pavad: string | null;
+    forma: string | null;
+    aobKodas: number | null;
+    adresas: string | null;
+  } | null> {
+    try {
+      const details = await ctx.call('http.get', {
+        url: `https://registrai.vmvt.lt/jar/details?id=${id}`,
+        opt: { responseType: 'json' },
+      });
+      const d = details as any;
+
+      const { pavad, forma, aobKodas, adresas } = d;
+      return { pavad, forma, aobKodas: aobKodas != null ? String(aobKodas) : aobKodas, adresas };
     } catch {
       return null;
     }
