@@ -446,7 +446,8 @@
             "condition": {
               "scope": "#/properties/marsrutas/properties/importuojanti-salis/properties/salis",
               "schema": {
-                "enum": ["UKR", "GEO", "CHL", "GBR", "CAN", "MDA", "NZL" ]
+                "enum": ["UKR", "GEO", "CHL", "GBR", "CAN", "MDA", "NZL", "AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN", "FRA", 
+                "DEU", "GRC", "HUN", "IRL", "ITA", "LVA", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SVN", "SVK", "ESP", "SWE"]
               }
             }
           }
@@ -1440,7 +1441,7 @@
               "options": { "display": "upload", "clearOnCopy": true }
             }
           ],
-          "label": "Mokėjimo pavedimas"
+          "label": "Mokėjimo pavedimas *"
         },
         {
           "type": "Group",
@@ -1456,7 +1457,7 @@
               }
             }
           ],
-          "label": "Laboratoriniai tyrimai",
+          "label": "Laboratoriniai tyrimai *",
           "description": "Tyrimai, atlikti produktų kokybės ar saugos patikrinimui."
         },
         {
