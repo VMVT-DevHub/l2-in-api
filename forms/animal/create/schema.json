@@ -228,7 +228,6 @@
           "type": "array",
           "items": {
             "type": "object",
-            "default": [{}],
             "properties": {
               "numeris": {
                 "type": "string",
@@ -290,6 +289,7 @@
           "properties": {
             "menesiai": {
               "type": "array",
+              "default": [],
               "title": "Pasirinkite darbo mėnesius *",
               "uniqueItems": true,
               "items": {
@@ -312,7 +312,7 @@
             },
             "savaites-dienos": {
               "type": "array",
-              "default": {},
+              "default": [],
               "title": "Pasirinkite darbo dienas *",
               "items": {
                 "type": "string",
@@ -530,23 +530,23 @@
           "additionalProperties": false,
           "properties": {
              "kodai": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "pasaru-kodas": {
-                    "type": "string",
-                    "title": "Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa",
-                    "enum": ["FEED S", "FEED SE", "FEED M", "FEED ME", "FEED MEM", "FEED F"]
-                  },
-                  "sgpg": {
-                    "type": "string",
-                    "title": "ŠGPG, kuris sandėliuojamas ir (ar) įeina į kombinuotojo pašaro sudėtį, santrumpa",
-                    "enum": ["FIM", "DCAP", "TCAP", "BLPF", "PAP"]
-                  }
-                }
-              }
-            },
+               "type": "array",
+               "items": {
+                 "type": "object",
+                 "properties": {
+                   "pasaru-kodas": {
+                     "type": "string",
+                     "title": "Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa",
+                     "enum": ["FEED S", "FEED SE", "FEED M", "FEED ME", "FEED MEM", "FEED F"]
+                   },
+                   "sgpg": {
+                     "type": "string",
+                     "title": "ŠGPG, kuris sandėliuojamas ir (ar) įeina į kombinuotojo pašaro sudėtį, santrumpa",
+                     "enum": ["FIM", "DCAP", "TCAP", "BLPF", "PAP"]
+                   }
+                 }
+               }
+             },
             "santrupos": {
               "type": "array",
               "items": {
@@ -560,14 +560,21 @@
                   "gyvunas": {
                     "type": "string",
                     "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai",
-                    "enum": ["Kiaulės", "Naminiai paukščiai", "Ūkiniai vabzdžiai", "Neatrajotojai"]
+                    "enum": [
+                      "neatrajotojams",
+                      "naminiams paukščiams",
+                      "kiaulėms",
+                      "akvakultūros gyvūnams, naminiams paukščiams ir kiaulėms",
+                      "akvakultūros gyvūnams"
+                    ]
                   }
                 }
               }
             }
+           
           }
+          
         },
-        
         "transporto-priemones": {
           "type": "object",
           "additionalProperties": false,
@@ -783,7 +790,7 @@
     },
     "veikla": {
       "type": "string",
-      "fetchEnumFrom": "options.activities.getActivities"
+      "fetchEnumFrom": "options.activities.getIDs"
     }
   }
 }

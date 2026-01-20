@@ -383,7 +383,7 @@ export default class AuthService extends moleculer.Service {
       const d = details as any;
 
       const { pavad, forma, aobKodas, adresas } = d;
-      return { pavad, forma, aobKodas, adresas };
+      return { pavad, forma, aobKodas: aobKodas != null ? String(aobKodas) : aobKodas, adresas };
     } catch {
       return null;
     }

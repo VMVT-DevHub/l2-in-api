@@ -25,4 +25,19 @@ export default class AddressesService extends moleculer.Service {
 
     return result;
   }
+
+  @Action({
+    name: 'getIDs',
+    rest: 'GET /okis/ids',
+  })
+  async getIDs() {
+    const url = `${this.baseUrl}/okis/lists/veiklos`;
+
+    const result: any = await this.broker.call('http.get', {
+      url,
+      opt: { responseType: 'json' },
+    });
+
+    return result.map((item: any) => item.code);
+  }
 }

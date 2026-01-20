@@ -200,7 +200,7 @@
         },
         "ja":{
           "title":"Juridinio asmens kodas",
-          "type":"string",
+          "type":["string", "null"],
           "readOnly": true
         },
         "aob":{
