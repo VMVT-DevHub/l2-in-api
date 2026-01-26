@@ -344,7 +344,8 @@
           },
           "pakuotes-tipas": {
             "title": "Pakuotės tipas *",
-            "type": "string"
+            "type": "string",
+            "fetchEnumFrom": "options.packageTypes.findIds"
           },
           "pakuociu-skaicius": {
             "title": "Pakuočių skaičius (vnt.) *",

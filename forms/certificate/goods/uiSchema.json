@@ -709,7 +709,12 @@
                           "elements": [
                             {
                               "type": "Control",
-                              "scope": "#/properties/pakuotes-tipas"
+                              "scope": "#/properties/pakuotes-tipas",
+                              "options": {
+                                "labelFormat": "${title}",
+                                "value": "id",
+                                "fetchOptionsFrom": "options/packageTypes/all"
+                              }
                             },
                             {
                               "type": "Control",
