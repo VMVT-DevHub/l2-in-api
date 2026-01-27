@@ -383,6 +383,10 @@
                 ]
               }
             },
+            "sgp-kodas-kita":{
+              "type": "string",
+              "title": "Kitas ŠGP ir jų gaminių tvarkymo veiklos kodas"
+            },
             "kategorija": {
               "type": "array",
               "title": "Tvarkomų ŠGP ir jų gaminių kategorija",
@@ -485,7 +489,7 @@
             },
             "sgp-santrupa-kita": {
               "type": "string",
-              "title": "Įveskite kitus produktus"
+              "title": "Kita tvarkomų ŠGP ir jų gaminių santrumpa"
             }
           },
           "required": [],
@@ -590,7 +594,7 @@
                     }
                   ],
                   "errorMessage": {
-                    "oneOf": "Gaminami kombinuoti pašarai su ŠGPG trumpiniai turi priklausyti vienai grupei."
+                    "oneOf": "'Kombinuoti pašarai su ŠGPG' trumpiniai turi priklausyti vienai grupei."
                   }
                 },
                   "gyvunas": {
@@ -641,30 +645,41 @@
           "additionalProperties": false,
           "properties": {
             "laikotarpis": {
-               "type": "array",
+               "type": "string",
                 "title": "Laikotarpis",
-                "uniqueItems": true,
-                "default": [],
-                "items": {
-                  "type": "string",
-                  "enum": [
-                    "Per pamainą",
-                    "Per dieną",
-                    "Per savaitę",
-                    "Per mėnesį",
-                    "Per ketvirtį",
-                    "Per metus"
-                  ]
+                "enum": [
+                  "Per pamainą",
+                  "Per dieną",
+                  "Per savaitę",
+                  "Per mėnesį",
+                  "Per ketvirtį",
+                  "Per metus"
+                ]
+            },
+            "kiekis-matas": {
+            "title": "Pagaminamos produkcijos kiekis *",
+            "type": "object",
+            "properties": {
+              "kiekis": {
+                "type": "string",
+                "pattern": "^\\d{0,10}([.,]\\d{0,4})?(/\\d{0,10}([.,]\\d{0,4})?)?$",
+                "errorMessage": {
+                  "pattern": "Neteisingas kiekio formatas."
                 }
+              },
+              "matas": {
+                "type": "string",
+                "enum": ["vnt","vnt / m^2","ha", "kg" , "m^2", "m^3"]
+              }
             },
-            "kiekis": {
-              "type": "string",
-              "title": "Pagaminamos produkcijos kiekis"
-            },
-            "vienetai": {
-              "type": "string",
-              "title": "Mato vienetai"
+            "required": ["kiekis", "matas"],
+            "errorMessage": {
+              "required": {
+                "kiekis": "Prekės: Kiekis privalomas.",
+                "matas": "Prekės: Matas privalomas"
+              }
             }
+          }
           }
         },
         "produktai": {

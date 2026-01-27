@@ -379,9 +379,33 @@
                 },
                 {
                   "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas-kita",
+                  "rule": {
+                  "effect": "SHOW",
+                  "condition": {
+                    "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas",
+                    "schema": {"contains": {"const": "1.27. OTHER – kita šalutinių gyvūninių produktų ir jų gaminių tvarkymo veikla (nurodykite)" }},
+                    "failWhenUndefined": true
+                    }
+                  }
+                }, 
+                {
+                  "type": "Control",
                   "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
                   "options": {
                     "display": "multiSelect"
+                  }
+                }, 
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa-kita",
+                  "rule": {
+                  "effect": "SHOW",
+                  "condition": {
+                    "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
+                    "schema": {"contains": {"const": "2.52. OTHER – kiti produktai (nurodykite);" }},
+                    "failWhenUndefined": true
+                      }
                   }
                 }, 
                 {
@@ -399,27 +423,7 @@
                   }
                 }
               ]
-            },
-            {
-              "type": "HorizontalLayout",
-               "options": {
-                "columns": 2
-              },
-              "elements": [
-                {
-                  "type": "Control",
-                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa-kita"
-                }
-              ],
-              "rule": {
-              "effect": "SHOW",
-              "condition": {
-                "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
-                "schema": {"contains": {"const": "2.52. OTHER – kiti produktai (nurodykite);" }},
-                "failWhenUndefined": true
-                  }
-                }
-              }
+            }
           ],
           "rule": {
             "effect": "SHOW",
@@ -518,7 +522,11 @@
                       "effect": "SHOW",
                       "condition": {
                         "scope": "#/properties/pasaro-santrupa",
-                        "schema": {"const": "PAPO"}
+                        "schema": {
+                          "contains": {
+                            "enum": ["PAPO", "PAP", "PAPNO"]
+                          }
+                        }
                       }
                       }
                     }
@@ -679,23 +687,21 @@
             {
                "type": "HorizontalLayout",
                "options": {
-                "columns": 3
+                "columns": 2
               },
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/apimtys/properties/laikotarpis",
+                  "scope": "#/properties/veiklos/properties/apimtys/properties/laikotarpis"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/apimtys/properties/kiekis-matas",
                   "options": {
-                    "display": "multiSelect"
+                    "display": "combinedInput",
+                    "inputKey": "kiekis",
+                    "optionKey": "matas"
                   }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/veiklos/properties/apimtys/properties/kiekis"
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/veiklos/properties/apimtys/properties/vienetai"
                 }
               ]
             }
