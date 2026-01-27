@@ -251,7 +251,7 @@
         },
         {
           "type": "Group",
-          "label": "Duomenys apie statinius / patalpas",
+          "label": "Duomenys apie darbuotojus",
           "elements": [
             {
               "type": "Control",
@@ -368,42 +368,62 @@
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas"
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas",
+                  "options": {
+                    "display": "multiSelect",
+                    "props": {
+                      "placeholder": "Pasirinkite reikšmes",
+                      "clearable": true
+                    }
+                  }
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa"
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas-kita",
+                  "rule": {
+                  "effect": "SHOW",
+                  "condition": {
+                    "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas",
+                    "schema": {"contains": {"const": "1.27. OTHER – kita šalutinių gyvūninių produktų ir jų gaminių tvarkymo veikla (nurodykite)" }},
+                    "failWhenUndefined": true
+                    }
+                  }
                 }, 
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/detalizacija/properties/kategorija"
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
+                  "options": {
+                    "display": "multiSelect"
+                  }
+                }, 
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa-kita",
+                  "rule": {
+                  "effect": "SHOW",
+                  "condition": {
+                    "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
+                    "schema": {"contains": {"const": "2.52. OTHER – kiti produktai (nurodykite);" }},
+                    "failWhenUndefined": true
+                      }
+                  }
+                }, 
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/kategorija",
+                  "options": {
+                    "display": "multiSelect"
+                  }
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/detalizacija/properties/gyvunu-rusys"
-                }
-              ]
-            },
-            {
-              "type": "HorizontalLayout",
-               "options": {
-                "columns": 2
-              },
-              "elements": [
-                {
-                  "type": "Control",
-                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa-kita"
-                }
-              ],
-              "rule": {
-              "effect": "SHOW",
-              "condition": {
-                "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
-                "schema": {"const": "2.52. OTHER – kiti produktai (nurodykite);"},
-                "failWhenUndefined": true
+                  "scope": "#/properties/veiklos/properties/detalizacija/properties/gyvunu-rusys",
+                  "options": {
+                    "display": "multiSelect"
                   }
                 }
-              }
+              ]
+            }
           ],
           "rule": {
             "effect": "SHOW",
@@ -490,7 +510,10 @@
                   "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/pasaro-santrupa"
+                      "scope": "#/properties/pasaro-santrupa",
+                      "options": {
+                        "display": "multiSelect"
+                      }
                     },
                     {
                       "type": "Control",
@@ -499,7 +522,11 @@
                       "effect": "SHOW",
                       "condition": {
                         "scope": "#/properties/pasaro-santrupa",
-                        "schema": {"const": "PAPO"}
+                        "schema": {
+                          "contains": {
+                            "enum": ["PAPO", "PAP", "PAPNO"]
+                          }
+                        }
                       }
                       }
                     }
@@ -660,7 +687,7 @@
             {
                "type": "HorizontalLayout",
                "options": {
-                "columns": 3
+                "columns": 2
               },
               "elements": [
                 {
@@ -669,11 +696,12 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/apimtys/properties/kiekis"
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/veiklos/properties/apimtys/properties/vienetai"
+                  "scope": "#/properties/veiklos/properties/apimtys/properties/kiekis-matas",
+                  "options": {
+                    "display": "combinedInput",
+                    "inputKey": "kiekis",
+                    "optionKey": "matas"
+                  }
                 }
               ]
             }
@@ -701,7 +729,10 @@
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/rusis"
+                      "scope": "#/properties/rusis",
+                       "options": {
+                        "display": "multiSelect"
+                      }
                     },
                     {
                       "type": "Control",
@@ -791,9 +822,12 @@
               "options": {
                 "display": "upload",
                 "multi": true, 
-                "certType":"vet"
+                "certType":"vet",
+                "hasInfoField": true
               }
             }
+            
+
           ]
         }
       ]
