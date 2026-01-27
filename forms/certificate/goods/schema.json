@@ -347,6 +347,10 @@
             "type": "string",
             "fetchEnumFrom": "options.packageTypes.findIds"
           },
+          "pakuotes-tipas-kita": {
+            "title": "Įveskite kitą pakuotės tipą *",
+            "type": "string"
+          },
           "pakuociu-skaicius": {
             "title": "Pakuočių skaičius (vnt.) *",
             "type": "number"

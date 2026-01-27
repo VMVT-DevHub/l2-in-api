@@ -6,7 +6,7 @@ import { CommonFields, CommonPopulates, RestrictionType, Table } from '../types'
 
 interface Fields extends CommonFields {
   id: string;
-  name: string;
+  title: string;
   sort: number;
 }
 
@@ -63,7 +63,9 @@ export default class extends moleculer.Service {
     auth: RestrictionType.PUBLIC,
   })
   async findIds(ctx: Context<any>) {
-    return (await this.findEntities(ctx, { fields: ['id'] })).map((item: PackageType) => item.id);
+    return (await this.findEntities(ctx, { fields: ['title'] })).map(
+      (item: PackageType) => item.title,
+    );
   }
 
   @Action()

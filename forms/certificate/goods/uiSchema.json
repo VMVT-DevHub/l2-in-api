@@ -712,8 +712,21 @@
                               "scope": "#/properties/pakuotes-tipas",
                               "options": {
                                 "labelFormat": "${title}",
-                                "value": "id",
+                                "value": "title",
                                 "fetchOptionsFrom": "options/packageTypes/all"
+                              }
+                            },
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/pakuotes-tipas-kita",
+                              "rule": {
+                                "effect": "SHOW",
+                                "condition": {
+                                  "scope": "#/properties/pakuotes-tipas",
+                                  "schema": {
+                                    "const": "Kita"
+                                  }
+                                }
                               }
                             },
                             {
