@@ -166,10 +166,11 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["rusis-id"],
+            "required": ["rusis-id", "numeris"],
             "errorMessage": {
               "required": {
-                "rusis-id": "Transporto rūšis yra privaloma."
+                "rusis-id": "Transporto rūšis yra privaloma.",
+                "numeris": "Transporto priemonės numeris yra privalomas."
               }
             },
             "properties": {
@@ -187,7 +188,7 @@
                 "type": "string"
               },
               "numeris": {
-                "title": "Transporto priemonės Nr.",
+                "title": "Transporto priemonės Nr. *",
                 "type": "string"
               }
             }

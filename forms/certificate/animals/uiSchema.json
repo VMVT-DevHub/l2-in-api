@@ -1187,7 +1187,7 @@
               "options": { "display": "upload", "clearOnCopy": true, "certType":"ser" }
             }
           ],
-          "label": "Mokėjimo pavedimas"
+          "label": "Mokėjimo pavedimas *"
         },
         {
           "type": "Group",
@@ -1217,7 +1217,7 @@
               }
             }
           ],
-          "label": "Gyvūnų užkrečiamųjų ligų tyrimo protokolai",
+          "label": "Gyvūnų užkrečiamųjų ligų tyrimo protokolai *",
           "description": "Siuntos lydimieji dokumentas - važtaraštis."
         },
         {

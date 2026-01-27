@@ -176,14 +176,15 @@
                 "type": "string"
               },
               "numeris": {
-                "title": "Transporto priemonės Nr.",
+                "title": "Transporto priemonės Nr. *",
                 "type": "string"
               }
             },
-            "required": ["rusis-id"],
+            "required": ["rusis-id", "numeris"],
             "errorMessage": {
               "required": {
-                "rusis-id": "Siunta: Transporto priemonės rūšis yra privaloma."
+                "rusis-id": "Transporto priemonės rūšis yra privaloma.",
+                "numeris": "Transporto priemonės numeris yra privalomas."
               }
             }
           }
@@ -196,7 +197,7 @@
             "required": ["dalis-id"],
             "errorMessage": {
               "required": {
-                "dalis-id": "Siunta: Transporto priemonės dalis yra privaloma."
+                "dalis-id": "Transporto priemonės dalis yra privaloma."
               }
             },
             "properties": {
@@ -227,8 +228,8 @@
       "required": ["transporto-priemones", "transporto-priemones-dalys"],
       "errorMessage": {
         "required": {
-          "transporto-priemones": "Siunta: transporto premonės informacija yra privaloma.",
-          "transporto-priemones-dalys": "Siunta: transporto priemonės dalies infromacija yra privaloma."
+          "transporto-priemones": "Transporto premonės informacija yra privaloma.",
+          "transporto-priemones-dalys": "Transporto priemonės dalies infromacija yra privaloma."
         }
       }
     },
@@ -343,6 +344,11 @@
           },
           "pakuotes-tipas": {
             "title": "Pakuotės tipas *",
+            "type": "string",
+            "fetchEnumFrom": "options.packageTypes.findIds"
+          },
+          "pakuotes-tipas-kita": {
+            "title": "Įveskite kitą pakuotės tipą *",
             "type": "string"
           },
           "pakuociu-skaicius": {
