@@ -318,7 +318,10 @@
           "kpn-kodas": {
             "title": "KPN kodas *",
             "type": "string",
-            "fetchEnumFrom": "options.kpn.getLeafIds"
+            "fetchEnumFrom": "options.kpn.getLeafIds",
+            "errorMessage": {
+              "enum": "KPN kodas privalomas."
+            }
           },
           "pavadinimas": {
             "title": "Pavadinimas *",
@@ -345,7 +348,10 @@
           "pakuotes-tipas": {
             "title": "Pakuotės tipas *",
             "type": "string",
-            "fetchEnumFrom": "options.packageTypes.findIds"
+            "fetchEnumFrom": "options.packageTypes.findIds",
+            "errorMessage": {
+              "enum": "Pakuotės tipas privalomas."
+            }
           },
           "pakuotes-tipas-kita": {
             "title": "Įveskite kitą pakuotės tipą *",
