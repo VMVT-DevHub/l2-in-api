@@ -712,7 +712,7 @@
                               "scope": "#/properties/pakuotes-tipas",
                               "options": {
                                 "labelFormat": "${title}",
-                                "value": "title",
+                                "value": "id",
                                 "fetchOptionsFrom": "options/packageTypes/all"
                               }
                             },
@@ -724,7 +724,7 @@
                                 "condition": {
                                   "scope": "#/properties/pakuotes-tipas",
                                   "schema": {
-                                    "const": "Kita"
+                                    "const": "10"
                                   }
                                 }
                               }
