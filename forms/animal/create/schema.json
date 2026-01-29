@@ -509,7 +509,7 @@
             },
             "gyvunai": {
               "type": "string",
-              "title": "Gyvūnai, kuriems skirti visaverčiai pašarai",
+              "title": "Gyv., kuriems skirti visav. pšr.",
               "enum": [
                 "Neatrajotojams",
                 "Naminiams paukščiams",
@@ -741,6 +741,9 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "patvirtinu":{
+          "type": "string"
+        },
         "patvirtinu-susipazines": {
           "type": "boolean",
           "title": "esu susipažinęs su mano planuojamai vykdyti veiklai taikomais veterinarijos srities teisės aktų reikalavimais"
@@ -764,6 +767,9 @@
         "patvirtinu-teisinga": {
           "type": "boolean",
           "title": "šiame prašyme ir prie jo pridedamuose dokumentuose pateikta informacija ir duomenys yra teisinga ir atitinka tikrovę"
+        },
+        "isipareigoju": {
+          "type": "string"
         },
         "isipareigoju-laikytis": {
           "type": "boolean",

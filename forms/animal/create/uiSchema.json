@@ -843,6 +843,14 @@
            "elements": [
             {
               "type": "Control",
+              "label": "Patvirtinu, kad:",
+              "scope": "#/properties/sutikimai/properties/patvirtinu",
+              "options": {
+                "display": "PlainText"
+              }
+            },
+            {
+              "type": "Control",
               "scope": "#/properties/sutikimai/properties/patvirtinu-susipazines"
             },
             {
@@ -870,6 +878,14 @@
         {
           "type": "Group",
            "elements": [
+            {
+              "type": "Control",
+              "label": "Įsipareigoju:",
+              "scope": "#/properties/sutikimai/properties/isipareigoju",
+              "options": {
+                "display": "PlainText"
+              }
+            },
             {
               "type": "Control",
               "scope": "#/properties/sutikimai/properties/isipareigoju-laikytis"
