@@ -99,17 +99,21 @@ export default class extends moleculer.Service {
     const data = ctx.params.data as Request;
     const oldData = ctx.params.oldData as Request;
 
-    if (data.status !== oldData.status) {
-      const typesByStatus: any = {
-        [RequestStatus.CREATED]: RequestHistoryTypes.CREATED,
-        [RequestStatus.SUBMITTED]: RequestHistoryTypes.SUBMITTED,
-        [RequestStatus.REJECTED]: RequestHistoryTypes.REJECTED,
-        [RequestStatus.RETURNED]: RequestHistoryTypes.RETURNED,
-        [RequestStatus.APPROVED]: RequestHistoryTypes.APPROVED,
-        [RequestStatus.COMPLETED]: RequestHistoryTypes.COMPLETED,
-      };
+    const typesByStatus: any = {
+      [RequestStatus.CREATED]: RequestHistoryTypes.CREATED,
+      [RequestStatus.SUBMITTED]: RequestHistoryTypes.SUBMITTED,
+      [RequestStatus.REJECTED]: RequestHistoryTypes.REJECTED,
+      [RequestStatus.RETURNED]: RequestHistoryTypes.RETURNED,
+      [RequestStatus.APPROVED]: RequestHistoryTypes.APPROVED,
+      [RequestStatus.COMPLETED]: RequestHistoryTypes.COMPLETED,
+    };
 
+    if (data.status == typesByStatus[RequestStatus.SUBMITTED]) {
       await this.createRequestHistory(ctx, data, typesByStatus[data.status]);
+    } else {
+      if (data.status !== oldData.status) {
+        await this.createRequestHistory(ctx, data, typesByStatus[data.status]);
+      }
     }
   }
 
