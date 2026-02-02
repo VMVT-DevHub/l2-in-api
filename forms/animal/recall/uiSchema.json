@@ -145,55 +145,6 @@
               }
             }
           ]
-        },
-        {
-          "type": "Group",
-          "label": "Prašau",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/veiklaviete/properties/sustabdymas-panaikinimas",
-              "options": {
-                "display": "radio",
-                "value": "Sustabdyti patvirtinimą ar registravimą",
-                "render": "1"
-              }
-            },
-            {
-              "type": "HorizontalLayout",
-              "options": {
-                "columns": 2
-              },
-              "elements": [
-                {
-                  "type": "Control",
-                  "scope": "#/properties/veiklaviete/properties/sustabdymas-priezastis"
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/veiklaviete/properties/sustabdymas-data"
-                }
-              ],
-               "rule": {
-                "effect": "SHOW",
-                "condition": {
-                  "scope": "#/properties/veiklaviete/properties/sustabdymas-panaikinimas",
-                  "schema": {
-                    "const": "Sustabdyti patvirtinimą ar registravimą"
-                  }
-                }
-              }
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/veiklaviete/properties/sustabdymas-panaikinimas",
-              "options": {
-                "display": "radio",
-                "value": "Panaikinti patvirtinimą ar registravimą",
-                "render": "2"
-              }
-            }
-          ]
         }
       ]
     },

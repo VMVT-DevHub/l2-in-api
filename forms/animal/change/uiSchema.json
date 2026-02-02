@@ -1,0 +1,522 @@
+{
+  "type": "Categorization",
+  "options": {
+    "display": "form",
+    "labels": {
+      "pareiskejas": "Pareiškėjas",
+      "subjektas": "Subjektas",
+      "dokumentai": "Dokumentai",
+      "sutikimai": "Sutikimai"
+    }
+  },
+  "elements": [
+    {
+      "type": "Category",
+      "label": "Pareiškėjas",
+      "elements": [
+        {
+          "$ref": "forms/global/uiDefs.json#/definitions/atsakingas-asmuo-evv"
+        },
+        {
+          "type": "Group",
+          "label": "Ūkio subjekto duomenys",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 3
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-pavadinimas",
+                  "options": {
+                    "display": "authField",
+                    "key": "companyName"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-teisine-forma",
+                  "options": {
+                    "display": "authField",
+                    "key": "form"
+                  }
+                },
+                
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-moketojo-kodas"
+                }
+              ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-gyv",
+                "options": {
+                "display": "addressSelect"
+              },
+              "rule": {
+                "effect": "DISABLE",
+                "condition": {
+                  "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/aob",
+                  "schema": {"type": "string"},
+                  "failWhenUndefined": true
+                }
+              }
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
+              "schema": {"type": "string"},
+              "failWhenUndefined": true
+            }
+          }
+        },
+        {
+          "type": "Group",
+          "label": "Ūkio subjekto duomenys",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/fa-duomenys/properties/vardas",
+                  "options": {
+                    "display": "authField",
+                    "key": "firstName"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/fa-duomenys/properties/pavarde",
+                  "options": {
+                    "display": "authField",
+                    "key": "lastName"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pareiskejas/properties/fa-duomenys/properties/fa-moketojo-kodas"
+                }
+              ]
+            }
+          ],
+          "rule": {
+            "effect": "HIDE",
+            "condition": {
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
+              "schema": {"type": "string"},
+              "failWhenUndefined": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Veiklavietė",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Duomenys apie ūkio subjekto veiklavietę",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/registracijos-nr"
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Ūkio subjekto veiklavietės adresas",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/ja-gyv",
+              "options": {
+                "display": "addressSelect"
+              }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Prašau",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/pakeitimas",
+              "options": {
+                "display": "radio",
+                "value": "Pakeisti šiuos administracinius registruoto / patvirtinto valstybinės veterinarinės kontrolės subjekto duomenis",
+                "render": "1"
+              }
+            },
+            {
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 1
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-pavad",
+                   "options": {
+                    "margin": "16px"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-pavad-info",
+                  "options": {
+                    "margin": "32px"
+                  },
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-pavad",
+                      "schema": {
+                        "const": true
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-ja-forma",
+                   "options": {
+                    "margin": "16px"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-ja-forma-info",
+                  "options": {
+                    "margin": "32px"
+                  },
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-ja-forma",
+                      "schema": {
+                        "const": true
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-adr",
+                   "options": {
+                    "margin": "16px"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-adr-info",
+                  "options": {
+                    "margin": "32px"
+                  },
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-adr",
+                      "schema": {
+                        "const": true
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-kontakt",
+                   "options": {
+                    "margin": "16px"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-kontakt-info",
+                  "options": {
+                    "margin": "32px"
+                  },
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-kontakt",
+                      "schema": {
+                        "const": true
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-kita",
+                   "options": {
+                    "margin": "16px"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-kita-info",
+                  "options": {
+                    "margin": "32px"
+                  },
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklaviete/properties/adm-pakeitimai/properties/adm-kita",
+                      "schema": {
+                        "const": true
+                      }
+                    }
+                  }
+                }
+              ],
+               "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/veiklaviete/properties/pakeitimas",
+                  "schema": {
+                    "const": "Pakeisti šiuos administracinius registruoto / patvirtinto valstybinės veterinarinės kontrolės subjekto duomenis"
+                  }
+                }
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/pakeitimas",
+              "options": {
+                "display": "radio",
+                "value": "Pakeisti šiuos registruotos / patvirtintos veiklos duomenis",
+                "render": "2"
+              }
+            },
+            {
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 1
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/veikla",
+                  "options": {
+                    "margin": "16px"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/veikla-info",
+                   "options": {
+                    "margin": "32px"
+                  },
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/veikla",
+                      "schema": {
+                        "const": true
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/irenginiai",
+                   "options": {
+                    "margin": "16px"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/irenginiai-info",
+                  "options": {
+                    "margin": "32px"
+                  },
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/irenginiai",
+                      "schema": {
+                        "const": true
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/procesas",
+                   "options": {
+                    "margin": "16px"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/procesas-info",
+                  "options": {
+                    "margin": "32px"
+                  },
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/procesas",
+                      "schema": {
+                        "const": true
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/assort",
+                   "options": {
+                    "margin": "16px"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/assort-info",
+                  "options": {
+                    "margin": "32px"
+                  },
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/assort",
+                      "schema": {
+                        "const": true
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/kita",
+                   "options": {
+                    "margin": "16px"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/kita-info",
+                  "options": {
+                    "margin": "32px"
+                  },
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklaviete/properties/veiklos-pakeitimai/properties/kita",
+                      "schema": {
+                        "const": true
+                      }
+                    }
+                  }
+                }
+              ],
+               "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/veiklaviete/properties/pakeitimas",
+                  "schema": {
+                    "const": "Pakeisti šiuos registruotos / patvirtintos veiklos duomenis"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Dokumentai",
+      "elements": [
+      {
+          "type": "Group",
+          "label": "Pridedami dokumentai",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/pridedami-dokumentai",
+              "label": "",
+              "options": {
+                "display": "upload",
+                "multi": true, 
+                "certType":"vet",
+                "hasInfoField": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Papildoma informacija",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/papildoma-info",
+              "options": {
+                "display": "textarea"
+              }
+            }
+          ]
+        }
+      ]
+    },
+     {
+      "type": "Category",
+      "label": "Sutikimai",
+      "elements": [
+      {
+          "type": "Group",
+          "label": "Sutikimas",
+          "description": "Sutikimas dėl duomenų pateikimo",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/informuotas"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/gauti-info-pastu"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/pastas",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/sutikimai/properties/gauti-info-pastu",
+                  "schema": {"const": true}
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Atsakymas",
+          "description": "Pažymėkite būdą, kuriuo pageidaujate gauti atsakymą",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/sutikimai/properties/atsakymas",
+              "options": {
+                "display": "radio"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -140,55 +140,112 @@
             "adrName": { "type": "string" }
           }
         },
-        "sustabdymas-panaikinimas": {
+        "pakeitimas": {
           "type": "string",
           "enum": [
-            "Sustabdyti patvirtinimą ar registravimą",
-            "Panaikinti patvirtinimą ar registravimą"
+            "Pakeisti šiuos administracinius registruoto / patvirtinto valstybinės veterinarinės kontrolės subjekto duomenis",
+            "Pakeisti šiuos registruotos / patvirtintos veiklos duomenis"
           ]
         },
-        "sustabdymas-priezastis": {
-          "type": "string",
-          "title": "Nurodyti priežastį",
-          "enum": [
-            "Dėl statinio (patalpų) rekonstrukcijos, remonto",
-            "Dėl priežaščių, nesusijusių su statinio (patalpų) rekonstrukcija, remontu"
-          ]
-        },
-        "sustabdymas-data": {
-          "type": "string",
-          "title": "Nurodyti datą iki",
-          "format": "date"
-        }
-      },
-      "required": ["registracijos-nr", "ja-gyv"],
-      "errorMessage": {
-        "required": {
-          "registracijos-nr": "Registracijos patvirtinimo numeris privalomas.",
-          "ja-gyv": "Veiklavietės adresas yra privalomas."
-        }
-      },
-      "allOf": [
-        {
-          "if": {
-            "properties": {
-              "sustabdymas-panaikinimas": {
-                "const": "Sustabdyti patvirtinimą ar registravimą"
-              }
+        "adm-pakeitimai":{
+          "type": "object",
+          "properties": {
+            "adm-pavad": {
+              "type": "boolean",
+              "title": "pavadinimą / vardą, pavardę"
             },
-            "required": ["sustabdymas-panaikinimas"]
-          },
-          "then": {
-            "required": ["sustabdymas-priezastis", "sustabdymas-data"],
-            "errorMessage": {
-              "required": {
-                "sustabdymas-priezastis": "Sustabdymo priežastis yra privaloma.",
-                "sustabdymas-data": "Sustabdymo data yra privaloma."
-              }
+            "adm-pavad-info": {
+              "type": "string",
+              "title": ""
+            },
+            "adm-ja-forma": {
+              "type": "boolean",
+              "title": "juridinio asmens teisinę formą"
+            },
+            "adm-ja-forma-info": {
+              "type": "string",
+              "title": ""
+            },
+            "adm-adr": {
+              "type": "boolean",
+              "title": "gatvės, vietovės pavadinimą, statinio numerį"
+            },
+            "adm-adr-info": {
+              "type": "string",
+              "title": ""
+            },
+            "adm-kontakt": {
+              "type": "boolean",
+              "title": "kontaktinius duomenis"
+            },
+            "adm-kontakt-info": {
+              "type": "string",
+              "title": ""
+            },
+            "adm-kita": {
+              "type": "boolean",
+              "title": "kita (nurodyti)"
+            },
+            "adm-kita-info": {
+              "type": "string",
+              "title": ""
+            }
+          }
+        },
+        "veiklos-pakeitimai":{
+          "type": "object",
+          "properties": {
+            "veikla": {
+              "type": "boolean",
+              "title": "plečiama patvirtinta / registruota veikla toje pačioje veiklavietėje įrengiant naujas patalpas"
+            },
+            "veikla-info": {
+              "type": "string",
+              "title": ""
+            },
+            "irenginiai": {
+              "type": "boolean",
+              "title": "keičiami įrenginiai"
+            },
+            "irenginiai-info": {
+              "type": "string",
+              "title": ""
+            },
+            "procesas": {
+              "type": "boolean",
+              "title": "keičiamas technologinis procesas"
+            },
+            "procesas-info": {
+              "type": "string",
+              "title": ""
+            },
+            "assort": {
+              "type": "boolean",
+              "title": "keičiamas tvarkomų produktų asortimentas"
+            },
+            "assort-info": {
+              "type": "string",
+              "title": ""
+            },
+            "kita": {
+              "type": "boolean",
+              "title": "kita (nurodyti)"
+            },
+            "kita-info": {
+              "type": "string",
+              "title": ""
             }
           }
         }
-      ]
+      },
+      "required": ["registracijos-nr", "ja-gyv", "pakeitimas"],
+      "errorMessage": {
+        "required": {
+          "registracijos-nr": "Registracijos patvirtinimo numeris privalomas.",
+          "ja-gyv": "Veiklavietės adresas yra privalomas.",
+          "pakeitimas": "Bent vienas iš pakeitimo tipų yra privalomi."
+        }
+      }
     },
     "dokumentai": {
       "type": "object",
