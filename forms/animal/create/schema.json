@@ -108,7 +108,7 @@
                 }
               }
             }
-          },
+          }, 
           "else": {
             "type": "object",
             "properties": {
@@ -669,7 +669,7 @@
               },
               "matas": {
                 "type": "string",
-                "enum": ["vnt","vnt / m^2","ha", "kg" , "m^2", "m^3"]
+                "enum": ["vnt","vnt/m²", "ha", "kg" , "m²", "m³"]
               }
             },
             "required": ["kiekis", "matas"],
@@ -828,7 +828,6 @@
       "properties": {
         "ats-gavimas": {
           "type": "string",
-          "title": "Pažymėkite būdą, kuriuo pageidaujate gauti atsakymą",
           "enum": ["Nacionalinę elektroninių siuntų pristatymo naudojant pašto tinklą informacinę sistemą", "El. paštu", "Paštu", "Kreipiantis asmeniškai arba per atstovą"]
         }
       }

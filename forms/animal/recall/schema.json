@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "title": "Prašymas dėl valstybinės veterinarinės kontrolės subjekto panaikinimo ar sustabdymo",
+  "title": "Prašymas dėl valstybinės veterinarinės kontrolės subjekto registravimo ar patvirtinimo sustabdymo panaikinimo",
   "additionalProperties": false,
   "properties": {
     "pareiskejas": {
@@ -139,26 +139,6 @@
             "adrId": { "type": "number" },
             "adrName": { "type": "string" }
           }
-        },
-        "sustabdymas-panaikinimas": {
-          "type": "string",
-          "enum": [
-            "Sustabdyti patvirtinimą ar registravimą",
-            "Panaikinti patvirtinimą ar registravimą"
-          ]
-        },
-        "sustabdymas-priezastis": {
-          "type": "string",
-          "title": "Nurodyti priežastį",
-          "enum": [
-            "Dėl statinio (patalpų) rekonstrukcijos, remonto",
-            "Dėl priežaščių, nesusijusių su statinio (patalpų) rekonstrukcija, remontu"
-          ]
-        },
-        "sustabdymas-data": {
-          "type": "string",
-          "title": "Nurodyti datą iki",
-          "format": "date"
         }
       },
       "required": ["registracijos-nr", "ja-gyv"],
@@ -167,28 +147,7 @@
           "registracijos-nr": "Registracijos patvirtinimo numeris privalomas.",
           "ja-gyv": "Veiklavietės adresas yra privalomas."
         }
-      },
-      "allOf": [
-        {
-          "if": {
-            "properties": {
-              "sustabdymas-panaikinimas": {
-                "const": "Sustabdyti patvirtinimą ar registravimą"
-              }
-            },
-            "required": ["sustabdymas-panaikinimas"]
-          },
-          "then": {
-            "required": ["sustabdymas-priezastis", "sustabdymas-data"],
-            "errorMessage": {
-              "required": {
-                "sustabdymas-priezastis": "Sustabdymo priežastis yra privaloma.",
-                "sustabdymas-data": "Sustabdymo data yra privaloma."
-              }
-            }
-          }
-        }
-      ]
+      }
     },
     "dokumentai": {
       "type": "object",

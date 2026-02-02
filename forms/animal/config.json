@@ -12,5 +12,5 @@
       "path": "$.pareiskejas.atsakingas-asmuo.pavarde"
     }
   ],
-  "forms": ["create", "remove"]
+  "forms": ["create", "remove", "recall", "change"]
 }

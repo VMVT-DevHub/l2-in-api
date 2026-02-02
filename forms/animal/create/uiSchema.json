@@ -939,9 +939,12 @@
           "label": "Atsakymas",
           "description": "Pažymėkite būdą, kuriuo pageidaujate gauti atsakymą",
            "elements": [
-            {
+             {
               "type": "Control",
-              "scope": "#/properties/atsakymas/properties/ats-gavimas"
+              "scope": "#/properties/atsakymas/properties/ats-gavimas",
+              "options": {
+                "display": "radio"
+              }
             }
           ]
         }
