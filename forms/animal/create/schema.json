@@ -144,7 +144,7 @@
             },
             "pavadinimas": {
               "type": "string",
-              "title": "Pavadinimas * "
+              "title": "Pavadinimas *"
             }
           },
           "if": {
@@ -207,12 +207,12 @@
           "properties": {
             "platuma": {
               "type": "number",
-              "title": "Platuma",
+              "title": "Platuma *",
               "format": "double"
             },
             "ilguma": {
               "type": "number",
-              "title": "Ilguma",
+              "title": "Ilguma *",
               "format": "double"
             }
           },
@@ -241,15 +241,18 @@
                 "type": "string",
                 "title": "Veiklai naudojamo statinio / patalpų paskirtis",
                 "enum": [
-                  "Prekybos",
-                  "Paslaugų",
-                  "Gamybos, pramonės",
                   "Sandėliavimo",
+                  "Kultūros",
+                  "Mokslo",
                   "Gydymo",
+                  "Sporto",
+                  "Religinių",
+                  "Specialiųjų",
                   "Pagalbinio ūkio",
                   "Kitų pagalbinių",
-                  "Gyvūnams auginti",
-                  "Žemės ūkio produkcijai tvarkyti"
+                  "Viešojo poilsio",
+                  "Asmeninio poilsio",
+                  "Specialiųjų paslaugų"
                 ]
               },
               "pagrindas": {
@@ -269,23 +272,13 @@
           }
         },
         "darbuotojai": {
-          "type": "object",
-          "properties": {
-            "skaicius": {
-              "type": "number",
-              "title": "Planuojamas darbuotojų skaičius *"
-            }
-          },
-          "required": ["skaicius"],
-          "errorMessage": {
-            "required": {
-              "skaicius": "Darbuotojų skaičius yra privalomas"
-            }
-          }
+          "type": "number",
+          "title": "Planuojamas darbuotojų skaičius *"
         },
         "darbo-laikas": {
           "type": "object",
           "additionalProperties": false,
+          "default": {},
           "properties": {
             "menesiai": {
               "type": "array",
@@ -330,20 +323,44 @@
             },
             "valandos": {
               "type": "string",
-              "title": "Pasirinkite darbo valandas",
+              "title": "Pasirinkite darbo valandas *",
               "enum": ["8:00 - 17:00", "Kita"]
             },
             "valandos-kita": {
               "type": "string",
-              "title": "Nurodykite specifines darbo valandas"
+              "title": "Nurodykite specifines darbo valandas *"
             }
           },
-          "required": ["valandos"],
+          "required": ["savaites-dienos", "valandos", "menesiai"],
           "errorMessage": {
             "required": {
-              "valandos": "Darbo valandos yra privalomos."
+              "valandos": "Darbo valandos yra privalomos",
+              "savaites-dienos": "Savaitės dienos yra privalomos.",
+              "menesiai": "Mėnesiai yra privalomi."
+            }
+          },
+           "if": {
+          "properties": {
+            "valandos": { "const": "Kita" }
+            }
+          },
+          "then": {
+            "required": ["valandos-kita"],
+            "errorMessage": {
+              "required": {
+                "valandos-kita": "Specifinės darbo valandos yra privalomos."
+              }
             }
           }
+        }
+      },
+      "required": ["darbuotojai", "pavadinimas", "darbo-laikas"], 
+      "errorMessage": {
+        "required": {
+          "darbuotojai": "Darbuotojų skaičius yra privalomas",
+          "adresas": "Adresas duomenys yra privalomi",
+          "pavadinimas": "Pavadinimas yra privalomas",
+          "darbo-laikas": "Darbo laikas yra privalomas"
         }
       }
     },
@@ -379,11 +396,58 @@
               "items": {
                 "type": "string",
                 "enum": [
-                  "1.1. BIOGP – biodujų gamybos įmonė", "1.2. COLC – šalutinių gyvūninių produktų surinkimo centras", "1.3. COLL – šalutinių gyvūninių produktų surinkimo įmonė", "1.4. CoIP – bendro deginimo įmonė", "1.5. COMP – kompostavimo įmonė", "1.6. COMBP – šalutinių gyvūninių produktų, naudojamų kaip kuras, deginimo įmonė", "1.7. CONTMT – izoliavimo metodus taikanti įmonė", "1.8. FEEDP – pašarų gamybos įmonė, naudojanti perdirbtus gyvūninius baltymus", "1.9. GATRP – medžioklės trofėjų gamybos įmonė", "1.10. INCP – deginimo įmonė", "1.11. INTP – tarpinę veiklą vykdanti įmonė", "1.12. OLCP – aliejaus chemijos gamybos įmonė", "1.13. OALKHP – alternatyvų perdirbimo metodą – šarminę hidrolizę taikanti įmonė", "1.14. OBIODP – alternatyvų perdirbimo metodą taikanti biodyzelino gamybos įmonė", "1.15. OBRGAP – alternatyvų perdirbimo metodą – Brookes dujinimo procesą taikanti įmonė", "1.16. OCAFTB – alternatyvų perdirbimo metodą – gyvūninių riebalų deginimą terminiame katile taikanti įmonė", "1.17. OHPHBP – alternatyvų perdirbimo metodą – aukšto slėgio hidrolizės procesą taikanti biodujų gamybos įmonė", "1.18. OHPHTP – alternatyvų perdirbimo metodą – aukšto slėgio ir aukštos temperatūros procesą taikanti įmonė", "1.19. OEFP – alternatyvų perdirbimo metodą – žuvų žaliavų silosavimą taikanti įmonė", "1.20. OMSCHy – alternatyvų metodą – daugiapakopį katalitinį apdorojimą vandeniu degalams iš atsinaujinančių išteklių gaminti taikanti įmonė", "1.21. OLTPPM – alternatyvų perdirbimo metodą – kiaulių ir naminių paukščių mėšlo apdorojimą kalkėmis taikanti įmonė", "1.22. OMSCP – alternatyvų perdirbimo metodą – daugiapakopį katalitinį procesą degalams iš atsinaujinančių išteklių gaminti taikanti įmonė", "1.23. OTMB – alternatyvų perdirbimo metodą – termomechaninį biodegalų gamybos procesą taikanti įmonė", "1.24. OFSIBU – birių organinių trąšų arba dirvožemį gerinančių medžiagų platintojai", "1.25. OFSIPA – supakuotų organinių trąšų ar dirvožemį gerinančių medžiagų platintojai", "1.26. OFSIPP – organinių trąšų arba dirvožemį gerinančių medžiagų gamybos įmonė, naudojanti šalutinių gyvūninių produktų gaminius", "1.27. OTHER – kita šalutinių gyvūninių produktų ir jų gaminių tvarkymo veikla (nurodykite)", "1.28. PETPP – gyvūnų augintinių ėdalo gamybos įmonė, naudojanti tik perdirbtus šalutinius gyvūninius produktus", "1.29. PETPR – gyvūnų augintinių ėdalo gamybos įmonė, naudojanti tik neperdirbtus šalutinius gyvūninius produktus", "1.30. PHAR – farmacinė veikla (apimanti visų tipų medicinines priemones)", "1.31. PROCP – šalutinių gyvūninių produktų perdirbimo įmonė", "1.32. RETAIL – mažmeninė prekyba", "1.33. STORP – šalutinių gyvūninių produktų ir jų gaminių saugojimo įmonė", "1.34. TAN – odų ir kailių rauginimas", "1.35. TECH – panaudojimas techniniams produktams, kurie nėra nurodyti kitur", "1.36. TRADE – registruoti prekybininkai (perka / parduoda šalutinius gyvūninius produktus ir (ar) jų gaminius fiziškai jų neturėdami) ir ekspedijavimo įmonės (organizuoja logistiką ir transporto administravimą), eksportuojantys prekes į ne Europos Sąjungos (ES) šalis ir importuojantys iš ne ES šalių", "1.37. TRANS – šalutinių gyvūninių produktų ir jų gaminių vežimas", "1.38. UCOSM – šalutinių gyvūninių produktų ir jų gaminių naudojimas kosmetikos produktams gaminti", "1.39. UDOG – šalutinių gyvūninių produktų naudojimas registruotų / patvirtintų šunų veisėjų ir gyvūnų globos namų laikomiems šunims ir katėms šerti", "1.40. UDER – šalutinių gyvūninių produktų ir jų gaminių naudojimas diagnostikai, švietimui ir (ar) tyrimams (įskaitant testavimą) (nurodykite)", "1.41. UFERT – šalutinių gyvūninių produktų ir jų gaminių naudojimas organinėms trąšoms ir dirvos savybėms gerinti", "1.42. UFUR – šalutinių gyvūninių produktų naudojimas kailiniams gyvūnams šerti", "1.43. UINSE – šalutinių gyvūninių produktų naudojimas vabzdžiams, įskaitant jų lervas ir vikšrus, ir kirminams, naudojamiems žvejybos masalui, šerti", "1.44. UNEC – šalutinių gyvūninių produktų naudojimas maitlesiams paukščiams lesinti", "1.45. URBP – šalutinių gyvūninių produktų naudojimas ropliams ir plėšriesiems paukščiams šerti", "1.46. UWILD – šalutinių gyvūninių produktų naudojimas laukiniams gyvūnams šerti", "1.47. UZOO – šalutinių gyvūninių produktų naudojimas zoologijos sodo / cirko gyvūnams šerti", "1.48. UEXART – šalutinių gyvūninių produktų ir jų gaminių naudojimas parodoms ir (ar) meninei veiklai (nurodykite)"
+                  "BIOGP – biodujų gamybos įmonė",
+                  "COLC – šalutinių gyvūninių produktų surinkimo centras",
+                  "COLL – šalutinių gyvūninių produktų surinkimo įmonė",
+                  "CoIP – bendro deginimo įmonė",
+                  "COMP – kompostavimo įmonė",
+                  "COMBP – šalutinių gyvūninių produktų, naudojamų kaip kuras, deginimo įmonė",
+                  "CONTMT – izoliavimo metodus taikanti įmonė",
+                  "FEEDP – pašarų gamybos įmonė, naudojanti perdirbtus gyvūninius baltymus",
+                  "GATRP – medžioklės trofėjų gamybos įmonė",
+                  "INCP – deginimo įmonė",
+                  "INTP – tarpinę veiklą vykdanti įmonė",
+                  "OLCP – aliejaus chemijos gamybos įmonė",
+                  "OALKHP – alternatyvų perdirbimo metodą – šarminę hidrolizę taikanti įmonė",
+                  "OBIODP – alternatyvų perdirbimo metodą taikanti biodyzelino gamybos įmonė",
+                  "OBRGAP – alternatyvų perdirbimo metodą – Brookes dujinimo procesą taikanti įmonė",
+                  "OCAFTB – alternatyvų perdirbimo metodą – gyvūninių riebalų deginimą terminiame katile taikanti įmonė",
+                  "OHPHBP – alternatyvų perdirbimo metodą – aukšto slėgio hidrolizės procesą taikanti biodujų gamybos įmonė",
+                  "OHPHTP – alternatyvų perdirbimo metodą – aukšto slėgio ir aukštos temperatūros procesą taikanti įmonė",
+                  "OEFP – alternatyvų perdirbimo metodą – žuvų žaliavų silosavimą taikanti įmonė",
+                  "OMSCHy – alternatyvų metodą – daugiapakopį katalitinį apdorojimą vandeniu degalams iš atsinaujinančių išteklių gaminti taikanti įmonė",
+                  "OLTPPM – alternatyvų perdirbimo metodą – kiaulių ir naminių paukščių mėšlo apdorojimą kalkėmis taikanti įmonė",
+                  "OMSCP – alternatyvų perdirbimo metodą – daugiapakopį katalitinį procesą degalams iš atsinaujinančių išteklių gaminti taikanti įmonė",
+                  "OTMB – alternatyvų perdirbimo metodą – termomechaninį biodegalų gamybos procesą taikanti įmonė",
+                  "OFSIBU – birių organinių trąšų arba dirvožemį gerinančių medžiagų platintojai",
+                  "OFSIPA – supakuotų organinių trąšų ar dirvožemį gerinančių medžiagų platintojai",
+                  "OFSIPP – organinių trąšų arba dirvožemį gerinančių medžiagų gamybos įmonė, naudojanti šalutinių gyvūninių produktų gaminius",
+                  "OTHER – kita šalutinių gyvūninių produktų ir jų gaminių tvarkymo veikla (nurodykite)",
+                  "PETPP – gyvūnų augintinių ėdalo gamybos įmonė, naudojanti tik perdirbtus šalutinius gyvūninius produktus",
+                  "PETPR – gyvūnų augintinių ėdalo gamybos įmonė, naudojanti tik neperdirbtus šalutinius gyvūninius produktus",
+                  "PHAR – farmacinė veikla (apimanti visų tipų medicinines priemones)",
+                  "PROCP – šalutinių gyvūninių produktų perdirbimo įmonė",
+                  "RETAIL – mažmeninė prekyba",
+                  "STORP – šalutinių gyvūninių produktų ir jų gaminių saugojimo įmonė",
+                  "TAN – odų ir kailių rauginimas",
+                  "TECH – panaudojimas techniniams produktams, kurie nėra nurodyti kitur",
+                  "TRADE – registruoti prekybininkai (perka / parduoda šalutinius gyvūninius produktus ir (ar) jų gaminius fiziškai jų neturėdami) ir ekspedijavimo įmonės (organizuoja logistiką ir transporto administravimą), eksportuojantys prekes į ne Europos Sąjungos (ES) šalis ir importuojantys iš ne ES šalių",
+                  "TRANS – šalutinių gyvūninių produktų ir jų gaminių vežimas",
+                  "UCOSM – šalutinių gyvūninių produktų ir jų gaminių naudojimas kosmetikos produktams gaminti",
+                  "UDOG – šalutinių gyvūninių produktų naudojimas registruotų / patvirtintų šunų veisėjų ir gyvūnų globos namų laikomiems šunims ir katėms šerti",
+                  "UDER – šalutinių gyvūninių produktų ir jų gaminių naudojimas diagnostikai, švietimui ir (ar) tyrimams (įskaitant testavimą) (nurodykite)",
+                  "UFERT – šalutinių gyvūninių produktų ir jų gaminių naudojimas organinėms trąšoms ir dirvos savybėms gerinti",
+                  "UFUR – šalutinių gyvūninių produktų naudojimas kailiniams gyvūnams šerti",
+                  "UINSE – šalutinių gyvūninių produktų naudojimas vabzdžiams, įskaitant jų lervas ir vikšrus, ir kirminams, naudojamiems žvejybos masalui, šerti",
+                  "UNEC – šalutinių gyvūninių produktų naudojimas maitlesiams paukščiams lesinti",
+                  "URBP – šalutinių gyvūninių produktų naudojimas ropliams ir plėšriesiems paukščiams šerti",
+                  "UWILD – šalutinių gyvūninių produktų naudojimas laukiniams gyvūnams šerti",
+                  "UZOO – šalutinių gyvūninių produktų naudojimas zoologijos sodo / cirko gyvūnams šerti",
+                  "UEXART – šalutinių gyvūninių produktų ir jų gaminių naudojimas parodoms ir (ar) meninei veiklai (nurodykite)"
                 ]
               }
             },
-            "sgp-kodas-kita":{
+            "sgp-kodas-kita": {
               "type": "string",
               "title": "Kitas ŠGP ir jų gaminių tvarkymo veiklos kodas"
             },
@@ -416,74 +480,74 @@
               "items": {
                 "type": "string",
                 "enum": [
-                  "2.1. API – bitininkystės šalutiniai produktai bitininkystės veiklai;",
-                  "2.2. APITEC – bitininkystės šalutiniai produktai techninėms reikmėms;",
-                  "2.3. BAIT – žvejybos masalai;",
-                  "2.4. BHHP – kaulai, ragai, kanopos ir jų produktai;",
-                  "2.5. BIOG – biodujos;",
-                  "2.6. BIOD – biodyzelinas;",
-                  "2.7. BIOR – biodujų gamybos liekanos;",
-                  "2.8. BLM – kraujo miltai (3 kategorija; nurodykite gyvūnų rūšį);",
-                  "2.9. BLPF – kraujo produktai pašarams gaminti (3 kategorija; nurodykite gyvūnų rūšį);",
-                  "2.10. BLPT – kraujo produktai techninėms reikmėms (nurodykite gyvūnų rūšį);",
-                  "2.11. CAD – gyvūnų, išskyrus gyvūnus augintinius, gaišenos;",
-                  "2.12. CADPET – gyvūnų augintinių gaišenos;",
-                  "2.13. COL – kolagenas;",
-                  "2.14. COMR – kompostas po kompostavimo, įskaitant panaudotą grybų kompostą, kuriame yra grybų gamybos pramonės liekanų arba kuris sudarytas iš jų;",
-                  "2.15. COSM – kosmetikos produktai;",
-                  "2.16. CATW – viešojo maitinimo atliekos, įskaitant naudotą kepimo aliejų;",
-                  "2.17. CSSM – centrifugos arba separatoriaus nuosėdos iš pieno perdirbimo įmonių;",
-                  "2.18. DP – šalutinių gyvūninių produktų gaminiai;",
-                  "2.19. DCAP – dikalcio fosfatas;",
-                  "2.20. DTC – virškinamojo trakto turinys;",
-                  "2.21. EGG – kiaušinių produktai;",
-                  "2.22. FERT – kitos trąšos, išskyrus COMR, BIOR, MANU, MANP, OFSIBU, OFSIPA;",
-                  "2.23. GROWME – auginimo terpės;",
-                  "2.24. GUANO – nemineralizuotas perdirbtas paukščių ir šikšnosparnių guanas;",
-                  "2.25. OFSIBU – birios organinės trąšos ar dirvožemį gerinančios medžiagos;",
-                  "2.26. OFSIPA – supakuotos organinės trąšos ar dirvožemį gerinančios medžiagos;",
-                  "2.27. FATB – riebalų rutuliukai paukščiams;",
-                  "2.28. FATOT – perdirbti riebalai ir žuvų taukai, neskirti pašarams gaminti ar aliejaus chemijos gamybos pramonei;",
-                  "2.29. FATOL – perdirbti riebalai iš šalutinių gyvūninių produktų, skirti aliejaus chemijos gamybos pramonei;",
-                  "2.30. FATD – riebalų dariniai;",
-                  "2.31. FATF – perdirbti riebalai ir žuvų taukai, skirti pašarams gaminti;",
-                  "2.32. FATR – lydyti riebalai;",
-                  "2.33. FIM – žuvų miltai;",
-                  "2.34. FORMF – buvęs gyvūninis maistas: gyvūniniai produktai, neskirti žmonėms vartoti;",
-                  "2.35. FRASS – perdirbtos vabzdžių atmatos;",
-                  "2.36. FUR – kailiai;",
-                  "2.37. GATR – medžioklės trofėjai;",
-                  "2.38. GEL – želatina;",
-                  "2.39. GLYT – glicerinas techninėms reikmėms;",
-                  "2.40. GLYF – glicerinas šėrimo reikmėms;",
-                  "2.41. GLYTCW – glicerinas techninėms reikmėms, gautas iš viešojo maitinimo atliekų;",
-                  "2.42. GRE – spirgai;",
-                  "2.43. HISKR – žalios odos ir kailiai;",
-                  "2.44. HISKT – apdorotos odos ir kailiai;",
-                  "2.45. HYDP – hidrolizuoti baltymai (3 kategorija; nurodykite gyvūnų rūšį);",
-                  "2.46. INSE – vabzdžiai, jų lervos ir vikšrai bei kirminai;",
-                  "2.47. MANU – neperdirbtas mėšlas;",
-                  "2.48. MANP – perdirbtas mėšlas ir jo produktai;",
-                  "2.49. MBM – mėsos ir kaulų miltai (1 ar 2 kategorijos);",
-                  "2.50. MEDD – medicininės priemonės;",
-                  "2.51. MIMC – pienas, krekenos ir gaminiai, gauti iš pieno ir krekenų;",
-                  "2.52. OTHER – kiti produktai (nurodykite);",
-                  "2.53. PAP – perdirbti gyvūniniai baltymai (3 kategorija; nurodykite gyvūnų rūšį), kiti nei BLM, FIM ir PAPRUM;",
-                  "2.54. PAPOTH – PAP, gauti iš gyvūnų, išskyrus atrajotojus (nurodykite gyvūnų rūšį);",
-                  "2.55. PAPRUM – PAP, gauti iš atrajotojų;",
-                  "2.56. PETC – konservuotas gyvūnų augintinių ėdalas;",
-                  "2.57. PETFI – aromatinės medžiagos gyvūnų augintinių ėdalui;",
-                  "2.58. PETD – kramtukai gyvūnams augintiniams;",
-                  "2.59. PETP – perdirbtas gyvūnų augintinių ėdalas, išskyrus konservuotą gyvūnų augintinių ėdalą;",
-                  "2.60. PETR – žalias gyvūnų augintinių ėdalas;",
-                  "2.61. PHARM – farmacijos produktai;",
-                  "2.62. RAW – šalutiniai gyvūniniai produktai perdirbimui, išskyrus žalią gyvūnų augintinių ėdalą;",
-                  "2.63. RAWSFP – šalutiniai gyvūniniai produktai specialiosioms šėrimo reikmėms arba mokslo ir tyrimų tikslams (Reglamento (EB) Nr. 1069/2009 17 ir 18 straipsniai);",
-                  "2.64. SERE – arklinių šeimos gyvūnų kraujas ir kraujo produktai;",
-                  "2.65. TCAP – trikalcio fosfatas;",
-                  "2.66. TECPRD – techniniai produktai (jei nenurodyta kitur);",
-                  "2.67. WHBF – vilna, plaukai, šeriai, plunksnos;",
-                  "2.68. WWT – iš vandens valymo įrenginių surinktos medžiagos."
+                  "API – bitininkystės šalutiniai produktai bitininkystės veiklai",
+                  "APITEC – bitininkystės šalutiniai produktai techninėms reikmėms",
+                  "BAIT – žvejybos masalai",
+                  "BHHP – kaulai, ragai, kanopos ir jų produktai",
+                  "BIOG – biodujos",
+                  "BIOD – biodyzelinas",
+                  "BIOR – biodujų gamybos liekanos",
+                  "BLM – kraujo miltai (3 kategorija; nurodykite gyvūnų rūšį)",
+                  "BLPF – kraujo produktai pašarams gaminti (3 kategorija; nurodykite gyvūnų rūšį)",
+                  "BLPT – kraujo produktai techninėms reikmėms (nurodykite gyvūnų rūšį)",
+                  "CAD – gyvūnų, išskyrus gyvūnus augintinius, gaišenos",
+                  "CADPET – gyvūnų augintinių gaišenos",
+                  "COL – kolagenas",
+                  "COMR – kompostas po kompostavimo, įskaitant panaudotą grybų kompostą, kuriame yra grybų gamybos pramonės liekanų arba kuris sudarytas iš jų",
+                  "COSM – kosmetikos produktai",
+                  "CATW – viešojo maitinimo atliekos, įskaitant naudotą kepimo aliejų",
+                  "CSSM – centrifugos arba separatoriaus nuosėdos iš pieno perdirbimo įmonių",
+                  "DP – šalutinių gyvūninių produktų gaminiai",
+                  "DCAP – dikalcio fosfatas",
+                  "DTC – virškinamojo trakto turinys",
+                  "EGG – kiaušinių produktai",
+                  "FERT – kitos trąšos, išskyrus COMR, BIOR, MANU, MANP, OFSIBU, OFSIPA",
+                  "GROWME – auginimo terpės",
+                  "GUANO – nemineralizuotas perdirbtas paukščių ir šikšnosparnių guanas",
+                  "OFSIBU – birios organinės trąšos ar dirvožemį gerinančios medžiagos",
+                  "OFSIPA – supakuotos organinės trąšos ar dirvožemį gerinančios medžiagos",
+                  "FATB – riebalų rutuliukai paukščiams",
+                  "FATOT – perdirbti riebalai ir žuvų taukai, neskirti pašarams gaminti ar aliejaus chemijos gamybos pramonei",
+                  "FATOL – perdirbti riebalai iš šalutinių gyvūninių produktų, skirti aliejaus chemijos gamybos pramonei",
+                  "FATD – riebalų dariniai",
+                  "FATF – perdirbti riebalai ir žuvų taukai, skirti pašarams gaminti",
+                  "FATR – lydyti riebalai",
+                  "FIM – žuvų miltai",
+                  "FORMF – buvęs gyvūninis maistas: gyvūniniai produktai, neskirti žmonėms vartoti",
+                  "FRASS – perdirbtos vabzdžių atmatos",
+                  "FUR – kailiai",
+                  "GATR – medžioklės trofėjai",
+                  "GEL – želatina",
+                  "GLYT – glicerinas techninėms reikmėms",
+                  "GLYF – glicerinas šėrimo reikmėms",
+                  "GLYTCW – glicerinas techninėms reikmėms, gautas iš viešojo maitinimo atliekų",
+                  "GRE – spirgai",
+                  "HISKR – žalios odos ir kailiai",
+                  "HISKT – apdorotos odos ir kailiai",
+                  "HYDP – hidrolizuoti baltymai (3 kategorija; nurodykite gyvūnų rūšį)",
+                  "INSE – vabzdžiai, jų lervos ir vikšrai bei kirminai",
+                  "MANU – neperdirbtas mėšlas",
+                  "MANP – perdirbtas mėšlas ir jo produktai",
+                  "MBM – mėsos ir kaulų miltai (1 ar 2 kategorijos)",
+                  "MEDD – medicininės priemonės",
+                  "MIMC – pienas, krekenos ir gaminiai, gauti iš pieno ir krekenų",
+                  "OTHER – kiti produktai (nurodykite)",
+                  "PAP – perdirbti gyvūniniai baltymai (3 kategorija; nurodykite gyvūnų rūšį), kiti nei BLM, FIM ir PAPRUM",
+                  "PAPOTH – PAP, gauti iš gyvūnų, išskyrus atrajotojus (nurodykite gyvūnų rūšį)",
+                  "PAPRUM – PAP, gauti iš atrajotojų",
+                  "PETC – konservuotas gyvūnų augintinių ėdalas",
+                  "PETFI – aromatinės medžiagos gyvūnų augintinių ėdalui",
+                  "PETD – kramtukai gyvūnams augintiniams",
+                  "PETP – perdirbtas gyvūnų augintinių ėdalas, išskyrus konservuotą gyvūnų augintinių ėdalą",
+                  "PETR – žalias gyvūnų augintinių ėdalas",
+                  "PHARM – farmacijos produktai",
+                  "RAW – šalutiniai gyvūniniai produktai perdirbimui, išskyrus žalią gyvūnų augintinių ėdalą",
+                  "RAWSFP – šalutiniai gyvūniniai produktai specialiosioms šėrimo reikmėms arba mokslo ir tyrimų tikslams",
+                  "SERE – arklinių šeimos gyvūnų kraujas ir kraujo produktai",
+                  "TCAP – trikalcio fosfatas",
+                  "TECPRD – techniniai produktai (jei nenurodyta kitur)",
+                  "WHBF – vilna, plaukai, šeriai, plunksnos",
+                  "WWT – iš vandens valymo įrenginių surinktos medžiagos"
                 ]
               }
             },
@@ -492,24 +556,41 @@
               "title": "Kita tvarkomų ŠGP ir jų gaminių santrumpa"
             }
           },
-          "required": [],
+          "required": ["sgp-kodas", "kategorija", "sgp-santrupa", "gyvunu-rusys"],
           "errorMessage": {
-            "required": {}
+            "required": {
+              "gyvunu-rusys": "Gyvūnų rūšys yra privalomos",
+              "sgp-kodas": "ŠGP veiklos kodas yra privalomos",
+              "kategorija": "Kategorija yra privaloma"
+            }
           }
         },
         "pasaru-detalizacija-79": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["gyvunai", "santrupos"],
+          "required": ["gyvunai", "santrupos", "pasaru-kodas"],
+          "errorMessage": {
+            "gyvunai": "Gyvūnai, kuriems skirti visaverčiai pašarai, laukas yra privalomas",
+            "pasaru-kodas": "Pašarų su ŠGP gaminiais tvarkymo veikla yra privaloma"
+          },
           "properties": {
             "pasaru-kodas": {
               "type": "string",
               "title": "Pašarų su ŠGP gaminiais tvarkymo veikla",
-              "enum": ["FEED Fcf", "UMRFIM"]
+              "enum": [
+                "FEED M",
+                "FEED ME",
+                "FEED MEM",
+                "FEED F",
+                "FEED S",
+                "FEED SE",
+                "FEED FcF",
+                "UMRFIM"
+              ]
             },
             "gyvunai": {
               "type": "string",
-              "title": "Gyv., kuriems skirti visav. pšr.",
+              "title": "Gyvūnai, kuriems skirti visaverčiai pašarai",
               "enum": [
                 "Neatrajotojams",
                 "Naminiams paukščiams",
@@ -550,12 +631,28 @@
                   "pasaru-kodas": {
                     "type": "string",
                     "title": "Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa",
-                    "enum": ["FEED S", "FEED SE", "FEED M", "FEED ME", "FEED MEM", "FEED F"]
+                    "enum": [
+                      "FEED M",
+                      "FEED ME",
+                      "FEED MEM",
+                      "FEED F",
+                      "FEED S",
+                      "FEED SE",
+                      "FEED FcF",
+                      "UMRFIM"
+                    ]
                   },
                   "sgpg": {
                     "type": "string",
                     "title": "ŠGPG, kuris sandėliuojamas ir (ar) įeina į kombinuotojo pašaro sudėtį, santrumpa",
                     "enum": ["FIM", "DCAP", "TCAP", "BLPF", "PAP"]
+                  }
+                },
+                "required": ["pasaru-kodas", "sgpg"],
+                "errorMessage": {
+                  "required": {
+                    "pasaru-kodas": " 68 Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa yra privaloma",
+                    "sgpg": " 68 ŠGPG santrupa yra privaloma"
                   }
                 }
               }
@@ -566,46 +663,66 @@
                 "type": "object",
                 "properties": {
                   "pasaro-santrupa": {
-                  "type": "array",
-                  "title": "Gaminami kombinuoti pašarai su ŠGPG",
-                  "uniqueItems": true,
-                  "default": [],
-                  "items": {
-                    "type": "string",
-                    "enum": [
-                      "BLPFNR", "DCAPNR", "TCAPNR", "FIMNR", "MRFIMNR", "PAPO",
-                      "BLPFR", "DCAPR", "TCAPR", "FIMR", "MRFIMR", "PAPNO"
-                    ]
-                  },
-                  "oneOf": [
-                    {
-                      "description": "NR group only",
-                      "contains": { "enum": ["BLPFNR", "DCAPNR", "TCAPNR", "FIMNR", "MRFIMNR", "PAPO"] },
-                      "not": {
-                        "contains": { "enum": ["BLPFR", "DCAPR", "TCAPR", "FIMR", "MRFIMR", "PAPNO"] }
-                      }
+                    "type": "array",
+                    "title": "Gaminami kombinuoti pašarai su ŠGPG",
+                    "uniqueItems": true,
+                    "default": [],
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "BLPFNR",
+                        "DCAPNR",
+                        "TCAPNR",
+                        "FIMNR",
+                        "MRFIMNR",
+                        "PAPO",
+                        "BLPFR",
+                        "DCAPR",
+                        "TCAPR",
+                        "FIMR",
+                        "MRFIMR",
+                        "PAPNO"
+                      ]
                     },
-                    {
-                      "description": "R group only",
-                      "contains": { "enum": ["BLPFR", "DCAPR", "TCAPR", "FIMR", "MRFIMR", "PAPNO"] },
-                      "not": {
-                        "contains": { "enum": ["BLPFNR", "DCAPNR", "TCAPNR", "FIMNR", "MRFIMNR", "PAPO"] }
+                    "oneOf": [
+                      {
+                        "description": "NR group only",
+                        "contains": {
+                          "enum": ["BLPFNR", "DCAPNR", "TCAPNR", "FIMNR", "MRFIMNR", "PAPO"]
+                        },
+                        "not": {
+                          "contains": {
+                            "enum": ["BLPFR", "DCAPR", "TCAPR", "FIMR", "MRFIMR", "PAPNO"]
+                          }
+                        }
+                      },
+                      {
+                        "description": "R group only",
+                        "contains": {
+                          "enum": ["BLPFR", "DCAPR", "TCAPR", "FIMR", "MRFIMR", "PAPNO"]
+                        },
+                        "not": {
+                          "contains": {
+                            "enum": ["BLPFNR", "DCAPNR", "TCAPNR", "FIMNR", "MRFIMNR", "PAPO"]
+                          }
+                        }
                       }
+                    ],
+                    "errorMessage": {
+                      "oneOf": "'Kombinuoti pašarai su ŠGPG' trumpiniai turi priklausyti vienai grupei."
                     }
-                  ],
-                  "errorMessage": {
-                    "oneOf": "'Kombinuoti pašarai su ŠGPG' trumpiniai turi priklausyti vienai grupei."
-                  }
-                },
+                  },
                   "gyvunas": {
                     "type": "string",
                     "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai",
-                    "enum": [
-                      "Neatrajotojai",
-                      "Naminiai paukščiai",
-                      "Kiaulės",
-                      "Ūkiniai vabzdžiai"
-                    ]
+                    "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
+                  }
+                },
+                 "required": ["pasaro-santrupa", "gyvunas"],
+                "errorMessage": {
+                  "required": {
+                    "pasaro-santrupa": "Gaminami kombinuoti pašarai su ŠGPG yra privaloma",
+                    "gyvunas": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai yra privaloma"
                   }
                 }
               }
@@ -635,52 +752,69 @@
                     "type": "string",
                     "title": "Transporto priemonės valstybinis registracijos Nr."
                   }
+                },
+                "required": ["tipas", "valstybinis-nr"],
+                "errorMessage": {
+                  "required": {
+                    "tipas": "Transporto priemonės tipas yra privalomas",
+                    "matas": "Transporto priemonės numeris yra privalomas"
+                  }
                 }
               }
             }
           }
+          
         },
         "apimtys": {
           "type": "object",
+          "default": {},
           "additionalProperties": false,
           "properties": {
             "laikotarpis": {
-               "type": "string",
-                "title": "Laikotarpis",
-                "enum": [
-                  "Per pamainą",
-                  "Per dieną",
-                  "Per savaitę",
-                  "Per mėnesį",
-                  "Per ketvirtį",
-                  "Per metus"
-                ]
+              "type": "string",
+              "title": "Laikotarpis",
+              "enum": [
+                "Per pamainą",
+                "Per dieną",
+                "Per savaitę",
+                "Per mėnesį",
+                "Per ketvirtį",
+                "Per metus"
+              ]
             },
+           
             "kiekis-matas": {
-            "title": "Pagaminamos produkcijos kiekis *",
-            "type": "object",
-            "properties": {
-              "kiekis": {
-                "type": "string",
-                "pattern": "^\\d{0,10}([.,]\\d{0,4})?(/\\d{0,10}([.,]\\d{0,4})?)?$",
-                "errorMessage": {
-                  "pattern": "Neteisingas kiekio formatas."
+              "title": "Pagaminamos produkcijos kiekis *",
+              "type": "object",
+              "default": {},
+
+              "properties": {
+                "kiekis": {
+                  "type": "string",
+                  "pattern": "^\\d{0,10}([.,]\\d{0,4})?(/\\d{0,10}([.,]\\d{0,4})?)?$",
+                  "errorMessage": {
+                    "pattern": "Neteisingas kiekio formatas."
+                  }
+                },
+                "matas": {
+                  "type": "string",
+                  "enum": ["vnt", "vnt/m²", "ha", "kg", "m²", "m³"]
                 }
               },
-              "matas": {
-                "type": "string",
-                "enum": ["vnt","vnt/m²", "ha", "kg" , "m²", "m³"]
-              }
-            },
-            "required": ["kiekis", "matas"],
-            "errorMessage": {
-              "required": {
-                "kiekis": "Prekės: Kiekis privalomas.",
-                "matas": "Prekės: Matas privalomas"
+              "required": ["kiekis"],
+              "errorMessage": {
+                "required": {
+                  "kiekis": "Kiekis yra privalomas"
+                }
               }
             }
-          }
-          }
+          },
+           "required": ["laikotarpis"],
+            "errorMessage": {
+              "required": {
+                "laikotarpis": "Laikotarpis yra privalomas."
+              }
+            }
         },
         "produktai": {
           "type": "array",
@@ -697,6 +831,7 @@
                 "title": "Pagaminamos produkcijos kiekis",
                 "uniqueItems": true,
                 "default": [],
+                "minLength": 1,
                 "items": {
                   "type": "string",
                   "enum": ["Arklys", "Kiti"]
@@ -706,6 +841,14 @@
                 "type": "string",
                 "title": "Talpyklų skaičius (vnt. / mėn.)"
               }
+            },
+            "required": ["kategorija", "rusis", "talpyklos"],
+            "errorMessage": {
+              "required": {
+                "kategorija": "Kategorija yra privaloma",
+                "rusis": "Rūšis yra privaloma",
+                "talpyklos": "Talpyklos yra privalomos"
+              }
             }
           }
         }
@@ -714,6 +857,7 @@
     },
     "dokumentai": {
       "type": "object",
+      "default": {},
       "additionalProperties": false,
       "properties": {
         "patalpu-planas": {
@@ -734,12 +878,19 @@
             "$ref": "forms/global/defs.json#/definitions/dokumentas"
           }
         }
-        
+      },
+       "required": ["patalpu-planas", "rinkliava"], 
+      "errorMessage": {
+        "required": {
+          "patalpu-planas": "Patalpų planas privalomas",
+          "rinkliava": "Rinkliavma yra privaloma"
+        }
       }
     },
     "sutikimai": {
       "type": "object",
       "additionalProperties": false,
+      "default": {},
       "properties": {
         "patvirtinu":{
           "type": "string"
@@ -825,12 +976,16 @@
     "atsakymas":{
       "type": "object",
       "additionalProperties": false,
+      "default": {},
       "properties": {
         "ats-gavimas": {
           "type": "string",
           "enum": ["Nacionalinę elektroninių siuntų pristatymo naudojant pašto tinklą informacinę sistemą", "El. paštu", "Paštu", "Kreipiantis asmeniškai arba per atstovą"]
         }
-      }
+      },
+      "required": ["ats-gavimas"],
+      "errorMessage": {
+        "required": {"ats-gavimas": "Privalote pasirinkti, kaip gauti atsakymą" } }
     }
 
   },

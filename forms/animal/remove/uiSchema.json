@@ -162,7 +162,8 @@
             {
               "type": "HorizontalLayout",
               "options": {
-                "columns": 2
+                "columns": 2,
+                "margin": "16px"
               },
               "elements": [
                 {
