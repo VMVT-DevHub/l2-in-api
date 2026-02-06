@@ -122,7 +122,7 @@
     {
       "type": "Category",
       "label": "Veiklavietė",
-      "elements": [
+      "elements": [ 
         {
           "type": "Group",
           "label": "Ūkio subjekto veiklavietės pavadinimas",
@@ -255,7 +255,7 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/veiklaviete/properties/darbuotojai/properties/skaicius"
+              "scope": "#/properties/veiklaviete/properties/darbuotojai"
             }
           ]
         },
@@ -384,7 +384,7 @@
                   "effect": "SHOW",
                   "condition": {
                     "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas",
-                    "schema": {"contains": {"const": "1.27. OTHER – kita šalutinių gyvūninių produktų ir jų gaminių tvarkymo veikla (nurodykite)" }},
+                    "schema": {"contains": {"const": "OTHER – kita šalutinių gyvūninių produktų ir jų gaminių tvarkymo veikla (nurodykite)" }},
                     "failWhenUndefined": true
                     }
                   }
@@ -403,7 +403,7 @@
                   "effect": "SHOW",
                   "condition": {
                     "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
-                    "schema": {"contains": {"const": "2.52. OTHER – kiti produktai (nurodykite);" }},
+                    "schema": {"contains": {"const": "OTHER – kiti produktai (nurodykite)" }},
                     "failWhenUndefined": true
                       }
                   }
@@ -598,7 +598,7 @@
               "effect": "SHOW",
               "condition": {
                 "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pasaru-kodas",
-                "schema": {"const": "FEED Fcf"}
+                "schema": {"const": "FEED FcF"}
               }
               }
             }
