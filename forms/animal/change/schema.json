@@ -147,7 +147,7 @@
             "Pakeisti šiuos registruotos / patvirtintos veiklos duomenis"
           ]
         },
-        "adm-pakeitimai":{
+        "adm-pakeitimai": {
           "type": "object",
           "properties": {
             "adm-pavad": {
@@ -192,7 +192,7 @@
             }
           }
         },
-        "veiklos-pakeitimai":{
+        "veiklos-pakeitimai": {
           "type": "object",
           "properties": {
             "veikla": {
@@ -238,6 +238,26 @@
           }
         }
       },
+      "allOf": [
+        { "if": {
+        "properties": {
+          "pakeitimas": {
+            "enum": [
+              "Pakeisti šiuos administracinius registruoto / patvirtinto valstybinės veterinarinės kontrolės subjekto duomenis"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": ["ja-gyv"],
+        "errorMessage": {
+          "required": {
+            "ja-gyv": "Adresas yra privalomas."
+          }
+        }
+      }}
+      ],
+     
       "required": ["registracijos-nr", "ja-gyv", "pakeitimas"],
       "errorMessage": {
         "required": {
@@ -265,6 +285,7 @@
     },
     "sutikimai": {
       "type": "object",
+      "default": {},
       "properties": {
         "informuotas": {
           "type": "boolean",
