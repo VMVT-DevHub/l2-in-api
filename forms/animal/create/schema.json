@@ -241,6 +241,18 @@
                 "type": "string",
                 "title": "Veiklai naudojamo statinio / patalpų paskirtis",
                 "enum": [
+                  "Gyvenamųjų",
+                  "Įvairių socialinių grupių",
+                  "Prekybos",
+                  "Viešbučių",
+                  "Bendro gyvenimo namų",
+                  "Paslaugų",
+                  "Maitinimo",
+                  "Administracinių",
+                  "Transporto",
+                  "Garažų",
+                  "Gamybos, pramonės",
+                  "Energetikos",
                   "Sandėliavimo",
                   "Kultūros",
                   "Mokslo",
@@ -577,7 +589,7 @@
             "pasaru-kodas": {
               "type": "string",
               "title": "Pašarų su ŠGP gaminiais tvarkymo veikla",
-              "enum": [
+               "enum": [
                 "FEED M",
                 "FEED ME",
                 "FEED MEM",
@@ -586,7 +598,17 @@
                 "FEED SE",
                 "FEED FcF",
                 "UMRFIM"
-              ]
+              ],
+              "x-info": {
+                "FEED M": "Ūkio subjektas, gaminantis tiekti rinkai kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais",
+                "FEED ME": "Ūkio subjektas, gaminantis tik eksportui kombinuotuosius pašarus su perdirbtais gyvūniniais baltymais iš neatrajotojų (kaip nustatyta 2001 m. gegužės 22 d. Europos Parlamento ir Tarybos reglamento (EB) Nr. 999/2001, nustatančio tam tikrų užkrečiamųjų spongiforminių encefalopatijų prevencijos, kontrolės ir likvidavimo taisykles, IV priedo V skyriaus E skirsnio 3 punkto b papunkčio ii įtraukos pirmojoje pastraipoje)",
+                "FEED MEM": "Ūkio subjektas, gaminantis eksportui kombinuotuosius pašarus su perdirbtais gyvūniniais baltymais iš neatrajotojų ir gaminantis Europos Sąjungos (toliau – ES) rinkai kombinuotuosius pašarus akvakultūros gyvūnams (kaip nustatyta Reglamento (EB) Nr. 999/2001 IV priedo V skyriaus E skirsnio 3 punkto b papunkčio ii įtraukos antrojoje pastraipoje)",
+                "FEED F": "Ūkio subjektas, gaminantis savo reikmėms kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais",
+                "FEED S": "Ūkio subjektas, sandėliuojantis palaidus šalutinių gyvūninių produktų gaminius ir (ar) kombinuotuosius pašarus su tokiais gaminiais, skirtus ūkiniams neatrajotojams, ir sandėliuojantis pašarus atrajotojams (kaip nustatyta Reglamento (EB) Nr. 999/2001 IV priedo III skyriaus A skirsnio 3 punkte)",
+                "FEED SE": "Ūkio subjektas, sandėliuojantis eksportui palaidus perdirbtus gyvūninius baltymus iš neatrajotojų ir (ar) kombinuotuosius pašarus su tokiais baltymais ir sandėliuojantis ES rinkai pašarus atrajotojams arba ūkiniams neatrajotojams, išskyrus akvakultūros gyvūnus (kaip nustatyta Reglamento (EB) Nr. 999/2001 IV priedo V skyriaus E skirsnio 3 punkto d papunkčio trečiojoje pastraipoje)",
+                "FEED FcF": "Ūkio subjektas, naudojantis kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais savo reikmėms visaverčiams pašarams gaminti",
+                "UMRFIM": "Ūkis, laikantis atrajotojus ir naudojantis pieno pakaitalus, kurių sudėtyje yra žuvų miltų, nenujunkytiems atrajotojų jaunikliams šerti."
+              }
             },
             "gyvunai": {
               "type": "string",
@@ -608,11 +630,83 @@
                   "pasaro-santrupa": {
                     "type": "string",
                     "title": "Pašarų su ŠGP gaminiais santrumpa",
-                    "enum": ["FIM", "DCAP", "TCAP", "BLPF", "PAP"]
+                    "enum": [
+                      "API - bitininkystės šalutiniai produktai bitininkystės veiklai",
+                      "APITEC - bitininkystės šalutiniai produktai techninėms reikmėms",
+                      "BAIT - žvejybos masalai",
+                      "BHHP - kaulai, ragai, kanopos ir jų produktai",
+                      "BIOG - biodujos",
+                      "BIOD - biodyzelinas",
+                      "BIOR - biodujų gamybos liekanos",
+                      "BLM - kraujo miltai (3 kategorija; nurodykite gyvūnų rūšį)",
+                      "BLPF - kraujo produktai pašarams gaminti (3 kategorija; nurodykite gyvūnų rūšį)",
+                      "BLPT - kraujo produktai techninėms reikmėms (nurodykite gyvūnų rūšį)",
+                      "CAD - gyvūnų, išskyrus gyvūnus augintinius, gaišenos",
+                      "CADPET - gyvūnų augintinių gaišenos",
+                      "COL - kolagenas",
+                      "COMR - kompostas po kompostavimo, įskaitant panaudotą grybų kompostą, kuriame yra grybų gamybos pramonės liekanų arba kuris sudarytas iš jų",
+                      "COSM - kosmetikos produktai",
+                      "CATW - viešojo maitinimo atliekos, įskaitant naudotą kepimo aliejų",
+                      "CSSM - centrifugos arba separatoriaus nuosėdos iš pieno perdirbimo įmonių",
+                      "DP - šalutinių gyvūninių produktų gaminiai",
+                      "DCAP - dikalcio fosfatas",
+                      "DTC - virškinamojo trakto turinys",
+                      "EGG - kiaušinių produktai",
+                      "FERT - kitos trąšos, išskyrus COMR, BIOR, MANU, MANP, OFSIBU, OFSIPA",
+                      "GROWME - auginimo terpės",
+                      "GUANO - nemineralizuotas perdirbtas paukščių ir šikšnosparnių guanas",
+                      "OFSIBU - birios organinės trąšos ar dirvožemį gerinančios medžiagos",
+                      "OFSIPA - supakuotos organinės trąšos ar dirvožemį gerinančios medžiagos",
+                      "FATB - riebalų rutuliukai paukščiams",
+                      "FATOT - perdirbti riebalai ir žuvų taukai, neskirti pašarams gaminti ar aliejaus chemijos gamybos pramonei",
+                      "FATOL - perdirbti riebalai iš šalutinių gyvūninių produktų, skirti aliejaus chemijos gamybos pramonei",
+                      "FATD - riebalų dariniai",
+                      "FATF - perdirbti riebalai ir žuvų taukai, skirti pašarams gaminti",
+                      "FATR - lydyti riebalai",
+                      "FIM - žuvų miltai",
+                      "FORMF - buvęs gyvūninis maistas: gyvūniniai produktai, neskirti žmonėms vartoti",
+                      "FRASS - perdirbtos vabzdžių atmatos",
+                      "FUR - kailiai",
+                      "GATR - medžioklės trofėjai",
+                      "GEL - želatina",
+                      "GLYT - glicerinas techninėms reikmėms",
+                      "GLYF - glicerinas šėrimo reikmėms",
+                      "GLYTCW - glicerinas techninėms reikmėms, gautas iš viešojo maitinimo atliekų",
+                      "GRE - spirgai",
+                      "HISKR - žalios odos ir kailiai",
+                      "HISKT - apdorotos odos ir kailiai",
+                      "HYDP - hidrolizuoti baltymai (3 kategorija; nurodykite gyvūnų rūšį)",
+                      "INSE - vabzdžiai, jų lervos ir vikšrai bei kirminai",
+                      "MANU - neperdirbtas mėšlas",
+                      "MANP - perdirbtas mėšlas ir jo produktai",
+                      "MBM - mėsos ir kaulų miltai (1 ar 2 kategorijos)",
+                      "MEDD - medicininės priemonės",
+                      "MIMC - pienas, krekenos ir gaminiai, gauti iš pieno ir krekenų",
+                      "OTHER - kiti produktai (nurodykite)",
+                      "PAP - perdirbti gyvūniniai baltymai (3 kategorija; nurodykite gyvūnų rūšį), kiti nei BLM, FIM ir PAPRUM",
+                      "PAPOTH - PAP, gauti iš gyvūnų, išskyrus atrajotojus (nurodykite gyvūnų rūšį)",
+                      "PAPRUM - PAP, gauti iš atrajotojų",
+                      "PETC - konservuotas gyvūnų augintinių ėdalas",
+                      "PETFI - aromatinės medžiagos gyvūnų augintinių ėdalui",
+                      "PETD - kramtukai gyvūnams augintiniams",
+                      "PETP - perdirbtas gyvūnų augintinių ėdalas, išskyrus konservuotą gyvūnų augintinių ėdalą",
+                      "PETR - žalias gyvūnų augintinių ėdalas",
+                      "PHARM - farmacijos produktai",
+                      "RAW - šalutiniai gyvūniniai produktai perdirbimui, išskyrus žalią gyvūnų augintinių ėdalą",
+                      "RAWSFP - šalutiniai gyvūniniai produktai specialiosioms šėrimo reikmėms arba mokslo ir tyrimų tikslams",
+                      "SERE - arklinių šeimos gyvūnų kraujas ir kraujo produktai",
+                      "TCAP - trikalcio fosfatas",
+                      "TECPRD - techniniai produktai (jei nenurodyta kitur)",
+                      "WHBF - vilna, plaukai, šeriai, plunksnos",
+                      "WWT - iš vandens valymo įrenginių surinktos medžiagos"
+                    ]
+                    
                   },
                   "sgpg-santrupa": {
                     "type": "string",
-                    "title": "ŠGPG,  įeinančio į kombinuotojo pašaro, naudojamo visaverčiam pašarui gaminti, sudėtį, santrumpa"
+                    "title": "ŠGPG,  įeinančio į kombinuotojo pašaro, naudojamo visaverčiam pašarui gaminti, sudėtį, santrumpa",
+                    "enum": ["Kiaulės", "Naminiai paukščiai", "Ūkiniai vabzdžiai", "Neatrajotojai"],
+                    "x-info": {"Kiaulės":"Jei pasirinkote: 'Naminiams paukščiams'", "Naminiai paukščiai":"Jei pasirinkote: 'Kiaulėms'", "Ūkiniai vabzdžiai": "Jei pasirinkote: Akvakultūros gyvūnams, Naminiams paukščiams ir Kiaulėms'", "Neatrajotojai":"Jei pasirinkote: 'Akvakultūros gyvūnams'"}
                   }
                 }
               }
@@ -640,7 +734,17 @@
                       "FEED SE",
                       "FEED FcF",
                       "UMRFIM"
-                    ]
+                    ],
+                    "x-info": {
+                      "FEED M": "Ūkio subjektas, gaminantis tiekti rinkai kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais",
+                      "FEED ME": "Ūkio subjektas, gaminantis tik eksportui kombinuotuosius pašarus su perdirbtais gyvūniniais baltymais iš neatrajotojų (kaip nustatyta 2001 m. gegužės 22 d. Europos Parlamento ir Tarybos reglamento (EB) Nr. 999/2001, nustatančio tam tikrų užkrečiamųjų spongiforminių encefalopatijų prevencijos, kontrolės ir likvidavimo taisykles, IV priedo V skyriaus E skirsnio 3 punkto b papunkčio ii įtraukos pirmojoje pastraipoje)",
+                      "FEED MEM": "Ūkio subjektas, gaminantis eksportui kombinuotuosius pašarus su perdirbtais gyvūniniais baltymais iš neatrajotojų ir gaminantis Europos Sąjungos (toliau – ES) rinkai kombinuotuosius pašarus akvakultūros gyvūnams (kaip nustatyta Reglamento (EB) Nr. 999/2001 IV priedo V skyriaus E skirsnio 3 punkto b papunkčio ii įtraukos antrojoje pastraipoje)",
+                      "FEED F": "Ūkio subjektas, gaminantis savo reikmėms kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais",
+                      "FEED S": "Ūkio subjektas, sandėliuojantis palaidus šalutinių gyvūninių produktų gaminius ir (ar) kombinuotuosius pašarus su tokiais gaminiais, skirtus ūkiniams neatrajotojams, ir sandėliuojantis pašarus atrajotojams (kaip nustatyta Reglamento (EB) Nr. 999/2001 IV priedo III skyriaus A skirsnio 3 punkte)",
+                      "FEED SE": "Ūkio subjektas, sandėliuojantis eksportui palaidus perdirbtus gyvūninius baltymus iš neatrajotojų ir (ar) kombinuotuosius pašarus su tokiais baltymais ir sandėliuojantis ES rinkai pašarus atrajotojams arba ūkiniams neatrajotojams, išskyrus akvakultūros gyvūnus (kaip nustatyta Reglamento (EB) Nr. 999/2001 IV priedo V skyriaus E skirsnio 3 punkto d papunkčio trečiojoje pastraipoje)",
+                      "FEED FcF": "Ūkio subjektas, naudojantis kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais savo reikmėms visaverčiams pašarams gaminti",
+                      "UMRFIM": "Ūkis, laikantis atrajotojus ir naudojantis pieno pakaitalus, kurių sudėtyje yra žuvų miltų, nenujunkytiems atrajotojų jaunikliams šerti."
+                    }
                   },
                   "sgpg": {
                     "type": "string",
@@ -828,7 +932,7 @@
               },
               "rusis": {
                 "type": "array",
-                "title": "Pagaminamos produkcijos kiekis",
+                "title": "Gyvūnų rūšis",
                 "uniqueItems": true,
                 "default": [],
                 "minLength": 1,

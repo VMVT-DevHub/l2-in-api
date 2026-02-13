@@ -8,7 +8,7 @@ export default class AddressesService extends moleculer.Service {
   private baseUrl!: string;
 
   created() {
-    this.baseUrl = process.env.REGISTRAI_BASE_URL || 'https://registrai.test.vmvt.lt';
+    this.baseUrl = 'https://registrai.vmvt.lt';
   }
 
   @Action({

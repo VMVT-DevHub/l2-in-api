@@ -129,7 +129,15 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/veiklaviete/properties/pavadinimas/properties/pavad-sutampa"
+              "scope": "#/properties/veiklaviete/properties/pavadinimas/properties/pavad-sutampa",
+               "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
+                  "schema": {"type": "string"},
+                  "failWhenUndefined": true
+                }
+              }
             },
             {
               "type": "Control",
@@ -142,9 +150,34 @@
                 }
               }
             }
-          ]
+          ],
+           "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
+              "schema": {"type": "string"},
+              "failWhenUndefined": true
+            }
+          }
         },
-
+        {
+          "type": "Group",
+          "label": "Veiklavietės pavadinimas",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/pavadinimas/properties/pavadinimas"
+            }
+          ],
+           "rule": {
+            "effect": "HIDE",
+            "condition": {
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
+              "schema": {"type": "string"},
+              "failWhenUndefined": true
+            }
+          }
+        },
          {
           "type": "Group",
           "label": "Ūkio subjekto veiklavietės adresas",
@@ -180,7 +213,48 @@
               "type": "Control",
               "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-bus-koordinates"
             }
-          ]
+          ],
+           "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
+              "schema": {"type": "string"},
+              "failWhenUndefined": true
+            }
+          }
+        },
+        {
+          "type": "Group",
+          "label": "Ūkio subjekto veiklavietės adresas",
+          "elements": [
+            {    
+              "type": "HorizontalLayout",
+              "elements": [
+              {
+                "type": "Control",
+                "scope": "#/properties/veiklaviete/properties/adresas/properties/ja-gyv",
+                  "options": {
+                  "display": "addressSelect"
+                }
+              }]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-laikinas-adresas"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-bus-koordinates"
+            }
+          ],
+           "rule": {
+            "effect": "HIDE",
+            "condition": {
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
+              "schema": {"type": "string"},
+              "failWhenUndefined": true
+            }
+          }
         },
          {
           "type": "Group",
@@ -587,7 +661,7 @@
                       "effect": "SHOW",
                       "condition": {
                         "scope": "#/properties/pasaro-santrupa",
-                        "schema": {"const": "PAP"}
+                        "schema": {"const": "PAP - perdirbti gyvūniniai baltymai (3 kategorija; nurodykite gyvūnų rūšį), kiti nei BLM, FIM ir PAPRUM"}
                       }
                       }
                     }
