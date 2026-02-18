@@ -672,7 +672,7 @@
               "effect": "SHOW",
               "condition": {
                 "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pasaru-kodas",
-                "schema": {"const": "FEED FcF"}
+                "schema": {"const": "FEED Fcf"}
               }
               }
             }
@@ -823,6 +823,131 @@
               "scope": "#/properties/veiklos/properties/veikla",
               "schema": {
                 "enum": ["12","13","15","16","18","19","92"]
+              }
+            }
+          }
+        },
+         {
+          "type": "Group",
+          "label": "Laikomi gyvūnai (jei bus laikomi gyvūnai)",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklos/properties/gyvunai",
+              "options": {
+                "display": "addMore",
+                "addLabel": "Pridėti gyvūnų rūšį",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "options": {
+                    "columns": 2
+                  },
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/rusis"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/skaicius"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/laikymas"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/plotas"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/gyvunai",
+                      "options": {
+                        "display": "addMore",
+                        "addLabel": "Pridėti gyvūną",
+                        "isHorizontal": true,
+                        "detail": {
+                          "type": "HorizontalLayout",
+                          "elements": [
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/gyvuno-nr"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/ne-veisimo-gyvunai",
+                      "options": {
+                        "display": "addMore",
+                        "addLabel": "Pridėti gyvūną",
+                        "veiklaIsNeeded": true,
+                        "isHorizontal": true,
+                        "detail": {
+                          "type": "HorizontalLayout",
+                          "elements": [
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/gyvuno-nr"
+                            }
+                          ]
+                        }
+                      },
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/veikla",
+                          "schema": { "enum": ["71", "77"] }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/veiklos/properties/veikla",
+              "schema": {
+                "enum": [
+                  "55",
+                  "73",
+                  "97",
+                  "98",
+                  "48",
+                  "71",
+                  "77",
+                  "93",
+                  "01",
+                  "51",
+                  "63",
+                  "13",
+                  "92",
+                  "22",
+                  "43",
+                  "44",
+                  "46",
+                  "47",
+                  "75",
+                  "91",
+                  "23",
+                  "57",
+                  "72",
+                  "87",
+                  "101",
+                  "102",
+                  "59",
+                  "60",
+                  "61",
+                  "24",
+                  "95",
+                  "80",
+                  "64"
+                ]
               }
             }
           }

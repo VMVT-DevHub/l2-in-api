@@ -38,7 +38,7 @@
             },
             "ja-moketojo-kodas": {
               "type": "string",
-              "title": "Mokesčių mokėtojo identifikacinis kodas",
+              "title": "Mokesčių mokėtojo identifikacinis kodas *",
               "pattern": "^\\d{9}$",
               "errorMessage": {
                 "pattern": "Mokesčių mokėtojo identifikacinis kodas turi būti galiojantis"
@@ -65,7 +65,7 @@
             },
             "fa-moketojo-kodas": {
               "type": "string",
-              "title": "Mokesčių mokėtojo identifikacinis kodas",
+              "title": "Mokesčių mokėtojo identifikacinis kodas *",
               "pattern": "^[0-9]{11}$",
               "errorMessage": {
                 "pattern": "Mokesčių mokėtojo identifikacinis kodas turi būti galiojantis"
@@ -226,12 +226,13 @@
         },
         "patalpos": {
           "type": "array",
+          "default": [{}],
           "items": {
             "type": "object",
             "properties": {
               "numeris": {
                 "type": "string",
-                "title": "Statinio / patalpų unikalus numeris (Nekilnojamo turto objekto unikalus numeris)",
+                "title": "Statinio / patalpų unikalus numeris (Nekilnojamo turto objekto unikalus numeris) *",
                 "pattern": "^\\d{4}-\\d{4}-\\d{4}(?::\\d{4})?$",
                 "errorMessage": {
                   "pattern": "Statinio / patalpų unikalus numeris turi būti galiojantis"
@@ -239,7 +240,7 @@
               },
               "paskirtis": {
                 "type": "string",
-                "title": "Veiklai naudojamo statinio / patalpų paskirtis",
+                "title": "Veiklai naudojamo statinio / patalpų paskirtis *",
                 "enum": [
                   "Gyvenamųjų",
                   "Įvairių socialinių grupių",
@@ -269,7 +270,7 @@
               },
               "pagrindas": {
                 "type": "string",
-                "title": "Teritorijos, statinio / patalpos teisėto naudojimo pagrindas",
+                "title": "Teritorijos, statinio / patalpos teisėto naudojimo pagrindas *",
                 "enum": ["Terminuotas", "Neterminuotas"]
               }
             },
@@ -590,7 +591,7 @@
               "type": "string",
               "title": "Pašarų su ŠGP gaminiais tvarkymo veikla",
                "enum": [
-                "FEED FcF",
+                "FEED Fcf",
                 "UMRFIM"
               ]
             },
@@ -598,11 +599,11 @@
               "type": "string",
               "title": "Gyvūnai, kuriems skirti visaverčiai pašarai",
               "enum": [
-                "Neatrajotojams",
-                "Naminiams paukščiams",
-                "Kiaulėms",
-                "Akvakultūros gyvūnams, naminiams paukščiams ir kiaulėms",
-                "Akvakultūros gyvūnams"
+                "Neatrajotojai",
+                "Naminiai paukščiai",
+                "Kiaulės",
+                "Akvakultūros gyvūnai, naminiai paukščiai ir kiaulės",
+                "Akvakultūros gyvūnai"
               ]
             },
             "santrupos": {
@@ -620,12 +621,25 @@
                       "FIM - žuvų miltai",
                       "PAP - perdirbti gyvūniniai baltymai (3 kategorija; nurodykite gyvūnų rūšį), kiti nei BLM, FIM ir PAPRUM",
                       "TCAP - trikalcio fosfatas"
-                    ]
+                    ],
+                    "x-info": {
+                      "BLPF - kraujo produktai pašarams gaminti (3 kategorija; nurodykite gyvūnų rūšį)":"Jei ankščiau pasirinkote 'Neatrajotojai'",
+                      "DCAP - dikalcio fosfatas":"Jei ankščiau pasirinkote 'Neatrajotojai'",
+                      "FIM - žuvų miltai":"Jei ankščiau pasirinkote 'Neatrajotojai'",
+                      "PAP - perdirbti gyvūniniai baltymai (3 kategorija; nurodykite gyvūnų rūšį), kiti nei BLM, FIM ir PAPRUM":"Jei ankščiau pasirinkote bet ką kitą nei 'Neatrajotojai'",
+                      "TCAP - trikalcio fosfatas":"Jei ankščiau pasirinkote 'Neatrajotojai'"
+                    }
                   },
                   "sgpg-santrupa": {
                     "type": "string",
                     "title": "ŠGPG,  įeinančio į kombinuotojo pašaro, naudojamo visaverčiam pašarui gaminti, sudėtį, santrumpa",
-                    "enum": ["Kiaulės", "Naminiai paukščiai", "Ūkiniai vabzdžiai", "Neatrajotojai"]
+                    "enum": ["Kiaulės", "Naminiai paukščiai", "Ūkiniai vabzdžiai", "Neatrajotojai"],
+                    "x-info": {
+                      "Neatrajotojai":"Jei ankščiau pasirinkote 'Akvakultūros gyvūnai'",
+                      "Naminiai paukščiai":"Jei ankščiau pasirinkote 'Kiaulės'",
+                      "Kiaulės":"Jei ankščiau pasirinkote 'Naminiai paukščiai'",
+                      "Ūkiniai vabzdžiai":"Jei ankščiau pasirinkote 'Akvakultūros gyvūnai, naminiai paukščiai ir kiaulės'"
+                    }
                   }
                 }
               }
@@ -791,7 +805,7 @@
           "properties": {
             "laikotarpis": {
               "type": "string",
-              "title": "Laikotarpis",
+              "title": "Laikotarpis *",
               "enum": [
                 "Per pamainą",
                 "Per dieną",
@@ -837,6 +851,7 @@
         },
         "produktai": {
           "type": "array",
+          "default": [{}],
           "items": {
             "type": "object",
             "properties": {
@@ -853,7 +868,7 @@
                 "minLength": 1,
                 "items": {
                   "type": "string",
-                  "enum": ["Arklys", "Kiti"]
+                  "enum": ["Šuo", "Katė", "Karvė", "Arklys", "Ropliai"]
                 }
               },
               "talpyklos": {
@@ -867,6 +882,82 @@
                 "kategorija": "Kategorija yra privaloma",
                 "rusis": "Rūšis yra privaloma",
                 "talpyklos": "Talpyklos yra privalomos"
+              }
+            }
+          }
+        },
+        "gyvunai": {
+          "type": "array",
+          "default": [{}],
+          "items": {
+            "type": "object",
+            "properties": {
+              "rusis": {
+                "type": "string",
+                "title": "Numatomų laikyti gyvūnų rūšis ",
+                "enum": ["Šuo", "Katė", "Karvė", "Arklys", "Ropliai"]
+              },
+              "skaicius": {
+                "type": "number",
+                "title": "Numatomų laikyti šios rūšies gyvūnų skaičius "
+              },
+              "laikymas": {
+                "type": "string",
+                "title": "Gyvūnų laikymo būdas ",
+                "enum": [
+                  "Tvartas",
+                  "Ferma",
+                  "Ganykla",
+                  "Kompleksas",
+                  "Aptvaras",
+                  "Voljeras",
+                  "Vandens telkinys",
+                  "Uždaras akvakultūros įrenginys",
+                  "Pagalbinė patalpa",
+                  "Gyvenamosios patalpos"
+                ]
+              },
+              "plotas": {
+                "type": "string",
+                "title": "Gyvūnams laikyti skirtas plotas (kv. m / ha) "
+              },
+              "gyvunai": {
+                "type": "array",
+                "default": [{}],
+                "title": "Numatomų naudoti veisimui gyvūnų augintinių individualus Nr.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "gyvuno-nr":{
+                      "type":"string",
+                      "title": "Numatomų naudoti veisimui gyvūnų augintinių individualus Nr."
+                    }
+                  }
+                }
+              },
+              "veikla": {"type": "string"},
+              "ne-veisimo-gyvunai": {
+                "type": "array",
+                "default": [{}],
+                "title": "Kartu laikomų tos pačios rūšies, bet nenaudojamų veisimui gyvūnų augintinių individualus Nr.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "gyvuno-nr":{
+                      "type":"string",
+                      "title": "Kartu laikomų tos pačios rūšies, bet nenaudojamų veisimui gyvūnų augintinių individualus Nr."
+                    }
+                  }
+                }
+              }
+            },
+            "required": ["skaicius", "rusis", "laikymas", "plotas"],
+            "errorMessage": {
+              "required": {
+                "skaicius": "Gyvūnų skaičius yra privaloma",
+                "rusis": "Gyvūnų rūšis yra privaloma",
+                "laikymas": "Gyvūnų laikymas yra privalomos",
+                "plotas": "Gyvūnų laikymo plotas yra privalomos"
               }
             }
           }

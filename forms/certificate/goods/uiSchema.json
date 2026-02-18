@@ -1518,13 +1518,32 @@
                 "text": {
                   "pressToWant": "Paspauskite norėdami",
                   "uploadOrDragFilesHere": "įkelti arba įtempkite failus čia",
-                  "fileTypesAndMaxSize": "PDF, PNG, JPEG, JPG, MP4, AVI, MOV (maks. 65MB)"
+                  "fileTypesAndMaxSize": "PDF, PNG, JPEG, JPG, MP4, AVI, MOV, XLS, XLSX (maks. 65MB)"
                 },
-                "maxFileSizeMB":65,
+                "maxFileSizeMB": 65,
                 "availableMimeTypes": [
-                  "video/x-msvideo", "video/avi", "video/mp4", "video/quicktime", "image/png", "image/jpg", "image/jpeg", "application/pdf"
+                  "video/x-msvideo",
+                  "video/avi",
+                  "video/mp4",
+                  "video/quicktime",
+                  "image/png",
+                  "image/jpg",
+                  "image/jpeg",
+                  "application/pdf",
+                  "application/vnd.ms-excel",
+                  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 ],
-                "availableExtensionsTypes": [".png",".jpg" , ".jpeg", ".pdf", ".avi", ".mp4", ".mov"]
+                "availableExtensionsTypes": [
+                  ".png",
+                  ".jpg",
+                  ".jpeg",
+                  ".pdf",
+                  ".avi",
+                  ".mp4",
+                  ".mov",
+                  ".xls",
+                  ".xlsx"
+                ]
               }
             }
           ],

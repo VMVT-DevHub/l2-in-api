@@ -1241,21 +1241,40 @@
               "scope": "#/properties/dokumentai/properties/papildomi-dokumentai",
               "label": "",
                "options": {
-                "display": "upload",
-                "clearOnCopy": true,
-                "multi": true,
-                "certType":"ser",
-                "text": {
-                  "pressToWant": "Paspauskite norėdami",
-                  "uploadOrDragFilesHere": "įkelti arba įtempkite failus čia",
-                  "fileTypesAndMaxSize": "PDF, PNG, JPEG, JPG, MP4, AVI, MOV (maks. 65MB)"
-                },
-                "maxFileSizeMB":65,
-                "availableMimeTypes": [
-                  "video/x-msvideo", "video/avi", "video/mp4", "video/quicktime", "image/png", "image/jpg", "image/jpeg", "application/pdf"
-                ],
-                "availableExtensionsTypes": [".png",".jpg" , ".jpeg", ".pdf", ".avi", ".mp4", ".mov"]
-              }
+                 "display": "upload",
+                 "clearOnCopy": true,
+                 "multi": true,
+                 "certType": "ser",
+                 "text": {
+                   "pressToWant": "Paspauskite norėdami",
+                   "uploadOrDragFilesHere": "įkelti arba įtempkite failus čia",
+                   "fileTypesAndMaxSize": "PDF, PNG, JPEG, JPG, MP4, AVI, MOV, XLS, XLSX (maks. 65MB)"
+                 },
+                 "maxFileSizeMB": 65,
+                 "availableMimeTypes": [
+                   "video/x-msvideo",
+                   "video/avi",
+                   "video/mp4",
+                   "video/quicktime",
+                   "image/png",
+                   "image/jpg",
+                   "image/jpeg",
+                   "application/pdf",
+                   "application/vnd.ms-excel",
+                   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                 ],
+                 "availableExtensionsTypes": [
+                   ".png",
+                   ".jpg",
+                   ".jpeg",
+                   ".pdf",
+                   ".avi",
+                   ".mp4",
+                   ".mov",
+                   ".xls", 
+                   ".xlsx"
+                 ]
+               }
             }
           ],
           "label": "Papildomi dokumentai",
