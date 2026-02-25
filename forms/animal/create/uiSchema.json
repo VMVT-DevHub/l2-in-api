@@ -538,7 +538,7 @@
             },
             {
               "type": "Control",
-              "scope": "#/properties/veiklos/properties/pasaru-detalizacija-68/properties/kodai",
+              "scope": "#/properties/veiklos/properties/pasaru-detalizacija-68",
               "options": {
                 "display": "addMore",
                 "addLabel": "Pridėti pašarų su ŠGP gaminiais tvarkymo veiklos santrumpą",
@@ -563,45 +563,46 @@
                             "enum": ["FEED S", "FEED SE"]
                           }
                         }
-                    }
-                }
-                  ]
-                }
-              }
-            },
-            
-            {
-              "type": "Control",
-              "scope": "#/properties/veiklos/properties/pasaru-detalizacija-68/properties/santrupos",
-              "options": {
-                "display": "addMore",
-                "addLabel": "Pridėti pašarų su ŠGP gaminiais santrumpą",
-                "detail": {
-                  "type": "HorizontalLayout",
-                  "options": {
-                    "columns": 2
-                  },
-                  "elements": [
-                    {
-                      "type": "Control",
-                      "scope": "#/properties/pasaro-santrupa",
-                      "options": {
-                        "display": "multiSelect"
                       }
                     },
                     {
-                      "type": "Control",
-                      "scope": "#/properties/gyvunas",
-                      "rule": {
-                      "effect": "SHOW",
-                      "condition": {
-                        "scope": "#/properties/pasaro-santrupa",
-                        "schema": {
-                          "contains": {
-                            "enum": ["PAPO", "PAP", "PAPNO"]
+                      "type": "HorizontalLayout",
+                      "options": {
+                        "columns": 1
+                      },
+                      "elements": [
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/pasaro-santrupa",
+                          "options": {
+                            "display": "multiSelect"
+                          }
+                          
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/gyvunas",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/pasaro-santrupa",
+                              "schema": {
+                                "contains": {
+                                  "enum": ["PAPO", "PAPNO"]
+                                }
+                              }
+                            }
                           }
                         }
-                      }
+                      ],
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/pasaru-kodas",
+                          "schema": {
+                            "enum": ["FEED M", "FEED ME", "FEED MEM", "FEED F"]
+                          }
+                        }
                       }
                     }
                   ]
@@ -633,7 +634,16 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/gyvunai"
+                  "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/gyvunai",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pasaru-kodas",
+                      "schema": {
+                        "enum": ["FEED Fcf"]
+                      }
+                    }
+                  }
                 }
               ]
             },
@@ -647,23 +657,12 @@
                 "detail": {
                   "type": "HorizontalLayout",
                   "options": {
-                    "columns": 2
+                    "columns": 1
                   },
                   "elements": [
                     {
                       "type": "Control",
                       "scope": "#/properties/pasaro-santrupa"
-                    },
-                    {
-                      "type": "Control",
-                      "scope": "#/properties/sgpg-santrupa",
-                      "rule": {
-                      "effect": "SHOW",
-                      "condition": {
-                        "scope": "#/properties/pasaro-santrupa",
-                        "schema": {"const": "PAP - perdirbti gyvūniniai baltymai (3 kategorija; nurodykite gyvūnų rūšį), kiti nei BLM, FIM ir PAPRUM"}
-                      }
-                      }
                     }
                   ]
                 }
@@ -671,8 +670,45 @@
               "rule": {
               "effect": "SHOW",
               "condition": {
-                "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pasaru-kodas",
-                "schema": {"const": "FEED Fcf"}
+                "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/gyvunai",
+                "schema": {
+                  "enum": ["Neatrajotojai"]
+                }
+              }
+              }
+            },
+            {
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 1
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pap/properties/pasaro-santrupa",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pasaru-kodas",
+                      "schema": {
+                        "enum": ["FEED Fcf"]
+                      }
+                    }
+                  }
+                }
+              ],
+              "rule": {
+              "effect": "SHOW",
+              "condition": {
+                "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/gyvunai",
+                "schema": {
+                  "enum": [
+                    "Naminiai paukščiai",
+                    "Kiaulės",
+                    "Akvakultūros gyvūnai, naminiai paukščiai ir kiaulės",
+                    "Akvakultūros gyvūnai"
+                  ]
+                }
               }
               }
             }
@@ -837,6 +873,7 @@
               "options": {
                 "display": "addMore",
                 "addLabel": "Pridėti gyvūnų rūšį",
+                "veiklaIsNeeded": true,
                 "detail": {
                   "type": "HorizontalLayout",
                   "options": {
@@ -883,7 +920,6 @@
                       "options": {
                         "display": "addMore",
                         "addLabel": "Pridėti gyvūną",
-                        "veiklaIsNeeded": true,
                         "isHorizontal": true,
                         "detail": {
                           "type": "HorizontalLayout",
