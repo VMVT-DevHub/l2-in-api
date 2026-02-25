@@ -616,148 +616,123 @@
                     "type": "string",
                     "title": "Pašarų su ŠGP gaminiais santrumpa",
                     "enum": [
-                      "BLPF - kraujo produktai pašarams gaminti (3 kategorija; nurodykite gyvūnų rūšį)",
+                      "BLPF - kraujo produktai, gauti iš neatrajotojų",
                       "DCAP - dikalcio fosfatas",
                       "FIM - žuvų miltai",
-                      "PAP - perdirbti gyvūniniai baltymai (3 kategorija; nurodykite gyvūnų rūšį), kiti nei BLM, FIM ir PAPRUM",
                       "TCAP - trikalcio fosfatas"
-                    ],
-                    "x-info": {
-                      "BLPF - kraujo produktai pašarams gaminti (3 kategorija; nurodykite gyvūnų rūšį)":"Jei ankščiau pasirinkote 'Neatrajotojai'",
-                      "DCAP - dikalcio fosfatas":"Jei ankščiau pasirinkote 'Neatrajotojai'",
-                      "FIM - žuvų miltai":"Jei ankščiau pasirinkote 'Neatrajotojai'",
-                      "PAP - perdirbti gyvūniniai baltymai (3 kategorija; nurodykite gyvūnų rūšį), kiti nei BLM, FIM ir PAPRUM":"Jei ankščiau pasirinkote bet ką kitą nei 'Neatrajotojai'",
-                      "TCAP - trikalcio fosfatas":"Jei ankščiau pasirinkote 'Neatrajotojai'"
-                    }
-                  },
-                  "sgpg-santrupa": {
-                    "type": "string",
-                    "title": "ŠGPG,  įeinančio į kombinuotojo pašaro, naudojamo visaverčiam pašarui gaminti, sudėtį, santrumpa",
-                    "enum": ["Kiaulės", "Naminiai paukščiai", "Ūkiniai vabzdžiai", "Neatrajotojai"],
-                    "x-info": {
-                      "Neatrajotojai":"Jei ankščiau pasirinkote 'Akvakultūros gyvūnai'",
-                      "Naminiai paukščiai":"Jei ankščiau pasirinkote 'Kiaulės'",
-                      "Kiaulės":"Jei ankščiau pasirinkote 'Naminiai paukščiai'",
-                      "Ūkiniai vabzdžiai":"Jei ankščiau pasirinkote 'Akvakultūros gyvūnai, naminiai paukščiai ir kiaulės'"
-                    }
+                    ]
                   }
                 }
+              }
+            },
+            "pap": {
+              "type": "object",
+              "properties": {
+                "pasaro-santrupa": {
+                  "type": "string",
+                  "title": "Pašarų su ŠGP gaminiais santrumpa",
+                  "enum": [
+                    "Pagaminti su kombinuotaisiais pašarais, kurių sudėtyje yra PAP iš kiaulių",
+                    "pagaminti su kombinuotaisiais pašarais, kurių sudėtyje yra PAP iš naminių paukščių",
+                    "pagaminti su kombinuotaisiais pašarais, kurių sudėtyje yra PAP iš ūkinių vabzdžių ",
+                    "pagaminti su kombinuotaisiais pašarais, kurių sudėtyje yra PAP iš neatrajotojų"
+                  ]
+                }
+               
               }
             }
           }
         },
         "pasaru-detalizacija-68": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "kodai": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "pasaru-kodas": {
-                    "type": "string",
-                    "title": "Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa",
-                    "enum": [
-                      "FEED M",
-                      "FEED ME",
-                      "FEED MEM",
-                      "FEED F",
-                      "FEED S",
-                      "FEED SE"
-                    ],
-                    "x-info": {
-                      "FEED M": "Ūkio subjektas, gaminantis tiekti rinkai kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais",
-                      "FEED ME": "Ūkio subjektas, gaminantis tik eksportui kombinuotuosius pašarus su perdirbtais gyvūniniais baltymais iš neatrajotojų (kaip nustatyta 2001 m. gegužės 22 d. Europos Parlamento ir Tarybos reglamento (EB) Nr. 999/2001, nustatančio tam tikrų užkrečiamųjų spongiforminių encefalopatijų prevencijos, kontrolės ir likvidavimo taisykles, IV priedo V skyriaus E skirsnio 3 punkto b papunkčio ii įtraukos pirmojoje pastraipoje)",
-                      "FEED MEM": "Ūkio subjektas, gaminantis eksportui kombinuotuosius pašarus su perdirbtais gyvūniniais baltymais iš neatrajotojų ir gaminantis Europos Sąjungos (toliau – ES) rinkai kombinuotuosius pašarus akvakultūros gyvūnams (kaip nustatyta Reglamento (EB) Nr. 999/2001 IV priedo V skyriaus E skirsnio 3 punkto b papunkčio ii įtraukos antrojoje pastraipoje)",
-                      "FEED F": "Ūkio subjektas, gaminantis savo reikmėms kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais",
-                      "FEED S": "Ūkio subjektas, sandėliuojantis palaidus šalutinių gyvūninių produktų gaminius ir (ar) kombinuotuosius pašarus su tokiais gaminiais, skirtus ūkiniams neatrajotojams, ir sandėliuojantis pašarus atrajotojams (kaip nustatyta Reglamento (EB) Nr. 999/2001 IV priedo III skyriaus A skirsnio 3 punkte)",
-                      "FEED SE": "Ūkio subjektas, sandėliuojantis eksportui palaidus perdirbtus gyvūninius baltymus iš neatrajotojų ir (ar) kombinuotuosius pašarus su tokiais baltymais ir sandėliuojantis ES rinkai pašarus atrajotojams arba ūkiniams neatrajotojams, išskyrus akvakultūros gyvūnus (kaip nustatyta Reglamento (EB) Nr. 999/2001 IV priedo V skyriaus E skirsnio 3 punkto d papunkčio trečiojoje pastraipoje)"
+          "type": "array",
+          "default": [{}],
+          "items": {
+            "type": "object",
+            "properties": {
+              "pasaru-kodas": {
+                "type": "string",
+                "title": "Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa",
+                "enum": [
+                  "FEED M",
+                  "FEED ME",
+                  "FEED MEM",
+                  "FEED F",
+                  "FEED S",
+                  "FEED SE"
+                ],
+                "x-info": {
+                  "FEED M": "Ūkio subjektas, gaminantis tiekti rinkai kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais",
+                  "FEED ME": "Ūkio subjektas, gaminantis tik eksportui kombinuotuosius pašarus su perdirbtais gyvūniniais baltymais iš neatrajotojų (kaip nustatyta 2001 m. gegužės 22 d. Europos Parlamento ir Tarybos reglamento (EB) Nr. 999/2001, nustatančio tam tikrų užkrečiamųjų spongiforminių encefalopatijų prevencijos, kontrolės ir likvidavimo taisykles, IV priedo V skyriaus E skirsnio 3 punkto b papunkčio ii įtraukos pirmojoje pastraipoje)",
+                  "FEED MEM": "Ūkio subjektas, gaminantis eksportui kombinuotuosius pašarus su perdirbtais gyvūniniais baltymais iš neatrajotojų ir gaminantis Europos Sąjungos (toliau – ES) rinkai kombinuotuosius pašarus akvakultūros gyvūnams (kaip nustatyta Reglamento (EB) Nr. 999/2001 IV priedo V skyriaus E skirsnio 3 punkto b papunkčio ii įtraukos antrojoje pastraipoje)",
+                  "FEED F": "Ūkio subjektas, gaminantis savo reikmėms kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais",
+                  "FEED S": "Ūkio subjektas, sandėliuojantis palaidus šalutinių gyvūninių produktų gaminius ir (ar) kombinuotuosius pašarus su tokiais gaminiais, skirtus ūkiniams neatrajotojams, ir sandėliuojantis pašarus atrajotojams (kaip nustatyta Reglamento (EB) Nr. 999/2001 IV priedo III skyriaus A skirsnio 3 punkte)",
+                  "FEED SE": "Ūkio subjektas, sandėliuojantis eksportui palaidus perdirbtus gyvūninius baltymus iš neatrajotojų ir (ar) kombinuotuosius pašarus su tokiais baltymais ir sandėliuojantis ES rinkai pašarus atrajotojams arba ūkiniams neatrajotojams, išskyrus akvakultūros gyvūnus (kaip nustatyta Reglamento (EB) Nr. 999/2001 IV priedo V skyriaus E skirsnio 3 punkto d papunkčio trečiojoje pastraipoje)"
+                }
+              },
+              "sgpg": {
+                "type": "string",
+                "title": "ŠGPG, kuris sandėliuojamas ir (ar) įeina į kombinuotojo pašaro sudėtį, santrumpa",
+                "enum": ["FIM", "DCAP", "TCAP", "BLPF", "PAP iš kiaulių", "PAP iš naminių paukščių", "PAP iš ūkinių vabzdžių", "PAP iš neatrajotojų"]
+              },
+              "pasaro-santrupa": {
+                "type": "array",
+                "title": "Gaminami kombinuoti pašarai su ŠGPG",
+                "uniqueItems": true,
+                "default": [],
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "BLPFNR",
+                    "BLPFR",
+                    "DCAPNR",
+                    "DCAPR",
+                    "TCAPNR",
+                    "TCAPR",
+                    "FIMNR",
+                    "FIMR",
+                    "PAPNO",
+                    "PAPO"
+                  ]
+                },
+                "oneOf": [
+                  {
+                    "description": "NR group only",
+                    "contains": {
+                      "enum": ["BLPFNR", "DCAPNR", "TCAPNR", "FIMNR", "MRFIMNR", "PAPO"]
+                    },
+                    "not": {
+                      "contains": {
+                        "enum": ["BLPFR", "DCAPR", "TCAPR", "FIMR", "MRFIMR", "PAPNO"]
+                      }
                     }
                   },
-                  "sgpg": {
-                    "type": "string",
-                    "title": "ŠGPG, kuris sandėliuojamas ir (ar) įeina į kombinuotojo pašaro sudėtį, santrumpa",
-                    "enum": ["FIM", "DCAP", "TCAP", "BLPF", "PAP"]
+                  {
+                    "description": "R group only",
+                    "contains": {
+                      "enum": ["BLPFR", "DCAPR", "TCAPR", "FIMR", "MRFIMR", "PAPNO"]
+                    },
+                    "not": {
+                      "contains": {
+                        "enum": ["BLPFNR", "DCAPNR", "TCAPNR", "FIMNR", "MRFIMNR", "PAPO"]
+                      }
+                    }
                   }
-                },
-                "required": ["pasaru-kodas", "sgpg"],
+                ],
                 "errorMessage": {
-                  "required": {
-                    "pasaru-kodas": " 68 Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa yra privaloma",
-                    "sgpg": " 68 ŠGPG santrupa yra privaloma"
-                  }
+                  "oneOf": "'Kombinuoti pašarai su ŠGPG' trumpiniai turi priklausyti vienai grupei."
                 }
+              },
+              "gyvunas": {
+                "type": "string",
+                "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai",
+                "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
               }
             },
-            "santrupos": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "pasaro-santrupa": {
-                    "type": "array",
-                    "title": "Gaminami kombinuoti pašarai su ŠGPG",
-                    "uniqueItems": true,
-                    "default": [],
-                    "items": {
-                      "type": "string",
-                      "enum": [
-                        "BLPFNR",
-                        "DCAPNR",
-                        "TCAPNR",
-                        "FIMNR",
-                        "MRFIMNR",
-                        "PAPO",
-                        "BLPFR",
-                        "DCAPR",
-                        "TCAPR",
-                        "FIMR",
-                        "MRFIMR",
-                        "PAPNO"
-                      ]
-                    },
-                    "oneOf": [
-                      {
-                        "description": "NR group only",
-                        "contains": {
-                          "enum": ["BLPFNR", "DCAPNR", "TCAPNR", "FIMNR", "MRFIMNR", "PAPO"]
-                        },
-                        "not": {
-                          "contains": {
-                            "enum": ["BLPFR", "DCAPR", "TCAPR", "FIMR", "MRFIMR", "PAPNO"]
-                          }
-                        }
-                      },
-                      {
-                        "description": "R group only",
-                        "contains": {
-                          "enum": ["BLPFR", "DCAPR", "TCAPR", "FIMR", "MRFIMR", "PAPNO"]
-                        },
-                        "not": {
-                          "contains": {
-                            "enum": ["BLPFNR", "DCAPNR", "TCAPNR", "FIMNR", "MRFIMNR", "PAPO"]
-                          }
-                        }
-                      }
-                    ],
-                    "errorMessage": {
-                      "oneOf": "'Kombinuoti pašarai su ŠGPG' trumpiniai turi priklausyti vienai grupei."
-                    }
-                  },
-                  "gyvunas": {
-                    "type": "string",
-                    "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai",
-                    "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
-                  }
-                },
-                 "required": ["pasaro-santrupa", "gyvunas"],
-                "errorMessage": {
-                  "required": {
-                    "pasaro-santrupa": "Gaminami kombinuoti pašarai su ŠGPG yra privaloma",
-                    "gyvunas": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai yra privaloma"
-                  }
-                }
+            "required": ["pasaru-kodas", "sgpg"],
+            "errorMessage": {
+              "required": {
+                "pasaru-kodas": " 68 Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa yra privaloma",
+                "sgpg": "68 ŠGPG santrupa yra privaloma"
               }
             }
           }
@@ -949,15 +924,6 @@
                     }
                   }
                 }
-              }
-            },
-            "required": ["skaicius", "rusis", "laikymas", "plotas"],
-            "errorMessage": {
-              "required": {
-                "skaicius": "Gyvūnų skaičius yra privaloma",
-                "rusis": "Gyvūnų rūšis yra privaloma",
-                "laikymas": "Gyvūnų laikymas yra privalomos",
-                "plotas": "Gyvūnų laikymo plotas yra privalomos"
               }
             }
           }
