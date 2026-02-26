@@ -11,6 +11,19 @@ export default class AddressesService extends moleculer.Service {
     this.baseUrl = 'https://registrai.vmvt.lt';
   }
 
+  private sortResponse = (items: any) => {
+    return items.sort((a: { code: string }, b: { code: string }) => {
+      const aNum = Number(a.code);
+      const bNum = Number(b.code);
+
+      if (!isNaN(aNum) && !isNaN(bNum)) {
+        return aNum - bNum;
+      }
+
+      return a.code.localeCompare(b.code, undefined, { numeric: true });
+    });
+  };
+
   @Action({
     name: 'getActivities',
     rest: 'GET /okis',
@@ -23,7 +36,7 @@ export default class AddressesService extends moleculer.Service {
       opt: { responseType: 'json' },
     });
 
-    return result;
+    return this.sortResponse(result);
   }
 
   @Action({
@@ -38,6 +51,6 @@ export default class AddressesService extends moleculer.Service {
       opt: { responseType: 'json' },
     });
 
-    return result.map((item: any) => item.code);
+    return this.sortResponse(result).map((item: any) => item.code);
   }
 }

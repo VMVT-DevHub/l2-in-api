@@ -8,6 +8,12 @@
       "mapper": "join"
     },
     {
+      "name": "animalNames",
+      "title": "Gyvūno pavadinimas",
+      "path": "$.gyvunai[*].rusis",
+      "mapper": "join"
+    },
+    {
       "name": "importingCountry",
       "title": "Šalis importuotoja",
       "path": "$.marsrutas.importuojanti-salis.salis"
