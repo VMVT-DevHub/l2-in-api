@@ -678,7 +678,6 @@
                 "type": "array",
                 "title": "Gaminami kombinuoti pašarai su ŠGPG",
                 "uniqueItems": true,
-                "default": [],
                 "items": {
                   "type": "string",
                   "enum": [
@@ -728,7 +727,7 @@
                 "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
               }
             },
-            "required": ["pasaru-kodas", "sgpg"],
+            "required": [],
             "errorMessage": {
               "required": {
                 "pasaru-kodas": " 68 Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa yra privaloma",
@@ -851,7 +850,7 @@
                 "title": "Talpyklų skaičius (vnt. / mėn.)"
               }
             },
-            "required": ["kategorija", "rusis", "talpyklos"],
+            "required": [],
             "errorMessage": {
               "required": {
                 "kategorija": "Kategorija yra privaloma",
