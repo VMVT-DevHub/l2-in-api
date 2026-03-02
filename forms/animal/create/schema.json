@@ -590,10 +590,7 @@
             "pasaru-kodas": {
               "type": "string",
               "title": "Pašarų su ŠGP gaminiais tvarkymo veikla",
-               "enum": [
-                "FEED Fcf",
-                "UMRFIM"
-              ]
+              "enum": ["FEED Fcf", "UMRFIM"]
             },
             "gyvunai": {
               "type": "string",
@@ -608,37 +605,34 @@
             },
             "santrupos": {
               "type": "array",
+              "title": "Pašarų su ŠGP gaminiais santrumpa",
+              "uniqueItems": true,
+              "default": [],
+              "minLength": 1,
               "items": {
-                "type": "object",
-                "required": ["pasaro-santrupa", "sgpg-santrupa"],
-                "properties": {
-                  "pasaro-santrupa": {
-                    "type": "string",
-                    "title": "Pašarų su ŠGP gaminiais santrumpa",
-                    "enum": [
-                      "BLPF - kraujo produktai, gauti iš neatrajotojų",
-                      "DCAP - dikalcio fosfatas",
-                      "FIM - žuvų miltai",
-                      "TCAP - trikalcio fosfatas"
-                    ]
-                  }
-                }
+                "type": "string",
+                "enum": [
+                  "BLPF - kraujo produktai, gauti iš neatrajotojų",
+                  "DCAP - dikalcio fosfatas",
+                  "FIM - žuvų miltai",
+                  "TCAP - trikalcio fosfatas"
+                ]
               }
             },
             "pap": {
               "type": "object",
               "properties": {
-                "pasaro-santrupa": {
+                "pap": {
                   "type": "string",
                   "title": "Pašarų su ŠGP gaminiais santrumpa",
-                  "enum": [
-                    "Pagaminti su kombinuotaisiais pašarais, kurių sudėtyje yra PAP iš kiaulių",
-                    "pagaminti su kombinuotaisiais pašarais, kurių sudėtyje yra PAP iš naminių paukščių",
-                    "pagaminti su kombinuotaisiais pašarais, kurių sudėtyje yra PAP iš ūkinių vabzdžių ",
-                    "pagaminti su kombinuotaisiais pašarais, kurių sudėtyje yra PAP iš neatrajotojų"
-                  ]
+                  "default": "PAP - Pagaminti su kombinuotaisiais pašarais",
+                  "enum": ["PAP - Pagaminti su kombinuotaisiais pašarais"]
+                },
+                "gyvunas": {
+                  "type": "string",
+                  "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai",
+                  "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
                 }
-               
               }
             }
           }
@@ -652,14 +646,7 @@
               "pasaru-kodas": {
                 "type": "string",
                 "title": "Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa",
-                "enum": [
-                  "FEED M",
-                  "FEED ME",
-                  "FEED MEM",
-                  "FEED F",
-                  "FEED S",
-                  "FEED SE"
-                ],
+                "enum": ["FEED M", "FEED ME", "FEED MEM", "FEED F", "FEED S", "FEED SE"],
                 "x-info": {
                   "FEED M": "Ūkio subjektas, gaminantis tiekti rinkai kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais",
                   "FEED ME": "Ūkio subjektas, gaminantis tik eksportui kombinuotuosius pašarus su perdirbtais gyvūniniais baltymais iš neatrajotojų (kaip nustatyta 2001 m. gegužės 22 d. Europos Parlamento ir Tarybos reglamento (EB) Nr. 999/2001, nustatančio tam tikrų užkrečiamųjų spongiforminių encefalopatijų prevencijos, kontrolės ir likvidavimo taisykles, IV priedo V skyriaus E skirsnio 3 punkto b papunkčio ii įtraukos pirmojoje pastraipoje)",
@@ -670,9 +657,13 @@
                 }
               },
               "sgpg": {
-                "type": "string",
                 "title": "ŠGPG, kuris sandėliuojamas ir (ar) įeina į kombinuotojo pašaro sudėtį, santrumpa",
-                "enum": ["FIM", "DCAP", "TCAP", "BLPF", "PAP iš kiaulių", "PAP iš naminių paukščių", "PAP iš ūkinių vabzdžių", "PAP iš neatrajotojų"]
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "enum": ["FIM", "DCAP", "TCAP", "BLPF", "PAP"]
+                }
               },
               "pasaro-santrupa": {
                 "type": "array",
