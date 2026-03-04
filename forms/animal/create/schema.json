@@ -391,7 +391,8 @@
         "veikla": {
           "title": "Pagrindinė veikla *",
           "type": "string",
-          "$ref": "#/definitions/veikla"
+          "$ref": "#/definitions/veikla",
+          "x-isVeikla": true
         },
         "evrk": {
           "title": "Ekonominės veiklos kodas pagal EVRK *",
@@ -403,7 +404,7 @@
           "properties": {
             "sgp-kodas": {
               "type": "array",
-              "title": "ŠGP ir jų gaminių tvarkymo veiklos kodas",
+              "title": "ŠGP ir jų gaminių tvarkymo veiklos kodas *",
               "uniqueItems": true,
               "default": [],
               "items": {
@@ -462,11 +463,11 @@
             },
             "sgp-kodas-kita": {
               "type": "string",
-              "title": "Kitas ŠGP ir jų gaminių tvarkymo veiklos kodas"
+              "title": "Kitas ŠGP ir jų gaminių tvarkymo veiklos kodas *"
             },
             "kategorija": {
               "type": "array",
-              "title": "Tvarkomų ŠGP ir jų gaminių kategorija",
+              "title": "Tvarkomų ŠGP ir jų gaminių kategorija *",
               "uniqueItems": true,
               "default": [],
               "items": {
@@ -477,7 +478,7 @@
             },
             "gyvunu-rusys": {
               "type": "array",
-              "title": "Gyvūnų rūšis",
+              "title": "Gyvūnų rūšis *",
               "uniqueItems": true,
               "default": [],
               "items": {
@@ -488,7 +489,7 @@
             },
             "sgp-santrupa": {
               "type": "array",
-              "title": "Tvarkomų ŠGP ir jų gaminių santrumpa",
+              "title": "Tvarkomų ŠGP ir jų gaminių santrumpa *",
               "uniqueItems": true,
               "items": {
                 "type": "string",
@@ -566,7 +567,7 @@
             },
             "sgp-santrupa-kita": {
               "type": "string",
-              "title": "Kita tvarkomų ŠGP ir jų gaminių santrumpa"
+              "title": "Kita tvarkomų ŠGP ir jų gaminių santrumpa *"
             }
           },
           "required": ["sgp-kodas", "kategorija", "sgp-santrupa", "gyvunu-rusys"],
@@ -584,17 +585,18 @@
           "required": ["gyvunai", "santrupos", "pasaru-kodas"],
           "errorMessage": {
             "gyvunai": "Gyvūnai, kuriems skirti visaverčiai pašarai, laukas yra privalomas",
-            "pasaru-kodas": "Pašarų su ŠGP gaminiais tvarkymo veikla yra privaloma"
+            "pasaru-kodas": "Pašarų su ŠGP gaminiais tvarkymo veikla yra privaloma",
+            "santrupos": "santrupos veikia"
           },
           "properties": {
             "pasaru-kodas": {
               "type": "string",
-              "title": "Pašarų su ŠGP gaminiais tvarkymo veikla",
+              "title": "Pašarų su ŠGP gaminiais tvarkymo veikla *",
               "enum": ["FEED Fcf", "UMRFIM"]
             },
             "gyvunai": {
               "type": "string",
-              "title": "Gyvūnai, kuriems skirti visaverčiai pašarai",
+              "title": "Gyvūnai, kuriems skirti visaverčiai pašarai *",
               "enum": [
                 "Neatrajotojai",
                 "Naminiai paukščiai",
@@ -605,10 +607,14 @@
             },
             "santrupos": {
               "type": "array",
-              "title": "Pašarų su ŠGP gaminiais santrumpa",
+              "title": "Pašarų su ŠGP gaminiais santrumpa *",
               "uniqueItems": true,
               "default": [],
               "minLength": 1,
+              "minItems": 1,
+              "errorMessage": {
+                "minItems": "Turi būti pasirinktas bent vienas variantas"
+              },
               "items": {
                 "type": "string",
                 "enum": [
@@ -624,13 +630,13 @@
               "properties": {
                 "pap": {
                   "type": "string",
-                  "title": "Pašarų su ŠGP gaminiais santrumpa",
+                  "title": "Pašarų su ŠGP gaminiais santrumpa *",
                   "default": "PAP - Pagaminti su kombinuotaisiais pašarais",
                   "enum": ["PAP - Pagaminti su kombinuotaisiais pašarais"]
                 },
                 "gyvunas": {
                   "type": "string",
-                  "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai",
+                  "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai *",
                   "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
                 }
               }
@@ -645,7 +651,7 @@
             "properties": {
               "pasaru-kodas": {
                 "type": "string",
-                "title": "Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa",
+                "title": "Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa *",
                 "enum": ["FEED M", "FEED ME", "FEED MEM", "FEED F", "FEED S", "FEED SE"],
                 "x-info": {
                   "FEED M": "Ūkio subjektas, gaminantis tiekti rinkai kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais",
@@ -657,7 +663,7 @@
                 }
               },
               "sgpg": {
-                "title": "ŠGPG, kuris sandėliuojamas ir (ar) įeina į kombinuotojo pašaro sudėtį, santrumpa",
+                "title": "ŠGPG, kuris sandėliuojamas ir (ar) įeina į kombinuotojo pašaro sudėtį, santrumpa *",
                 "type": "array",
                 "uniqueItems": true,
                 "items": {
@@ -667,7 +673,7 @@
               },
               "pasaro-santrupa": {
                 "type": "array",
-                "title": "Gaminami kombinuoti pašarai su ŠGPG",
+                "title": "Gaminami kombinuoti pašarai su ŠGPG *",
                 "uniqueItems": true,
                 "items": {
                   "type": "string",
@@ -714,7 +720,7 @@
               },
               "gyvunas": {
                 "type": "string",
-                "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai",
+                "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai *",
                 "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
               }
             },
@@ -743,12 +749,12 @@
                 "properties": {
                   "tipas": {
                     "type": "string",
-                    "title": "Transporto priemonės tipas",
+                    "title": "Transporto priemonės tipas *",
                     "fetchEnumFrom": "options.transportTypes.findIds"
                   },
                   "valstybinis-nr": {
                     "type": "string",
-                    "title": "Transporto priemonės valstybinis registracijos Nr."
+                    "title": "Transporto priemonės valstybinis registracijos Nr. *"
                   }
                 },
                 "required": ["tipas", "valstybinis-nr"],
@@ -822,12 +828,12 @@
             "properties": {
               "kategorija": {
                 "type": "string",
-                "title": "Kategorija",
+                "title": "Kategorija *",
                 "enum": ["Sperma", "Oocitai, įskaitant kiaušialąstes", "Embrionai"]
               },
               "rusis": {
                 "type": "array",
-                "title": "Gyvūnų rūšis",
+                "title": "Gyvūnų rūšis *",
                 "uniqueItems": true,
                 "default": [],
                 "minLength": 1,
@@ -838,7 +844,7 @@
               },
               "talpyklos": {
                 "type": "string",
-                "title": "Talpyklų skaičius (vnt. / mėn.)"
+                "title": "Talpyklų skaičius (vnt. / mėn.) *"
               }
             },
             "required": [],
@@ -859,16 +865,16 @@
             "properties": {
               "rusis": {
                 "type": "string",
-                "title": "Numatomų laikyti gyvūnų rūšis ",
+                "title": "Numatomų laikyti gyvūnų rūšis *",
                 "enum": ["Šuo", "Katė", "Karvė", "Arklys", "Ropliai"]
               },
               "skaicius": {
                 "type": "number",
-                "title": "Numatomų laikyti šios rūšies gyvūnų skaičius "
+                "title": "Numatomų laikyti šios rūšies gyvūnų skaičius *"
               },
               "laikymas": {
                 "type": "string",
-                "title": "Gyvūnų laikymo būdas ",
+                "title": "Gyvūnų laikymo būdas *",
                 "enum": [
                   "Tvartas",
                   "Ferma",
@@ -884,18 +890,18 @@
               },
               "plotas": {
                 "type": "string",
-                "title": "Gyvūnams laikyti skirtas plotas (kv. m / ha) "
+                "title": "Gyvūnams laikyti skirtas plotas (kv. m / ha) *"
               },
               "gyvunai": {
                 "type": "array",
                 "default": [{}],
-                "title": "Numatomų naudoti veisimui gyvūnų augintinių individualus Nr.",
+                "title": "Numatomų naudoti veisimui gyvūnų augintinių individualus Nr. *",
                 "items": {
                   "type": "object",
                   "properties": {
                     "gyvuno-nr":{
                       "type":"string",
-                      "title": "Numatomų naudoti veisimui gyvūnų augintinių individualus Nr."
+                      "title": "Numatomų naudoti veisimui gyvūnų augintinių individualus Nr. *"
                     }
                   }
                 }
@@ -904,13 +910,13 @@
               "ne-veisimo-gyvunai": {
                 "type": "array",
                 "default": [{}],
-                "title": "Kartu laikomų tos pačios rūšies, bet nenaudojamų veisimui gyvūnų augintinių individualus Nr.",
+                "title": "Kartu laikomų tos pačios rūšies, bet nenaudojamų veisimui gyvūnų augintinių individualus Nr. *",
                 "items": {
                   "type": "object",
                   "properties": {
                     "gyvuno-nr":{
                       "type":"string",
-                      "title": "Kartu laikomų tos pačios rūšies, bet nenaudojamų veisimui gyvūnų augintinių individualus Nr."
+                      "title": "Kartu laikomų tos pačios rūšies, bet nenaudojamų veisimui gyvūnų augintinių individualus Nr. *"
                     }
                   }
                 }
@@ -919,7 +925,6 @@
           }
         }
       }
-      
     },
     "dokumentai": {
       "type": "object",
