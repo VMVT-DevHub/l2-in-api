@@ -592,7 +592,10 @@
             "pasaru-kodas": {
               "type": "string",
               "title": "Pašarų su ŠGP gaminiais tvarkymo veikla *",
-              "enum": ["FEED Fcf", "UMRFIM"]
+              "enum": ["FEED Fcf", "UMRFIM"],
+              "errorMessage": {
+                "enum": "Turi būti viena iš pasirinktų veiklų"
+              }
             },
             "gyvunai": {
               "type": "string",
@@ -603,18 +606,17 @@
                 "Kiaulės",
                 "Akvakultūros gyvūnai, naminiai paukščiai ir kiaulės",
                 "Akvakultūros gyvūnai"
-              ]
+              ],
+              "errorMessage": {
+                "enum": "Turi būti viena iš pasirinktų veiklų"
+              }
             },
             "santrupos": {
               "type": "array",
               "title": "Pašarų su ŠGP gaminiais santrumpa *",
               "uniqueItems": true,
               "default": [],
-              "minLength": 1,
               "minItems": 1,
-              "errorMessage": {
-                "minItems": "Turi būti pasirinktas bent vienas variantas"
-              },
               "items": {
                 "type": "string",
                 "enum": [
@@ -694,28 +696,28 @@
                   {
                     "description": "NR group only",
                     "contains": {
-                      "enum": ["BLPFNR", "DCAPNR", "TCAPNR", "FIMNR", "MRFIMNR", "PAPO"]
+                      "enum": ["BLPFNR", "DCAPNR", "TCAPNR", "FIMNR", "MRFIMNR", "PAPNO"]
                     },
                     "not": {
                       "contains": {
-                        "enum": ["BLPFR", "DCAPR", "TCAPR", "FIMR", "MRFIMR", "PAPNO"]
+                        "enum": ["BLPFR", "DCAPR", "TCAPR", "FIMR", "MRFIMR", "PAPO"]
                       }
                     }
                   },
                   {
                     "description": "R group only",
                     "contains": {
-                      "enum": ["BLPFR", "DCAPR", "TCAPR", "FIMR", "MRFIMR", "PAPNO"]
+                      "enum": ["BLPFR", "DCAPR", "TCAPR", "FIMR", "MRFIMR", "PAPO"]
                     },
                     "not": {
                       "contains": {
-                        "enum": ["BLPFNR", "DCAPNR", "TCAPNR", "FIMNR", "MRFIMNR", "PAPO"]
+                        "enum": ["BLPFNR", "DCAPNR", "TCAPNR", "FIMNR", "MRFIMNR", "PAPNO"]
                       }
                     }
                   }
                 ],
                 "errorMessage": {
-                  "oneOf": "'Kombinuoti pašarai su ŠGPG' trumpiniai turi priklausyti vienai grupei."
+                  "oneOf": "Trumpiniai turi priklausyti vienai grupei."
                 }
               },
               "gyvunas": {
