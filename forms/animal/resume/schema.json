@@ -167,6 +167,7 @@
     },
     "sutikimai": {
       "type": "object",
+      "default": {},
       "properties": {
         "informuotas": {
           "type": "boolean",

@@ -43,7 +43,7 @@
                     "key": "form"
                   }
                 },
-                
+
                 {
                   "type": "Control",
                   "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-moketojo-kodas"
@@ -53,14 +53,14 @@
             {
               "type": "Control",
               "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-gyv",
-                "options": {
+              "options": {
                 "display": "addressSelect"
               },
               "rule": {
                 "effect": "DISABLE",
                 "condition": {
                   "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/aob",
-                  "schema": {"type": "string"},
+                  "schema": { "type": "string" },
                   "failWhenUndefined": true
                 }
               }
@@ -70,7 +70,7 @@
             "effect": "SHOW",
             "condition": {
               "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
-              "schema": {"type": "string"},
+              "schema": { "type": "string" },
               "failWhenUndefined": true
             }
           }
@@ -112,7 +112,7 @@
             "effect": "HIDE",
             "condition": {
               "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
-              "schema": {"type": "string"},
+              "schema": { "type": "string" },
               "failWhenUndefined": true
             }
           }
@@ -122,7 +122,7 @@
     {
       "type": "Category",
       "label": "Veiklavietė",
-      "elements": [ 
+      "elements": [
         {
           "type": "Group",
           "label": "Ūkio subjekto veiklavietės pavadinimas",
@@ -130,11 +130,11 @@
             {
               "type": "Control",
               "scope": "#/properties/veiklaviete/properties/pavadinimas/properties/pavad-sutampa",
-               "rule": {
+              "rule": {
                 "effect": "SHOW",
                 "condition": {
                   "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
-                  "schema": {"type": "string"},
+                  "schema": { "type": "string" },
                   "failWhenUndefined": true
                 }
               }
@@ -142,20 +142,20 @@
             {
               "type": "Control",
               "scope": "#/properties/veiklaviete/properties/pavadinimas/properties/pavadinimas",
-               "rule": {
+              "rule": {
                 "effect": "HIDE",
                 "condition": {
                   "scope": "#/properties/veiklaviete/properties/pavadinimas/properties/pavad-sutampa",
-                  "schema": {"const": true}
+                  "schema": { "const": true }
                 }
               }
             }
           ],
-           "rule": {
+          "rule": {
             "effect": "SHOW",
             "condition": {
               "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
-              "schema": {"type": "string"},
+              "schema": { "type": "string" },
               "failWhenUndefined": true
             }
           }
@@ -169,56 +169,11 @@
               "scope": "#/properties/veiklaviete/properties/pavadinimas/properties/pavadinimas"
             }
           ],
-           "rule": {
+          "rule": {
             "effect": "HIDE",
             "condition": {
               "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
-              "schema": {"type": "string"},
-              "failWhenUndefined": true
-            }
-          }
-        },
-         {
-          "type": "Group",
-          "label": "Ūkio subjekto veiklavietės adresas",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-nesutampa-adresas"
-            },
-            {    
-              "type": "HorizontalLayout",
-              "elements": [
-              {
-                "type": "Control",
-                "scope": "#/properties/veiklaviete/properties/adresas/properties/ja-gyv",
-                  "options": {
-                  "display": "addressSelect"
-                }
-              }],
-              "rule": {
-                "effect": "ENABLE",
-                "condition": {
-                  "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-nesutampa-adresas",
-                  "schema": {"const": true},
-                  "failWhenUndefined": true
-                }
-                }
-              },
-            {
-              "type": "Control",
-              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-laikinas-adresas"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-bus-koordinates"
-            }
-          ],
-           "rule": {
-            "effect": "SHOW",
-            "condition": {
-              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
-              "schema": {"type": "string"},
+              "schema": { "type": "string" },
               "failWhenUndefined": true
             }
           }
@@ -227,16 +182,29 @@
           "type": "Group",
           "label": "Ūkio subjekto veiklavietės adresas",
           "elements": [
-            {    
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-nesutampa-adresas"
+            },
+            {
               "type": "HorizontalLayout",
               "elements": [
-              {
-                "type": "Control",
-                "scope": "#/properties/veiklaviete/properties/adresas/properties/ja-gyv",
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/adresas/properties/ja-gyv",
                   "options": {
-                  "display": "addressSelect"
+                    "display": "addressSelect"
+                  }
                 }
-              }]
+              ],
+              "rule": {
+                "effect": "ENABLE",
+                "condition": {
+                  "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-nesutampa-adresas",
+                  "schema": { "const": true },
+                  "failWhenUndefined": true
+                }
+              }
             },
             {
               "type": "Control",
@@ -247,16 +215,50 @@
               "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-bus-koordinates"
             }
           ],
-           "rule": {
-            "effect": "HIDE",
+          "rule": {
+            "effect": "SHOW",
             "condition": {
               "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
-              "schema": {"type": "string"},
+              "schema": { "type": "string" },
               "failWhenUndefined": true
             }
           }
         },
-         {
+        {
+          "type": "Group",
+          "label": "Ūkio subjekto veiklavietės adresas",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/adresas/properties/ja-gyv",
+                  "options": {
+                    "display": "addressSelect"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-laikinas-adresas"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-bus-koordinates"
+            }
+          ],
+          "rule": {
+            "effect": "HIDE",
+            "condition": {
+              "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/ja",
+              "schema": { "type": "string" },
+              "failWhenUndefined": true
+            }
+          }
+        },
+        {
           "type": "Group",
           "label": "WGS koordinatės",
           "elements": [
@@ -284,10 +286,10 @@
             "effect": "SHOW",
             "condition": {
               "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-bus-koordinates",
-              "schema": {"const": true},
+              "schema": { "const": true },
               "failWhenUndefined": true
             }
-            }
+          }
         },
         {
           "type": "Group",
@@ -305,7 +307,7 @@
                     {
                       "type": "Control",
                       "scope": "#/properties/numeris",
-                       "options": {
+                      "options": {
                         "placeholder": "xxxx-xxxx-xxxx:xxxx"
                       }
                     },
@@ -375,8 +377,8 @@
                   }
                 },
                 {
-                   "type": "HorizontalLayout",
-                   "elements": [
+                  "type": "HorizontalLayout",
+                  "elements": [
                     {
                       "type": "Control",
                       "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos"
@@ -388,14 +390,13 @@
                         "effect": "SHOW",
                         "condition": {
                           "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos",
-                          "schema": {"const": "Kita"},
+                          "schema": { "const": "Kita" },
                           "failWhenUndefined": true
                         }
                       }
                     }
                   ]
                 }
-                
               ]
             }
           ]
@@ -436,7 +437,7 @@
           "elements": [
             {
               "type": "HorizontalLayout",
-               "options": {
+              "options": {
                 "columns": 2
               },
               "elements": [
@@ -455,33 +456,37 @@
                   "type": "Control",
                   "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas-kita",
                   "rule": {
-                  "effect": "SHOW",
-                  "condition": {
-                    "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas",
-                    "schema": {"contains": {"const": "OTHER – kita šalutinių gyvūninių produktų ir jų gaminių tvarkymo veikla (nurodykite)" }},
-                    "failWhenUndefined": true
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas",
+                      "schema": {
+                        "contains": {
+                          "const": "OTHER – kita šalutinių gyvūninių produktų ir jų gaminių tvarkymo veikla (nurodykite)"
+                        }
+                      },
+                      "failWhenUndefined": true
                     }
                   }
-                }, 
+                },
                 {
                   "type": "Control",
                   "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
                   "options": {
                     "display": "multiSelect"
                   }
-                }, 
+                },
                 {
                   "type": "Control",
                   "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa-kita",
                   "rule": {
-                  "effect": "SHOW",
-                  "condition": {
-                    "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
-                    "schema": {"contains": {"const": "OTHER – kiti produktai (nurodykite)" }},
-                    "failWhenUndefined": true
-                      }
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
+                      "schema": { "contains": { "const": "OTHER – kiti produktai (nurodykite)" } },
+                      "failWhenUndefined": true
+                    }
                   }
-                }, 
+                },
                 {
                   "type": "Control",
                   "scope": "#/properties/veiklos/properties/detalizacija/properties/kategorija",
@@ -529,12 +534,10 @@
           "elements": [
             {
               "type": "HorizontalLayout",
-               "options": {
+              "options": {
                 "columns": 2
               },
-              "elements": [
-                
-              ]
+              "elements": []
             },
             {
               "type": "Control",
@@ -553,8 +556,34 @@
                       "scope": "#/properties/pasaru-kodas"
                     },
                     {
-                      "type": "Control",
-                      "scope": "#/properties/sgpg",
+                      "type": "HorizontalLayout",
+                      "options": {
+                        "columns": 1
+                      },
+                      "elements": [
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/sgpg",
+                          "options": {
+                            "display": "multiSelect"
+                          }
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/gyvunas",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/sgpg",
+                              "schema": {
+                                "contains": {
+                                  "enum": ["PAP"]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ],
                       "rule": {
                         "effect": "SHOW",
                         "condition": {
@@ -577,7 +606,6 @@
                           "options": {
                             "display": "multiSelect"
                           }
-                          
                         },
                         {
                           "type": "Control",
@@ -614,17 +642,17 @@
             "effect": "SHOW",
             "condition": {
               "scope": "#/properties/veiklos/properties/veikla",
-              "schema": {"const": "68"}
+              "schema": { "const": "68" }
             }
           }
         },
-         {
+        {
           "type": "Group",
           "label": "Pašarų su ŠGP gaminiais veiklos detalizacija",
           "elements": [
             {
               "type": "HorizontalLayout",
-               "options": {
+              "options": {
                 "columns": 2
               },
               "elements": [
@@ -647,45 +675,45 @@
                 }
               ]
             },
-            
+
             {
               "type": "Control",
               "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/santrupos",
               "options": {
-                "display": "addMore",
-                "addLabel": "Pridėti pašarų su ŠGP gaminiais santrumpą",
-                "detail": {
-                  "type": "HorizontalLayout",
-                  "options": {
-                    "columns": 1
-                  },
-                  "elements": [
-                    {
-                      "type": "Control",
-                      "scope": "#/properties/pasaro-santrupa"
-                    }
-                  ]
-                }
+                "display": "multiSelect"
               },
               "rule": {
-              "effect": "SHOW",
-              "condition": {
-                "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/gyvunai",
-                "schema": {
-                  "enum": ["Neatrajotojai"]
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/gyvunai",
+                  "schema": {
+                    "enum": ["Neatrajotojai"]
+                  }
                 }
-              }
               }
             },
             {
               "type": "HorizontalLayout",
               "options": {
-                "columns": 1
+                "columns": 2
               },
               "elements": [
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pap/properties/pasaro-santrupa",
+                  "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pap/properties/pap",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pasaru-kodas",
+                      "schema": {
+                        "enum": ["FEED Fcf"]
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pap/properties/gyvunas",
                   "rule": {
                     "effect": "SHOW",
                     "condition": {
@@ -698,18 +726,18 @@
                 }
               ],
               "rule": {
-              "effect": "SHOW",
-              "condition": {
-                "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/gyvunai",
-                "schema": {
-                  "enum": [
-                    "Naminiai paukščiai",
-                    "Kiaulės",
-                    "Akvakultūros gyvūnai, naminiai paukščiai ir kiaulės",
-                    "Akvakultūros gyvūnai"
-                  ]
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/gyvunai",
+                  "schema": {
+                    "enum": [
+                      "Naminiai paukščiai",
+                      "Kiaulės",
+                      "Akvakultūros gyvūnai, naminiai paukščiai ir kiaulės",
+                      "Akvakultūros gyvūnai"
+                    ]
+                  }
                 }
-              }
               }
             }
           ],
@@ -717,7 +745,7 @@
             "effect": "SHOW",
             "condition": {
               "scope": "#/properties/veiklos/properties/veikla",
-              "schema": {"const": "79"}
+              "schema": { "const": "79" }
             }
           }
         },
@@ -726,8 +754,8 @@
           "label": "Transporto priemonės",
           "elements": [
             {
-               "type": "HorizontalLayout",
-               "options": {
+              "type": "HorizontalLayout",
+              "options": {
                 "columns": 1
               },
               "elements": [
@@ -745,7 +773,6 @@
                   }
                 }
               }
-
             },
             {
               "type": "Control",
@@ -759,7 +786,7 @@
                     {
                       "type": "Control",
                       "scope": "#/properties/tipas",
-                       "options": {
+                      "options": {
                         "labelFormat": "${name}",
                         "value": "id",
                         "fetchOptionsFrom": "options/transportTypes/all",
@@ -782,10 +809,7 @@
             "condition": {
               "scope": "#/properties/veiklos/properties/veikla",
               "schema": {
-                "enum": [
-                  "62",
-                  "78"
-                ]
+                "enum": ["62", "78"]
               }
             }
           }
@@ -795,8 +819,8 @@
           "label": "Numatomos gamybos  / veiklos apimtys",
           "elements": [
             {
-               "type": "HorizontalLayout",
-               "options": {
+              "type": "HorizontalLayout",
+              "options": {
                 "columns": 2
               },
               "elements": [
@@ -840,7 +864,7 @@
                     {
                       "type": "Control",
                       "scope": "#/properties/rusis",
-                       "options": {
+                      "options": {
                         "display": "multiSelect"
                       }
                     },
@@ -858,12 +882,12 @@
             "condition": {
               "scope": "#/properties/veiklos/properties/veikla",
               "schema": {
-                "enum": ["12","13","15","16","18","19","92"]
+                "enum": ["12", "13", "15", "16", "18", "19", "92"]
               }
             }
           }
         },
-         {
+        {
           "type": "Group",
           "label": "Laikomi gyvūnai (jei bus laikomi gyvūnai)",
           "elements": [
@@ -1003,7 +1027,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/patalpu-planas",
               "label": "",
-              "options": { "display": "upload", "certType":"vet" }
+              "options": { "display": "upload", "certType": "vet" }
             }
           ]
         },
@@ -1016,7 +1040,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/proceduru-aprasymas",
               "label": "",
-              "options": { "display": "upload", "certType":"vet" }
+              "options": { "display": "upload", "certType": "vet" }
             }
           ]
         },
@@ -1029,7 +1053,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/proceso-aprasymas",
               "label": "",
-              "options": { "display": "upload", "certType":"vet" }
+              "options": { "display": "upload", "certType": "vet" }
             }
           ]
         },
@@ -1042,7 +1066,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/rinkliava",
               "label": "",
-              "options": { "display": "upload", "certType":"vet" }
+              "options": { "display": "upload", "certType": "vet" }
             }
           ]
         },
@@ -1056,13 +1080,11 @@
               "label": "",
               "options": {
                 "display": "upload",
-                "multi": true, 
-                "certType":"vet",
+                "multi": true,
+                "certType": "vet",
                 "hasInfoField": true
               }
             }
-            
-
           ]
         }
       ]
@@ -1075,7 +1097,7 @@
           "type": "Group",
           "label": "Papildoma informacija",
           "description": "Patvirtinimas duomenų patikimumo.",
-           "elements": [
+          "elements": [
             {
               "type": "Control",
               "label": "Patvirtinu, kad:",
@@ -1112,7 +1134,7 @@
         },
         {
           "type": "Group",
-           "elements": [
+          "elements": [
             {
               "type": "Control",
               "label": "Įsipareigoju:",
@@ -1147,7 +1169,7 @@
           "type": "Group",
           "label": "Sutikimas",
           "description": "Sutikimas dėl duomenų pateikimo",
-           "elements": [
+          "elements": [
             {
               "type": "Control",
               "scope": "#/properties/sutikimai/properties/sutikimas-informuotas"
@@ -1159,11 +1181,11 @@
             {
               "type": "Control",
               "scope": "#/properties/sutikimai/properties/sutikimas-email",
-               "rule": {
+              "rule": {
                 "effect": "SHOW",
                 "condition": {
                   "scope": "#/properties/sutikimai/properties/sutikimas-ar-yra-email",
-                  "schema": {"const": true}
+                  "schema": { "const": true }
                 }
               }
             }
@@ -1173,8 +1195,8 @@
           "type": "Group",
           "label": "Atsakymas",
           "description": "Pažymėkite būdą, kuriuo pageidaujate gauti atsakymą",
-           "elements": [
-             {
+          "elements": [
+            {
               "type": "Control",
               "scope": "#/properties/atsakymas/properties/ats-gavimas",
               "options": {
@@ -1183,7 +1205,6 @@
             }
           ]
         }
-        
       ]
     }
   ]
