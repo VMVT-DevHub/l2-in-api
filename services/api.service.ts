@@ -75,6 +75,24 @@ import { User } from './users.service';
 
         // Enable/disable logging
         logging: true,
+
+        onError(req: any, res: any, err: any) {
+          this.logger.error('API error', err);
+
+          const status =
+            typeof err?.code === 'number' && err.code >= 400 && err.code < 600 ? err.code : 500;
+
+          const isClientError = status >= 400 && status < 500;
+
+          res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(
+            JSON.stringify({
+              name: 'error',
+              message: isClientError ? 'Invalid request' : 'Internal server error',
+              code: isClientError ? 'BAD_REQUEST' : 'INTERNAL_ERROR',
+            }),
+          );
+        },
       },
     ],
     // Do not log client side errors (does not log an error response when the error.code is 400<=X<500)
