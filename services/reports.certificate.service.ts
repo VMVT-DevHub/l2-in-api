@@ -105,7 +105,6 @@ export default class extends moleculer.Service {
     // Not sure which one
     const getImporterCandidates = (data: any): string[] => {
       const candidates: any[] = [];
-      console.log(data);
       candidates.push(data?.siunta?.asmuo?.['imones-pavadinimas']);
       candidates.push(data?.siunta?.siuntejas?.asmuo?.['imones-pavadinimas']);
       candidates.push(data?.siunta?.gavejas?.asmuo?.['imones-pavadinimas']);
