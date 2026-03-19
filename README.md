@@ -4,7 +4,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/vmvt-devhub/l2-in-api)](https://github.com/vmvt-devhub/l2-in-api/issues)
 [![GitHub stars](https://img.shields.io/github/stars/vmvt-devhub/l2-in-api)](https://github.com/vmvt-devhub/l2-in-api/stargazers)
 
-This repository contains the source code and documentation for the VMVT eksporto prašymai, developed by the VMVT
+This repository contains the source code and documentation for the VMVT eksporto prašymai, developed by the VMVT.
 
 ## Table of Contents
 
