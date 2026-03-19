@@ -1,9 +1,10 @@
 name: Continuous integration
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
+    branches:
+      - main
+      - develop
 
 jobs:
   validate-docker-build:
