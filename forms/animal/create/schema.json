@@ -242,36 +242,40 @@
                 "type": "string",
                 "title": "Veiklai naudojamo statinio / patalpų paskirtis *",
                 "enum": [
+                  "Prekybos",
+                  "Paslaugų",
+                  "Gamybos, pramonės",
+                  "Sandėliavimo",
+                  "Gydymo",
+                  "Pagalbinio ūkio",
+                  "Kitų pagalbinių",
+                  "Gyvūnams auginti",
+                  "Žemės ūkio produkcijai tvarkyti",
                   "Gyvenamųjų",
                   "Įvairių socialinių grupių",
-                  "Prekybos",
                   "Viešbučių",
                   "Bendro gyvenimo namų",
-                  "Paslaugų",
                   "Maitinimo",
                   "Administracinių",
                   "Transporto",
                   "Garažų",
-                  "Gamybos, pramonės",
                   "Energetikos",
-                  "Sandėliavimo",
                   "Kultūros",
                   "Mokslo",
-                  "Gydymo",
                   "Sporto",
                   "Religinių",
                   "Specialiųjų",
-                  "Pagalbinio ūkio",
-                  "Kitų pagalbinių",
                   "Viešojo poilsio",
                   "Asmeninio poilsio",
                   "Specialiųjų paslaugų"
-                ]
+                ],
+                "x-need-ids": true
               },
               "pagrindas": {
                 "type": "string",
                 "title": "Teritorijos, statinio / patalpos teisėto naudojimo pagrindas *",
-                "enum": ["Terminuotas", "Neterminuotas"]
+                "enum": ["Terminuotas", "Neterminuotas"],
+                "x-need-ids": true
               }
             },
             "required": ["numeris", "paskirtis", "pagrindas"],
@@ -458,7 +462,8 @@
                   "UWILD – šalutinių gyvūninių produktų naudojimas laukiniams gyvūnams šerti",
                   "UZOO – šalutinių gyvūninių produktų naudojimas zoologijos sodo / cirko gyvūnams šerti",
                   "UEXART – šalutinių gyvūninių produktų ir jų gaminių naudojimas parodoms ir (ar) meninei veiklai (nurodykite)"
-                ]
+                ],
+                "x-need-ids": true
               }
             },
             "sgp-kodas-kita": {
@@ -472,7 +477,6 @@
               "default": [],
               "items": {
                 "type": "string",
-
                 "enum": ["1 kategorija", "2 kategorija", "3 kategorija"]
               }
             },
@@ -483,7 +487,6 @@
               "default": [],
               "items": {
                 "type": "string",
-
                 "enum": ["Šuo", "Katė", "Karvė", "Arklys", "Ropliai"]
               }
             },
@@ -562,7 +565,8 @@
                   "TECPRD – techniniai produktai (jei nenurodyta kitur)",
                   "WHBF – vilna, plaukai, šeriai, plunksnos",
                   "WWT – iš vandens valymo įrenginių surinktos medžiagos"
-                ]
+                ],
+                "x-need-ids": true
               }
             },
             "sgp-santrupa-kita": {
@@ -637,9 +641,16 @@
                   "enum": ["PAP - Pagaminti su kombinuotaisiais pašarais"]
                 },
                 "gyvunas": {
-                  "type": "string",
+                  "type": "array",
                   "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai *",
-                  "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
+                  "uniqueItems": true,
+                  "default": [],
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "x-animal": true,
+                    "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
+                  } 
                 }
               }
             }
@@ -688,6 +699,8 @@
                     "TCAPR",
                     "FIMNR",
                     "FIMR",
+                    "MRFIMR",
+                    "MRFIMNR",
                     "PAPNO",
                     "PAPO"
                   ]
@@ -749,7 +762,7 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "tipas": {
+                  "rusis-id": {
                     "type": "string",
                     "title": "Transporto priemonės tipas *",
                     "fetchEnumFrom": "options.transportTypes.findIds"
@@ -759,10 +772,10 @@
                     "title": "Transporto priemonės valstybinis registracijos Nr. *"
                   }
                 },
-                "required": ["tipas", "valstybinis-nr"],
+                "required": ["rusis-id"],
                 "errorMessage": {
                   "required": {
-                    "tipas": "Transporto priemonės tipas yra privalomas",
+                    "rusis-id": "Transporto priemonės tipas yra privalomas",
                     "matas": "Transporto priemonės numeris yra privalomas"
                   }
                 }
@@ -786,7 +799,8 @@
                 "Per mėnesį",
                 "Per ketvirtį",
                 "Per metus"
-              ]
+              ],
+              "x-need-ids": true
             },
            
             "kiekis-matas": {
@@ -831,7 +845,8 @@
               "kategorija": {
                 "type": "string",
                 "title": "Kategorija *",
-                "enum": ["Sperma", "Oocitai, įskaitant kiaušialąstes", "Embrionai"]
+                "enum": ["Sperma", "Oocitai, įskaitant kiaušialąstes", "Embrionai"],
+                "x-need-ids": true
               },
               "rusis": {
                 "type": "array",
@@ -888,7 +903,9 @@
                   "Uždaras akvakultūros įrenginys",
                   "Pagalbinė patalpa",
                   "Gyvenamosios patalpos"
-                ]
+                ],
+                "x-need-ids": true
+                
               },
               "plotas": {
                 "type": "string",

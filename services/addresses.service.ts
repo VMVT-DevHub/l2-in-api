@@ -53,4 +53,43 @@ export default class AddressesService extends moleculer.Service {
 
     return result;
   }
+
+  @Action({
+    name: 'findDist',
+    rest: 'GET /find/dst',
+    params: {
+      id: 'number|convert',
+    },
+  })
+  async findDist(ctx: Context<{ id: number }>) {
+    const { id } = ctx.params;
+    const url = `${this.baseUrl}/ar/details?id=${id}&details=false`;
+
+    const result: any = await this.broker.call('http.get', {
+      url,
+      opt: { responseType: 'json' },
+    });
+
+    return result?.kodai?.apg;
+  }
+
+  @Action({
+    name: 'findDistFromCoord',
+    rest: 'GET /find/dst',
+    params: {
+      x: 'number',
+      y: 'number',
+    },
+  })
+  async findDistFromCoord(ctx: Context<{ x: number; y: number }>) {
+    const { x, y } = ctx.params;
+    const url = `${this.baseUrl}/ar/geo/sav?x=${x}&y=${y}`;
+
+    const result: any = await this.broker.call('http.get', {
+      url,
+      opt: { responseType: 'json' },
+    });
+
+    return result?.apg?.id;
+  }
 }

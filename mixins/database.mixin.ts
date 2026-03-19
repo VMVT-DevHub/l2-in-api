@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import { config } from '../knexfile';
 
 export default function (opts: any = {}) {
-  set(opts, 'adapter.options.schema', process.env.DB_SCHEMA);
+  set(opts, 'adapter.options.schema', opts.schema || process.env.DB_SCHEMA);
 
   const schema = {
     mixins: [DatabaseMixin(opts.config || config, opts)],
