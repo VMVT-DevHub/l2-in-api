@@ -131,18 +131,25 @@ export default class extends moleculer.Service {
 
     const setEnums = async (obj: any) => {
       if (obj?.fetchEnumFrom) {
-        const enumOptions = await ctx.call(obj?.fetchEnumFrom);
+        const enumOptions = await ctx.call(obj.fetchEnumFrom);
 
-        obj.enum = enumOptions;
+        if (Array.isArray(enumOptions) && enumOptions.length > 0) {
+          obj.enum = enumOptions;
+        } else {
+          delete obj.enum;
+          this.logger.warn(
+            `Empty enum options for ${obj.title || 'unknown field'} from ${obj.fetchEnumFrom}`,
+          );
+        }
 
         delete obj.fetchEnumFrom;
       }
 
-      if (obj?.type === 'object') {
+      if (obj?.type === 'object' && obj?.properties) {
         for (const property in obj.properties) {
           await setEnums(obj.properties[property]);
         }
-      } else if (obj?.type === 'array') {
+      } else if (obj?.type === 'array' && obj?.items) {
         await setEnums(obj.items);
       }
 
