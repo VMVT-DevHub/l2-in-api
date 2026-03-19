@@ -10,6 +10,17 @@
       "name": "lastName",
       "title": "Pavardė",
       "path": "$.pareiskejas.atsakingas-asmuo.pavarde"
+    },
+    {
+      "name": "action",
+      "title": "Veikla",
+      "path": "$.veiklos.veikla",
+      "mapper": "actionName"
+    },
+    {
+      "name": "actionPlace",
+      "title": "Veiklavietės pavadinimas",
+      "path": "$.veiklaviete.pavadinimas.pavadinimas"
     }
   ],
   "forms": ["create", "remove", "resume", "edit"]

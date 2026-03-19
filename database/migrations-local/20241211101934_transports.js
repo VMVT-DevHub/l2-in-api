@@ -13,7 +13,7 @@ exports.up = function (knex) {
       table.integer('sort');
     })
     .createTable('vLkpTransportType', (table) => {
-      table.string('id');
+      table.increments('id');
       table.string('title');
       table.integer('sort');
     });

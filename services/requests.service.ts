@@ -148,6 +148,12 @@ const populatePermissions = (field: string) => {
         populate: 'populateDataWithStatus',
       },
 
+      district: {
+        type: 'string',
+        columnType: 'integer',
+        set: 'setDistrict',
+      },
+
       ...COMMON_FIELDS,
     },
     scopes: {
@@ -295,6 +301,38 @@ export default class extends moleculer.Service {
     } else {
       return null;
     }
+  }
+
+  @Method
+  async setDistrict({
+    ctx,
+    value,
+    entity: request,
+  }: FieldHookCallback<Request>): Promise<number | null> {
+    const formType = ctx.params?.formType;
+    if (formType !== 'animal') return null;
+    const veiklaviete = ctx.params?.data?.veiklaviete;
+
+    const address = veiklaviete?.adresas?.['ja-gyv']?.adrId || undefined;
+    const willUseCoords = veiklaviete?.adresas?.['ar-bus-koordinates'];
+    const longtitude = veiklaviete?.koordinates?.ilguma;
+    const latitude = veiklaviete?.koordinates?.platuma;
+
+    if (address && !willUseCoords) {
+      const district: number = await ctx.call('addresses.findDist', {
+        id: address,
+      });
+      return district ?? null;
+    }
+
+    if (longtitude && latitude && willUseCoords) {
+      const district: number = await ctx.call('addresses.findDistFromCoord', {
+        x: latitude,
+        y: longtitude,
+      });
+      return district ?? null;
+    }
+    return null;
   }
 
   @Method

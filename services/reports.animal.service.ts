@@ -11,6 +11,13 @@ export interface Form {
   schema: any;
   uiSchema: any;
 }
+export interface Actions {
+  id: number;
+  code: string;
+  name: string;
+  risk: string;
+  riskId: number;
+}
 
 export interface FormType {
   title: string;
@@ -46,6 +53,7 @@ export default class extends moleculer.Service {
     });
 
     const columnsByType: Record<string, FormType['columns']> = {};
+    const activityList = await ctx.call<Actions[]>('options.activities.getActivities');
 
     const ft: FormType = await ctx.call('formTypes.formType', { formType });
     columnsByType[formType] = ft.columns;
@@ -61,6 +69,11 @@ export default class extends moleculer.Service {
             (acc: number, number: string | number) => (acc += Number(number) || 0),
             0,
           );
+        } else if (column.mapper === 'actionName') {
+          responseValue = value.map((v: any) => {
+            const mappedValue = activityList.find((item) => item.code == v);
+            return mappedValue?.name ?? '-';
+          });
         }
         acc[column.name] = responseValue;
         return acc;
