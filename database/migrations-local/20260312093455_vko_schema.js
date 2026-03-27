@@ -9,12 +9,25 @@ exports.up = async function (knex) {
 
   await knex.schema.withSchema(schema).createTable('sprendimai', (table) => {
     table.increments('id').primary();
+    table.integer('spren_tipas_id').nullable();
+    table.string('spren_tipas').nullable();
+    table.integer('spren_status_id').nullable();
+    table.string('spren_result').nullable();
+    table.integer('spren_result_id').nullable();
+
+    table
+      .enu('spren_status', ['APPROVED', 'REJECTED', 'TEMP_APPROVED'], {
+        useNative: true,
+        enumName: 'decision_status',
+      })
+      .nullable();
 
     table.integer('spren_req_id').nullable();
     table.integer('spren_vko_id').nullable();
     table.integer('spren_parent_id').nullable();
 
     table.string('spren_prasymo_pavad').nullable();
+    table.string('spren_prasymo_pavad_id').nullable();
     table.string('spren_parent_pavad').nullable();
 
     table.string('spren_vkl_pavad').nullable();
@@ -35,7 +48,6 @@ exports.up = async function (knex) {
     table.string('spren_nusprende_user').nullable();
     table.string('spren_nusprende_dep').nullable();
 
-    table.string('spren_status').nullable();
     table.text('spren_reason').nullable();
 
     table.timestamp('spren_created_at').defaultTo(knex.fn.now());
@@ -44,6 +56,7 @@ exports.up = async function (knex) {
     table.string('spren_modif_user').nullable();
 
     table.boolean('spren_delete').defaultTo(false);
+    table.string('spren_manager').defaultTo(false);
   });
 };
 

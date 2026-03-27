@@ -734,9 +734,12 @@
                 }
               },
               "gyvunas": {
-                "type": "string",
+                "type": "array",
                 "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai *",
-                "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
+                "uniqueItems": true,
+                "items": { "type": "string",
+                  "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]}
+             
               }
             },
             "required": [],

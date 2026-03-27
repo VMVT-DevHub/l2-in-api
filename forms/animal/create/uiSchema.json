@@ -571,11 +571,16 @@
                         {
                           "type": "Control",
                           "scope": "#/properties/gyvunas",
+                          "options": {
+                            "display": "multiSelect"
+                          },
                           "rule": {
                             "effect": "SHOW",
                             "condition": {
                               "scope": "#/properties/sgpg",
                               "schema": {
+                                "type": "array",
+                                "minItems": 1,
                                 "contains": {
                                   "enum": ["PAP"]
                                 }
@@ -610,11 +615,16 @@
                         {
                           "type": "Control",
                           "scope": "#/properties/gyvunas",
+                          "options": {
+                            "display": "multiSelect"
+                          },
                           "rule": {
                             "effect": "SHOW",
                             "condition": {
                               "scope": "#/properties/pasaro-santrupa",
                               "schema": {
+                                "type": "array",
+                                "minItems": 1,
                                 "contains": {
                                   "enum": ["PAPO", "PAPNO"]
                                 }
