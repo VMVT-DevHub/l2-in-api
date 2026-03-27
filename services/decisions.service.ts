@@ -43,21 +43,121 @@ export type TransportType<
         secure: true,
         columnName: 'id',
       },
-      name: {
+      type: {
+        type: 'string',
+        columnName: 'sprenTipas',
+      },
+      typeId: {
+        type: 'number',
+        columnName: 'sprenTipasId',
+      },
+      status: {
+        type: 'string',
+        columnName: 'sprenStatus',
+      },
+      statusId: {
+        type: 'number',
+        columnName: 'sprenStatusId',
+      },
+      result: {
+        type: 'string',
+        columnName: 'sprenResult',
+      },
+      resultId: {
+        type: 'number',
+        columnName: 'sprenResultId',
+      },
+      reqId: {
+        type: 'number',
+        columnName: 'sprenReqId',
+      },
+      vkoId: {
+        type: 'number',
+        columnName: 'sprenVkoId',
+      },
+      parentId: {
+        type: 'number',
+        columnName: 'sprenParentId',
+      },
+      decisionTitle: {
+        type: 'string',
+        columnName: 'sprenPrasymoPavad',
+      },
+      decisionTitleId: {
+        type: 'string',
+        columnName: 'sprenPrasymoPavadId',
+      },
+      parentTitle: {
         type: 'string',
         columnName: 'sprenParentPavad',
       },
-      actionId: {
+      actionPlaceTitle: {
         type: 'string',
+        columnName: 'sprenVklPavad',
+      },
+      actionId: {
+        type: 'number',
         columnName: 'sprenVklVeiklaId',
       },
       actionTitle: {
         type: 'string',
-        columnName: 'sprenVklPavad',
+        columnName: 'sprenVklVeiklaPavad',
+      },
+      actionAdr: {
+        type: 'string',
+        columnName: 'sprenVklAdr',
+      },
+      actionAdrAob: {
+        type: 'number',
+        columnName: 'sprenVklAdrAob',
+      },
+      actionAdrSwg: {
+        type: 'number',
+        columnName: 'sprenVklAdrSwg',
       },
       date: {
         type: 'date',
         columnName: 'sprenDokData',
+      },
+      docNo: {
+        type: 'string',
+        columnName: 'sprenDokNr',
+      },
+      regNo: {
+        type: 'string',
+        columnName: 'sprenRegNr',
+      },
+      creator: {
+        type: 'string',
+        columnName: 'sprenCreatedUser',
+      },
+      creatorDep: {
+        type: 'string',
+        columnName: 'sprenCreatedDep',
+      },
+      decider: {
+        type: 'string',
+        columnName: 'sprenNusprendeUser',
+      },
+      deciderDep: {
+        type: 'string',
+        columnName: 'sprenNusprendeDep',
+      },
+      reason: {
+        type: 'string',
+        columnName: 'sprenReason',
+      },
+      createdAt: {
+        type: 'date',
+        columnName: 'sprenCreatedAt',
+      },
+      updatedAt: {
+        type: 'date',
+        columnName: 'sprenUpdatedAt',
+      },
+      modifUser: {
+        type: 'string',
+        columnName: 'sprenModifUser',
       },
     },
   },
@@ -72,12 +172,17 @@ export default class extends moleculer.Service {
 
     return rows.map((r: any) => ({
       id: r.id,
-      name: r.name,
-      date: r.date,
+      type: r.decisionTitle,
+      typeId: r.decisionTitleId,
+      actionPlaceTitle: r.actionPlaceTitle,
+      address: r.actionAdr,
+      date: r.createdAt,
       action: {
         id: r.actionId,
         title: r.actionTitle,
       },
+      decider: r.decider,
+      status: r.status,
     }));
   }
 
@@ -85,10 +190,10 @@ export default class extends moleculer.Service {
     auth: RestrictionType.PUBLIC,
     rest: 'GET /:id',
   })
-  async get(ctx: Context) {
+  async get(ctx: Context<{ id: number }>) {
     const rows = await this.findEntities(ctx, {
       query: {
-        // id: ctx.params.id;
+        id: ctx?.params?.id,
       },
     });
 
@@ -98,12 +203,51 @@ export default class extends moleculer.Service {
 
     return {
       id: r.id,
-      name: r.name,
-      date: r.date,
+      type: {
+        id: r.typeId,
+        title: r.type,
+      },
+      status: {
+        id: r.statusId,
+        title: r.status,
+      },
+      result: {
+        id: r.resultId,
+        title: r.result,
+      },
       action: {
         id: r.actionId,
         title: r.actionTitle,
+        placeTitle: r.actionPlaceTitle,
+        address: r.actionAdr,
+        adrAob: r.actionAdrAob,
+        adrSwg: r.actionAdrSwg,
       },
+      parent: {
+        id: r.parentId,
+        title: r.parentTitle,
+      },
+      decision: {
+        title: r.decisionTitle,
+        titleId: r.decisionTitleId,
+        date: r.date,
+        docNo: r.docNo,
+        regNo: r.regNo,
+      },
+      creator: {
+        name: r.creator,
+        department: r.creatorDep,
+      },
+      decider: {
+        name: r.decider,
+        department: r.deciderDep,
+      },
+      reqId: r.reqId,
+      vkoId: r.vkoId,
+      reason: r.reason,
+      createdAt: r.createdAt,
+      updatedAt: r.updatedAt,
+      modifUser: r.modifUser,
     };
   }
 }
