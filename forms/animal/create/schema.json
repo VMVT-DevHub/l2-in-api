@@ -271,11 +271,17 @@
                 ],
                 "x-need-ids": true
               },
+              "paskirtis-id": {
+                  "type": "integer"
+                },
               "pagrindas": {
                 "type": "string",
                 "title": "Teritorijos, statinio / patalpos teisėto naudojimo pagrindas *",
                 "enum": ["Terminuotas", "Neterminuotas"],
                 "x-need-ids": true
+              },
+              "pagrindas-id": {
+                  "type": "integer"
               }
             },
             "required": ["numeris", "paskirtis", "pagrindas"],
@@ -466,6 +472,9 @@
                 "x-need-ids": true
               }
             },
+            "sgp-kodas-id": {
+                "type": "integer"
+            },
             "sgp-kodas-kita": {
               "type": "string",
               "title": "Kitas ŠGP ir jų gaminių tvarkymo veiklos kodas *"
@@ -568,6 +577,9 @@
                 ],
                 "x-need-ids": true
               }
+            },
+            "sgp-santrupa-id": {
+              "type":"integer"
             },
             "sgp-santrupa-kita": {
               "type": "string",
@@ -805,7 +817,9 @@
               ],
               "x-need-ids": true
             },
-           
+            "laikotarpis-id": {
+              "type":"integer"
+            },
             "kiekis-matas": {
               "title": "Pagaminamos produkcijos kiekis *",
               "type": "object",
@@ -850,6 +864,9 @@
                 "title": "Kategorija *",
                 "enum": ["Sperma", "Oocitai, įskaitant kiaušialąstes", "Embrionai"],
                 "x-need-ids": true
+              },
+              "kategorija-id": {
+                "type": "string"
               },
               "rusis": {
                 "type": "array",
@@ -908,7 +925,9 @@
                   "Gyvenamosios patalpos"
                 ],
                 "x-need-ids": true
-                
+              },
+              "laikymas-id": {
+                "type": "string"
               },
               "plotas": {
                 "type": "string",
