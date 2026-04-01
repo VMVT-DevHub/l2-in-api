@@ -23,3 +23,29 @@ export const VISIBLE_TO_CREATOR_OR_ADMIN_SCOPE = {
     },
   },
 };
+
+export const VISIBLE_TO_CREATOR_OR_ADMIN_SCOPE_VKO = {
+  names: ['visibleToCreatorOrAdminScopeVko'],
+  scopes: {
+    visibleToCreatorOrAdminScopeVko(query: any, ctx: Context<null, MetaSession>) {
+      const session = ctx.meta.session;
+      if (!session?.user?.id) {
+        return { ...query, sprenInCreatedBy: -1 };
+      }
+
+      const userId = session.user.id;
+      const activeOrgCode = session.activeOrgCode ?? null;
+
+      if (
+        activeOrgCode != null &&
+        activeOrgCode.toString().split('').length == 9 &&
+        String(activeOrgCode).trim() !== ''
+      ) {
+        return { ...query, sprenParentId: activeOrgCode };
+      }
+
+      // No active org, all rows I created with "Fizinis asmuo"
+      return { ...query, sprenInCreatedBy: userId, sprenParentId: null };
+    },
+  },
+};

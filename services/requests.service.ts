@@ -171,6 +171,7 @@ export default class extends moleculer.Service {
     activeOrgCode?: string | null,
   ): { edit: boolean; validate: boolean } {
     const invalid = { edit: false, validate: false };
+    const canEditAfterSubmit = request?.formType == 'certificate'; //only export can submit infinite times
 
     if (
       !request?.id ||
@@ -193,15 +194,22 @@ export default class extends moleculer.Service {
       reqCompany != null && actor != null && String(reqCompany) === String(actor);
 
     if (isSelfRow || isActorOrgMatch) {
-      return {
-        validate: false,
-        edit: [
-          RequestStatus.RETURNED,
-          RequestStatus.DRAFT,
-          RequestStatus.CREATED,
-          RequestStatus.SUBMITTED,
-        ].includes(request.status),
-      };
+      if (canEditAfterSubmit)
+        return {
+          validate: false,
+          edit: [
+            RequestStatus.RETURNED,
+            RequestStatus.DRAFT,
+            RequestStatus.CREATED,
+            RequestStatus.SUBMITTED,
+          ].includes(request.status),
+        };
+      else {
+        return {
+          validate: false,
+          edit: [RequestStatus.RETURNED, RequestStatus.DRAFT].includes(request.status),
+        };
+      }
     }
 
     return invalid;
@@ -319,18 +327,24 @@ export default class extends moleculer.Service {
     const latitude = veiklaviete?.koordinates?.platuma;
 
     if (address && !willUseCoords) {
-      const district: number = await ctx.call('addresses.findDist', {
-        id: address,
-      });
-      return district ?? null;
+      try {
+        const district: number = await ctx.call('addresses.findDist', { id: address });
+        return district ?? null;
+      } catch {
+        return null;
+      }
     }
 
     if (longtitude && latitude && willUseCoords) {
-      const district: number = await ctx.call('addresses.findDistFromCoord', {
-        x: latitude,
-        y: longtitude,
-      });
-      return district ?? null;
+      try {
+        const district: number = await ctx.call('addresses.findDistFromCoord', {
+          x: latitude,
+          y: longtitude,
+        });
+        return district ?? null;
+      } catch {
+        return null;
+      }
     }
     return null;
   }

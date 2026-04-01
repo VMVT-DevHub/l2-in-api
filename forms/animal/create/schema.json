@@ -32,7 +32,7 @@
                 "properties": {
                   "gyvId": { "type": "number" },
                   "gyvName": { "type": "string" },
-                  "adrId": { "type": "number" },
+                  "adrId": { "type": ["number", "null"] },
                   "adrName": { "type": "string" }
                 }
             },
@@ -177,11 +177,6 @@
                 "adrName": { "type": "string" }
               }
             },
-            "ar-laikinas-adresas": {
-              "type": "boolean",
-              "title": "Veterinarinės kontrolės veikla steigiama laikiname statinyje / naudojami laikini prekybos įrenginiai",
-              "description": "Žymima tuo atveju, kai numatoma vykdyti veterinarinės kontrolės veiklą laikinuosiuose statiniuose ar tik naudojant laikinuosius prekybos įrenginius, nurodomas maisto tvarkymo vietos adresas pagal artimiausio statinio adresą, pažymėkite, kad maisto tvarkymo vieta yra prie minėto statinio"
-            },
             "ar-bus-koordinates": {
               "type": "boolean",
               "title": "Adresas bus nurodomas WGS koordinatėmis",
@@ -206,14 +201,22 @@
           "type": "object",
           "properties": {
             "platuma": {
-              "type": "number",
+              "type": "string",
               "title": "Platuma *",
-              "format": "double"
+              "pattern": "^(5[3-6]\\.\\d{4,6})$",
+              "errorMessage": {
+                "pattern": "Platumos formatas turi būti galiojantis",
+                "minLength": "Koordinačių platuma privaloma"
+              }
             },
             "ilguma": {
-              "type": "number",
+              "type": "string",
               "title": "Ilguma *",
-              "format": "double"
+              "pattern": "^(2[0-6]\\.\\d{4,6})$",
+              "errorMessage": {
+                "pattern": "Ilgumos formatas turi būti galiojantis",
+                "minLength": "Koordinačių platuma privaloma"
+              }
             }
           },
           "required": ["platuma", "ilguma"],
@@ -406,7 +409,8 @@
         },
         "evrk": {
           "title": "Ekonominės veiklos kodas pagal EVRK *",
-          "type": "string"
+          "type": "string",
+          "x-EVRK": true
         },
         "detalizacija": {
           "type": "object",
@@ -806,7 +810,7 @@
           "properties": {
             "laikotarpis": {
               "type": "string",
-              "title": "Laikotarpis *",
+              "title": "Laikotarpis",
               "enum": [
                 "Per pamainą",
                 "Per dieną",
@@ -821,7 +825,7 @@
               "type":"integer"
             },
             "kiekis-matas": {
-              "title": "Pagaminamos produkcijos kiekis *",
+              "title": "Pagaminamos produkcijos kiekis",
               "type": "object",
               "default": {},
 
@@ -837,21 +841,9 @@
                   "type": "string",
                   "enum": ["vnt", "vnt/m²", "ha", "kg", "m²", "m³"]
                 }
-              },
-              "required": ["kiekis"],
-              "errorMessage": {
-                "required": {
-                  "kiekis": "Kiekis yra privalomas"
-                }
               }
             }
-          },
-           "required": ["laikotarpis"],
-            "errorMessage": {
-              "required": {
-                "laikotarpis": "Laikotarpis yra privalomas."
-              }
-            }
+          }
         },
         "produktai": {
           "type": "array",

@@ -40,8 +40,13 @@ export default class extends moleculer.Service {
       path: '/',
     },
   })
-  async list(ctx: Context<{ query?: object }>) {
+  async list(ctx: Context<{ query?: object; page?: number; pageSize?: number; sort?: string[] }>) {
     const formType = 'animal';
+
+    const page = Number(ctx.params.page ?? 1) || 1;
+    const pageSize = Number(ctx.params.pageSize ?? 10) || 10;
+
+    const incomingQuery = (ctx.params.query ?? {}) as Record<string, any>;
 
     const result: { rows: Request[] } = await ctx.call('requests.list', {
       ...ctx.params,
@@ -49,6 +54,8 @@ export default class extends moleculer.Service {
         ...(ctx.params.query || {}),
         formType,
       },
+      page: page,
+      pageSize: pageSize,
       populate: ['formConfig'],
     });
 

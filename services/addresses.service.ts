@@ -70,20 +70,20 @@ export default class AddressesService extends moleculer.Service {
       opt: { responseType: 'json' },
     });
 
-    return result?.kodai?.apg;
+    return result?.kodai?.apg ?? null;
   }
 
   @Action({
     name: 'findDistFromCoord',
     rest: 'GET /find/dst',
     params: {
-      x: 'number',
-      y: 'number',
+      x: 'string',
+      y: 'string',
     },
   })
-  async findDistFromCoord(ctx: Context<{ x: number; y: number }>) {
+  async findDistFromCoord(ctx: Context<{ x: string; y: string }>) {
     const { x, y } = ctx.params;
-    const url = `${this.baseUrl}/ar/geo/sav?x=${x}&y=${y}`;
+    const url = `${this.baseUrl}/ar/geo/sav?x=${Number(x)}&y=${Number(y)}`;
 
     const result: any = await this.broker.call('http.get', {
       url,
