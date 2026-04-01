@@ -212,8 +212,8 @@ export default class extends moleculer.Service {
 
     return result.rows.map((r: any) => ({
       id: r.id,
-      type: r.decisionTitle,
-      typeId: r.decisionTitleId,
+      decisionTitle: r.decisionTitle,
+      decisionTitleId: r.decisionTitleId,
       actionPlaceTitle: r.actionPlaceTitle,
       address: r.actionAdr,
       date: r.createdAt,
@@ -222,7 +222,7 @@ export default class extends moleculer.Service {
         title: r.actionTitle,
       },
       decider: r.decider,
-      status: r.status,
+      statusId: r.statusId,
     }));
   }
 
