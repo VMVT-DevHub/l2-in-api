@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "title": "Prašymas dėl valstybinės veterinarinės kontrolės subjekto panaikinimo ar sustabdymo",
+  "title": "Prašymas dėl valstybinės veterinarinės kontrolės subjekto duomenų keitimo",
   "additionalProperties": false,
   "properties": {
     "pareiskejas": {

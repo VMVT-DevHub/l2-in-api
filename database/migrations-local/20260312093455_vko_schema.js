@@ -14,20 +14,15 @@ exports.up = async function (knex) {
     table.integer('spren_status_id').nullable();
     table.string('spren_result').nullable();
     table.integer('spren_result_id').nullable();
-
-    table
-      .enu('spren_status', ['APPROVED', 'REJECTED', 'TEMP_APPROVED'], {
-        useNative: true,
-        enumName: 'decision_status',
-      })
-      .nullable();
+    table.string('spren_status').nullable();
 
     table.integer('spren_req_id').nullable();
     table.integer('spren_vko_id').nullable();
-    table.integer('spren_parent_id').nullable();
+    table.bigint('spren_parent_id').nullable();
+    table.integer('spren_in_created_by').nullable();
 
     table.string('spren_prasymo_pavad').nullable();
-    table.string('spren_prasymo_pavad_id').nullable();
+    table.integer('spren_prasymo_pavad_id').nullable();
     table.string('spren_parent_pavad').nullable();
 
     table.string('spren_vkl_pavad').nullable();

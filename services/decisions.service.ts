@@ -2,7 +2,15 @@
 import moleculer, { Context } from 'moleculer';
 import { Action, Service } from 'moleculer-decorators';
 import DbConnection from '../mixins/database.mixin';
-import { CommonFields, CommonPopulates, RestrictionType, Table } from '../types';
+import {
+  COMMON_DEFAULT_SCOPES,
+  CommonFields,
+  CommonPopulates,
+  RestrictionType,
+  SCOPE_VKO_DECISIONS,
+  Table,
+} from '../types';
+import { VISIBLE_TO_CREATOR_OR_ADMIN_SCOPE_VKO } from '../utils/scopes';
 
 interface Fields extends CommonFields {
   id: string;
@@ -160,6 +168,11 @@ export type TransportType<
         columnName: 'sprenModifUser',
       },
     },
+    scopes: {
+      ...SCOPE_VKO_DECISIONS,
+      ...VISIBLE_TO_CREATOR_OR_ADMIN_SCOPE_VKO.scopes,
+    },
+    defaultScopes: [...COMMON_DEFAULT_SCOPES, ...VISIBLE_TO_CREATOR_OR_ADMIN_SCOPE_VKO.names],
   },
 })
 export default class extends moleculer.Service {
@@ -167,10 +180,37 @@ export default class extends moleculer.Service {
     auth: RestrictionType.PUBLIC,
     rest: 'GET /all',
   })
-  async list(ctx: Context) {
-    const rows = await this.findEntities(ctx);
+  async getAll(
+    ctx: Context<
+      any,
+      {
+        session?: { activeOrgCode?: string | null; companyCode?: string | null };
+        query?: object;
+        page?: number;
+        pageSize?: number;
+        sort?: string[];
+      }
+    >,
+  ) {
+    const page = Number(ctx.params.page ?? 1) || 1;
+    const pageSize = Number(ctx.params.pageSize ?? 10) || 10;
 
-    return rows.map((r: any) => ({
+    const session = (ctx.meta.session ?? {}) as {
+      activeOrgCode?: string | null;
+      companyCode?: string | null;
+    };
+
+    const result: { rows: Request[] } = await ctx.call('decisions.list', {
+      query: {
+        ...(ctx.params.query || {}),
+        parentId: session.activeOrgCode,
+      },
+      page,
+      pageSize,
+      sort: ctx.params.sort,
+    });
+
+    return result.rows.map((r: any) => ({
       id: r.id,
       type: r.decisionTitle,
       typeId: r.decisionTitleId,
