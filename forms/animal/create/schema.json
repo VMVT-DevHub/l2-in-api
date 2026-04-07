@@ -858,7 +858,7 @@
                 "x-need-ids": true
               },
               "kategorija-id": {
-                "type": "string"
+                "type": "number"
               },
               "rusis": {
                 "type": "array",
@@ -919,7 +919,7 @@
                 "x-need-ids": true
               },
               "laikymas-id": {
-                "type": "string"
+                "type": "number"
               },
               "plotas": {
                 "type": "string",
