@@ -342,19 +342,11 @@
                   "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos"
+                      "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos-pradzia"
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos-kita",
-                      "rule": {
-                        "effect": "SHOW",
-                        "condition": {
-                          "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos",
-                          "schema": { "const": "Kita" },
-                          "failWhenUndefined": true
-                        }
-                      }
+                      "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos-pabaiga"
                     }
                   ]
                 }

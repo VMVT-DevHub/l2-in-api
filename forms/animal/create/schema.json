@@ -345,20 +345,22 @@
               },
               "uniqueItems": true
             },
-            "valandos": {
+            "valandos-pradzia": {
               "type": "string",
-              "title": "Pasirinkite darbo valandas *",
-              "enum": ["8:00 - 17:00", "Kita"]
+              "title": "Pasirinkite darbo dienos pradžią *",
+              "format": "time"
             },
-            "valandos-kita": {
+            "valandos-pabaiga": {
               "type": "string",
-              "title": "Nurodykite specifines darbo valandas *"
+              "title": "Pasirinkite darbo dienos pabaigą *",
+              "format": "time"
             }
           },
-          "required": ["savaites-dienos", "valandos", "menesiai"],
+          "required": ["savaites-dienos", "valandos-pradzia", "valandos-pabaiga", "menesiai"],
           "errorMessage": {
             "required": {
-              "valandos": "Darbo valandos yra privalomos",
+              "valandos-pradzia": "Darbo valandų pradžia yra privaloma",
+              "valandos-pabaiga": "Darbo valandų pabaiga yra privaloma",
               "savaites-dienos": "Savaitės dienos yra privalomos.",
               "menesiai": "Mėnesiai yra privalomi."
             }
