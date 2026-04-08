@@ -43,10 +43,13 @@
                     "key": "form"
                   }
                 },
-
                 {
                   "type": "Control",
-                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-moketojo-kodas"
+                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-moketojo-kodas",
+                  "options": {
+                    "display": "authField",
+                    "key": "activeOrgCode"
+                  }
                 }
               ]
             },
@@ -103,7 +106,11 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/pareiskejas/properties/fa-duomenys/properties/fa-moketojo-kodas"
+                  "scope": "#/properties/pareiskejas/properties/fa-duomenys/properties/fa-moketojo-kodas",
+                  "options": {
+                    "display": "authField",
+                    "key": "ak"
+                  }
                 }
               ]
             }
@@ -335,19 +342,11 @@
                   "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos"
+                      "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos-pradzia"
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos-kita",
-                      "rule": {
-                        "effect": "SHOW",
-                        "condition": {
-                          "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos",
-                          "schema": { "const": "Kita" },
-                          "failWhenUndefined": true
-                        }
-                      }
+                      "scope": "#/properties/veiklaviete/properties/darbo-laikas/properties/valandos-pabaiga"
                     }
                   ]
                 }
@@ -1020,7 +1019,11 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/proceso-aprasymas",
               "label": "",
-              "options": { "display": "upload", "certType": "vet" }
+              "options": {
+                "display": "upload",
+                "multi": true,
+                "certType": "vet"
+              }
             }
           ]
         },
@@ -1050,6 +1053,19 @@
                 "multi": true,
                 "certType": "vet",
                 "hasInfoField": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Papildoma informacija",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/papildoma-info",
+              "options": {
+                "display": "textarea"
               }
             }
           ]

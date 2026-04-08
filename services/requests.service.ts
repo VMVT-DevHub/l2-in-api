@@ -46,12 +46,12 @@ export type Request<
 > = Table<Fields, Populates, P, F>;
 
 const populatePermissions = (field: string) => {
-  return function (ctx: Context<{}, MetaSession>, _values: any, requests: any[]) {
+  return function (this: any, ctx: Context<{}, MetaSession>, _values: any, requests: any[]) {
     const session = ctx.meta.session;
     const user = session?.user;
 
     return requests.map((r: any) => {
-      const editingPermissions = this.hasPermissionToEdit(r, user, session.activeOrgCode ?? null);
+      const editingPermissions = this.hasPermissionToEdit(r, user, session?.activeOrgCode ?? null);
       return !!editingPermissions[field];
     });
   };

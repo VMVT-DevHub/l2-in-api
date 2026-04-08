@@ -76,9 +76,7 @@ import { User } from './users.service';
         // Enable/disable logging
         logging: true,
 
-        onError(req: any, res: any, err: any) {
-          this.logger.error('API error', err);
-
+        onError: (req: any, res: any, err: any) => {
           const status =
             typeof err?.code === 'number' && err.code >= 400 && err.code < 600 ? err.code : 500;
 
@@ -128,7 +126,7 @@ export default class ApiService extends moleculer.Service {
       return;
     }
 
-    const data: any = await verifyToken(token, process.env.ACCESS_JWT_SECRET);
+    const data: any = await verifyToken(token, process.env.ACCESS_JWT_SECRET!);
     const userId = Number(data?.sub);
     const sid = data?.sid;
     if (!userId || !sid) {
@@ -156,6 +154,7 @@ export default class ApiService extends moleculer.Service {
       companyName: session?.companyName ?? null,
       activeOrgCode: session?.activeOrgCode,
       roles: session?.roles ?? null,
+      ak: session?.ak ? session?.ak.toString() : null,
     };
     return;
   }

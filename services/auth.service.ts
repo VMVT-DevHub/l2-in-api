@@ -67,7 +67,7 @@ export default class AuthService extends moleculer.Service {
   async login(ctx: Context<{ ticket: string }, ResponseHeadersMeta>) {
     try {
       const { ticket } = ctx.params;
-      let userRoles: DelegatedOrgs = null;
+      let userRoles: DelegatedOrgs | null = null;
 
       const res: ViispUserRaw = await ctx.call('http.get', {
         url: `${VIISP_BASE_URL}/${ticket}`,
@@ -83,10 +83,11 @@ export default class AuthService extends moleculer.Service {
       }
 
       const authUser: UserEvartai = {
-        uuid: res.id,
+        uuid: String(res.id),
         firstName,
         lastName,
         personalCode: String(res.ak ?? res.personalCode ?? '').trim(),
+        ak: res.ak,
         companyCode: (res.company?.code ?? res.companyCode)?.toString(),
         email: res.email,
         phone: res.phone,
@@ -100,7 +101,8 @@ export default class AuthService extends moleculer.Service {
       }
 
       if (authUser.companyCode && !authUser.companyName) {
-        authUser.companyName = await this.getOrgName(ctx, Number(authUser.companyCode));
+        authUser.companyName =
+          (await this.getOrgName(ctx, Number(authUser.companyCode))) ?? undefined;
       }
 
       if (!authUser.companyCode) {
@@ -128,7 +130,14 @@ export default class AuthService extends moleculer.Service {
         }
       }
       const user: User = await ctx.call('users.findOrCreate', { authUser });
-      await this.startSession(ctx, user, authUser.companyCode, authUser.companyName, userRoles);
+      await this.startSession(
+        ctx,
+        user,
+        authUser.companyCode,
+        authUser.companyName,
+        authUser.ak,
+        userRoles,
+      );
     } catch (err) {
       throwBadRequestError('Cannot login', err);
     }
@@ -156,6 +165,7 @@ export default class AuthService extends moleculer.Service {
       address: details?.adresas ?? null,
       aob: details?.aobKodas,
       name: details?.pavad,
+      ak: session.ak ?? null,
     };
   }
 
@@ -211,9 +221,9 @@ export default class AuthService extends moleculer.Service {
   async listDelegatedUsers(ctx: Context<unknown, MetaSession>) {
     const session = ctx.meta.session;
     if (!session?.user?.id) throwUnauthorizedError('Not authenticated');
-    if (!session.companyCode) throwUnauthorizedError('Only company users can view delegates');
+    if (!session?.companyCode) throwUnauthorizedError('Only company users can view delegates');
 
-    const orgId = String(session.companyCode);
+    const orgId = String(session?.companyCode);
 
     try {
       const url = `${VIISP_BASE_URL}/roles/org/${orgId}`;
@@ -240,7 +250,7 @@ export default class AuthService extends moleculer.Service {
   ) {
     const session = ctx.meta.session;
     if (!session?.user?.id) throwUnauthorizedError('Not authenticated');
-    if (!session.companyCode) throwUnauthorizedError('Only company users can delegate');
+    if (!session?.companyCode) throwUnauthorizedError('Only company users can delegate');
 
     const { ak, firstName, lastName } = ctx.params;
 
@@ -259,13 +269,13 @@ export default class AuthService extends moleculer.Service {
       const userGuid: string = String(createRes?.id ?? '');
       if (!userGuid) throwBadRequestError('Upstream did not return user GUID');
 
-      const roleUrl = `${VIISP_BASE_URL}/roles/org/${session.companyCode}/${userGuid}/user`;
+      const roleUrl = `${VIISP_BASE_URL}/roles/org/${session?.companyCode}/${userGuid}/user`;
       await ctx.call('http.post', {
         url: roleUrl,
         opt: { responseType: 'json', headers: viispHeaders() },
       });
 
-      return { orgId: String(session.companyCode), userGuid, role: 'user' };
+      return { orgId: String(session?.companyCode), userGuid, role: 'user' };
     } catch (err) {
       throwBadRequestError('Cannot delegate user to organisation', err);
     }
@@ -280,9 +290,9 @@ export default class AuthService extends moleculer.Service {
   async removeDelegatedUser(ctx: Context<{ userGuid: string }, MetaSession>) {
     const session = ctx.meta.session;
     if (!session?.user?.id) throwUnauthorizedError('Not authenticated');
-    if (!session.companyCode) throwUnauthorizedError('Only company users can remove delegates');
+    if (!session?.companyCode) throwUnauthorizedError('Only company users can remove delegates');
 
-    const orgId = String(session.companyCode);
+    const orgId = String(session?.companyCode);
     const { userGuid } = ctx.params;
 
     try {
@@ -321,7 +331,8 @@ export default class AuthService extends moleculer.Service {
     user: User,
     companyCode?: string,
     companyName?: string,
-    userRoles?: DelegatedOrgs,
+    ak?: number,
+    userRoles?: DelegatedOrgs | null,
   ) {
     const sid = crypto.randomUUID();
 
@@ -331,13 +342,14 @@ export default class AuthService extends moleculer.Service {
         userId: user.id,
         companyCode: companyCode ?? null,
         companyName: companyName ?? null,
+        ak: ak ?? null,
         roles: userRoles ?? null,
         activeOrgCode: companyCode ?? null,
       },
       60 * 60 * 24,
     );
 
-    const token = generateToken({ sub: String(user.id), sid }, process.env.ACCESS_JWT_SECRET);
+    const token = generateToken({ sub: String(user.id), sid }, process.env.ACCESS_JWT_SECRET!);
 
     ctx.meta.$responseHeaders = {
       'Set-Cookie': cookie.serialize('vmvt-auth-token', token, {
@@ -351,7 +363,7 @@ export default class AuthService extends moleculer.Service {
   }
 
   @Method
-  async getOrgName(ctx: Context, id: number): Promise<string> {
+  async getOrgName(ctx: Context, id: number): Promise<string | null> {
     try {
       const details = await ctx.call('http.get', {
         url: `https://registrai.vmvt.lt/jar/details?id=${id}`,
@@ -398,7 +410,7 @@ export default class AuthService extends moleculer.Service {
 
     for (const org of eligible) {
       const orgName = await this.getOrgName(ctx, Number(org.id));
-      resolved.orgs.push({ ...org, orgName });
+      resolved.orgs.push({ ...org, orgName: orgName ?? undefined });
     }
 
     return resolved;

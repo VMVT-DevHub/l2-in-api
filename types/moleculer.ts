@@ -321,6 +321,7 @@ export interface UserEvartai {
   lastName?: string;
   name?: string;
   personalCode: string;
+  ak?: number;
   companyCode?: string;
   email?: string;
   phone?: string;
@@ -359,6 +360,7 @@ export type SessionBlob = {
   companyName: string | null;
   activeOrgCode: string | null;
   roles: { orgs: { id: string; roles: string[] }[] } | null;
+  ak: string | null;
 };
 
 export type ResponseHeadersMeta = {
@@ -376,6 +378,7 @@ export interface MetaSession {
     companyName?: string | null;
     activeOrgCode?: string | null;
     roles?: DelegatedOrgs | null;
+    ak?: string | null;
   };
 }
 
