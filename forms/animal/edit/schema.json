@@ -60,7 +60,7 @@
               "readOnly": true
             },
             "fa-moketojo-kodas": {
-              "type": "string",
+              "type": ["string", "number"],
               "title": "Mokesčių mokėtojo identifikacinis kodas",
               "pattern": "^[0-9]{11}$",
               "errorMessage": {

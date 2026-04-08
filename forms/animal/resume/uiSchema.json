@@ -46,7 +46,11 @@
                 
                 {
                   "type": "Control",
-                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-moketojo-kodas"
+                  "scope": "#/properties/pareiskejas/properties/ja-duomenys/properties/ja-moketojo-kodas",
+                  "options": {
+                    "display": "authField",
+                    "key": "activeOrgCode"
+                  }
                 }
               ]
             },
@@ -103,7 +107,11 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/pareiskejas/properties/fa-duomenys/properties/fa-moketojo-kodas"
+                  "scope": "#/properties/pareiskejas/properties/fa-duomenys/properties/fa-moketojo-kodas",
+                  "options": {
+                    "display": "authField",
+                    "key": "ak"
+                  }
                 }
               ]
             }

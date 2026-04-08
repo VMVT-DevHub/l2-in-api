@@ -64,7 +64,7 @@
 
             },
             "fa-moketojo-kodas": {
-              "type": "string",
+              "type": ["string", "number"],
               "title": "Mokesčių mokėtojo identifikacinis kodas *",
               "pattern": "^[0-9]{11}$",
               "errorMessage": {
@@ -72,8 +72,6 @@
               }
             }
           }
-          
-         
         }
       },
       "required": ["atsakingas-asmuo"],
@@ -238,7 +236,7 @@
                 "title": "Statinio / patalpų unikalus numeris (Nekilnojamo turto objekto unikalus numeris) *",
                 "pattern": "^\\d{4}-\\d{4}-\\d{4}(?::\\d{4})?$",
                 "errorMessage": {
-                  "pattern": "Statinio / patalpų unikalus numeris turi būti galiojantis"
+                  "pattern": "Statinio / patalpų unikalus numeris turi atitikti xxxx-xxxx-xxxx arba  xxxx-xxxx-xxxx:xxxx  formatą"
                 }
               },
               "paskirtis": {
@@ -364,20 +362,8 @@
               "savaites-dienos": "Savaitės dienos yra privalomos.",
               "menesiai": "Mėnesiai yra privalomi."
             }
-          },
-           "if": {
-          "properties": {
-            "valandos": { "const": "Kita" }
-            }
-          },
-          "then": {
-            "required": ["valandos-kita"],
-            "errorMessage": {
-              "required": {
-                "valandos-kita": "Specifinės darbo valandos yra privalomos."
-              }
-            }
           }
+         
         }
       },
       "required": ["darbuotojai", "pavadinimas", "darbo-laikas"], 
@@ -981,6 +967,10 @@
           "items": {
             "$ref": "forms/global/defs.json#/definitions/dokumentas"
           }
+        },
+         "papildoma-info": {
+          "type": "string",
+          "title": ""
         }
       },
        "required": ["patalpu-planas", "rinkliava"], 
