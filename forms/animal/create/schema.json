@@ -29,6 +29,7 @@
             },
             "ja-gyv": {
               "type": "object",
+               "required": ["gyvId", "adrId"],
                 "properties": {
                   "gyvId": { "type": "number" },
                   "gyvName": { "type": "string" },
@@ -168,10 +169,11 @@
             },
             "ja-gyv": {
               "type": "object",
+              "required": ["gyvId", "adrId"],
               "properties": {
                 "gyvId": { "type": "number" },
                 "gyvName": { "type": "string" },
-                "adrId": { "type": "number" },
+                "adrId": { "type": ["number", "null"] },
                 "adrName": { "type": "string" }
               }
             },
@@ -959,7 +961,10 @@
           "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "proceso-aprasymas": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
+          "type": "array",
+          "items": {
+            "$ref": "forms/global/defs.json#/definitions/dokumentas"
+          }
         },
         "rinkliava": {
           "$ref": "forms/global/defs.json#/definitions/dokumentas"
