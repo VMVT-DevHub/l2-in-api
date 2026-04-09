@@ -17,7 +17,7 @@ export interface User {
   lastName: string;
   email: string;
   phone: string;
-  ak: number;
+  ak: string;
 }
 
 @Service({

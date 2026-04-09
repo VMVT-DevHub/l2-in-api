@@ -87,7 +87,7 @@ export default class AuthService extends moleculer.Service {
         firstName,
         lastName,
         personalCode: String(res.ak ?? res.personalCode ?? '').trim(),
-        ak: res.ak,
+        ak: String(res.ak ?? ''),
         companyCode: (res.company?.code ?? res.companyCode)?.toString(),
         email: res.email,
         phone: res.phone,
@@ -331,7 +331,7 @@ export default class AuthService extends moleculer.Service {
     user: User,
     companyCode?: string,
     companyName?: string,
-    ak?: number,
+    ak?: string,
     userRoles?: DelegatedOrgs | null,
   ) {
     const sid = crypto.randomUUID();

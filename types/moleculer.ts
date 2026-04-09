@@ -321,7 +321,7 @@ export interface UserEvartai {
   lastName?: string;
   name?: string;
   personalCode: string;
-  ak?: number;
+  ak?: string;
   companyCode?: string;
   email?: string;
   phone?: string;
