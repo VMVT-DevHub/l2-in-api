@@ -993,7 +993,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/patalpu-planas",
               "label": "",
-              "options": { "display": "upload", "certType": "vet" }
+              "options": { "display": "upload", "certType": "vet",  "clearOnCopy": true }
             }
           ]
         },
@@ -1006,7 +1006,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/proceduru-aprasymas",
               "label": "",
-              "options": { "display": "upload", "certType": "vet" }
+              "options": { "display": "upload", "certType": "vet",  "clearOnCopy": true }
             }
           ]
         },
@@ -1022,7 +1022,8 @@
               "options": {
                 "display": "upload",
                 "multi": true,
-                "certType": "vet"
+                "certType": "vet",
+                "clearOnCopy": true
               }
             }
           ]
@@ -1036,7 +1037,7 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/rinkliava",
               "label": "",
-              "options": { "display": "upload", "certType": "vet" }
+              "options": { "display": "upload", "certType": "vet",  "clearOnCopy": true }
             }
           ]
         },
@@ -1052,7 +1053,8 @@
                 "display": "upload",
                 "multi": true,
                 "certType": "vet",
-                "hasInfoField": true
+                "hasInfoField": true,
+                "clearOnCopy": true
               }
             }
           ]
@@ -1065,7 +1067,8 @@
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/papildoma-info",
               "options": {
-                "display": "textarea"
+                "display": "textarea",
+                "clearOnCopy": true
               }
             }
           ]
@@ -1091,27 +1094,45 @@
             },
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/patvirtinu-susipazines"
+              "scope": "#/properties/sutikimai/properties/patvirtinu-susipazines",
+              "options": {
+                "clearOnCopy": true
+              }
             },
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/patvirtinu-irenges"
+              "scope": "#/properties/sutikimai/properties/patvirtinu-irenges",
+              "options": {
+                "clearOnCopy": true
+              }
             },
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/patvirtinu-parenges"
+              "scope": "#/properties/sutikimai/properties/patvirtinu-parenges",
+              "options": {
+                "clearOnCopy": true
+              }
             },
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/patvirtinu-pasirenges"
+              "scope": "#/properties/sutikimai/properties/patvirtinu-pasirenges",
+              "options": {
+                "clearOnCopy": true
+              }
             },
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/patvirtinu-nepazeidziant"
+              "scope": "#/properties/sutikimai/properties/patvirtinu-nepazeidziant",
+              "options": {
+                "clearOnCopy": true
+              }
             },
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/patvirtinu-teisinga"
+              "scope": "#/properties/sutikimai/properties/patvirtinu-teisinga",
+              "options": {
+                "clearOnCopy": true
+              }
             }
           ]
         },
@@ -1128,23 +1149,38 @@
             },
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/isipareigoju-laikytis"
+              "scope": "#/properties/sutikimai/properties/isipareigoju-laikytis",
+              "options": {
+                "clearOnCopy": true
+              }
             },
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/isipareigoju-nevykdyti"
+              "scope": "#/properties/sutikimai/properties/isipareigoju-nevykdyti",
+              "options": {
+                "clearOnCopy": true
+              }
             },
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/isipareigoju-pateikti"
+              "scope": "#/properties/sutikimai/properties/isipareigoju-pateikti",
+              "options": {
+                "clearOnCopy": true
+              }
             },
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/isipareigoju-dokumentacija"
+              "scope": "#/properties/sutikimai/properties/isipareigoju-dokumentacija",
+              "options": {
+                "clearOnCopy": true
+              }
             },
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/isipareigoju-informuoti"
+              "scope": "#/properties/sutikimai/properties/isipareigoju-informuoti",
+              "options": {
+                "clearOnCopy": true
+              }
             }
           ]
         },
@@ -1155,15 +1191,24 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/sutikimas-informuotas"
+              "scope": "#/properties/sutikimai/properties/sutikimas-informuotas",
+              "options": {
+                "clearOnCopy": true
+              }
             },
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/sutikimas-ar-yra-email"
+              "scope": "#/properties/sutikimai/properties/sutikimas-ar-yra-email",
+              "options": {
+                "clearOnCopy": true
+              }
             },
             {
               "type": "Control",
               "scope": "#/properties/sutikimai/properties/sutikimas-email",
+              "options": {
+                "clearOnCopy": true
+              },
               "rule": {
                 "effect": "SHOW",
                 "condition": {
@@ -1183,7 +1228,8 @@
               "type": "Control",
               "scope": "#/properties/atsakymas/properties/ats-gavimas",
               "options": {
-                "display": "radio"
+                "display": "radio",
+                "clearOnCopy": true
               }
             }
           ]
