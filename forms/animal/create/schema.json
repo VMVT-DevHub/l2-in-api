@@ -29,11 +29,10 @@
             },
             "ja-gyv": {
               "type": "object",
-               "required": ["gyvId", "adrId"],
                 "properties": {
                   "gyvId": { "type": "number" },
                   "gyvName": { "type": "string" },
-                  "adrId": { "type": ["number", "null"] },
+                  "adrId": { "type": "number" },
                   "adrName": { "type": "string" }
                 }
             },
@@ -173,7 +172,7 @@
               "properties": {
                 "gyvId": { "type": "number" },
                 "gyvName": { "type": "string" },
-                "adrId": { "type": ["number", "null"] },
+                "adrId": { "type": "number" },
                 "adrName": { "type": "string" }
               }
             },
