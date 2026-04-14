@@ -82,4 +82,4 @@ This project is licensed under the [MIT License](./LICENSE).
 
 ## IMPORTANT NOTE FOR LOCAL DEV
 
-Place seed files in the database/ folder so the schemas get populated correctly when developing locally.
+Place seed files in the database/ folder so the schemas get populated correctly when developing locally. 
