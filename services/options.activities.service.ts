@@ -30,13 +30,17 @@ export default class AddressesService extends moleculer.Service {
   })
   async getActivities() {
     const url = `${this.baseUrl}/okis/lists/veiklos`;
+    const typeCodes = ['VG-011', 'VG-012', 'VG-013', 'VG-015'];
 
     const result: any = await this.broker.call('http.get', {
       url,
       opt: { responseType: 'json' },
     });
 
-    return this.sortResponse(result);
+    const filteredResult = result.filter(
+      (item: any) => typeCodes.includes(item.typeCode) == false && item.typeGroup == 'VKO',
+    );
+    return this.sortResponse(filteredResult);
   }
 
   @Action({
@@ -44,6 +48,7 @@ export default class AddressesService extends moleculer.Service {
     rest: 'GET /okis/ids',
   })
   async getIDs() {
+    const typeCodes = ['VG-011', 'VG-012', 'VG-013', 'VG-015'];
     const url = `${this.baseUrl}/okis/lists/veiklos`;
 
     const result: any = await this.broker.call('http.get', {
@@ -51,6 +56,10 @@ export default class AddressesService extends moleculer.Service {
       opt: { responseType: 'json' },
     });
 
-    return this.sortResponse(result).map((item: any) => item.code);
+    const filteredResult = result.filter(
+      (item: any) => typeCodes.includes(item.typeCode) == false && item.typeGroup == 'VKO',
+    );
+
+    return this.sortResponse(filteredResult).map((item: any) => item.code);
   }
 }

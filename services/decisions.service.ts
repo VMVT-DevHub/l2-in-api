@@ -67,13 +67,13 @@ export type TransportType<
         type: 'number',
         columnName: 'sprenStatusId',
       },
-      result: {
+      subType: {
         type: 'string',
-        columnName: 'sprenResult',
+        columnName: 'sprenSubTipas',
       },
-      resultId: {
+      subTypeId: {
         type: 'number',
-        columnName: 'sprenResultId',
+        columnName: 'sprenSubTipasId',
       },
       reqId: {
         type: 'number',
@@ -92,7 +92,7 @@ export type TransportType<
         columnName: 'sprenPrasymoPavad',
       },
       decisionTitleId: {
-        type: 'string',
+        type: 'number',
         columnName: 'sprenPrasymoPavadId',
       },
       parentTitle: {
@@ -111,17 +111,17 @@ export type TransportType<
         type: 'string',
         columnName: 'sprenVklVeiklaPavad',
       },
-      actionAdr: {
+      actionAddress: {
         type: 'string',
         columnName: 'sprenVklAdr',
       },
-      actionAdrAob: {
+      actionAddressAob: {
         type: 'number',
         columnName: 'sprenVklAdrAob',
       },
-      actionAdrSwg: {
-        type: 'number',
-        columnName: 'sprenVklAdrSwg',
+      actionAddressWgs: {
+        type: 'string',
+        columnName: 'sprenVklAdrWgs',
       },
       date: {
         type: 'date',
@@ -137,7 +137,7 @@ export type TransportType<
       },
       creator: {
         type: 'string',
-        columnName: 'sprenCreatedUser',
+        columnName: 'sprenManagerName',
       },
       creatorDep: {
         type: 'string',
@@ -145,15 +145,11 @@ export type TransportType<
       },
       decider: {
         type: 'string',
-        columnName: 'sprenNusprendeUser',
+        columnName: 'sprenCreatedUserName',
       },
       deciderDep: {
         type: 'string',
         columnName: 'sprenNusprendeDep',
-      },
-      reason: {
-        type: 'string',
-        columnName: 'sprenReason',
       },
       createdAt: {
         type: 'date',
@@ -166,6 +162,38 @@ export type TransportType<
       modifUser: {
         type: 'string',
         columnName: 'sprenModifUser',
+      },
+      manager: {
+        type: 'string',
+        columnName: 'sprenManagerName',
+      },
+      createdUserName: {
+        type: 'string',
+        columnName: 'sprenCreatedUserName',
+      },
+      modifUserName: {
+        type: 'string',
+        columnName: 'sprenModifUserName',
+      },
+      inCreatedBy: {
+        type: 'number',
+        columnName: 'sprenInCreatedBy',
+      },
+      reqDate: {
+        type: 'date',
+        columnName: 'sprenReqDate',
+      },
+      delete: {
+        type: 'boolean',
+        columnName: 'sprenDelete',
+      },
+      legal: {
+        type: 'string',
+        columnName: 'sprenLegal',
+      },
+      refusal: {
+        type: 'string',
+        columnName: 'sprenRefusal',
       },
     },
     scopes: {
@@ -215,7 +243,7 @@ export default class extends moleculer.Service {
       decisionTitle: r.decisionTitle,
       decisionTitleId: r.decisionTitleId,
       actionPlaceTitle: r.actionPlaceTitle,
-      address: r.actionAdr,
+      address: r.actionAddress,
       date: r.createdAt,
       action: {
         id: r.actionId,
@@ -251,17 +279,17 @@ export default class extends moleculer.Service {
         id: r.statusId,
         title: r.status,
       },
-      result: {
-        id: r.resultId,
-        title: r.result,
+      subType: {
+        id: r.subTypeId,
+        title: r.subType,
       },
       action: {
         id: r.actionId,
         title: r.actionTitle,
         placeTitle: r.actionPlaceTitle,
-        address: r.actionAdr,
-        adrAob: r.actionAdrAob,
-        adrSwg: r.actionAdrSwg,
+        address: r.actionAddress,
+        adrAob: r.actionAddressAob,
+        adrSwg: r.actionAddressWgs,
       },
       parent: {
         id: r.parentId,
@@ -274,20 +302,23 @@ export default class extends moleculer.Service {
         docNo: r.docNo,
         regNo: r.regNo,
       },
-      creator: {
-        name: r.creator,
-        department: r.creatorDep,
+      users: {
+        decider: r.decider,
+        deciderDep: r.deciderDep,
+        manager: r.manager,
+        managerDep: r.creatorDep,
       },
       decider: {
         name: r.decider,
         department: r.deciderDep,
       },
       reqId: r.reqId,
+      reqDate: r.reqDate,
       vkoId: r.vkoId,
-      reason: r.reason,
+      refusal: r.refusal,
+      legal: r.legal,
       createdAt: r.createdAt,
       updatedAt: r.updatedAt,
-      modifUser: r.modifUser,
     };
   }
 }
