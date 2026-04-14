@@ -20,7 +20,14 @@
     {
       "name": "actionPlace",
       "title": "Veiklavietės pavadinimas",
-      "path": "$.veiklaviete.pavadinimas.pavadinimas"
+      "path": "$.veiklaviete.pavadinimas.pavadinimas",
+      "mapper": "actionPlace"
+    },
+    {
+      "name": "actionPlaceJA",
+      "title": "Veiklavietės pavadinimas",
+      "path": "$.pareiskejas.ja-duomenys.ja-pavadinimas",
+      "mapper": "actionPlaceJA"
     }
   ],
   "forms": ["create", "remove", "resume", "edit"]
