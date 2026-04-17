@@ -320,7 +320,11 @@ export default class extends moleculer.Service {
     const formType = ctx.params?.formType;
     if (formType !== 'animal') return null;
     const veiklaviete = ctx.params?.data?.veiklaviete;
-
+    const pareiskejas = ctx.params?.data?.pareiskejas;
+    const companyAddress =
+      pareiskejas?.['atsakingas-asmuo']?.aob ||
+      pareiskejas?.['ja-duomenys']?.['ja-gyv']?.adrId ||
+      undefined;
     const address = veiklaviete?.adresas?.['ja-gyv']?.adrId || undefined;
     const willUseCoords = veiklaviete?.adresas?.['ar-bus-koordinates'];
     const longtitude = veiklaviete?.koordinates?.ilguma;
@@ -334,6 +338,12 @@ export default class extends moleculer.Service {
         return null;
       }
     }
+    if (companyAddress && !willUseCoords) {
+      const district: number = await ctx.call('addresses.findDist', {
+        id: companyAddress,
+      });
+      return district ?? null;
+    }
 
     if (longtitude && latitude && willUseCoords) {
       try {
@@ -343,6 +353,12 @@ export default class extends moleculer.Service {
         });
         return district ?? null;
       } catch {
+        if (companyAddress) {
+          const district: number = await ctx.call('addresses.findDist', {
+            id: companyAddress,
+          });
+          return district ?? null;
+        }
         return null;
       }
     }
