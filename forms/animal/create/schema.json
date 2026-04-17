@@ -857,7 +857,8 @@
                 "minLength": 1,
                 "items": {
                   "type": "string",
-                  "enum": ["Šuo", "Katė", "Karvė", "Arklys", "Ropliai"]
+                  "enum": ["Šunys", "Katės", "Akvakultūros sistema","Alpakos","Antys","Apuokai","Arkliai","Asilai","Audinės","Avys","Balandžiai","Bizonai","Bičių šeimos","Briedžiai","Buivolai","Danieliai","Elniai","Fazanai","Galvijai","Graužikai","Guanakai","Gulbės","Jakai","Kalakutai","Kiaulės","Kiaunės","Kiti avinai","Kiti gyvūnai","Kiti ožiai","Kiti paukščiai","Kitos kiaulės","Kiškiai","Kupranugariai","Kurapkos","Kurtiniai","Lamos","Lapės","Lūšys","Meškos","Meškėnai","Muflonai","Nutrijos","Ožkos","Papūgos","Pentardos","Povai","Pumos","Putpelės","Skunkai","Sliekai","Sraigės","Stirnos","Stručiai","Stumbrai","Triušiai","Tvenkinių žuvys","Vabzdžiai","Vanagai","Vilkai","Vištos","Zebrai","Šernai","Šeškai","Šinšilos","Žąsys"]
+
                 }
               },
               "talpyklos": {
