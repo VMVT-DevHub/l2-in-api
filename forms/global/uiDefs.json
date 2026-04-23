@@ -30,7 +30,7 @@
         {
           "type": "HorizontalLayout",
           "elements": [
-            {
+            { 
               "type": "Control",
               "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/vardas",
               "options": {
