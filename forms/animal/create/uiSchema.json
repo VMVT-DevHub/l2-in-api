@@ -451,7 +451,7 @@
                   "type": "Control",
                   "scope": "#/properties/veiklos/properties/detalizacija/properties/gyvunu-rusys",
                   "options": {
-                    "display": "multiSelect"
+                    "display": "animalSelect"
                   }
                 }
               ]
@@ -647,11 +647,22 @@
               },
               "rule": {
                 "effect": "SHOW",
-                "condition": {
-                  "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/gyvunai",
-                  "schema": {
-                    "enum": ["Neatrajotojai"]
-                  }
+                 "condition": {
+                  "type": "AND",
+                  "conditions": [
+                    {
+                      "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pasaru-kodas",
+                      "schema": {
+                        "enum": ["FEED Fcf"]
+                      }
+                    },
+                    {
+                      "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/gyvunai",
+                      "schema": {
+                        "enum": ["Neatrajotojai"]
+                      }
+                    }
+                  ]
                 }
               }
             },
@@ -831,7 +842,7 @@
                       "type": "Control",
                       "scope": "#/properties/rusis",
                       "options": {
-                        "display": "multiSelect"
+                        "display": "animalSelect"
                       }
                     },
                     {
@@ -872,7 +883,10 @@
                   "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/rusis"
+                      "scope": "#/properties/rusis",
+                      "options": {
+                        "display": "animalSelect"
+                      }
                     },
                     {
                       "type": "Control",

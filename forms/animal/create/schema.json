@@ -403,7 +403,7 @@
         },
         "detalizacija": {
           "type": "object",
-          "additionalProperties": false,
+          "additionalProperties": true,
           "properties": {
             "sgp-kodas": {
               "type": "array",
@@ -483,14 +483,9 @@
               }
             },
             "gyvunu-rusys": {
-              "type": "array",
-              "title": "Gyvūnų rūšis *",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string",
-                "enum": ["Šunys", "Katės", "Akvakultūros sistema","Alpakos","Antys","Apuokai","Arkliai","Asilai","Audinės","Avys","Balandžiai","Bizonai","Bičių šeimos","Briedžiai","Buivolai","Danieliai","Elniai","Fazanai","Galvijai","Graužikai","Guanakai","Gulbės","Jakai","Kalakutai","Kiaulės","Kiaunės","Kiti avinai","Kiti gyvūnai","Kiti ožiai","Kiti paukščiai","Kitos kiaulės","Kiškiai","Kupranugariai","Kurapkos","Kurtiniai","Lamos","Lapės","Lūšys","Meškos","Meškėnai","Muflonai","Nutrijos","Ožkos","Papūgos","Pentardos","Povai","Pumos","Putpelės","Skunkai","Sliekai","Sraigės","Stirnos","Stručiai","Stumbrai","Triušiai","Tvenkinių žuvys","Vabzdžiai","Vanagai","Vilkai","Vištos","Zebrai","Šernai","Šeškai","Šinšilos","Žąsys"]
-              }
+              "type": "object",
+              "additionalProperties": true,
+              "title": "Gyvūnų rūšis"
             },
             "sgp-santrupa": {
               "type": "array",
@@ -579,10 +574,9 @@
               "title": "Kita tvarkomų ŠGP ir jų gaminių santrumpa *"
             }
           },
-          "required": ["sgp-kodas", "kategorija", "sgp-santrupa", "gyvunu-rusys"],
+          "required": ["sgp-kodas", "kategorija", "sgp-santrupa"],
           "errorMessage": {
             "required": {
-              "gyvunu-rusys": "Gyvūnų rūšys yra privalomos",
               "sgp-kodas": "ŠGP veiklos kodas yra privalomos",
               "kategorija": "Kategorija yra privaloma"
             }
@@ -590,12 +584,10 @@
         },
         "pasaru-detalizacija-79": {
           "type": "object",
-          "additionalProperties": false,
-          "required": ["gyvunai", "santrupos", "pasaru-kodas"],
+          "additionalProperties": true,
+          "required": ["pasaru-kodas"],
           "errorMessage": {
-            "gyvunai": "Gyvūnai, kuriems skirti visaverčiai pašarai, laukas yra privalomas",
-            "pasaru-kodas": "Pašarų su ŠGP gaminiais tvarkymo veikla yra privaloma",
-            "santrupos": "santrupos veikia"
+            "pasaru-kodas": "Pašarų su ŠGP gaminiais tvarkymo veikla yra privaloma"
           },
           "properties": {
             "pasaru-kodas": {
@@ -617,15 +609,13 @@
                 "Akvakultūros gyvūnai"
               ],
               "errorMessage": {
-                "enum": "Turi būti viena iš pasirinktų veiklų"
+                "enum": "Turi būti viena iš pasirinktų reikšmių"
               }
             },
             "santrupos": {
               "type": "array",
               "title": "Pašarų su ŠGP gaminiais santrumpa *",
               "uniqueItems": true,
-              "default": [],
-              "minItems": 1,
               "items": {
                 "type": "string",
                 "enum": [
@@ -643,23 +633,111 @@
                   "type": "string",
                   "title": "Pašarų su ŠGP gaminiais santrumpa *",
                   "default": "PAP - Pagaminti su kombinuotaisiais pašarais",
-                  "enum": ["PAP - Pagaminti su kombinuotaisiais pašarais"]
+                  "enum": ["", "PAP - Pagaminti su kombinuotaisiais pašarais"]
                 },
                 "gyvunas": {
                   "type": "array",
                   "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai *",
                   "uniqueItems": true,
-                  "default": [],
-                  "minItems": 1,
                   "items": {
                     "type": "string",
                     "x-animal": true,
                     "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
-                  } 
+                  }
+                }
+              },
+
+              "if": {
+                "properties": {
+                  "gyvunas": { "type": "array" }
+                }
+              },
+              "then": {},
+              "else": {}
+            }
+          },
+
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "pasaru-kodas": { "const": "FEED Fcf" }
+                },
+                "required": ["pasaru-kodas"]
+              },
+              "then": {
+                "required": ["gyvunai"],
+                "errorMessage": {
+                  "required": {
+                    "gyvunai": "Gyvūnai, kuriems skirti visaverčiai pašarai, laukas yra privalomas"
+                  }
+                }
+              }
+            },
+
+            {
+              "if": {
+                "properties": {
+                  "pasaru-kodas": { "const": "FEED Fcf" },
+                  "gyvunai": { "const": "Neatrajotojai" }
+                },
+                "required": ["gyvunai"]
+              },
+              "then": {
+                "properties": {
+                  "santrupos": {
+                    "minItems": 1,
+                    "errorMessage": {
+                      "minItems": "Pašarų su ŠGP gaminiais santrumpa, laukas yra privalomas"
+                    }
+                  }
+                },
+                "required": ["santrupos"],
+                "errorMessage": {
+                  "required": {
+                    "santrupos": "Pašarų su ŠGP gaminiais santrumpa, laukas yra privalomas"
+                  }
+                }
+              }
+            },
+
+            {
+              "if": {
+                "properties": {
+                  "pasaru-kodas": { "const": "FEED Fcf" },
+                  "gyvunai": {
+                    "enum": [
+                      "Naminiai paukščiai",
+                      "Kiaulės",
+                      "Akvakultūros gyvūnai, naminiai paukščiai ir kiaulės",
+                      "Akvakultūros gyvūnai"
+                    ]
+                  }
+                },
+                "required": ["pasaru-kodas", "gyvunai"]
+              },
+              "then": {
+                "properties": {
+                  "pap": {
+                    "required": ["gyvunas"],
+                    "errorMessage": {
+                      "required": {
+                        "gyvunas": "Gyvūnai, iš kurių gauti perdirbti baltymai, laukas yra privalomas"
+                      }
+                    },
+                    "properties": {
+                      "gyvunas": {
+                        "minItems": 1,
+                        "errorMessage": {
+                          "minItems": "Gyvūnai, iš kurių gauti perdirbti baltymai, laukas yra privalomas"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
-          }
+          ]
         },
         "pasaru-detalizacija-68": {
           "type": "array",
@@ -744,7 +822,6 @@
                 "uniqueItems": true,
                 "items": { "type": "string",
                   "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]}
-             
               }
             },
             "required": [],
@@ -850,17 +927,10 @@
                 "type": "number"
               },
               "rusis": {
-                "type": "array",
-                "title": "Gyvūnų rūšis *",
-                "uniqueItems": true,
-                "default": [],
-                "minLength": 1,
-                "items": {
-                  "type": "string",
-                  "enum": ["Šunys", "Katės", "Akvakultūros sistema","Alpakos","Antys","Apuokai","Arkliai","Asilai","Audinės","Avys","Balandžiai","Bizonai","Bičių šeimos","Briedžiai","Buivolai","Danieliai","Elniai","Fazanai","Galvijai","Graužikai","Guanakai","Gulbės","Jakai","Kalakutai","Kiaulės","Kiaunės","Kiti avinai","Kiti gyvūnai","Kiti ožiai","Kiti paukščiai","Kitos kiaulės","Kiškiai","Kupranugariai","Kurapkos","Kurtiniai","Lamos","Lapės","Lūšys","Meškos","Meškėnai","Muflonai","Nutrijos","Ožkos","Papūgos","Pentardos","Povai","Pumos","Putpelės","Skunkai","Sliekai","Sraigės","Stirnos","Stručiai","Stumbrai","Triušiai","Tvenkinių žuvys","Vabzdžiai","Vanagai","Vilkai","Vištos","Zebrai","Šernai","Šeškai","Šinšilos","Žąsys"]
-
-                }
-              },
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Gyvūnų rūšis"
+            },
               "talpyklos": {
                 "type": "string",
                 "title": "Talpyklų skaičius (vnt. / mėn.) *"
@@ -879,13 +949,14 @@
         "gyvunai": {
           "type": "array",
           "default": [{}],
+          "additionalProperties":true,
           "items": {
             "type": "object",
             "properties": {
               "rusis": {
-                "type": "string",
-                "title": "Numatomų laikyti gyvūnų rūšis *",
-                "enum": ["Šunys", "Katės", "Akvakultūros sistema","Alpakos","Antys","Apuokai","Arkliai","Asilai","Audinės","Avys","Balandžiai","Bizonai","Bičių šeimos","Briedžiai","Buivolai","Danieliai","Elniai","Fazanai","Galvijai","Graužikai","Guanakai","Gulbės","Jakai","Kalakutai","Kiaulės","Kiaunės","Kiti avinai","Kiti gyvūnai","Kiti ožiai","Kiti paukščiai","Kitos kiaulės","Kiškiai","Kupranugariai","Kurapkos","Kurtiniai","Lamos","Lapės","Lūšys","Meškos","Meškėnai","Muflonai","Nutrijos","Ožkos","Papūgos","Pentardos","Povai","Pumos","Putpelės","Skunkai","Sliekai","Sraigės","Stirnos","Stručiai","Stumbrai","Triušiai","Tvenkinių žuvys","Vabzdžiai","Vanagai","Vilkai","Vištos","Zebrai","Šernai","Šeškai","Šinšilos","Žąsys"]
+                "type": "object",
+                "additionalProperties":true,
+                "title": "Numatomų laikyti gyvūnų rūšis *"
               },
               "skaicius": {
                 "type": "number",
@@ -992,7 +1063,7 @@
       "additionalProperties": false,
       "default": {},
       "properties": {
-        "patvirtinu":{
+        "patvirtinu": {
           "type": "string"
         },
         "patvirtinu-susipazines": {
@@ -1054,8 +1125,14 @@
           "type": "string",
           "title": "Įveskite savo el. paštą:"
         }
-      }, 
-      "required": ["patvirtinu-susipazines","patvirtinu-irenges","patvirtinu-parenges","patvirtinu-pasirenges","patvirtinu-nepazeidziant","patvirtinu-teisinga","isipareigoju-laikytis","isipareigoju-nevykdyti","isipareigoju-pateikti","isipareigoju-dokumentacija","isipareigoju-informuoti","sutikimas-informuotas"],
+      },
+      "required": [
+        "patvirtinu-susipazines",
+        "patvirtinu-parenges",
+        "patvirtinu-teisinga",
+        "isipareigoju-laikytis",
+        "isipareigoju-informuoti"
+      ],
       "errorMessage": {
         "required": {
           "patvirtinu-susipazines": "Privalote patvirtinti, kad esate susipažinęs su taikomais teisės aktų reikalavimais.",
