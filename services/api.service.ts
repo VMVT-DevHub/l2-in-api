@@ -92,6 +92,46 @@ import { User } from './users.service';
           );
         },
       },
+      {
+        path: '/vks',
+        whitelist: ['**'],
+        use: [],
+        mergeParams: true,
+        authentication: true,
+        authorization: true,
+        autoAliases: true,
+        aliases: {
+          'GET /ping': 'api.ping',
+        },
+        callingOptions: {},
+        bodyParsers: {
+          json: {
+            strict: false,
+            limit: '1MB',
+          },
+          urlencoded: {
+            extended: true,
+            limit: '1MB',
+          },
+        },
+        mappingPolicy: 'all',
+        logging: true,
+        onError: (req: any, res: any, err: any) => {
+          const status =
+            typeof err?.code === 'number' && err.code >= 400 && err.code < 600 ? err.code : 500;
+
+          const isClientError = status >= 400 && status < 500;
+
+          res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(
+            JSON.stringify({
+              name: 'error',
+              message: isClientError ? 'Invalid request' : 'Internal server error',
+              code: isClientError ? 'BAD_REQUEST' : 'INTERNAL_ERROR',
+            }),
+          );
+        },
+      },
     ],
     // Do not log client side errors (does not log an error response when the error.code is 400<=X<500)
     log4XXResponses: false,
@@ -119,6 +159,15 @@ export default class ApiService extends moleculer.Service {
 
   @Method
   async authenticate(ctx: Context<unknown, MetaSession>, _route: Route, req: IncomingRequest) {
+    const reqUrl = req.url || '';
+    ctx.meta.appVariant =
+      reqUrl === '/vks' ||
+      reqUrl.startsWith('/vks/') ||
+      reqUrl === '/vks/api' ||
+      reqUrl.startsWith('/vks/api/')
+        ? 'vks'
+        : 'default';
+
     const cookies = cookie.parse(req.headers.cookie || '');
     const token = cookies['vmvt-auth-token'];
     ctx.meta.session = {} as any;

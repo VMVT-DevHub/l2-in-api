@@ -380,6 +380,7 @@ export interface MetaSession {
     roles?: DelegatedOrgs | null;
     ak?: string | null;
   };
+  appVariant?: 'default' | 'vks';
 }
 
 export interface ActiveOrgResponse {

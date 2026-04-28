@@ -18,10 +18,6 @@ import {
 } from '../types';
 import { User } from './users.service';
 
-const VIISP_BASE_URL = process.env.VIISP_HOST;
-const VIISP_API_KEY = process.env.VIISP_API_KEY!;
-const viispHeaders = () => ({ 'x-api-Key': VIISP_API_KEY, Accept: 'application/json' });
-
 @Service({
   name: 'auth',
 })
@@ -36,20 +32,29 @@ export default class AuthService extends moleculer.Service {
   @Action({
     rest: 'POST /sign',
     auth: RestrictionType.PUBLIC,
+    params: {
+      appHost: { type: 'string', optional: true },
+    },
   })
-  async sign(ctx: Context<{}, ResponseHeadersMeta>) {
+  async sign(ctx: Context<{ appHost?: string }, ResponseHeadersMeta>) {
     try {
+      const { appHost } = ctx.params;
       const response: {
         ticket: string;
         host: string;
         url: string;
       } = await ctx.call('http.get', {
-        url: `${VIISP_BASE_URL}`,
+        url: `${this.getViispHost(ctx)}`,
         opt: {
           responseType: 'json',
-          headers: viispHeaders(),
+          headers: this.getViispHeaders(ctx),
         },
       });
+
+      if (appHost && response?.ticket && this.isAllowedAppHost(appHost)) {
+        await this.broker.cacher?.set(`viisp:ticket:${response.ticket}:appHost`, appHost, 60 * 15);
+      }
+
       ctx.meta.$statusCode = 302;
       ctx.meta.$location = response?.url;
     } catch (err) {
@@ -68,10 +73,16 @@ export default class AuthService extends moleculer.Service {
     try {
       const { ticket } = ctx.params;
       let userRoles: DelegatedOrgs | null = null;
+      const viispHost = this.getViispHost(ctx);
+      const viispHeaders = this.getViispHeaders(ctx);
+      const appHostFromCache = (await this.broker.cacher?.get(
+        `viisp:ticket:${ticket}:appHost`,
+      )) as unknown;
+      const appHost = typeof appHostFromCache === 'string' ? appHostFromCache : null;
 
       const res: ViispUserRaw = await ctx.call('http.get', {
-        url: `${VIISP_BASE_URL}/${ticket}`,
-        opt: { responseType: 'json', headers: viispHeaders() },
+        url: `${viispHost}/${ticket}`,
+        opt: { responseType: 'json', headers: viispHeaders },
       });
 
       let firstName = res.firstName;
@@ -107,8 +118,8 @@ export default class AuthService extends moleculer.Service {
 
       if (!authUser.companyCode) {
         const rawRoles = (await ctx.call('http.get', {
-          url: `${VIISP_BASE_URL}/roles/${authUser.uuid}`,
-          opt: { responseType: 'json', headers: viispHeaders() },
+          url: `${viispHost}/roles/${authUser.uuid}`,
+          opt: { responseType: 'json', headers: viispHeaders },
         })) as unknown;
 
         const roles: DelegatedOrgs = {
@@ -137,6 +148,7 @@ export default class AuthService extends moleculer.Service {
         authUser.companyName,
         authUser.ak,
         userRoles,
+        appHost || undefined,
       );
     } catch (err) {
       throwBadRequestError('Cannot login', err);
@@ -226,10 +238,12 @@ export default class AuthService extends moleculer.Service {
     const orgId = String(session?.companyCode);
 
     try {
-      const url = `${VIISP_BASE_URL}/roles/org/${orgId}`;
+      const viispHeaders = this.getViispHeaders(ctx);
+      const viispHost = this.getViispHost(ctx);
+      const url = `${viispHost}/roles/org/${orgId}`;
       const res = await ctx.call('http.get', {
         url,
-        opt: { responseType: 'json', headers: viispHeaders() },
+        opt: { responseType: 'json', headers: viispHeaders },
       });
       return res;
     } catch (err) {
@@ -255,24 +269,26 @@ export default class AuthService extends moleculer.Service {
     const { ak, firstName, lastName } = ctx.params;
 
     try {
-      const createUrl = `${VIISP_BASE_URL}/user`;
+      const viispHeaders = this.getViispHeaders(ctx);
+      const viispHost = this.getViispHost(ctx);
+      const createUrl = `${viispHost}/user`;
 
       const createRes: any = await ctx.call('http.post', {
         url: createUrl,
         opt: {
           json: { ak, firstName, lastName },
           responseType: 'json',
-          headers: viispHeaders(),
+          headers: viispHeaders,
         },
       });
 
       const userGuid: string = String(createRes?.id ?? '');
       if (!userGuid) throwBadRequestError('Upstream did not return user GUID');
 
-      const roleUrl = `${VIISP_BASE_URL}/roles/org/${session?.companyCode}/${userGuid}/user`;
+      const roleUrl = `${viispHost}/roles/org/${session?.companyCode}/${userGuid}/user`;
       await ctx.call('http.post', {
         url: roleUrl,
-        opt: { responseType: 'json', headers: viispHeaders() },
+        opt: { responseType: 'json', headers: viispHeaders },
       });
 
       return { orgId: String(session?.companyCode), userGuid, role: 'user' };
@@ -296,10 +312,12 @@ export default class AuthService extends moleculer.Service {
     const { userGuid } = ctx.params;
 
     try {
-      const url = `${VIISP_BASE_URL}/roles/org/${orgId}/${userGuid}/user`;
+      const viispHeaders = this.getViispHeaders(ctx);
+      const viispHost = this.getViispHost(ctx);
+      const url = `${viispHost}/roles/org/${orgId}/${userGuid}/user`;
       await ctx.call('http.delete', {
         url,
-        opt: { responseType: 'json', headers: viispHeaders() },
+        opt: { responseType: 'json', headers: viispHeaders },
       });
       return { orgId, userGuid, removed: true };
     } catch (err) {
@@ -333,6 +351,7 @@ export default class AuthService extends moleculer.Service {
     companyName?: string,
     ak?: string,
     userRoles?: DelegatedOrgs | null,
+    redirectUrl?: string,
   ) {
     const sid = crypto.randomUUID();
 
@@ -359,7 +378,7 @@ export default class AuthService extends moleculer.Service {
       }),
     };
     ctx.meta.$statusCode = 302;
-    ctx.meta.$location = process.env.FRONTEND_URL;
+    ctx.meta.$location = redirectUrl || process.env.FRONTEND_URL;
   }
 
   @Method
@@ -414,5 +433,44 @@ export default class AuthService extends moleculer.Service {
     }
 
     return resolved;
+  }
+
+  @Method
+  isAllowedAppHost(appHost: string) {
+    try {
+      const url = new URL(appHost);
+      return [
+        'localhost',
+        'sertifikatai.test.vmvt.lt',
+        'sertifikatai.vmvt.lt',
+        'eportalas.vmvt.lt',
+        'eportalas.test.vmvt.lt',
+      ].includes(url.hostname);
+    } catch {
+      return false;
+    }
+  }
+
+  @Method
+  getViispHost(ctx: Context<any, any>) {
+    const isVks = ctx?.meta?.appVariant === 'vks';
+    if (isVks) {
+      return process.env.VKS_VIISP_HOST || process.env.VIISP_HOST;
+    }
+    return process.env.VIISP_HOST;
+  }
+
+  @Method
+  getViispApiKey(ctx: Context<any, any>) {
+    const isVks = ctx?.meta?.appVariant === 'vks';
+    if (isVks) {
+      return process.env.VKS_VIISP_API_KEY || process.env.VIISP_API_KEY;
+    }
+    return process.env.VIISP_API_KEY;
+  }
+
+  @Method
+  getViispHeaders(ctx: Context<any, any>) {
+    return { 'x-api-Key': this.getViispApiKey(ctx), Accept: 'application/json' };
   }
 }
