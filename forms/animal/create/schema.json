@@ -594,6 +594,10 @@
               "type": "string",
               "title": "Pašarų su ŠGP gaminiais tvarkymo veikla *",
               "enum": ["FEED Fcf", "UMRFIM"],
+              "x-info": {
+                "FEED Fcf": "Ūkio subjektas, naudojantis kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais savo reikmėms visaverčiams pašarams gaminti",
+                "UMRFIM": "Ūkis, laikantis atrajotojus ir naudojantis pieno pakaitalus, kurių sudėtyje yra žuvų miltų, nenujunkytiems atrajotojų jaunikliams šerti"
+              },
               "errorMessage": {
                 "enum": "Turi būti viena iš pasirinktų veiklų"
               }
@@ -764,7 +768,14 @@
                 "uniqueItems": true,
                 "items": {
                   "type": "string",
-                  "enum": ["FIM", "DCAP", "TCAP", "BLPF", "PAP"]
+                  "enum": ["FIM", "DCAP", "TCAP", "BLPF", "PAP"],
+                  "x-info": {
+                    "FIM":"Žuvų miltai", 
+                    "DCAP":"Dikalcio fosfatas",
+                    "TCAP":"Trikalcio fosfatas", 
+                    "BLPF":"Kraujo produktai, gauti iš neatrajotojų", 
+                    "PAP":"Perdirbti gyvūniniai baltymai"
+                  }
                 }
               },
               "pasaro-santrupa": {
@@ -786,7 +797,21 @@
                     "MRFIMNR",
                     "PAPNO",
                     "PAPO"
-                  ]
+                  ],
+                  "x-info": {
+                    "BLPFNR": "Kombinuotasis pašaras ūkiniams neatrajotojams su iš neatrajotojų gautais kraujo produktais, pagamintas pašarų ūkio subjekte, kuris negamina pašarų atrajotojams",
+                    "BLPFR": "Kombinuotasis pašaras ūkiniams neatrajotojams su iš neatrajotojų gautais kraujo produktais, pagamintas pašarų ūkio subjekte, kuris gamina pašarus atrajotojams ir neatrajotojams",
+                    "DCAPNR": "Kombinuotasis pašaras ūkiniams neatrajotojams su gyvūniniu dikalcio fosfatu, pagamintas pašarų ūkio subjekte, kuris negamina pašarų atrajotojams",
+                    "DCAPR": "Kombinuotasis pašaras ūkiniams neatrajotojams su gyvūniniu dikalcio fosfatu, pagamintas pašarų ūkio subjekte, kuris gamina pašarus atrajotojams ir neatrajotojams",
+                    "TCAPNR": "Kombinuotasis pašaras ūkiniams neatrajotojams su gyvūniniu trikalcio fosfatu, pagamintas pašarų ūkio subjekte, kuris negamina pašarų atrajotojams",
+                    "TCAPR": "Kombinuotasis pašaras ūkiniams neatrajotojams su gyvūniniu trikalcio fosfatu, pagamintas pašarų ūkio subjekte, kuris gamina pašarus atrajotojams ir neatrajotojams",
+                    "FIMNR": "Kombinuotasis pašaras ūkiniams neatrajotojams su žuvų miltais, pagamintas pašarų ūkio subjekte, kuris negamina pašarų atrajotojams",
+                    "FIMR": "Kombinuotasis pašaras ūkiniams neatrajotojams su žuvų miltais, pagamintas pašarų ūkio subjekte, kuris gamina pašarus atrajotojams ir neatrajotojams",
+                    "MRFIMNR": "Pieno pakaitalai nenujunkytiems ūkiniams atrajotojams su žuvų miltais, pagaminti pašarų ūkio subjekte, kuris negamina kitų pašarų atrajotojams",
+                    "MRFIMR": "Pieno pakaitalai nenujunkytiems ūkiniams atrajotojams su žuvų miltais, pagaminti pašarų ūkio subjekte, kuris gamina ir kitus pašarus atrajotojams",
+                    "PAPNO": "Kombinuotasis pašaras su perdirbtais gyvūniniais baltymais, gautais iš neatrajotojų, kiaulių, paukščių, ūkinių vabzdžių, pagamintas pašarų ūkio subjekte, kuris negamina pašarų kitiems gyvūnams, taikydamas Reglamente (EB) Nr. 999/2001 nurodytas išimtis",
+                    "PAPO": "Kombinuotasis pašaras su perdirbtais gyvūniniais baltymais, gautais iš neatrajotojų, kiaulių, paukščių, ūkinių vabzdžių, pagamintas pašarų ūkio subjekte, kuris gamina pašarus ir kitiems gyvūnams, taikydamas Reglamente (EB) Nr. 999/2001 nurodytas išimtis"
+                  }
                 },
                 "oneOf": [
                   {

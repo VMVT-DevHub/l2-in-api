@@ -16,7 +16,7 @@ export default class AddressesService extends moleculer.Service {
     rest: 'GET /root',
   })
   async getRoot(ctx: Context) {
-    const url = `${this.baseUrl}/efsa/lists/animals/term?code=root`;
+    const url = `${this.baseUrl}/grk/terms?code=root`;
 
     const result: any = await this.broker.call('http.get', {
       url,
@@ -36,7 +36,7 @@ export default class AddressesService extends moleculer.Service {
   async getGroup(ctx: Context<{ code: string }>) {
     const { code } = ctx.params;
 
-    const url = `${this.baseUrl}/efsa/lists/animals/term?code=${code}`;
+    const url = `${this.baseUrl}/grk/terms?code=${code}`;
 
     const result: any = await this.broker.call('http.get', {
       url,
@@ -56,7 +56,7 @@ export default class AddressesService extends moleculer.Service {
   async getGroupBySearch(ctx: Context<{ q: string }>) {
     const { q } = ctx.params;
 
-    const url = `${this.baseUrl}/efsa/lists/animals?q=${q}`;
+    const url = `${this.baseUrl}/grk/search?q=${q}`;
 
     const result: any = await this.broker.call('http.get', {
       url,
