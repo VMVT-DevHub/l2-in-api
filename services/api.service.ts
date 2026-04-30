@@ -93,7 +93,7 @@ import { User } from './users.service';
         },
       },
       {
-        path: '/vks',
+        path: '/vks/api',
         whitelist: ['**'],
         use: [],
         mergeParams: true,

@@ -51,6 +51,10 @@ export default class AuthService extends moleculer.Service {
         },
       });
 
+      if (!response?.ticket || !response?.url) {
+        throwBadRequestError('Invalid VIISP sign response');
+      }
+
       if (appHost && response?.ticket && this.isAllowedAppHost(appHost)) {
         await this.broker.cacher?.set(`viisp:ticket:${response.ticket}:appHost`, appHost, 60 * 15);
       }
