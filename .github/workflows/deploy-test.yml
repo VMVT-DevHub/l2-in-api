@@ -17,6 +17,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          clean: true
 
       - name: Build & tag docker image
         uses: vmvt-devhub/reusable-workflows/.github/actions/docker-build-tag-push@main

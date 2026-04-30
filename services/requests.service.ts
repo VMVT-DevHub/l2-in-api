@@ -46,12 +46,12 @@ export type Request<
 > = Table<Fields, Populates, P, F>;
 
 const populatePermissions = (field: string) => {
-  return function (ctx: Context<{}, MetaSession>, _values: any, requests: any[]) {
+  return function (this: any, ctx: Context<{}, MetaSession>, _values: any, requests: any[]) {
     const session = ctx.meta.session;
     const user = session?.user;
 
     return requests.map((r: any) => {
-      const editingPermissions = this.hasPermissionToEdit(r, user, session.activeOrgCode ?? null);
+      const editingPermissions = this.hasPermissionToEdit(r, user, session?.activeOrgCode ?? null);
       return !!editingPermissions[field];
     });
   };
@@ -171,6 +171,7 @@ export default class extends moleculer.Service {
     activeOrgCode?: string | null,
   ): { edit: boolean; validate: boolean } {
     const invalid = { edit: false, validate: false };
+    const canEditAfterSubmit = request?.formType == 'certificate'; //only export can submit infinite times
 
     if (
       !request?.id ||
@@ -193,15 +194,22 @@ export default class extends moleculer.Service {
       reqCompany != null && actor != null && String(reqCompany) === String(actor);
 
     if (isSelfRow || isActorOrgMatch) {
-      return {
-        validate: false,
-        edit: [
-          RequestStatus.RETURNED,
-          RequestStatus.DRAFT,
-          RequestStatus.CREATED,
-          RequestStatus.SUBMITTED,
-        ].includes(request.status),
-      };
+      if (canEditAfterSubmit)
+        return {
+          validate: false,
+          edit: [
+            RequestStatus.RETURNED,
+            RequestStatus.DRAFT,
+            RequestStatus.CREATED,
+            RequestStatus.SUBMITTED,
+          ].includes(request.status),
+        };
+      else {
+        return {
+          validate: false,
+          edit: [RequestStatus.RETURNED, RequestStatus.DRAFT].includes(request.status),
+        };
+      }
     }
 
     return invalid;
@@ -312,25 +320,47 @@ export default class extends moleculer.Service {
     const formType = ctx.params?.formType;
     if (formType !== 'animal') return null;
     const veiklaviete = ctx.params?.data?.veiklaviete;
-
+    const pareiskejas = ctx.params?.data?.pareiskejas;
+    const companyAddress =
+      pareiskejas?.['atsakingas-asmuo']?.aob ||
+      pareiskejas?.['ja-duomenys']?.['ja-gyv']?.adrId ||
+      undefined;
     const address = veiklaviete?.adresas?.['ja-gyv']?.adrId || undefined;
     const willUseCoords = veiklaviete?.adresas?.['ar-bus-koordinates'];
     const longtitude = veiklaviete?.koordinates?.ilguma;
     const latitude = veiklaviete?.koordinates?.platuma;
 
     if (address && !willUseCoords) {
+      try {
+        const district: number = await ctx.call('addresses.findDist', { id: address });
+        return district ?? null;
+      } catch {
+        return null;
+      }
+    }
+    if (companyAddress && !willUseCoords) {
       const district: number = await ctx.call('addresses.findDist', {
-        id: address,
+        id: companyAddress,
       });
       return district ?? null;
     }
 
     if (longtitude && latitude && willUseCoords) {
-      const district: number = await ctx.call('addresses.findDistFromCoord', {
-        x: latitude,
-        y: longtitude,
-      });
-      return district ?? null;
+      try {
+        const district: number = await ctx.call('addresses.findDistFromCoord', {
+          x: latitude,
+          y: longtitude,
+        });
+        return district ?? null;
+      } catch {
+        if (companyAddress) {
+          const district: number = await ctx.call('addresses.findDist', {
+            id: companyAddress,
+          });
+          return district ?? null;
+        }
+        return null;
+      }
     }
     return null;
   }

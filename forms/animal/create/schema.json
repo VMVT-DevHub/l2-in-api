@@ -72,8 +72,6 @@
               }
             }
           }
-          
-         
         }
       },
       "required": ["atsakingas-asmuo"],
@@ -170,17 +168,13 @@
             },
             "ja-gyv": {
               "type": "object",
+              "required": ["gyvId", "adrId"],
               "properties": {
                 "gyvId": { "type": "number" },
                 "gyvName": { "type": "string" },
                 "adrId": { "type": "number" },
                 "adrName": { "type": "string" }
               }
-            },
-            "ar-laikinas-adresas": {
-              "type": "boolean",
-              "title": "Veterinarinės kontrolės veikla steigiama laikiname statinyje / naudojami laikini prekybos įrenginiai",
-              "description": "Žymima tuo atveju, kai numatoma vykdyti veterinarinės kontrolės veiklą laikinuosiuose statiniuose ar tik naudojant laikinuosius prekybos įrenginius, nurodomas maisto tvarkymo vietos adresas pagal artimiausio statinio adresą, pažymėkite, kad maisto tvarkymo vieta yra prie minėto statinio"
             },
             "ar-bus-koordinates": {
               "type": "boolean",
@@ -206,14 +200,22 @@
           "type": "object",
           "properties": {
             "platuma": {
-              "type": "number",
+              "type": "string",
               "title": "Platuma *",
-              "format": "double"
+              "pattern": "^(5[3-6]\\.\\d{4,6})$",
+              "errorMessage": {
+                "pattern": "Platumos formatas turi būti galiojantis",
+                "minLength": "Koordinačių platuma privaloma"
+              }
             },
             "ilguma": {
-              "type": "number",
+              "type": "string",
               "title": "Ilguma *",
-              "format": "double"
+              "pattern": "^(2[0-6]\\.\\d{4,6})$",
+              "errorMessage": {
+                "pattern": "Ilgumos formatas turi būti galiojantis",
+                "minLength": "Koordinačių platuma privaloma"
+              }
             }
           },
           "required": ["platuma", "ilguma"],
@@ -235,7 +237,7 @@
                 "title": "Statinio / patalpų unikalus numeris (Nekilnojamo turto objekto unikalus numeris) *",
                 "pattern": "^\\d{4}-\\d{4}-\\d{4}(?::\\d{4})?$",
                 "errorMessage": {
-                  "pattern": "Statinio / patalpų unikalus numeris turi būti galiojantis"
+                  "pattern": "Statinio / patalpų unikalus numeris turi atitikti xxxx-xxxx-xxxx arba  xxxx-xxxx-xxxx:xxxx  formatą"
                 }
               },
               "paskirtis": {
@@ -271,11 +273,17 @@
                 ],
                 "x-need-ids": true
               },
+              "paskirtis-id": {
+                  "type": "integer"
+                },
               "pagrindas": {
                 "type": "string",
                 "title": "Teritorijos, statinio / patalpos teisėto naudojimo pagrindas *",
                 "enum": ["Terminuotas", "Neterminuotas"],
                 "x-need-ids": true
+              },
+              "pagrindas-id": {
+                  "type": "integer"
               }
             },
             "required": ["numeris", "paskirtis", "pagrindas"],
@@ -338,37 +346,27 @@
               },
               "uniqueItems": true
             },
-            "valandos": {
+            "valandos-pradzia": {
               "type": "string",
-              "title": "Pasirinkite darbo valandas *",
-              "enum": ["8:00 - 17:00", "Kita"]
+              "title": "Pasirinkite darbo dienos pradžią *",
+              "format": "time"
             },
-            "valandos-kita": {
+            "valandos-pabaiga": {
               "type": "string",
-              "title": "Nurodykite specifines darbo valandas *"
+              "title": "Pasirinkite darbo dienos pabaigą *",
+              "format": "time"
             }
           },
-          "required": ["savaites-dienos", "valandos", "menesiai"],
+          "required": ["savaites-dienos", "valandos-pradzia", "valandos-pabaiga", "menesiai"],
           "errorMessage": {
             "required": {
-              "valandos": "Darbo valandos yra privalomos",
+              "valandos-pradzia": "Darbo valandų pradžia yra privaloma",
+              "valandos-pabaiga": "Darbo valandų pabaiga yra privaloma",
               "savaites-dienos": "Savaitės dienos yra privalomos.",
               "menesiai": "Mėnesiai yra privalomi."
             }
-          },
-           "if": {
-          "properties": {
-            "valandos": { "const": "Kita" }
-            }
-          },
-          "then": {
-            "required": ["valandos-kita"],
-            "errorMessage": {
-              "required": {
-                "valandos-kita": "Specifinės darbo valandos yra privalomos."
-              }
-            }
           }
+         
         }
       },
       "required": ["darbuotojai", "pavadinimas", "darbo-laikas"], 
@@ -400,11 +398,12 @@
         },
         "evrk": {
           "title": "Ekonominės veiklos kodas pagal EVRK *",
-          "type": "string"
+          "type": "string",
+          "x-EVRK": true
         },
         "detalizacija": {
           "type": "object",
-          "additionalProperties": false,
+          "additionalProperties": true,
           "properties": {
             "sgp-kodas": {
               "type": "array",
@@ -466,6 +465,9 @@
                 "x-need-ids": true
               }
             },
+            "sgp-kodas-id": {
+                "type": "integer"
+            },
             "sgp-kodas-kita": {
               "type": "string",
               "title": "Kitas ŠGP ir jų gaminių tvarkymo veiklos kodas *"
@@ -481,14 +483,9 @@
               }
             },
             "gyvunu-rusys": {
-              "type": "array",
-              "title": "Gyvūnų rūšis *",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string",
-                "enum": ["Šuo", "Katė", "Karvė", "Arklys", "Ropliai"]
-              }
+              "type": "object",
+              "additionalProperties": true,
+              "title": "Gyvūnų rūšis"
             },
             "sgp-santrupa": {
               "type": "array",
@@ -569,15 +566,17 @@
                 "x-need-ids": true
               }
             },
+            "sgp-santrupa-id": {
+              "type":"integer"
+            },
             "sgp-santrupa-kita": {
               "type": "string",
               "title": "Kita tvarkomų ŠGP ir jų gaminių santrumpa *"
             }
           },
-          "required": ["sgp-kodas", "kategorija", "sgp-santrupa", "gyvunu-rusys"],
+          "required": ["sgp-kodas", "kategorija", "sgp-santrupa"],
           "errorMessage": {
             "required": {
-              "gyvunu-rusys": "Gyvūnų rūšys yra privalomos",
               "sgp-kodas": "ŠGP veiklos kodas yra privalomos",
               "kategorija": "Kategorija yra privaloma"
             }
@@ -585,18 +584,20 @@
         },
         "pasaru-detalizacija-79": {
           "type": "object",
-          "additionalProperties": false,
-          "required": ["gyvunai", "santrupos", "pasaru-kodas"],
+          "additionalProperties": true,
+          "required": ["pasaru-kodas"],
           "errorMessage": {
-            "gyvunai": "Gyvūnai, kuriems skirti visaverčiai pašarai, laukas yra privalomas",
-            "pasaru-kodas": "Pašarų su ŠGP gaminiais tvarkymo veikla yra privaloma",
-            "santrupos": "santrupos veikia"
+            "pasaru-kodas": "Pašarų su ŠGP gaminiais tvarkymo veikla yra privaloma"
           },
           "properties": {
             "pasaru-kodas": {
               "type": "string",
               "title": "Pašarų su ŠGP gaminiais tvarkymo veikla *",
               "enum": ["FEED Fcf", "UMRFIM"],
+              "x-info": {
+                "FEED Fcf": "Ūkio subjektas, naudojantis kombinuotuosius pašarus su šalutinių gyvūninių produktų gaminiais savo reikmėms visaverčiams pašarams gaminti",
+                "UMRFIM": "Ūkis, laikantis atrajotojus ir naudojantis pieno pakaitalus, kurių sudėtyje yra žuvų miltų, nenujunkytiems atrajotojų jaunikliams šerti"
+              },
               "errorMessage": {
                 "enum": "Turi būti viena iš pasirinktų veiklų"
               }
@@ -612,15 +613,13 @@
                 "Akvakultūros gyvūnai"
               ],
               "errorMessage": {
-                "enum": "Turi būti viena iš pasirinktų veiklų"
+                "enum": "Turi būti viena iš pasirinktų reikšmių"
               }
             },
             "santrupos": {
               "type": "array",
               "title": "Pašarų su ŠGP gaminiais santrumpa *",
               "uniqueItems": true,
-              "default": [],
-              "minItems": 1,
               "items": {
                 "type": "string",
                 "enum": [
@@ -638,23 +637,111 @@
                   "type": "string",
                   "title": "Pašarų su ŠGP gaminiais santrumpa *",
                   "default": "PAP - Pagaminti su kombinuotaisiais pašarais",
-                  "enum": ["PAP - Pagaminti su kombinuotaisiais pašarais"]
+                  "enum": ["", "PAP - Pagaminti su kombinuotaisiais pašarais"]
                 },
                 "gyvunas": {
                   "type": "array",
                   "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai *",
                   "uniqueItems": true,
-                  "default": [],
-                  "minItems": 1,
                   "items": {
                     "type": "string",
                     "x-animal": true,
                     "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
-                  } 
+                  }
+                }
+              },
+
+              "if": {
+                "properties": {
+                  "gyvunas": { "type": "array" }
+                }
+              },
+              "then": {},
+              "else": {}
+            }
+          },
+
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "pasaru-kodas": { "const": "FEED Fcf" }
+                },
+                "required": ["pasaru-kodas"]
+              },
+              "then": {
+                "required": ["gyvunai"],
+                "errorMessage": {
+                  "required": {
+                    "gyvunai": "Gyvūnai, kuriems skirti visaverčiai pašarai, laukas yra privalomas"
+                  }
+                }
+              }
+            },
+
+            {
+              "if": {
+                "properties": {
+                  "pasaru-kodas": { "const": "FEED Fcf" },
+                  "gyvunai": { "const": "Neatrajotojai" }
+                },
+                "required": ["gyvunai"]
+              },
+              "then": {
+                "properties": {
+                  "santrupos": {
+                    "minItems": 1,
+                    "errorMessage": {
+                      "minItems": "Pašarų su ŠGP gaminiais santrumpa, laukas yra privalomas"
+                    }
+                  }
+                },
+                "required": ["santrupos"],
+                "errorMessage": {
+                  "required": {
+                    "santrupos": "Pašarų su ŠGP gaminiais santrumpa, laukas yra privalomas"
+                  }
+                }
+              }
+            },
+
+            {
+              "if": {
+                "properties": {
+                  "pasaru-kodas": { "const": "FEED Fcf" },
+                  "gyvunai": {
+                    "enum": [
+                      "Naminiai paukščiai",
+                      "Kiaulės",
+                      "Akvakultūros gyvūnai, naminiai paukščiai ir kiaulės",
+                      "Akvakultūros gyvūnai"
+                    ]
+                  }
+                },
+                "required": ["pasaru-kodas", "gyvunai"]
+              },
+              "then": {
+                "properties": {
+                  "pap": {
+                    "required": ["gyvunas"],
+                    "errorMessage": {
+                      "required": {
+                        "gyvunas": "Gyvūnai, iš kurių gauti perdirbti baltymai, laukas yra privalomas"
+                      }
+                    },
+                    "properties": {
+                      "gyvunas": {
+                        "minItems": 1,
+                        "errorMessage": {
+                          "minItems": "Gyvūnai, iš kurių gauti perdirbti baltymai, laukas yra privalomas"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
-          }
+          ]
         },
         "pasaru-detalizacija-68": {
           "type": "array",
@@ -681,7 +768,14 @@
                 "uniqueItems": true,
                 "items": {
                   "type": "string",
-                  "enum": ["FIM", "DCAP", "TCAP", "BLPF", "PAP"]
+                  "enum": ["FIM", "DCAP", "TCAP", "BLPF", "PAP"],
+                  "x-info": {
+                    "FIM":"Žuvų miltai", 
+                    "DCAP":"Dikalcio fosfatas",
+                    "TCAP":"Trikalcio fosfatas", 
+                    "BLPF":"Kraujo produktai, gauti iš neatrajotojų", 
+                    "PAP":"Perdirbti gyvūniniai baltymai"
+                  }
                 }
               },
               "pasaro-santrupa": {
@@ -703,7 +797,21 @@
                     "MRFIMNR",
                     "PAPNO",
                     "PAPO"
-                  ]
+                  ],
+                  "x-info": {
+                    "BLPFNR": "Kombinuotasis pašaras ūkiniams neatrajotojams su iš neatrajotojų gautais kraujo produktais, pagamintas pašarų ūkio subjekte, kuris negamina pašarų atrajotojams",
+                    "BLPFR": "Kombinuotasis pašaras ūkiniams neatrajotojams su iš neatrajotojų gautais kraujo produktais, pagamintas pašarų ūkio subjekte, kuris gamina pašarus atrajotojams ir neatrajotojams",
+                    "DCAPNR": "Kombinuotasis pašaras ūkiniams neatrajotojams su gyvūniniu dikalcio fosfatu, pagamintas pašarų ūkio subjekte, kuris negamina pašarų atrajotojams",
+                    "DCAPR": "Kombinuotasis pašaras ūkiniams neatrajotojams su gyvūniniu dikalcio fosfatu, pagamintas pašarų ūkio subjekte, kuris gamina pašarus atrajotojams ir neatrajotojams",
+                    "TCAPNR": "Kombinuotasis pašaras ūkiniams neatrajotojams su gyvūniniu trikalcio fosfatu, pagamintas pašarų ūkio subjekte, kuris negamina pašarų atrajotojams",
+                    "TCAPR": "Kombinuotasis pašaras ūkiniams neatrajotojams su gyvūniniu trikalcio fosfatu, pagamintas pašarų ūkio subjekte, kuris gamina pašarus atrajotojams ir neatrajotojams",
+                    "FIMNR": "Kombinuotasis pašaras ūkiniams neatrajotojams su žuvų miltais, pagamintas pašarų ūkio subjekte, kuris negamina pašarų atrajotojams",
+                    "FIMR": "Kombinuotasis pašaras ūkiniams neatrajotojams su žuvų miltais, pagamintas pašarų ūkio subjekte, kuris gamina pašarus atrajotojams ir neatrajotojams",
+                    "MRFIMNR": "Pieno pakaitalai nenujunkytiems ūkiniams atrajotojams su žuvų miltais, pagaminti pašarų ūkio subjekte, kuris negamina kitų pašarų atrajotojams",
+                    "MRFIMR": "Pieno pakaitalai nenujunkytiems ūkiniams atrajotojams su žuvų miltais, pagaminti pašarų ūkio subjekte, kuris gamina ir kitus pašarus atrajotojams",
+                    "PAPNO": "Kombinuotasis pašaras su perdirbtais gyvūniniais baltymais, gautais iš neatrajotojų, kiaulių, paukščių, ūkinių vabzdžių, pagamintas pašarų ūkio subjekte, kuris negamina pašarų kitiems gyvūnams, taikydamas Reglamente (EB) Nr. 999/2001 nurodytas išimtis",
+                    "PAPO": "Kombinuotasis pašaras su perdirbtais gyvūniniais baltymais, gautais iš neatrajotojų, kiaulių, paukščių, ūkinių vabzdžių, pagamintas pašarų ūkio subjekte, kuris gamina pašarus ir kitiems gyvūnams, taikydamas Reglamente (EB) Nr. 999/2001 nurodytas išimtis"
+                  }
                 },
                 "oneOf": [
                   {
@@ -734,9 +842,11 @@
                 }
               },
               "gyvunas": {
-                "type": "string",
+                "type": "array",
                 "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai *",
-                "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
+                "uniqueItems": true,
+                "items": { "type": "string",
+                  "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]}
               }
             },
             "required": [],
@@ -791,7 +901,7 @@
           "properties": {
             "laikotarpis": {
               "type": "string",
-              "title": "Laikotarpis *",
+              "title": "Laikotarpis",
               "enum": [
                 "Per pamainą",
                 "Per dieną",
@@ -802,9 +912,11 @@
               ],
               "x-need-ids": true
             },
-           
+            "laikotarpis-id": {
+              "type":"integer"
+            },
             "kiekis-matas": {
-              "title": "Pagaminamos produkcijos kiekis *",
+              "title": "Pagaminamos produkcijos kiekis",
               "type": "object",
               "default": {},
 
@@ -820,21 +932,9 @@
                   "type": "string",
                   "enum": ["vnt", "vnt/m²", "ha", "kg", "m²", "m³"]
                 }
-              },
-              "required": ["kiekis"],
-              "errorMessage": {
-                "required": {
-                  "kiekis": "Kiekis yra privalomas"
-                }
               }
             }
-          },
-           "required": ["laikotarpis"],
-            "errorMessage": {
-              "required": {
-                "laikotarpis": "Laikotarpis yra privalomas."
-              }
-            }
+          }
         },
         "produktai": {
           "type": "array",
@@ -848,17 +948,14 @@
                 "enum": ["Sperma", "Oocitai, įskaitant kiaušialąstes", "Embrionai"],
                 "x-need-ids": true
               },
-              "rusis": {
-                "type": "array",
-                "title": "Gyvūnų rūšis *",
-                "uniqueItems": true,
-                "default": [],
-                "minLength": 1,
-                "items": {
-                  "type": "string",
-                  "enum": ["Šuo", "Katė", "Karvė", "Arklys", "Ropliai"]
-                }
+              "kategorija-id": {
+                "type": "number"
               },
+              "rusis": {
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Gyvūnų rūšis"
+            },
               "talpyklos": {
                 "type": "string",
                 "title": "Talpyklų skaičius (vnt. / mėn.) *"
@@ -877,13 +974,14 @@
         "gyvunai": {
           "type": "array",
           "default": [{}],
+          "additionalProperties":true,
           "items": {
             "type": "object",
             "properties": {
               "rusis": {
-                "type": "string",
-                "title": "Numatomų laikyti gyvūnų rūšis *",
-                "enum": ["Šuo", "Katė", "Karvė", "Arklys", "Ropliai"]
+                "type": "object",
+                "additionalProperties":true,
+                "title": "Numatomų laikyti gyvūnų rūšis *"
               },
               "skaicius": {
                 "type": "number",
@@ -905,7 +1003,9 @@
                   "Gyvenamosios patalpos"
                 ],
                 "x-need-ids": true
-                
+              },
+              "laikymas-id": {
+                "type": "number"
               },
               "plotas": {
                 "type": "string",
@@ -957,7 +1057,10 @@
           "$ref": "forms/global/defs.json#/definitions/dokumentas"
         },
         "proceso-aprasymas": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
+          "type": "array",
+          "items": {
+            "$ref": "forms/global/defs.json#/definitions/dokumentas"
+          }
         },
         "rinkliava": {
           "$ref": "forms/global/defs.json#/definitions/dokumentas"
@@ -967,13 +1070,16 @@
           "items": {
             "$ref": "forms/global/defs.json#/definitions/dokumentas"
           }
+        },
+         "papildoma-info": {
+          "type": "string",
+          "title": ""
         }
       },
-       "required": ["patalpu-planas", "rinkliava"], 
+       "required": ["patalpu-planas"], 
       "errorMessage": {
         "required": {
-          "patalpu-planas": "Patalpų planas privalomas",
-          "rinkliava": "Rinkliavma yra privaloma"
+          "patalpu-planas": "Patalpų planas privalomas"
         }
       }
     },
@@ -982,7 +1088,7 @@
       "additionalProperties": false,
       "default": {},
       "properties": {
-        "patvirtinu":{
+        "patvirtinu": {
           "type": "string"
         },
         "patvirtinu-susipazines": {
@@ -1044,8 +1150,14 @@
           "type": "string",
           "title": "Įveskite savo el. paštą:"
         }
-      }, 
-      "required": ["patvirtinu-susipazines","patvirtinu-irenges","patvirtinu-parenges","patvirtinu-pasirenges","patvirtinu-nepazeidziant","patvirtinu-teisinga","isipareigoju-laikytis","isipareigoju-nevykdyti","isipareigoju-pateikti","isipareigoju-dokumentacija","isipareigoju-informuoti","sutikimas-informuotas"],
+      },
+      "required": [
+        "patvirtinu-susipazines",
+        "patvirtinu-parenges",
+        "patvirtinu-teisinga",
+        "isipareigoju-laikytis",
+        "isipareigoju-informuoti"
+      ],
       "errorMessage": {
         "required": {
           "patvirtinu-susipazines": "Privalote patvirtinti, kad esate susipažinęs su taikomais teisės aktų reikalavimais.",
@@ -1079,6 +1191,36 @@
     }
 
   },
+  "allOf": [
+  {
+    "if": {
+      "properties": {
+        "veiklos": {
+          "type": "object",
+          "properties": {
+           "veikla": {
+              "enum": ["59","60","61","01","101","102","12","13","15","16","18","19","22","23","24","25","26","27","29","30","31","32","33","34","35","38","39","40","43","44","46","47","51","55","57","63","68","72","73","75","87","91","92","97","98"]
+            }
+          },
+          "required": ["veikla"]
+        }
+      },
+      "required": ["veiklos"]
+    },
+    "then": {
+      "properties": {
+        "dokumentai": {
+          "required": ["rinkliava"],
+          "errorMessage": {
+            "required": {
+              "rinkliava": "Rinkliava yra privaloma"
+            }
+          }
+        }
+      }
+    }
+  }
+],
   
   "definitions": {
     "dokumentas": {

@@ -160,6 +160,7 @@
       "type": "string",
       "format": "email",
       "maxLength": 254,
+      "x-isPhoneOrEmail": true,
       "errorMessage": {
         "format": "El. paštas turi būti galiojantis",
         "maxLength": "El. paštas negali būti ilgesnis nei 254 simboliai."
@@ -196,7 +197,8 @@
           "errorMessage": {
             "pattern": "Telefono numeris turi būti galiojantis",
             "minLength": "Telefono numeris privalomas."
-          }
+          },
+          "x-isPhoneOrEmail": true
         },
         "el-pastas": {
           "$ref": "#/definitions/el-pastas"

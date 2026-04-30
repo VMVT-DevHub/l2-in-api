@@ -5,6 +5,7 @@ import { RestrictionType } from '@aplinkosministerija/moleculer-accounts';
 import { readdirSync, readFileSync } from 'fs';
 import moleculer, { Context } from 'moleculer';
 import { Action, Service } from 'moleculer-decorators';
+import { MetaSession } from '../types';
 
 export interface Form {
   name: string;
@@ -31,17 +32,34 @@ export interface FormType {
   },
 })
 export default class extends moleculer.Service {
+  private getFormsDir(ctx?: Context<any, MetaSession>) {
+    const defaultDir = this.settings.dir as string;
+    const vksDir = (process.env.VKS_FORMS_DIR || `${defaultDir}/vks`) as string;
+
+    if (ctx?.meta?.appVariant === 'vks') {
+      try {
+        readdirSync(vksDir, { withFileTypes: true });
+        return vksDir;
+      } catch {
+        this.logger.warn(
+          `VKS variant requested but forms dir "${vksDir}" does not exist. Falling back to "${defaultDir}".`,
+        );
+      }
+    }
+
+    return defaultDir;
+  }
+
   @Action({
     rest: 'GET /',
   })
-  async formTypes(_ctx: Context) {
-    const formTypes = readdirSync(this.settings.dir, { withFileTypes: true })
+  async formTypes(ctx: Context<any, MetaSession>) {
+    const formsDir = this.getFormsDir(ctx);
+    const formTypes = readdirSync(formsDir, { withFileTypes: true })
       .filter((dirent) => dirent.isDirectory())
       .map((dirent) => {
         const formType = dirent.name;
-        const config = JSON.parse(
-          readFileSync(`${this.settings.dir}/${formType}/config.json`, 'utf8'),
-        );
+        const config = JSON.parse(readFileSync(`${formsDir}/${formType}/config.json`, 'utf8'));
         return { formType, title: config.title };
       });
 
@@ -49,20 +67,18 @@ export default class extends moleculer.Service {
   }
 
   @Action()
-  getTree() {
-    return readdirSync(this.settings.dir, { withFileTypes: true })
+  getTree(ctx: Context<any, MetaSession>) {
+    const formsDir = this.getFormsDir(ctx);
+    return readdirSync(formsDir, { withFileTypes: true })
       .filter((dirent) => dirent.isDirectory())
       .reduce((acc: any, formTypeDir: any) => {
-        acc[formTypeDir.name] = readdirSync(`${this.settings.dir}/${formTypeDir.name}`, {
+        acc[formTypeDir.name] = readdirSync(`${formsDir}/${formTypeDir.name}`, {
           withFileTypes: true,
         })
           .filter((dirent) => dirent.isDirectory())
           .reduce((acc: any, formDir) => {
             acc[formDir.name] = JSON.parse(
-              readFileSync(
-                `${this.settings.dir}/${formTypeDir.name}/${formDir.name}/config.json`,
-                'utf8',
-              ),
+              readFileSync(`${formsDir}/${formTypeDir.name}/${formDir.name}/config.json`, 'utf8'),
             );
             return acc;
           }, {});
@@ -78,22 +94,23 @@ export default class extends moleculer.Service {
     },
   })
   async formType(ctx: Context<{ formType: string }>) {
+    const formsDir = this.getFormsDir(ctx);
     const formType = ctx.params.formType;
-    const config = JSON.parse(readFileSync(`${this.settings.dir}/${formType}/config.json`, 'utf8'));
+    const config = JSON.parse(readFileSync(`${formsDir}/${formType}/config.json`, 'utf8'));
 
     let formNames: string[];
 
     if (config.forms) {
       formNames = config.forms;
     } else {
-      formNames = readdirSync(`${this.settings.dir}/${formType}`, { withFileTypes: true })
+      formNames = readdirSync(`${formsDir}/${formType}`, { withFileTypes: true })
         .filter((dirent) => dirent.isDirectory())
         .map((dirent) => dirent.name);
     }
 
     const forms = formNames.map((form) => {
       const { title, description } = JSON.parse(
-        readFileSync(`${this.settings.dir}/${formType}/${form}/config.json`, 'utf8'),
+        readFileSync(`${formsDir}/${formType}/${form}/config.json`, 'utf8'),
       );
 
       return { form, formType, title, description };
@@ -110,21 +127,18 @@ export default class extends moleculer.Service {
     },
   })
   async form(ctx: Context<{ formType: string; form: string }>) {
+    const formsDir = this.getFormsDir(ctx);
     const formType = ctx.params.formType;
     const form = ctx.params.form;
 
-    const config = JSON.parse(
-      readFileSync(`${this.settings.dir}/${formType}/${form}/config.json`, 'utf8'),
-    );
+    const config = JSON.parse(readFileSync(`${formsDir}/${formType}/${form}/config.json`, 'utf8'));
 
-    const schema = JSON.parse(
-      readFileSync(`${this.settings.dir}/${formType}/${form}/schema.json`, 'utf8'),
-    );
+    const schema = JSON.parse(readFileSync(`${formsDir}/${formType}/${form}/schema.json`, 'utf8'));
 
     await $RefParser.dereference(schema);
 
     const uiSchema = JSON.parse(
-      readFileSync(`${this.settings.dir}/${formType}/${form}/uiSchema.json`, 'utf8'),
+      readFileSync(`${formsDir}/${formType}/${form}/uiSchema.json`, 'utf8'),
     );
 
     await $RefParser.dereference(uiSchema);

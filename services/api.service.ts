@@ -76,9 +76,47 @@ import { User } from './users.service';
         // Enable/disable logging
         logging: true,
 
-        onError(req: any, res: any, err: any) {
-          this.logger.error('API error', err);
+        onError: (req: any, res: any, err: any) => {
+          const status =
+            typeof err?.code === 'number' && err.code >= 400 && err.code < 600 ? err.code : 500;
 
+          const isClientError = status >= 400 && status < 500;
+
+          res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(
+            JSON.stringify({
+              name: 'error',
+              message: isClientError ? 'Invalid request' : 'Internal server error',
+              code: isClientError ? 'BAD_REQUEST' : 'INTERNAL_ERROR',
+            }),
+          );
+        },
+      },
+      {
+        path: '/vks/api',
+        whitelist: ['**'],
+        use: [],
+        mergeParams: true,
+        authentication: true,
+        authorization: true,
+        autoAliases: true,
+        aliases: {
+          'GET /ping': 'api.ping',
+        },
+        callingOptions: {},
+        bodyParsers: {
+          json: {
+            strict: false,
+            limit: '1MB',
+          },
+          urlencoded: {
+            extended: true,
+            limit: '1MB',
+          },
+        },
+        mappingPolicy: 'all',
+        logging: true,
+        onError: (req: any, res: any, err: any) => {
           const status =
             typeof err?.code === 'number' && err.code >= 400 && err.code < 600 ? err.code : 500;
 
@@ -120,7 +158,30 @@ export default class ApiService extends moleculer.Service {
   }
 
   @Method
-  async authenticate(ctx: Context<unknown, MetaSession>, _route: Route, req: IncomingRequest) {
+  async authenticate(ctx: Context<unknown, MetaSession>, route: Route, req: IncomingRequest) {
+    const reqUrl = req.url || '';
+    const routePath = (route as any)?.path;
+    const host = req.headers.host?.split(':')[0]?.toLowerCase();
+
+    ctx.meta.appVariant =
+      routePath === '/vks/api' ||
+      host === 'eportalas.test.vmvt.lt' ||
+      host === 'eportalas.vmvt.lt' ||
+      reqUrl === '/vks' ||
+      reqUrl.startsWith('/vks/') ||
+      reqUrl === '/vks/api' ||
+      reqUrl.startsWith('/vks/api/')
+        ? 'vks'
+        : 'default';
+
+    this.logger.info('Gateway request', {
+      host: req.headers.host,
+      url: reqUrl,
+      routePath,
+      appVariant: ctx.meta.appVariant,
+      method: req.method,
+    });
+
     const cookies = cookie.parse(req.headers.cookie || '');
     const token = cookies['vmvt-auth-token'];
     ctx.meta.session = {} as any;
@@ -128,7 +189,7 @@ export default class ApiService extends moleculer.Service {
       return;
     }
 
-    const data: any = await verifyToken(token, process.env.ACCESS_JWT_SECRET);
+    const data: any = await verifyToken(token, process.env.ACCESS_JWT_SECRET!);
     const userId = Number(data?.sub);
     const sid = data?.sid;
     if (!userId || !sid) {
@@ -156,6 +217,7 @@ export default class ApiService extends moleculer.Service {
       companyName: session?.companyName ?? null,
       activeOrgCode: session?.activeOrgCode,
       roles: session?.roles ?? null,
+      ak: session?.ak ? session?.ak.toString() : null,
     };
     return;
   }

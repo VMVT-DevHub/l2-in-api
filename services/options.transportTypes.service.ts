@@ -35,7 +35,8 @@ export type TransportType<
   settings: {
     fields: {
       id: {
-        type: 'number',
+        type: 'string',
+        columnType: 'string',
         primaryKey: true,
         secure: true,
       },

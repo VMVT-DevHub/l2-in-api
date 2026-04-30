@@ -17,6 +17,7 @@ export interface User {
   lastName: string;
   email: string;
   phone: string;
+  ak: string;
 }
 
 @Service({
@@ -68,6 +69,7 @@ export default class UsersService extends moleculer.Service {
       lastName: authUser.lastName,
       email: authUser.email,
       phone: authUser.phone,
+      ak: authUser.ak,
     };
 
     if (authUser.uuid) {
@@ -99,6 +101,7 @@ export default class UsersService extends moleculer.Service {
           id: byAk.id,
           uuid: authUser.uuid || null,
           code: null, // remove AK
+          ak: authUser.ak,
           ...data,
         },
         { scope },
@@ -111,6 +114,7 @@ export default class UsersService extends moleculer.Service {
       lastName: authUser.lastName,
       email: authUser.email,
       phone: authUser.phone,
+      ak: authUser.ak,
     });
   }
 }

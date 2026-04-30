@@ -92,6 +92,12 @@ export const COMMON_SCOPES = {
   },
 };
 
+export const SCOPE_VKO_DECISIONS = {
+  notDeleted: {
+    sprenDelete: false,
+  },
+};
+
 export function throwUnauthorizedError(message?: string): Errors.MoleculerError {
   throw new Moleculer.Errors.MoleculerClientError(message || `Unauthorized.`, 401, 'UNAUTHORIZED');
 }
