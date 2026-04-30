@@ -168,6 +168,13 @@ export default class ApiService extends moleculer.Service {
         ? 'vks'
         : 'default';
 
+    this.logger.info('Gateway request', {
+      host: req.headers.host,
+      url: reqUrl,
+      appVariant: ctx.meta.appVariant,
+      method: req.method,
+    });
+
     const cookies = cookie.parse(req.headers.cookie || '');
     const token = cookies['vmvt-auth-token'];
     ctx.meta.session = {} as any;
