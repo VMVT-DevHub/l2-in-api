@@ -12,7 +12,7 @@ import {
 } from '../types';
 import { VISIBLE_TO_CREATOR_OR_ADMIN_SCOPE_VKO } from '../utils/scopes';
 
-const schema = process.env.VKS_DB_SCHEMA || 'vko';
+const schema = process.env.VKS_DB_SCHEMA || 'vks';
 // temporary, until gytis adds 'vks' to test db
 
 interface Fields extends CommonFields {
