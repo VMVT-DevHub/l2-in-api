@@ -1,11 +1,11 @@
-const schema = 'vko';
+const schema = 'vks';
 
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
 exports.up = async function (knex) {
-  await knex.schema.createSchemaIfNotExists('vko');
+  await knex.schema.createSchemaIfNotExists('vks');
 
   await knex.schema.withSchema(schema).createTable('sprendimai', (table) => {
     table.increments('id').primary();

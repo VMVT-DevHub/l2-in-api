@@ -12,6 +12,9 @@ import {
 } from '../types';
 import { VISIBLE_TO_CREATOR_OR_ADMIN_SCOPE_VKO } from '../utils/scopes';
 
+const schema = process.env.VKS_DB_SCHEMA || 'vko';
+// temporary, until gytis adds 'vks' to test db
+
 interface Fields extends CommonFields {
   id: string;
   name: string;
@@ -32,7 +35,7 @@ export type TransportType<
   mixins: [
     DbConnection({
       collection: 'sprendimai',
-      schema: 'vko',
+      schema: schema,
       createActions: {
         create: false,
         update: false,
