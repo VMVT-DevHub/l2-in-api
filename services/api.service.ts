@@ -158,9 +158,15 @@ export default class ApiService extends moleculer.Service {
   }
 
   @Method
-  async authenticate(ctx: Context<unknown, MetaSession>, _route: Route, req: IncomingRequest) {
+  async authenticate(ctx: Context<unknown, MetaSession>, route: Route, req: IncomingRequest) {
     const reqUrl = req.url || '';
+    const routePath = (route as any)?.path;
+    const host = req.headers.host?.split(':')[0]?.toLowerCase();
+
     ctx.meta.appVariant =
+      routePath === '/vks/api' ||
+      host === 'eportalas.test.vmvt.lt' ||
+      host === 'eportalas.vmvt.lt' ||
       reqUrl === '/vks' ||
       reqUrl.startsWith('/vks/') ||
       reqUrl === '/vks/api' ||
@@ -171,6 +177,7 @@ export default class ApiService extends moleculer.Service {
     this.logger.info('Gateway request', {
       host: req.headers.host,
       url: reqUrl,
+      routePath,
       appVariant: ctx.meta.appVariant,
       method: req.method,
     });
