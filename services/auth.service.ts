@@ -51,6 +51,10 @@ export default class AuthService extends moleculer.Service {
         },
       });
 
+      if (!response?.ticket || !response?.url) {
+        throwBadRequestError('Invalid VIISP sign response');
+      }
+
       if (appHost && response?.ticket && this.isAllowedAppHost(appHost)) {
         await this.broker.cacher?.set(`viisp:ticket:${response.ticket}:appHost`, appHost, 60 * 15);
       }
@@ -463,6 +467,13 @@ export default class AuthService extends moleculer.Service {
   @Method
   getViispApiKey(ctx: Context<any, any>) {
     const isVks = ctx?.meta?.appVariant === 'vks';
+    this.logger.info('Using VIISP API key source', {
+      appVariant: ctx?.meta?.appVariant,
+      source: isVks && process.env.VKS_VIISP_API_KEY ? 'VKS_VIISP_API_KEY' : 'VIISP_API_KEY',
+      hasVksKey: !!process.env.VKS_VIISP_API_KEY,
+      hasDefaultKey: !!process.env.VIISP_API_KEY,
+    });
+
     if (isVks) {
       return process.env.VKS_VIISP_API_KEY || process.env.VIISP_API_KEY;
     }
