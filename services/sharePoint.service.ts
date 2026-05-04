@@ -16,10 +16,27 @@ export default class SharePointService extends Moleculer.Service {
   async authenticate(certType: certType) {
     const url = `https://login.microsoftonline.com/${process.env.SHARE_POINT_TENANT_ID}/oauth2/v2.0/token`;
 
+    const credentials = {
+      ser: {
+        clientId: process.env.SHARE_POINT_CLIENT_ID,
+        clientSecret: process.env.SHARE_POINT_CLIENT_SECRET,
+      },
+      vet: {
+        clientId: process.env.SHARE_POINT_CLIENT_ID_VET,
+        clientSecret: process.env.SHARE_POINT_CLIENT_SECRET_VET,
+      },
+    };
+
+    const creds = credentials[certType];
+
+    if (!creds?.clientId || !creds?.clientSecret) {
+      throw new Error(`Missing SharePoint credentials for certType: ${certType}`);
+    }
+
     const postData = new URLSearchParams({
       grant_type: 'client_credentials',
-      client_id: process.env.SHARE_POINT_CLIENT_ID,
-      client_secret: process.env.SHARE_POINT_CLIENT_SECRET,
+      client_id: creds.clientId,
+      client_secret: creds.clientSecret,
       scope: 'https://graph.microsoft.com/.default',
     });
 
@@ -50,8 +67,8 @@ export default class SharePointService extends Moleculer.Service {
   }
 
   @Method
-  async getToken(certType?: certType) {
-    // await this.broker.cacher.del(`${this.name}_${certType}.token`);
+  async getToken(certType: certType = 'ser') {
+    await this.broker.cacher.del(`${this.name}_${certType}.token`);
     const tokenKey = `${this.name}_${certType}.token`;
     let sharePointToken = (await this.broker.cacher.get(tokenKey))?.token;
     if (!sharePointToken) {
