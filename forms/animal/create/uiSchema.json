@@ -916,6 +916,13 @@
                             }
                           ]
                         }
+                      },
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/veikla",
+                          "schema": { "enum": ["71", "77"] }
+                        }
                       }
                     },
                     {
