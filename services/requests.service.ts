@@ -333,16 +333,16 @@ export default class extends moleculer.Service {
     if (address && !willUseCoords) {
       try {
         const district: number = await ctx.call('addresses.findDist', { id: address });
-        return district ?? null;
+        return district ?? 99;
       } catch {
-        return null;
+        return 99;
       }
     }
     if (companyAddress && !willUseCoords) {
       const district: number = await ctx.call('addresses.findDist', {
         id: companyAddress,
       });
-      return district ?? null;
+      return district ?? 99;
     }
 
     if (longtitude && latitude && willUseCoords) {
@@ -351,18 +351,18 @@ export default class extends moleculer.Service {
           x: latitude,
           y: longtitude,
         });
-        return district ?? null;
+        return district ?? 99;
       } catch {
         if (companyAddress) {
           const district: number = await ctx.call('addresses.findDist', {
             id: companyAddress,
           });
-          return district ?? null;
+          return district ?? 99;
         }
-        return null;
+        return 99;
       }
     }
-    return null;
+    return 99;
   }
 
   @Method
