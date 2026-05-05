@@ -204,11 +204,21 @@
           "properties": {
             "platuma": {
               "type": "string",
-              "title": "Platuma *"
+              "title": "Platuma *",
+               "pattern": "^(2[0-6]\\.\\d{4,6})$",
+              "errorMessage": {
+                "pattern": "Ilgumos formatas turi būti galiojantis",
+                "minLength": "Koordinačių platuma privaloma"
+              }
             },
             "ilguma": {
               "type": "string",
-              "title": "Ilguma *"
+              "title": "Ilguma *",
+               "pattern": "^(2[0-6]\\.\\d{4,6})$",
+              "errorMessage": {
+                "pattern": "Ilgumos formatas turi būti galiojantis",
+                "minLength": "Koordinačių platuma privaloma"
+              }
             }
           }
         },
