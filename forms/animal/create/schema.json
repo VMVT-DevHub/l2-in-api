@@ -205,9 +205,9 @@
             "platuma": {
               "type": "string",
               "title": "Platuma *",
-               "pattern": "^(2[0-6]\\.\\d{4,6})$",
+               "pattern": "^(5[3-6]\\.\\d{4,6})$",
               "errorMessage": {
-                "pattern": "Ilgumos formatas turi būti galiojantis",
+                "pattern": "Platumos  formatas turi būti galiojantis",
                 "minLength": "Koordinačių platuma privaloma"
               }
             },
@@ -217,7 +217,7 @@
                "pattern": "^(2[0-6]\\.\\d{4,6})$",
               "errorMessage": {
                 "pattern": "Ilgumos formatas turi būti galiojantis",
-                "minLength": "Koordinačių platuma privaloma"
+                "minLength": "Koordinačių Ilguma privaloma"
               }
             }
           }
