@@ -68,7 +68,7 @@ export default class SharePointService extends Moleculer.Service {
 
   @Method
   async getToken(certType: certType = 'ser') {
-    await this.broker.cacher.del(`${this.name}_${certType}.token`);
+    // await this.broker.cacher.del(`${this.name}_${certType}.token`);
     const tokenKey = `${this.name}_${certType}.token`;
     let sharePointToken = (await this.broker.cacher.get(tokenKey))?.token;
     if (!sharePointToken) {

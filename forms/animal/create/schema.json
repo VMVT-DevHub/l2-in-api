@@ -164,7 +164,8 @@
           "properties": {
             "ar-nesutampa-adresas": {
               "type": "boolean",
-              "title": "Veiklavietės adresas nesutampa su ūkio subjekto buveinės adresu"
+              "title": "Veiklavietės adresas nesutampa su ūkio subjekto buveinės adresu",
+              "default": false
             },
             "ja-gyv": {
               "type": "object",
@@ -179,13 +180,15 @@
             "ar-bus-koordinates": {
               "type": "boolean",
               "title": "Adresas bus nurodomas WGS koordinatėmis",
-              "description": "Žymima tuo atveju, kai arti veiklavietės nėra jokio pastato"
+              "description": "Žymima tuo atveju, kai arti veiklavietės nėra jokio pastato",
+              "default": false
             }
           },
           "if": {
           "properties": {
             "ar-nesutampa-adresas": { "const": true }
             }
+            
           },
           "then": {
             "required": ["ja-gyv"],
@@ -201,28 +204,11 @@
           "properties": {
             "platuma": {
               "type": "string",
-              "title": "Platuma *",
-              "pattern": "^(5[3-6]\\.\\d{4,6})$",
-              "errorMessage": {
-                "pattern": "Platumos formatas turi būti galiojantis",
-                "minLength": "Koordinačių platuma privaloma"
-              }
+              "title": "Platuma *"
             },
             "ilguma": {
               "type": "string",
-              "title": "Ilguma *",
-              "pattern": "^(2[0-6]\\.\\d{4,6})$",
-              "errorMessage": {
-                "pattern": "Ilgumos formatas turi būti galiojantis",
-                "minLength": "Koordinačių platuma privaloma"
-              }
-            }
-          },
-          "required": ["platuma", "ilguma"],
-          "errorMessage": {
-            "required": {
-              "ilguma": "Koordinatės: Ilguma yra privaloma.",
-              "platuma": "Koordinatės: Platuma yra privaloma."
+              "title": "Ilguma *"
             }
           }
         },
@@ -377,7 +363,38 @@
           "pavadinimas": "Pavadinimas yra privalomas",
           "darbo-laikas": "Darbo laikas yra privalomas"
         }
+      },
+      "allOf": [
+      {
+        "if": {
+          "properties": {
+            "adresas": {
+              "properties": {
+                "ar-bus-koordinates": {
+                  "const": true
+                }
+              },
+              "required": ["ar-bus-koordinates"]
+            }
+          }
+        },
+
+        "then": {
+          "required": ["koordinates"],
+          "properties": {
+            "koordinates": {
+              "required": ["platuma", "ilguma"],
+              "errorMessage": {
+                "required": {
+                  "platuma": "Koordinatės: Platuma yra privaloma.",
+                  "ilguma": "Koordinatės: Ilguma yra privaloma."
+                }
+              }
+            }
+          }
+        }
       }
+    ]
     },
     "veiklos": {
       "type": "object",
@@ -994,14 +1011,14 @@
                   "Tvartas",
                   "Ferma",
                   "Ganykla",
-                  "Narvas",
                   "Kompleksas",
                   "Aptvaras",
                   "Voljeras",
                   "Vandens telkinys",
                   "Uždaras akvakultūros įrenginys",
                   "Pagalbinė patalpa",
-                  "Gyvenamosios patalpos"
+                  "Gyvenamosios patalpos",
+                  "Narvas"
                 ],
                 "x-need-ids": true
               },
