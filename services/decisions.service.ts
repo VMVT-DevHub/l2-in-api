@@ -198,6 +198,10 @@ export type TransportType<
         type: 'string',
         columnName: 'sprenRefusal',
       },
+      managerDep: {
+        type: 'string',
+        columnName: 'sprenManagerDep',
+      },
     },
     scopes: {
       ...SCOPE_VKO_DECISIONS,
@@ -309,7 +313,7 @@ export default class extends moleculer.Service {
         decider: r.decider,
         deciderDep: r.deciderDep,
         manager: r.manager,
-        managerDep: r.creatorDep,
+        managerDep: r.managerDep,
       },
       decider: {
         name: r.decider,

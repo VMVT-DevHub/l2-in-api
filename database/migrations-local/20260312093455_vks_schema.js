@@ -59,6 +59,8 @@ exports.up = async function (knex) {
     table.date('spren_req_date').nullable();
     table.text('spren_legal').nullable();
     table.text('spren_refusal').nullable();
+
+    table.string('spren_manager_dep').nullable();
   });
 };
 
