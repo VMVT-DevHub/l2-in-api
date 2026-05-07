@@ -161,6 +161,7 @@
         },
         "adresas": {
           "type": "object",
+          "default": {},
           "properties": {
             "ar-nesutampa-adresas": {
               "type": "boolean",
@@ -201,6 +202,7 @@
         },
         "koordinates": {
           "type": "object",
+          "default": {},
           "properties": {
             "platuma": {
               "type": "string",
@@ -909,11 +911,11 @@
                     "title": "Transporto priemonės valstybinis registracijos Nr. *"
                   }
                 },
-                "required": ["rusis-id"],
+                "required": ["rusis-id", "valstybinis-nr"],
                 "errorMessage": {
                   "required": {
                     "rusis-id": "Transporto priemonės tipas yra privalomas",
-                    "matas": "Transporto priemonės numeris yra privalomas"
+                    "valstybinis-nr": "Transporto priemonės numeris yra privalomas"
                   }
                 }
               }
@@ -981,7 +983,7 @@
               "rusis": {
                 "type": "object",
                 "additionalProperties": true,
-                "title": "Gyvūnų rūšis"
+                "title": "Gyvūnų rūšis *"
             },
               "talpyklos": {
                 "type": "string",

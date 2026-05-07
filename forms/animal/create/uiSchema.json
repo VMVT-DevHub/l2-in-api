@@ -780,7 +780,50 @@
                     }
                   ]
                 }
+              },
+              "rule": {
+              "effect": "SHOW",
+              "condition": {
+                "scope": "#/properties/veiklos/properties/veikla",
+                "schema": {
+                  "enum": ["62"]
+                }
               }
+            }
+            },
+             {
+              "type": "Control",
+              "scope": "#/properties/veiklos/properties/transporto-priemones/properties/transportas",
+              "options": {
+                "display": "addMore",
+                "addLabel": "Pridėti transporto priemonę",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/rusis-id",
+                      "options": {
+                        "labelFormat": "${name}",
+                        "value": "id",
+                        "fetchOptionsFrom": "options/transportTypes/all",
+                        "onChangeSet": {
+                          "rusis": "name"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "rule": {
+              "effect": "SHOW",
+              "condition": {
+                "scope": "#/properties/veiklos/properties/veikla",
+                "schema": {
+                  "enum": ["78"]
+                }
+              }
+            }
             }
           ],
           "rule": {
@@ -1009,7 +1052,7 @@
       "elements": [
         {
           "type": "Group",
-          "label": "Patalpų planas",
+          "label": "Patalpų planas *",
           "description": "Patalpų ir (ar) teritorijos, kuriose numatoma vykdyti veiklą, planas su eksplikacija",
           "elements": [
             {

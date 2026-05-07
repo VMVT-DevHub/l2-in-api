@@ -382,7 +382,7 @@ export default class AuthService extends moleculer.Service {
       }),
     };
     ctx.meta.$statusCode = 302;
-    ctx.meta.$location = redirectUrl || process.env.FRONTEND_URL;
+    ctx.meta.$location = redirectUrl || this.getFrontendUrl(ctx);
   }
 
   @Method
@@ -483,5 +483,14 @@ export default class AuthService extends moleculer.Service {
   @Method
   getViispHeaders(ctx: Context<any, any>) {
     return { 'x-api-Key': this.getViispApiKey(ctx), Accept: 'application/json' };
+  }
+
+  @Method
+  getFrontendUrl(ctx: Context<any, any>) {
+    const isVks = ctx?.meta?.appVariant === 'vks';
+    if (isVks) {
+      return process.env.VKS_FRONTEND_URL || process.env.FRONTEND_URL;
+    }
+    return process.env.FRONTEND_URL;
   }
 }
