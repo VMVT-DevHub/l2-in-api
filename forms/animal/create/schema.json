@@ -161,6 +161,7 @@
         },
         "adresas": {
           "type": "object",
+          "default": {},
           "properties": {
             "ar-nesutampa-adresas": {
               "type": "boolean",
@@ -201,6 +202,7 @@
         },
         "koordinates": {
           "type": "object",
+          "default": {},
           "properties": {
             "platuma": {
               "type": "string",
