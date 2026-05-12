@@ -112,6 +112,35 @@ export default class SharePointService extends Moleculer.Service {
   }
 
   @Method
+  async getDecisionDownloadUrl(itemId: string, certType: certType): Promise<string> {
+    const token = await this.getToken(certType);
+
+    const requestEnvDrive = {
+      ser: process.env.SHARE_POINT_DRIVE_ID,
+      vet: process.env.SHARE_POINT_DECISION_DRIVE_ID_VET,
+    };
+
+    const url = `${this.settings.baseUrl}/${requestEnvDrive[certType]}/root:/${itemId}:/children`;
+
+    console.log(url);
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch file info: ${response.status}`);
+    }
+    const data = await response.json();
+
+    const decisionFile = data?.value.find((item: any) => item.name.startsWith('Sprendimas'));
+
+    return decisionFile['@microsoft.graph.downloadUrl'];
+  }
+
+  @Method
   async uploadChunks(uploadUrl: string, fileStream: any, fileSize: string, requestId: string) {
     const fullFileSize = Number(fileSize);
     const chunkSize = 327680 * 15; // ~4.9mb
@@ -320,5 +349,26 @@ export default class SharePointService extends Moleculer.Service {
     const itemId = ctx?.meta?.['$params']?.itemId ?? ctx.params?.itemId;
     const certType = ctx?.meta?.['$params']?.certType ?? ctx.params?.certType;
     return await this.getDownloadUrl(itemId, certType);
+  }
+
+  @Action({
+    rest: <RestSchema>{
+      method: 'GET',
+      path: '/downloadDecisionUrl/:itemId',
+    },
+  })
+  async getDecisionDownloadUrlAction(
+    ctx: Context<
+      { itemId: string; certType: certType },
+      { $params: { itemId: string; certType: certType } }
+    >,
+  ) {
+    const itemId = ctx?.meta?.['$params']?.itemId ?? ctx.params?.itemId;
+    console.log('first', itemId);
+
+    const certType = ctx?.meta?.['$params']?.certType ?? ctx.params?.certType;
+    console.log('first', certType);
+
+    return await this.getDecisionDownloadUrl(itemId, certType);
   }
 }
