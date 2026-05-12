@@ -122,7 +122,6 @@ export default class SharePointService extends Moleculer.Service {
 
     const url = `${this.settings.baseUrl}/${requestEnvDrive[certType]}/root:/${itemId}:/children`;
 
-    console.log(url);
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -364,10 +363,7 @@ export default class SharePointService extends Moleculer.Service {
     >,
   ) {
     const itemId = ctx?.meta?.['$params']?.itemId ?? ctx.params?.itemId;
-    console.log('first', itemId);
-
     const certType = ctx?.meta?.['$params']?.certType ?? ctx.params?.certType;
-    console.log('first', certType);
 
     return await this.getDecisionDownloadUrl(itemId, certType);
   }
