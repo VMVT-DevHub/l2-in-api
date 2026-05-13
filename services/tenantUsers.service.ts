@@ -24,6 +24,7 @@ export interface TenantUser extends CommonFields {
   name: 'tenantUsers',
   mixins: [
     DbConnection({
+      createActions: false,
       rest: false,
       collection: 'tenantUsers',
     }),
@@ -82,7 +83,7 @@ export default class extends moleculer.Service {
 
     if (!user || !tenant) return;
 
-    const tenantUser: Tenant = await ctx.call('tenantUsers.findOne', {
+    const tenantUser: Tenant = await this.findEntity(ctx, {
       query: ctx.params,
     });
 
