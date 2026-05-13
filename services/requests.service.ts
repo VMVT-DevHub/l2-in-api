@@ -14,6 +14,7 @@ import {
   FieldHookCallback,
   MetaSession,
   Table,
+  throwNotFoundError,
 } from '../types';
 import { VISIBLE_TO_CREATOR_OR_ADMIN_SCOPE } from '../utils/scopes';
 import { Form } from './formTypes.service';
@@ -400,14 +401,14 @@ export default class extends moleculer.Service {
       sort?: string[];
     }>,
   ) {
-    return ctx.call(`requests.histories.list`, {
+    const request = await ctx.call('requests.resolve', { id: ctx.params.id });
+    if (!request) throwNotFoundError();
+
+    return ctx.call(`requests.histories.listForRequest`, {
       sort: ctx.params.sort,
-      query: {
-        request: ctx.params.id,
-      },
+      request: ctx.params.id,
       page: ctx.params.page,
       pageSize: ctx.params.pageSize,
-      populate: 'createdBy',
     });
   }
 }

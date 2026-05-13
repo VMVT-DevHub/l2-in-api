@@ -1,7 +1,7 @@
 'use strict';
 
 import moleculer, { Context } from 'moleculer';
-import { Event, Method, Service } from 'moleculer-decorators';
+import { Action, Event, Method, Service } from 'moleculer-decorators';
 import DbConnection from '../mixins/database.mixin';
 
 import {
@@ -48,6 +48,7 @@ export type RequestHistory<
   mixins: [
     DbConnection({
       collection: 'requestHistories',
+      createActions: false,
       rest: false,
     }),
   ],
@@ -85,6 +86,61 @@ export type RequestHistory<
   },
 })
 export default class extends moleculer.Service {
+  @Action({
+    params: {
+      request: {
+        type: 'number',
+        convert: true,
+      },
+      page: {
+        type: 'number',
+        optional: true,
+        convert: true,
+      },
+      pageSize: {
+        type: 'number',
+        optional: true,
+        convert: true,
+      },
+      sort: {
+        type: 'array',
+        optional: true,
+        items: 'string',
+      },
+    },
+  })
+  async listForRequest(
+    ctx: Context<{
+      request: number;
+      page?: number;
+      pageSize?: number;
+      sort?: string[];
+    }>,
+  ) {
+    const params = {
+      sort: ctx.params.sort,
+      query: {
+        request: ctx.params.request,
+      },
+      page: ctx.params.page,
+      pageSize: ctx.params.pageSize,
+      populate: 'createdBy',
+    };
+
+    const rows = await this.findEntities(ctx, params);
+    const total = await this.countEntities(ctx, params);
+    const page = Number(ctx.params.page ?? 1) || 1;
+    const pageSize = Number(ctx.params.pageSize ?? 10) || 10;
+
+    return {
+      rows,
+      total,
+      page,
+      pageSize,
+      totalPages: Math.floor((total + pageSize - 1) / pageSize),
+    };
+  }
+
   @Event()
   async 'requests.created'(ctx: Context<EntityChangedParams<Request>>) {
     const request = ctx.params.data as Request;
