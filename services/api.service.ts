@@ -8,6 +8,70 @@ import ApiGateway, { IncomingRequest, Route } from 'moleculer-web';
 import { MetaSession, RestrictionType, SessionBlob } from '../types';
 import { User } from './users.service';
 
+const API_WHITELIST = [
+  'api.ping',
+
+  'auth.sign',
+  'auth.login',
+  'auth.me',
+  'auth.setActiveOrg',
+  'auth.clearActiveOrg',
+  'auth.listDelegatedUsers',
+  'auth.delegateUserToOrg',
+  'auth.removeDelegatedUser',
+  'auth.cancel',
+
+  'addresses.findGyv',
+  'addresses.findAdr',
+  'addresses.findDist',
+  'addresses.findDistFromCoord',
+
+  'decisions.getAll',
+  'decisions.get',
+
+  'formTypes.formTypes',
+  'formTypes.formType',
+  'formTypes.form',
+
+  'options.activities.getActivities',
+  'options.activities.getIDs',
+  'options.animals.getRoot',
+  'options.animals.getGroup',
+  'options.animals.getGroupBySearch',
+  'options.countries.find',
+  'options.countries.getCountryIds',
+  'options.countries.getEsIds',
+  'options.kpn.getTree',
+  'options.kpn.getAnimalsTree',
+  'options.kpn.getLeafIds',
+  'options.packageTypes.find',
+  'options.packageTypes.findIds',
+  'options.pkp.find',
+  'options.pkp.findIds',
+  'options.selfControl.getTree',
+  'options.selfControl.getLeafIds',
+  'options.transportParts.find',
+  'options.transportParts.findIds',
+  'options.transportTypes.find',
+  'options.transportTypes.findIds',
+
+  'reports.animal.list',
+  'reports.certificate.list',
+  'reports.food.list',
+
+  'requests.list',
+  'requests.get',
+  'requests.create',
+  'requests.update',
+  'requests.remove',
+  'requests.getHistory',
+
+  'sharepoint.createFiles',
+  'sharepoint.uploadFiles',
+  'sharepoint.getDownloadUrlAction',
+  'sharepoint.getDecisionDownloadUrlAction',
+];
+
 @Service({
   name: 'api',
   mixins: [ApiGateway],
@@ -31,10 +95,7 @@ import { User } from './users.service';
     routes: [
       {
         path: '',
-        whitelist: [
-          // Access to any actions in all services under "/api" URL
-          '**',
-        ],
+        whitelist: API_WHITELIST,
 
         // Route-level Express middlewares. More info: https://moleculer.services/docs/0.14/moleculer-web.html#Middlewares
         use: [],
@@ -53,7 +114,7 @@ import { User } from './users.service';
         autoAliases: true,
 
         aliases: {
-          'GET /ping': 'api.ping',
+          'GET /api/ping': 'api.ping',
         },
 
         // Calling options. More info: https://moleculer.services/docs/0.14/moleculer-web.html#Calling-options
@@ -71,12 +132,12 @@ import { User } from './users.service';
         },
 
         // Mapping policy setting. More info: https://moleculer.services/docs/0.14/moleculer-web.html#Mapping-policy
-        mappingPolicy: 'all', // Available values: "all", "restrict"
+        mappingPolicy: 'restrict', // Available values: "all", "restrict"
 
         // Enable/disable logging
         logging: true,
 
-        onError: (req: any, res: any, err: any) => {
+        onError: (req: any, res: any, err: any): void => {
           const status =
             typeof err?.code === 'number' && err.code >= 400 && err.code < 600 ? err.code : 500;
 
@@ -94,7 +155,7 @@ import { User } from './users.service';
       },
       {
         path: '/vks/api',
-        whitelist: ['**'],
+        whitelist: API_WHITELIST,
         use: [],
         mergeParams: true,
         authentication: true,
@@ -114,9 +175,9 @@ import { User } from './users.service';
             limit: '1MB',
           },
         },
-        mappingPolicy: 'all',
+        mappingPolicy: 'restrict',
         logging: true,
-        onError: (req: any, res: any, err: any) => {
+        onError: (req: any, res: any, err: any): void => {
           const status =
             typeof err?.code === 'number' && err.code >= 400 && err.code < 600 ? err.code : 500;
 

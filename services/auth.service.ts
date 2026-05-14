@@ -26,7 +26,17 @@ export default class AuthService extends moleculer.Service {
     rest: 'GET /current',
   })
   async current(ctx: Context<unknown, MetaSession>) {
-    return ctx.meta.session;
+    const session = ctx.meta.session;
+    if (!session?.user) return null;
+
+    return {
+      user: session.user,
+      companyCode: session.companyCode ?? null,
+      companyName: session.companyName ?? null,
+      activeOrgCode: session.activeOrgCode ?? null,
+      roles: session.roles ?? { orgs: [] },
+      ak: session.ak ?? null,
+    };
   }
 
   @Action({

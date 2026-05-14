@@ -12,6 +12,7 @@ exports.up = async function (knex) {
 
     table.integer('spren_req_id').nullable();
     table.integer('spren_vko_id').nullable();
+    table.integer('spren_vks_id').nullable();
     table.bigint('spren_parent_id').nullable();
 
     table.string('spren_prasymo_pavad').nullable();

@@ -86,6 +86,10 @@ export type TransportType<
         type: 'number',
         columnName: 'sprenVkoId',
       },
+      vksId: {
+        type: 'number',
+        columnName: 'sprenVksId',
+      },
       parentId: {
         type: 'number',
         columnName: 'sprenParentId',
@@ -321,7 +325,7 @@ export default class extends moleculer.Service {
       },
       reqId: r.reqId,
       reqDate: r.reqDate,
-      vkoId: r.vkoId,
+      vksId: r.vkoId ?? r.vksId,
       refusal: r.refusal,
       legal: r.legal,
       createdAt: r.createdAt,

@@ -572,7 +572,7 @@
     },
     "gyvuno-atpazinimo-priemone": {
       "type": "string",
-      "enum": ["Ausų įsagos", "Mikroschema", "Pasas", "Bandos numeris", "Tatuiruotė"]
+      "enum": ["Ausų įsagos", "Mikroschema", "Pasas", "Bandos numeris", "Tatuiruotė", "Vienadieniai paukščiukai"]
     },
     "gyvuno-siuntos-paskirtis": {
       "type": "string",
