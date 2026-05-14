@@ -114,7 +114,7 @@ const API_WHITELIST = [
         autoAliases: true,
 
         aliases: {
-          'GET /ping': 'api.ping',
+          'GET /api/ping': 'api.ping',
         },
 
         // Calling options. More info: https://moleculer.services/docs/0.14/moleculer-web.html#Calling-options
@@ -137,7 +137,7 @@ const API_WHITELIST = [
         // Enable/disable logging
         logging: true,
 
-        onError: (req: any, res: any, err: any) => {
+        onError: (req: any, res: any, err: any): void => {
           const status =
             typeof err?.code === 'number' && err.code >= 400 && err.code < 600 ? err.code : 500;
 
@@ -177,7 +177,7 @@ const API_WHITELIST = [
         },
         mappingPolicy: 'restrict',
         logging: true,
-        onError: (req: any, res: any, err: any) => {
+        onError: (req: any, res: any, err: any): void => {
           const status =
             typeof err?.code === 'number' && err.code >= 400 && err.code < 600 ? err.code : 500;
 
