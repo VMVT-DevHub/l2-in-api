@@ -19,22 +19,20 @@
               "type": "string",
               "title": "Juridinio asmens pavadinimas",
               "readOnly": true
-              
             },
             "ja-teisine-forma": {
               "type": "string",
               "title": "Juridinio asmens teisinė foma",
               "readOnly": true
-
             },
             "ja-gyv": {
               "type": "object",
-                "properties": {
-                  "gyvId": { "type": "number" },
-                  "gyvName": { "type": "string" },
-                  "adrId": { "type": "number" },
-                  "adrName": { "type": "string" }
-                }
+              "properties": {
+                "gyvId": { "type": "number" },
+                "gyvName": { "type": "string" },
+                "adrId": { "type": "number" },
+                "adrName": { "type": "string" }
+              }
             },
             "ja-moketojo-kodas": {
               "type": "string",
@@ -44,7 +42,7 @@
                 "pattern": "Mokesčių mokėtojo identifikacinis kodas turi būti galiojantis"
               }
             }
-            }
+          }
         },
         "fa-duomenys": {
           "type": "object",
@@ -55,13 +53,11 @@
               "type": "string",
               "title": "Vardas",
               "readOnly": true
-
             },
             "pavarde": {
               "type": "string",
               "title": "Pavardė",
               "readOnly": true
-
             },
             "fa-moketojo-kodas": {
               "type": "string",
@@ -75,7 +71,7 @@
         }
       },
       "required": ["atsakingas-asmuo"],
-        "allOf": [
+      "allOf": [
         {
           "if": {
             "type": "object",
@@ -83,7 +79,7 @@
               "atsakingas-asmuo": {
                 "type": "object",
                 "properties": {
-                  "ja": { "minLength": 1,  "type": "string" }
+                  "ja": { "minLength": 1, "type": "string" }
                 },
                 "required": ["ja"]
               }
@@ -106,7 +102,7 @@
                 }
               }
             }
-          }, 
+          },
           "else": {
             "type": "object",
             "properties": {
@@ -146,8 +142,8 @@
             }
           },
           "if": {
-          "properties": {
-            "pavad-sutampa": { "const": false }
+            "properties": {
+              "pavad-sutampa": { "const": false }
             }
           },
           "then": {
@@ -184,20 +180,6 @@
               "description": "Žymima tuo atveju, kai arti veiklavietės nėra jokio pastato",
               "default": false
             }
-          },
-          "if": {
-          "properties": {
-            "ar-nesutampa-adresas": { "const": true }
-            }
-            
-          },
-          "then": {
-            "required": ["ja-gyv"],
-            "errorMessage": {
-              "required": {
-                "ja-gyv": "Adresas yra privalomas."
-              }
-            }
           }
         },
         "koordinates": {
@@ -207,7 +189,7 @@
             "platuma": {
               "type": "string",
               "title": "Platuma *",
-               "pattern": "^(5[3-6]\\.\\d{4,6})$",
+              "pattern": "^(5[3-6]\\.\\d{4,6})$",
               "errorMessage": {
                 "pattern": "Platumos  formatas turi būti galiojantis",
                 "minLength": "Koordinačių platuma privaloma"
@@ -216,7 +198,7 @@
             "ilguma": {
               "type": "string",
               "title": "Ilguma *",
-               "pattern": "^(2[0-6]\\.\\d{4,6})$",
+              "pattern": "^(2[0-6]\\.\\d{4,6})$",
               "errorMessage": {
                 "pattern": "Ilgumos formatas turi būti galiojantis",
                 "minLength": "Koordinačių Ilguma privaloma"
@@ -272,8 +254,8 @@
                 "x-need-ids": true
               },
               "paskirtis-id": {
-                  "type": "integer"
-                },
+                "type": "integer"
+              },
               "pagrindas": {
                 "type": "string",
                 "title": "Teritorijos, statinio / patalpos teisėto naudojimo pagrindas *",
@@ -281,7 +263,7 @@
                 "x-need-ids": true
               },
               "pagrindas-id": {
-                  "type": "integer"
+                "type": "integer"
               }
             },
             "required": ["numeris", "paskirtis", "pagrindas"],
@@ -364,10 +346,9 @@
               "menesiai": "Mėnesiai yra privalomi."
             }
           }
-         
         }
       },
-      "required": ["darbuotojai", "pavadinimas", "darbo-laikas"], 
+      "required": ["darbuotojai", "pavadinimas", "darbo-laikas"],
       "errorMessage": {
         "required": {
           "darbuotojai": "Darbuotojų skaičius yra privalomas",
@@ -375,38 +356,7 @@
           "pavadinimas": "Pavadinimas yra privalomas",
           "darbo-laikas": "Darbo laikas yra privalomas"
         }
-      },
-      "allOf": [
-      {
-        "if": {
-          "properties": {
-            "adresas": {
-              "properties": {
-                "ar-bus-koordinates": {
-                  "const": true
-                }
-              },
-              "required": ["ar-bus-koordinates"]
-            }
-          }
-        },
-
-        "then": {
-          "required": ["koordinates"],
-          "properties": {
-            "koordinates": {
-              "required": ["platuma", "ilguma"],
-              "errorMessage": {
-                "required": {
-                  "platuma": "Koordinatės: Platuma yra privaloma.",
-                  "ilguma": "Koordinatės: Ilguma yra privaloma."
-                }
-              }
-            }
-          }
-        }
       }
-    ]
     },
     "veiklos": {
       "type": "object",
@@ -495,7 +445,7 @@
               }
             },
             "sgp-kodas-id": {
-                "type": "integer"
+              "type": "integer"
             },
             "sgp-kodas-kita": {
               "type": "string",
@@ -596,7 +546,7 @@
               }
             },
             "sgp-santrupa-id": {
-              "type":"integer"
+              "type": "integer"
             },
             "sgp-santrupa-kita": {
               "type": "string",
@@ -799,11 +749,11 @@
                   "type": "string",
                   "enum": ["FIM", "DCAP", "TCAP", "BLPF", "PAP"],
                   "x-info": {
-                    "FIM":"Žuvų miltai", 
-                    "DCAP":"Dikalcio fosfatas",
-                    "TCAP":"Trikalcio fosfatas", 
-                    "BLPF":"Kraujo produktai, gauti iš neatrajotojų", 
-                    "PAP":"Perdirbti gyvūniniai baltymai"
+                    "FIM": "Žuvų miltai",
+                    "DCAP": "Dikalcio fosfatas",
+                    "TCAP": "Trikalcio fosfatas",
+                    "BLPF": "Kraujo produktai, gauti iš neatrajotojų",
+                    "PAP": "Perdirbti gyvūniniai baltymai"
                   }
                 }
               },
@@ -874,8 +824,10 @@
                 "type": "array",
                 "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai *",
                 "uniqueItems": true,
-                "items": { "type": "string",
-                  "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]}
+                "items": {
+                  "type": "string",
+                  "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
+                }
               }
             },
             "required": [],
@@ -921,7 +873,6 @@
               }
             }
           }
-          
         },
         "apimtys": {
           "type": "object",
@@ -942,7 +893,7 @@
               "x-need-ids": true
             },
             "laikotarpis-id": {
-              "type":"integer"
+              "type": "integer"
             },
             "kiekis-matas": {
               "title": "Pagaminamos produkcijos kiekis",
@@ -984,7 +935,7 @@
                 "type": "object",
                 "additionalProperties": true,
                 "title": "Gyvūnų rūšis *"
-            },
+              },
               "talpyklos": {
                 "type": "string",
                 "title": "Talpyklų skaičius (vnt. / mėn.) *"
@@ -1003,13 +954,13 @@
         "gyvunai": {
           "type": "array",
           "default": [{}],
-          "additionalProperties":true,
+          "additionalProperties": true,
           "items": {
             "type": "object",
             "properties": {
               "rusis": {
                 "type": "object",
-                "additionalProperties":true,
+                "additionalProperties": true,
                 "title": "Numatomų laikyti gyvūnų rūšis *"
               },
               "skaicius": {
@@ -1048,14 +999,14 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "gyvuno-nr":{
-                      "type":"string",
+                    "gyvuno-nr": {
+                      "type": "string",
                       "title": "Numatomų naudoti veisimui gyvūnų augintinių individualus Nr. *"
                     }
                   }
                 }
               },
-              "veikla": {"type": "string"},
+              "veikla": { "type": "string" },
               "ne-veisimo-gyvunai": {
                 "type": "array",
                 "default": [{}],
@@ -1063,8 +1014,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "gyvuno-nr":{
-                      "type":"string",
+                    "gyvuno-nr": {
+                      "type": "string",
                       "title": "Kartu laikomų tos pačios rūšies, bet nenaudojamų veisimui gyvūnų augintinių individualus Nr. *"
                     }
                   }
@@ -1101,12 +1052,12 @@
             "$ref": "forms/global/defs.json#/definitions/dokumentas"
           }
         },
-         "papildoma-info": {
+        "papildoma-info": {
           "type": "string",
           "title": ""
         }
       },
-       "required": ["patalpu-planas"], 
+      "required": ["patalpu-planas"],
       "errorMessage": {
         "required": {
           "patalpu-planas": "Patalpų planas privalomas"
@@ -1205,53 +1156,217 @@
         }
       }
     },
-    "atsakymas":{
+    "atsakymas": {
       "type": "object",
       "additionalProperties": false,
       "default": {},
       "properties": {
         "ats-gavimas": {
           "type": "string",
-          "enum": ["Nacionalinę elektroninių siuntų pristatymo naudojant pašto tinklą informacinę sistemą", "El. paštu", "Paštu", "Kreipiantis asmeniškai arba per atstovą"]
+          "enum": [
+            "Nacionalinę elektroninių siuntų pristatymo naudojant pašto tinklą informacinę sistemą",
+            "El. paštu",
+            "Paštu",
+            "Kreipiantis asmeniškai arba per atstovą"
+          ]
         }
       },
       "required": ["ats-gavimas"],
       "errorMessage": {
-        "required": {"ats-gavimas": "Privalote pasirinkti, kaip gauti atsakymą" } }
+        "required": { "ats-gavimas": "Privalote pasirinkti, kaip gauti atsakymą" }
+      }
     }
-
   },
   "allOf": [
-  {
-    "if": {
-      "properties": {
-        "veiklos": {
-          "type": "object",
-          "properties": {
-           "veikla": {
-              "enum": ["59","60","61","01","101","102","12","13","15","16","18","19","22","23","24","25","26","27","29","30","31","32","33","34","35","38","39","40","43","44","46","47","51","55","57","63","68","72","73","75","87","91","92","97","98"]
-            }
+    {
+      "allOf": [
+        {
+          "if": {
+            "allOf": [
+              {
+                "anyOf": [
+                  {
+                    "properties": {
+                      "veiklaviete": {
+                        "properties": {
+                          "adresas": {
+                            "properties": {
+                              "ar-nesutampa-adresas": {
+                                "const": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "not": {
+                      "properties": {
+                        "pareiskejas": {
+                          "properties": {
+                            "atsakingas-asmuo": {
+                              "properties": {
+                                "ja": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "properties": {
+                    "veiklaviete": {
+                      "properties": {
+                        "adresas": {
+                          "properties": {
+                            "ar-bus-koordinates": {
+                              "const": true
+                            }
+                          },
+                          "required": ["ar-bus-koordinates"]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
           },
-          "required": ["veikla"]
+          "then": {
+            "properties": {
+              "veiklaviete": {
+                "properties": {
+                  "adresas": {
+                    "required": ["ja-gyv"],
+                    "errorMessage": { "required": { "ja-gyv": "Adresas yra privalomas." } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "if": {
+        "properties": {
+          "veiklaviete": {
+            "properties": {
+              "adresas": {
+                "properties": {
+                  "ar-bus-koordinates": {
+                    "const": true
+                  }
+                },
+                "required": ["ar-bus-koordinates"]
+              }
+            }
+          }
         }
       },
-      "required": ["veiklos"]
+
+      "then": {
+        "properties": {
+          "veiklaviete": {
+            "required": ["koordinates"],
+            "properties": {
+              "koordinates": {
+                "required": ["platuma", "ilguma"],
+                "errorMessage": {
+                  "required": {
+                    "platuma": "Koordinatės: Platuma yra privaloma.",
+                    "ilguma": "Koordinatės: Ilguma yra privaloma."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
-    "then": {
-      "properties": {
-        "dokumentai": {
-          "required": ["rinkliava"],
-          "errorMessage": {
-            "required": {
-              "rinkliava": "Rinkliava yra privaloma"
+    {
+      "if": {
+        "properties": {
+          "veiklos": {
+            "type": "object",
+            "properties": {
+              "veikla": {
+                "enum": [
+                  "59",
+                  "60",
+                  "61",
+                  "01",
+                  "101",
+                  "102",
+                  "12",
+                  "13",
+                  "15",
+                  "16",
+                  "18",
+                  "19",
+                  "22",
+                  "23",
+                  "24",
+                  "25",
+                  "26",
+                  "27",
+                  "29",
+                  "30",
+                  "31",
+                  "32",
+                  "33",
+                  "34",
+                  "35",
+                  "38",
+                  "39",
+                  "40",
+                  "43",
+                  "44",
+                  "46",
+                  "47",
+                  "51",
+                  "55",
+                  "57",
+                  "63",
+                  "68",
+                  "72",
+                  "73",
+                  "75",
+                  "87",
+                  "91",
+                  "92",
+                  "97",
+                  "98"
+                ]
+              }
+            },
+            "required": ["veikla"]
+          }
+        },
+        "required": ["veiklos"]
+      },
+      "then": {
+        "properties": {
+          "dokumentai": {
+            "required": ["rinkliava"],
+            "errorMessage": {
+              "required": {
+                "rinkliava": "Rinkliava yra privaloma"
+              }
             }
           }
         }
       }
     }
-  }
-],
-  
+  ],
+
   "definitions": {
     "dokumentas": {
       "type": "object",
@@ -1266,7 +1381,6 @@
         "size": {
           "type": "number"
         }
-        
       }
     },
     "veikla": {
