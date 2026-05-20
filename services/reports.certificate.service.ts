@@ -182,6 +182,13 @@ export default class extends moleculer.Service {
           responseValue = value.map((v: any) => {
             const kiekis = v?.['neto-kiekis-matas']?.kiekis;
             const matas = v?.['neto-kiekis-matas']?.matas;
+
+            //ugly solution but cleanest way for transition while changing structure
+            if (!kiekis || !matas) {
+              const oldKiekis = v?.['kiekis-matas']?.kiekis;
+              const oldMatas = v?.['kiekis-matas']?.matas;
+              return `${oldKiekis} ${oldMatas}`;
+            }
             return `${kiekis} ${matas} (neto)`;
           });
         }
