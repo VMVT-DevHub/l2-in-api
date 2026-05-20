@@ -312,7 +312,7 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "additionalProperties": false,
+        "additionalProperties": true,
         "default": {},
         "properties": {
           "kpn-kodas": {
@@ -385,7 +385,7 @@
             }
           },
           "bruto-kiekis-matas": {
-            "title": "Kiekis (bruto) *",
+            "title": "Kiekis (bruto)",
             "type": "object",
             "properties": {
               "kiekis": {
