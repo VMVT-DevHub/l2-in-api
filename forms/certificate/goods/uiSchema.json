@@ -740,13 +740,23 @@
                           "elements": [
                             {
                               "type": "Control",
-                              "scope": "#/properties/kiekis-matas",
+                              "scope": "#/properties/neto-kiekis-matas",
                               "options": {
                                 "display": "combinedInput",
                                 "inputKey": "kiekis",
                                 "optionKey": "matas"
                               }
                             },
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/bruto-kiekis-matas",
+                              "options": {
+                                "display": "combinedInput",
+                                "inputKey": "kiekis",
+                                "optionKey": "matas"
+                              }
+                            },
+                            
                             {
                               "type": "Control",
                               "scope": "#/properties/patvirtinimo-nr"

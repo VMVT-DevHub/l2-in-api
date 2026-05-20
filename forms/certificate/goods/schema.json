@@ -364,16 +364,12 @@
           "excel-dokumentas": {
             "$ref": "forms/global/defs.json#/definitions/dokumentas"
           },
-          "kiekis-matas": {
-            "title": "Kiekis (neto / bruto) *",
+          "neto-kiekis-matas": {
+            "title": "Kiekis (neto) *",
             "type": "object",
             "properties": {
               "kiekis": {
-                "type": "string",
-                "pattern": "^\\d{0,10}([.,]\\d{0,4})?(/\\d{0,10}([.,]\\d{0,4})?)?$",
-                "errorMessage": {
-                  "pattern": "Neteisingas kiekio formatas."
-                }
+                "type": "number"
               },
               "matas": {
                 "type": "string",
@@ -383,8 +379,21 @@
             "required": ["kiekis", "matas"],
             "errorMessage": {
               "required": {
-                "kiekis": "Prekės: Kiekis privalomas.",
-                "matas": "Prekės: Matas privalomas"
+                "kiekis": "Prekės: neto kiekis privalomas.",
+                "matas": "Prekės: neto matas privalomas"
+              }
+            }
+          },
+          "bruto-kiekis-matas": {
+            "title": "Kiekis (bruto) *",
+            "type": "object",
+            "properties": {
+              "kiekis": {
+                "type": "number"
+              },
+              "matas": {
+                "type": "string",
+                "enum": ["kg", "vnt", "doz"]
               }
             }
           },
@@ -448,7 +457,7 @@
           "tinkamumo-naudoti-terminas",
           "pakuotes-tipas",
           "pakuociu-skaicius",
-          "kiekis-matas",
+          "neto-kiekis-matas",
           "patvirtinimo-nr",
           "laikymo-ir-transportavimo-salygos",
           "salis",
@@ -463,7 +472,7 @@
             "tinkamumo-naudoti-terminas": "Prekės: Tinkamumo naudoti terminas privalomas.",
             "pakuotes-tipas": "Prekės: Pakuotės tipas privalomas.",
             "pakuociu-skaicius": "Prekės: Pakuočių skaičius privalomas.",
-            "kiekis-matas": "Prekės: Kiekis privalomas.",
+            "neto-kiekis-matas":"Prekės: Kiekis privalomas.",
             "patvirtinimo-nr": "Prekės: Patvirtinimo numeris privalomas.",
             "laikymo-ir-transportavimo-salygos": "Prekės: Laikymo ir transportavimo sąlygos yra privalomos.",
             "salis": "Prekės: Šalis yra privaloma.",
