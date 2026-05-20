@@ -180,9 +180,9 @@ export default class extends moleculer.Service {
           );
         } else if (column.mapper === 'kiekisMatas') {
           responseValue = value.map((v: any) => {
-            const kiekis = v?.['kiekis-matas']?.kiekis;
-            const matas = v?.['kiekis-matas']?.matas;
-            return `${kiekis} ${matas}`;
+            const kiekis = v?.['neto-kiekis-matas']?.kiekis;
+            const matas = v?.['neto-kiekis-matas']?.matas;
+            return `${kiekis} ${matas} (neto)`;
           });
         }
         acc[column.name] = responseValue;
