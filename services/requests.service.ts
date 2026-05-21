@@ -320,7 +320,9 @@ export default class extends moleculer.Service {
   }: FieldHookCallback<Request>): Promise<number | null> {
     const formType = ctx.params?.formType;
     if (formType !== 'animal') return null;
+
     const veiklaviete = ctx.params?.data?.veiklaviete;
+    const action = ctx.params?.data?.veiklos?.veikla;
     const pareiskejas = ctx.params?.data?.pareiskejas;
     const companyAddress =
       pareiskejas?.['atsakingas-asmuo']?.aob ||
@@ -328,42 +330,83 @@ export default class extends moleculer.Service {
       undefined;
     const address = veiklaviete?.adresas?.['ja-gyv']?.adrId || undefined;
     const willUseCoords = veiklaviete?.adresas?.['ar-bus-koordinates'];
-    const longtitude = veiklaviete?.koordinates?.ilguma;
+    const longitude = veiklaviete?.koordinates?.ilguma;
     const latitude = veiklaviete?.koordinates?.platuma;
 
-    if (address && !willUseCoords) {
-      try {
-        const district: number = await ctx.call('addresses.findDist', { id: address });
-        return district ?? 99;
-      } catch {
-        return 99;
-      }
-    }
-    if (companyAddress && !willUseCoords) {
-      const district: number = await ctx.call('addresses.findDist', {
-        id: companyAddress,
-      });
-      return district ?? 99;
-    }
+    const CLIS_ACTIONS = new Set([
+      '59',
+      '60',
+      '61',
+      '01',
+      '101',
+      '102',
+      '12',
+      '13',
+      '15',
+      '16',
+      '18',
+      '19',
+      '22',
+      '23',
+      '24',
+      '25',
+      '26',
+      '27',
+      '29',
+      '30',
+      '31',
+      '32',
+      '33',
+      '34',
+      '35',
+      '38',
+      '39',
+      '40',
+      '43',
+      '44',
+      '46',
+      '47',
+      '51',
+      '55',
+      '57',
+      '63',
+      '68',
+      '72',
+      '73',
+      '75',
+      '87',
+      '91',
+      '92',
+      '97',
+      '98',
+    ]);
+    const DEFAULT_FALLBACK = 99;
+    const CLIS = 4;
 
-    if (longtitude && latitude && willUseCoords) {
+    const findDistById = async (id: string): Promise<number> => {
       try {
-        const district: number = await ctx.call('addresses.findDistFromCoord', {
-          x: latitude,
-          y: longtitude,
-        });
-        return district ?? 99;
+        return (await ctx.call('addresses.findDist', { id })) ?? DEFAULT_FALLBACK;
       } catch {
-        if (companyAddress) {
-          const district: number = await ctx.call('addresses.findDist', {
-            id: companyAddress,
-          });
-          return district ?? 99;
-        }
-        return 99;
+        return DEFAULT_FALLBACK;
       }
-    }
-    return 99;
+    };
+
+    const findDistByCoords = async (lat: number, lon: number): Promise<number> => {
+      try {
+        return (
+          (await ctx.call('addresses.findDistFromCoord', { x: lat, y: lon })) ?? DEFAULT_FALLBACK
+        );
+      } catch {
+        return companyAddress ? findDistById(companyAddress) : DEFAULT_FALLBACK;
+      }
+    };
+
+    if (CLIS_ACTIONS.has(action)) return CLIS; //user selects an action that belongs to CLIS
+    if (address && !willUseCoords) return findDistById(address); //user enters address
+    if (companyAddress && !willUseCoords) return findDistById(companyAddress); //user has JA address
+    if (longitude && latitude && willUseCoords) return findDistByCoords(latitude, longitude); //user enters coords
+
+    return DEFAULT_FALLBACK;
   }
 
   @Method
