@@ -100,7 +100,9 @@ export default class extends moleculer.Service {
   async getAnimalsTree(ctx: Context) {
     const result: KPN[] = await this.findEntities(ctx);
 
-    const filteredResults = result.filter((item: any) => item.l1 === '01000000');
+    const filteredResults = result.filter(
+      (item: any) => item.l1 === '01000000' || item.l2 === '03010000',
+    );
 
     return this.formatTree(filteredResults, 2, false);
   }

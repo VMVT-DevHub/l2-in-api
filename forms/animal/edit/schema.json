@@ -27,6 +27,7 @@
             },
             "ja-gyv": {
               "type": "object",
+            
               "properties": {
                 "gyvId": { "type": "number" },
                 "gyvName": { "type": "string" },
@@ -133,12 +134,15 @@
         },
         "ja-gyv": {
           "type": "object",
+          "default": {},
           "properties": {
             "gyvId": { "type": "number" },
             "gyvName": { "type": "string" },
             "adrId": { "type": "number" },
             "adrName": { "type": "string" }
-          }
+          },
+          "required": ["gyvId", "adrId"],
+          "errorMessage": { "required": { "gyvId": "Gyvenvietės adresas yra privalomas.",  "adrId": "Gatvės adresas yra privalomas." } }
         },
         "pakeitimas": {
           "type": "string",
@@ -146,124 +150,16 @@
             "Pakeisti šiuos administracinius registruoto / patvirtinto valstybinės veterinarinės kontrolės subjekto duomenis",
             "Pakeisti šiuos registruotos / patvirtintos veiklos duomenis"
           ]
-        },
-        "adm-pakeitimai": {
-          "type": "object",
-          "properties": {
-            "adm-pavad": {
-              "type": "boolean",
-              "title": "pavadinimą / vardą, pavardę"
-            },
-            "adm-pavad-info": {
-              "type": "string",
-              "title": ""
-            },
-            "adm-ja-forma": {
-              "type": "boolean",
-              "title": "juridinio asmens teisinę formą"
-            },
-            "adm-ja-forma-info": {
-              "type": "string",
-              "title": ""
-            },
-            "adm-adr": {
-              "type": "boolean",
-              "title": "gatvės, vietovės pavadinimą, statinio numerį"
-            },
-            "adm-adr-info": {
-              "type": "string",
-              "title": ""
-            },
-            "adm-kontakt": {
-              "type": "boolean",
-              "title": "kontaktinius duomenis"
-            },
-            "adm-kontakt-info": {
-              "type": "string",
-              "title": ""
-            },
-            "adm-kita": {
-              "type": "boolean",
-              "title": "kita (nurodyti)"
-            },
-            "adm-kita-info": {
-              "type": "string",
-              "title": ""
-            }
-          }
-        },
-        "veiklos-pakeitimai": {
-          "type": "object",
-          "properties": {
-            "veikla": {
-              "type": "boolean",
-              "title": "plečiama patvirtinta / registruota veikla toje pačioje veiklavietėje įrengiant naujas patalpas"
-            },
-            "veikla-info": {
-              "type": "string",
-              "title": ""
-            },
-            "irenginiai": {
-              "type": "boolean",
-              "title": "keičiami įrenginiai"
-            },
-            "irenginiai-info": {
-              "type": "string",
-              "title": ""
-            },
-            "procesas": {
-              "type": "boolean",
-              "title": "keičiamas technologinis procesas"
-            },
-            "procesas-info": {
-              "type": "string",
-              "title": ""
-            },
-            "assort": {
-              "type": "boolean",
-              "title": "keičiamas tvarkomų produktų asortimentas"
-            },
-            "assort-info": {
-              "type": "string",
-              "title": ""
-            },
-            "kita": {
-              "type": "boolean",
-              "title": "kita (nurodyti)"
-            },
-            "kita-info": {
-              "type": "string",
-              "title": ""
-            }
-          }
         }
-      },
-      "allOf": [
-        { "if": {
-        "properties": {
-          "pakeitimas": {
-            "enum": [
-              "Pakeisti šiuos administracinius registruoto / patvirtinto valstybinės veterinarinės kontrolės subjekto duomenis"
-            ]
-          }
-        }
-      },
-      "then": {
-        "required": ["ja-gyv"],
-        "errorMessage": {
-          "required": {
-            "ja-gyv": "Adresas yra privalomas."
-          }
-        }
-      }}
-      ],
-     
-      "required": ["registracijos-nr", "ja-gyv", "pakeitimas"],
-      "errorMessage": {
-        "required": {
-          "registracijos-nr": "Registracijos patvirtinimo numeris privalomas.",
-          "ja-gyv": "Veiklavietės adresas yra privalomas.",
-          "pakeitimas": "Bent vienas iš pakeitimo tipų yra privalomi."
+      }
+    },
+    "pakeitimas": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kontaktai": {
+          "type": "string",
+          "title": "Pakeisti kontaktinius duomenis"
         }
       }
     },
@@ -310,14 +206,60 @@
         }
       },
       "required": ["informuotas", "atsakymas"],
-        "errorMessage": {
-          "required": {
-            "informuotas": "Sutikimas yra privalomas.",
-            "atsakymas": "Atsakymo gavimo būdas yra privalomas."
-          }
+      "errorMessage": {
+        "required": {
+          "informuotas": "Sutikimas yra privalomas.",
+          "atsakymas": "Atsakymo gavimo būdas yra privalomas."
         }
+      }
     }
   },
+  "allOf": [
+        {
+          "if": {
+            "allOf": [
+              {
+                "anyOf": [
+                  {
+                    "not": {
+                      "properties": {
+                        "pareiskejas": {
+                          "properties": {
+                            "atsakingas-asmuo": {
+                              "properties": {
+                                "ja": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "then": {
+            "properties": {
+              "veiklaviete": {
+                "properties": {
+                  "ja-gyv": {
+                    "required": ["gyvId", "adrId"],
+                    "errorMessage": {
+                      "required": {
+                        "gyvId": "Gyvenvietės adresas yra privalomas.",
+                        "adrId": "Gatvės adresas yra privalomas."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
   "required": ["pareiskejas", "veiklaviete"],
   "errorMessage": {
     "required": {
