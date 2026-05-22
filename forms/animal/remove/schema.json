@@ -124,7 +124,7 @@
     },
     "veiklaviete": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "default": {},
       "properties": {
         "registracijos-nr": {
@@ -133,6 +133,7 @@
         },
         "ja-gyv": {
           "type": "object",
+          "x-edit": true,
           "properties": {
             "gyvId": { "type": "number" },
             "gyvName": { "type": "string" },
