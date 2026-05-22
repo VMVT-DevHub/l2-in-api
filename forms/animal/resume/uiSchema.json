@@ -208,19 +208,30 @@
             {
               "type": "Control",
               "scope": "#/properties/sutikimai/properties/gauti-info-pastu"
-            },
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "",
+          "elements": [
             {
               "type": "Control",
               "scope": "#/properties/sutikimai/properties/pastas",
-              "rule": {
-                "effect": "SHOW",
-                "condition": {
-                  "scope": "#/properties/sutikimai/properties/gauti-info-pastu",
-                  "schema": {"const": true}
-                }
+               "options": {
+                "clearOnCopy": true,
+                "display": "authField",
+                "key": "email"
               }
             }
-          ]
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/sutikimai/properties/gauti-info-pastu",
+              "schema": { "const": true }
+            }
+          }
         },
         {
           "type": "Group",
