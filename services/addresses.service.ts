@@ -59,10 +59,11 @@ export default class AddressesService extends moleculer.Service {
     rest: 'GET /find/dst',
     params: {
       id: 'number|convert',
+      full: { type: 'boolean', optional: true, convert: true },
     },
   })
-  async findDist(ctx: Context<{ id: number }>) {
-    const { id } = ctx.params;
+  async findDist(ctx: Context<{ id: number; full: boolean }>) {
+    const { id, full = false } = ctx.params;
     const url = `${this.baseUrl}/ar/details?id=${id}&details=false`;
 
     const result: any = await this.broker.call('http.get', {
@@ -70,12 +71,16 @@ export default class AddressesService extends moleculer.Service {
       opt: { responseType: 'json' },
     });
 
+    if (full) {
+      return result ?? null;
+    }
+
     return result?.kodai?.apg ?? null;
   }
 
   @Action({
     name: 'findDistFromCoord',
-    rest: 'GET /find/dst',
+    rest: 'GET /find/coordDst',
     params: {
       x: 'string',
       y: 'string',
