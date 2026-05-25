@@ -131,21 +131,34 @@
           "type": "string",
           "title": "Registravimo / patvirtinimo Nr."
         },
-        "ja-gyv": {
+        "adresas": {
           "type": "object",
+          "additionalProperties": false,
+          "default": {},
           "properties": {
-            "gyvId": { "type": "number" },
-            "gyvName": { "type": "string" },
-            "adrId": { "type": "number" },
-            "adrName": { "type": "string" }
+            "ja-gyv": {
+            "type": "object",
+            "x-edit": true,
+            "properties": {
+              "gyvId": { "type": "number" },
+              "gyvName": { "type": "string" },
+              "adrId": { "type": "number" },
+              "adrName": { "type": "string" }
+            }
+          },
+           "ar-bus-koordinates": {
+              "type": "boolean",
+              "title": "Adresas buvo nurodomas WGS koordinatėmis",
+              "description": "Žymima tuo atveju, kai arti veiklavietės nebuvo jokio pastato",
+              "default": false
+            }
           }
         }
       },
-      "required": ["registracijos-nr", "ja-gyv"],
+      "required": ["registracijos-nr"],
       "errorMessage": {
         "required": {
-          "registracijos-nr": "Registracijos patvirtinimo numeris privalomas.",
-          "ja-gyv": "Veiklavietės adresas yra privalomas."
+          "registracijos-nr": "Registracijos patvirtinimo numeris privalomas."
         }
       }
     },
@@ -200,6 +213,89 @@
         }
     }
   },
+     "allOf": [
+  {
+    "if": {
+      "properties": {
+        "veiklaviete": {
+          "properties": {
+            "adresas": {
+              "properties": {
+                "ar-bus-koordinates": {
+                  "const": false
+                }
+              },
+              "required": ["ar-bus-koordinates"]
+            }
+          }
+        }
+      }
+    },
+    "then": {
+    "properties": {
+      "veiklaviete": {
+        "properties": {
+          "adresas": {
+            "required": ["ja-gyv"],
+            "properties": {
+              "ja-gyv": {
+                "required": ["gyvId", "adrId"],
+                "errorMessage": {
+                  "required": {
+                    "gyvId": "Adresas yra privalomas.",
+                    "adrId": "Tikslus adresas yra privalomas."
+                  }
+                }
+              }
+            },
+            "errorMessage": {
+              "required": {
+                "ja-gyv": "Adresas yra privalomas."
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  },
+  {
+    "if": {
+      "properties": {
+        "veiklaviete": {
+          "properties": {
+            "adresas": {
+              "properties": {
+                "ar-bus-koordinates": {
+                  "const": true
+                }
+              },
+              "required": ["ar-bus-koordinates"]
+            }
+          }
+        }
+      }
+    },
+    "then": {
+      "properties": {
+        "veiklaviete": {
+          "required": ["koordinates"],
+          "properties": {
+            "koordinates": {
+              "required": ["platuma", "ilguma"],
+              "errorMessage": {
+                "required": {
+                  "platuma": "Koordinatės: Platuma yra privaloma.",
+                  "ilguma": "Koordinatės: Ilguma yra privaloma."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+],
   "required": ["pareiskejas", "veiklaviete"],
   "errorMessage": {
     "required": {

@@ -147,12 +147,49 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/veiklaviete/properties/ja-gyv",
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ja-gyv",
               "options": {
                 "display": "addressSelect"
               }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-bus-koordinates"
             }
           ]
+        }, 
+        {
+          "type": "Group",
+          "label": "WGS koordinatės",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/koordinates/properties/platuma",
+                  "options": {
+                    "placeholder": "Pvz.: 54.7090"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/koordinates/properties/ilguma",
+                  "options": {
+                    "placeholder": "Pvz.: 25.2474"
+                  }
+                }
+              ]
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-bus-koordinates",
+              "schema": { "const": true },
+              "failWhenUndefined": true
+            }
+          }
         }
       ]
     },

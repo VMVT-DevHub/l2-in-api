@@ -332,4 +332,26 @@ export default class extends moleculer.Service {
       updatedAt: r.updatedAt,
     };
   }
+
+  @Action({
+    auth: RestrictionType.PUBLIC,
+    rest: 'GET /address/:id',
+  })
+  async getAddress(ctx: Context<{ id: string }>) {
+    const rows = await this.findEntities(ctx, {
+      query: {
+        regNo: ctx?.params?.id,
+      },
+    });
+
+    const r = rows[0];
+
+    if (!r) return null;
+
+    try {
+      return await ctx.call('addresses.findDist', { id: r.actionAddressAob, full: true });
+    } catch {
+      return;
+    }
+  }
 }

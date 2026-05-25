@@ -166,7 +166,6 @@
             },
             "ja-gyv": {
               "type": "object",
-              "required": ["gyvId", "adrId"],
               "properties": {
                 "gyvId": { "type": "number" },
                 "gyvName": { "type": "string" },
@@ -1245,7 +1244,18 @@
                 "properties": {
                   "adresas": {
                     "required": ["ja-gyv"],
-                    "errorMessage": { "required": { "ja-gyv": "Adresas yra privalomas." } }
+                    "errorMessage": { "required": { "ja-gyv": "Adresas yra privalomas." } },
+                    "properties": {
+                      "ja-gyv": {
+                        "required": ["gyvId", "adrId"],
+                        "errorMessage": {
+                          "required": {
+                            "gyvId": "Gyvenvietė yra privaloma.",
+                            "adrId": "Tikslus adresas yra privalomas."
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
