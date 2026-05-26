@@ -34,17 +34,22 @@ export const VISIBLE_TO_CREATOR_OR_ADMIN_SCOPE_VKO = {
       }
 
       const userId = session.user.id;
+      const userAK = session.ak ?? null;
       const activeOrgCode = session.activeOrgCode ?? null;
+      const activeOrgCodeStr = activeOrgCode != null ? String(activeOrgCode).trim() : '';
+      const userAKStr = userAK != null ? String(userAK).trim() : '';
 
-      if (
-        activeOrgCode != null &&
-        activeOrgCode.toString().split('').length == 9 &&
-        String(activeOrgCode).trim() !== ''
-      ) {
+      // 1. JA:
+      if (activeOrgCodeStr.length === 9) {
         return { ...query, sprenParentId: activeOrgCode };
       }
 
-      // No active org, all rows I created with "Fizinis asmuo"
+      // 2. FA:
+      if (userAKStr.length === 11) {
+        return { ...query, sprenParentId: userAK };
+      }
+
+      // 3. FA fallback
       return { ...query, sprenInCreatedBy: userId, sprenParentId: null };
     },
   },

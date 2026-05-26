@@ -193,13 +193,76 @@
         },
         {
           "type": "Group",
-          "label": "Pakeisti šiuos valstybinės veterinarinės kontrolės subjekto ir / arba registruotos / patvirtintos veiklos duomenis",
+          "label": "Prašau",
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/pakeitimas/properties/kontaktai",
+              "label": "Pakeisti šiuos valstybinės veterinarinės kontrolės subjekto ir / arba registruotos / patvirtintos veiklos duomenis:",
+              "scope": "#/properties/pakeitimai/properties/title",
               "options": {
-                "display": "textarea"
+                "display": "PlainText"
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/pakeitimai/properties/kontakt",
+               "options": {
+                "margin": "16px"
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/pakeitimai/properties/veikla",
+               "options": {
+                "margin": "16px"
+              }
+             
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/pakeitimai/properties/irenginiai", 
+              "options": {
+                "margin": "16px"
+              }
+             
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/pakeitimai/properties/procesas",
+               "options": {
+                "margin": "16px"
+              }
+             
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/pakeitimai/properties/assort",
+               "options": {
+                "margin": "16px"
+              }
+             
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/pakeitimai/properties/kita",
+               "options": {
+                "margin": "16px"
+              }
+            },
+             {
+              "type": "Control",
+              "scope": "#/properties/pakeitimai/properties/kita-info",
+              "options": {
+                "margin": "32px"
+              },
+               "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/pakeitimai/properties/kita",
+                  "schema": {
+                    "const": true
+                  }
+                }
               }
             }
           ]
