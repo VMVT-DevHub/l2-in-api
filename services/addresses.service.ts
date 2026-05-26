@@ -64,6 +64,7 @@ export default class AddressesService extends moleculer.Service {
   })
   async findDist(ctx: Context<{ id: number; full: boolean }>) {
     const { id, full = false } = ctx.params;
+
     const url = `${this.baseUrl}/ar/details?id=${id}&details=false`;
 
     const result: any = await this.broker.call('http.get', {

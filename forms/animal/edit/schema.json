@@ -189,13 +189,40 @@
         }
       }
     },
-    "pakeitimas": {
+    "pakeitimai": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "kontaktai": {
+        "title": {
+          "type": "string"
+        },
+        "kontakt": {
+          "type": "boolean",
+          "title": "keičiami kontaktiniai duomenys"
+        },
+        "veikla": {
+          "type": "boolean",
+          "title": "plečiama patvirtinta / registruota veikla toje pačioje veiklavietėje įrengiant naujas patalpas"
+        },
+        "irenginiai": {
+          "type": "boolean",
+          "title": "keičiami įrenginiai"
+        },
+        "procesas": {
+          "type": "boolean",
+          "title": "keičiamas technologinis procesas"
+        },
+        "assort": {
+          "type": "boolean",
+          "title": "keičiamas tvarkomų produktų asortimentas"
+        },
+        "kita": {
+          "type": "boolean",
+          "title": "kita (nurodyti)"
+        },
+        "kita-info": {
           "type": "string",
-          "title": "Pakeisti kontaktinius duomenis"
+          "title": ""
         }
       }
     },
