@@ -337,15 +337,13 @@ export default class extends moleculer.Service {
     auth: RestrictionType.PUBLIC,
     rest: 'GET /address',
     params: {
-      user: 'number|convert',
       id: 'string',
     },
   })
-  async getAddress(ctx: Context<{ id: string; user: number }>) {
+  async getAddress(ctx: Context<{ id: string }>) {
     const rows = await this.findEntities(ctx, {
       query: {
         regNo: ctx?.params?.id,
-        parentId: ctx?.params?.user,
       },
     });
 
