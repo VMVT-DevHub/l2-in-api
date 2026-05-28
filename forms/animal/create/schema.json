@@ -211,13 +211,25 @@
           "items": {
             "type": "object",
             "properties": {
-              "numeris": {
+              "yra-statinys": {
+                "type": "boolean",
+                "title": "Veikla registruojama statinyje"
+              },
+              "yra-patalpa": {
+                "type": "boolean",
+                "title": "Veikla registruojama patalpoje"
+              },
+              "statinys-numeris": {
                 "type": "string",
-                "title": "Statinio / patalpų unikalus numeris (Nekilnojamo turto objekto unikalus numeris) *",
+                "title": "Daikto unikalus numeris (Nekilnojamo turto objekto unikalus numeris) *",
                 "pattern": "^\\d{4}-\\d{4}-\\d{4}(?::\\d{4})?$",
                 "errorMessage": {
                   "pattern": "Statinio / patalpų unikalus numeris turi atitikti xxxx-xxxx-xxxx arba  xxxx-xxxx-xxxx:xxxx  formatą"
                 }
+              },
+              "patalpa-numeris": {
+                "type": "string",
+                "title": "Nekilnojamojo turto registre įregistruoto turto registro numeris *"
               },
               "paskirtis": {
                 "type": "string",
@@ -263,16 +275,70 @@
               },
               "pagrindas-id": {
                 "type": "integer"
+              },
+              "pagrindas-trukme": {
+                "type": "string",
+                "title": "Teritorijos, statinio / patalpos naudojimo teisėto pagrindo trukmė *",
+                "format": "date"
               }
             },
-            "required": ["numeris", "paskirtis", "pagrindas"],
+            "required": ["paskirtis", "pagrindas"],
             "errorMessage": {
               "required": {
-                "numeris": "Statinio / patalpų unikalus numeris yra privalomas",
                 "paskirtis": "Statinio / patalpų paskirtis yra privaloma",
                 "pagrindas": "Statinio / patalpos teisėto naudojimo pagrindas yra privalomas"
               }
-            }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "yra-statinys": { "const": true }
+                  },
+                  "required": ["yra-statinys"]
+                },
+                "then": {
+                  "required": ["statinys-numeris"],
+                  "errorMessage": {
+                    "required": {
+                      "statinys-numeris": "Statinio unikalus numeris yra privalomas"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "yra-patalpa": { "const": true }
+                  },
+                  "required": ["yra-patalpa"]
+                },
+                "then": {
+                  "required": ["patalpa-numeris"],
+                  "errorMessage": {
+                    "required": {
+                      "patalpa-numeris": "Patalpų registro numeris yra privalomas"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "pagrindas": { "enum": ["Terminuotas"] }
+                  },
+                  "required": ["pagrindas"]
+                },
+                "then": {
+                  "required": ["pagrindas-trukme"],
+                  "errorMessage": {
+                    "required": {
+                      "pagrindas-trukme": "Teisėto pagrindo trukmė yra privaloma"
+                    }
+                  }
+                }
+              }
+            ]
           }
         },
         "darbuotojai": {
@@ -1042,9 +1108,6 @@
             "$ref": "forms/global/defs.json#/definitions/dokumentas"
           }
         },
-        "rinkliava": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
-        },
         "papildomi-dokumentai": {
           "type": "array",
           "items": {
@@ -1090,6 +1153,34 @@
         "patvirtinu-nepazeidziant": {
           "type": "boolean",
           "title": "statiniai (patalpos), kurie bus naudojami numatomai vykdyti veiklai, gali būti naudojami numatomai vykdyti veiklai nepažeidžiant statybą reglamentuojančių teisės aktų reikalavimų"
+        },
+        "patvirtinu-rinkliava": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": false,
+          "properties": {
+            "sumoketa-rinkliava": {
+              "type": "boolean",
+              "title": "Lietuvos Respublikos rinkliavų įstatymo nustatyta tvarka yra sumokėta Konkrečių valstybės rinkliavos dydžių sąraše, patvirtintame Lietuvos Respublikos Vyriausybės 2000 m. gruodžio 15 d. nutarimu Nr. 1458 „Dėl Konkrečių valstybės rinkliavos dydžių sąrašo ir Valstybės rinkliavos mokėjimo ir grąžinimo taisyklių patvirtinimo“, nustatyto dydžio valstybės rinkliava"
+            },
+            "kitas-asmuo": {
+              "type": "boolean",
+              "title": "Rinkliavą mokėjo kitas asmuo"
+            },
+            "mokejimo-nr": {
+              "type": "string",
+              "title": "Mokėjimo nurodymo numeris"
+            },
+            "mokejimo-data": {
+              "type": "string",
+              "title": "Mokėjimo nurodymo data",
+              "format": "date"
+            },
+            "moketojas": {
+              "type": "string",
+              "title": "Mokėtojo vardas pavardė"
+            }
+          }
         },
         "patvirtinu-teisinga": {
           "type": "boolean",
@@ -1190,9 +1281,7 @@
                         "properties": {
                           "adresas": {
                             "properties": {
-                              "ar-nesutampa-adresas": {
-                                "const": true
-                              }
+                              "ar-nesutampa-adresas": { "const": true }
                             }
                           }
                         }
@@ -1206,9 +1295,7 @@
                           "properties": {
                             "atsakingas-asmuo": {
                               "properties": {
-                                "ja": {
-                                  "type": "string"
-                                }
+                                "ja": { "type": "string" }
                               }
                             }
                           }
@@ -1225,9 +1312,7 @@
                       "properties": {
                         "adresas": {
                           "properties": {
-                            "ar-bus-koordinates": {
-                              "const": true
-                            }
+                            "ar-bus-koordinates": { "const": true }
                           },
                           "required": ["ar-bus-koordinates"]
                         }
@@ -1271,9 +1356,7 @@
             "properties": {
               "adresas": {
                 "properties": {
-                  "ar-bus-koordinates": {
-                    "const": true
-                  }
+                  "ar-bus-koordinates": { "const": true }
                 },
                 "required": ["ar-bus-koordinates"]
               }
@@ -1281,7 +1364,6 @@
           }
         }
       },
-
       "then": {
         "properties": {
           "veiklaviete": {
@@ -1364,11 +1446,41 @@
       },
       "then": {
         "properties": {
-          "dokumentai": {
-            "required": ["rinkliava"],
+          "sutikimai": {
+            "required": ["patvirtinu-rinkliava"],
             "errorMessage": {
               "required": {
-                "rinkliava": "Rinkliava yra privaloma"
+                "patvirtinu-rinkliava": "Privalote patvirtinti informaciją apie sumokėtas rinkliavas"
+              }
+            },
+            "properties": {
+              "patvirtinu-rinkliava": {
+                "required": ["sumoketa-rinkliava", "mokejimo-nr", "mokejimo-data"],
+                "errorMessage": {
+                  "required": {
+                    "sumoketa-rinkliava": "Privalote patvirtinti informaciją apie sumokėtas rinkliavas",
+                    "mokejimo-nr": "Mokėjimo nurodymo numeris yra privaloma",
+                    "mokejimo-data": "Mokėjimo nurodymo data yra privaloma"
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "kitas-asmuo": { "const": true }
+                      },
+                      "required": ["kitas-asmuo"]
+                    },
+                    "then": {
+                      "required": ["moketojas"],
+                      "errorMessage": {
+                        "required": {
+                          "moketojas": "Mokėtojo vardas pavardė yra privalomas"
+                        }
+                      }
+                    }
+                  }
+                ]
               }
             }
           }
@@ -1376,7 +1488,6 @@
       }
     }
   ],
-
   "definitions": {
     "dokumentas": {
       "type": "object",
