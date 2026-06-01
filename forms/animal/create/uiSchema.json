@@ -299,7 +299,7 @@
               "scope": "#/properties/veiklaviete/properties/patalpos",
               "options": {
                 "display": "addMore",
-                "addLabel": "Pridėti statinį",
+                "addLabel": "Pridėti statinį / patalpą",
                 "detail": {
                   "type": "HorizontalLayout",
                   "options": {
@@ -366,7 +366,10 @@
                       "elements": [
                         {
                           "type": "Control",
-                          "scope": "#/properties/pagrindas-trukme"
+                          "scope": "#/properties/pagrindas-trukme",
+                          "options": {
+                            "fromToday": true
+                          }
                         }
                       ],
                       "rule": {
