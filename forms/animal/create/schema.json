@@ -1136,7 +1136,11 @@
         },
         "patvirtinu-susipazines": {
           "type": "boolean",
-          "title": "esu susipažinęs su mano planuojamai vykdyti veiklai taikomais veterinarijos srities teisės aktų reikalavimais"
+          "title": "esu susipažinęs su mano planuojamai vykdyti veiklai taikomais veterinarijos srities teisės aktų reikalavimais",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti, kad esate susipažinęs su taikomais teisės aktų reikalavimais."
+          }
         },
         "patvirtinu-irenges": {
           "type": "boolean",
@@ -1144,7 +1148,11 @@
         },
         "patvirtinu-parenges": {
           "type": "boolean",
-          "title": "pagal teisės aktų reikalavimus esu parengęs visą dokumentaciją, kuri reikalinga mano planuojamai vykdyti veiklai"
+          "title": "pagal teisės aktų reikalavimus esu parengęs visą dokumentaciją, kuri reikalinga mano planuojamai vykdyti veiklai",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti, kad esate parengęs visą reikalingą dokumentaciją."
+          }
         },
         "patvirtinu-pasirenges": {
           "type": "boolean",
@@ -1184,14 +1192,22 @@
         },
         "patvirtinu-teisinga": {
           "type": "boolean",
-          "title": "šiame prašyme ir prie jo pridedamuose dokumentuose pateikta informacija ir duomenys yra teisinga ir atitinka tikrovę"
+          "title": "šiame prašyme ir prie jo pridedamuose dokumentuose pateikta informacija ir duomenys yra teisinga ir atitinka tikrovę",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti, kad pateikti duomenys yra teisingi."
+          }
         },
         "isipareigoju": {
           "type": "string"
         },
         "isipareigoju-laikytis": {
           "type": "boolean",
-          "title": "laikytis mano vykdomą veiklą reglamentuojančių veterinarijos srities teisės aktų reikalavimų"
+          "title": "laikytis mano vykdomą veiklą reglamentuojančių veterinarijos srities teisės aktų reikalavimų",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote įsipareigoti laikytis veiklą reglamentuojančių teisės aktų."
+          }
         },
         "isipareigoju-nevykdyti": {
           "type": "boolean",
@@ -1207,7 +1223,11 @@
         },
         "isipareigoju-informuoti": {
           "type": "boolean",
-          "title": "apie Apraše nustatyta tvarka patvirtintos ar registruotos veiklos pasikeitimus, veiklos sustabdymą arba nutraukimą  informuoti Valstybinę maisto ir veterinarijos tarnybą Aprašo VI skyriuje nustatyta tvarka"
+          "title": "apie Apraše nustatyta tvarka patvirtintos ar registruotos veiklos pasikeitimus, veiklos sustabdymą arba nutraukimą  informuoti Valstybinę maisto ir veterinarijos tarnybą Aprašo VI skyriuje nustatyta tvarka",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote įsipareigoti informuoti apie veiklos pasikeitimus nustatyta tvarka."
+          }
         },
         "sutikimas-informuotas": {
           "type": "boolean",
@@ -1220,6 +1240,25 @@
         "sutikimas-email": {
           "type": "string",
           "title": "Įveskite savo el. paštą:"
+        }
+      },
+      "if": {
+        "properties": {
+          "sutikimas-ar-yra-email": {
+            "const": true
+          }
+        },
+        "required": ["sutikimas-ar-yra-email"]
+      },
+      "then": {
+        "required": ["sutikimas-email"],
+        "properties": {
+          "sutikimas-email": {
+            "format": "email",
+            "errorMessage": {
+              "format": "El. paštas turi būti galiojantis"
+            }
+          }
         }
       },
       "required": [
@@ -1461,6 +1500,14 @@
                     "sumoketa-rinkliava": "Privalote patvirtinti informaciją apie sumokėtas rinkliavas",
                     "mokejimo-nr": "Mokėjimo nurodymo numeris yra privaloma",
                     "mokejimo-data": "Mokėjimo nurodymo data yra privaloma"
+                  }
+                },
+                "properties": {
+                  "sumoketa-rinkliava": {
+                     "const": true,
+                    "errorMessage": {
+                      "const": "Sutikimai: Privalote patvirtinti informaciją apie sumokėtą rinkliavą."
+                    }
                   }
                 },
                 "allOf": [

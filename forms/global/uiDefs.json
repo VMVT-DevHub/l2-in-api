@@ -67,6 +67,7 @@
             {
               "type": "Control",
               "scope": "#/properties/pareiskejas/properties/atsakingas-asmuo/properties/el-pastas",
+              "format": "email",
               "options": {
                 "placeholder": "vardas.pavarde@domenas.lt",
                 "display": "authField",
