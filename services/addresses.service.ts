@@ -72,7 +72,7 @@ export default class AddressesService extends moleculer.Service {
     });
 
     if (full) {
-      return result ?? null;
+      return { ...result, type: 'address' };
     }
 
     return result?.kodai?.apg ?? null;
