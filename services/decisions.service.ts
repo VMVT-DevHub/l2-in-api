@@ -351,6 +351,11 @@ export default class extends moleculer.Service {
 
     if (!r) return null;
 
+    if (!r.actionAddressAob && r.actionAddressWgs) {
+      const coordX = r.actionAddressWgs.split(',')[0];
+      const coordY = r.actionAddressWgs.split(',')[1];
+      return { type: 'coords', coordX: coordX, coordY: coordY };
+    }
     try {
       return await ctx.call('addresses.findDist', { id: r.actionAddressAob, full: true });
     } catch {

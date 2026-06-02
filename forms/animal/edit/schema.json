@@ -163,7 +163,8 @@
             "platuma": {
               "type": "string",
               "title": "Platuma *",
-              "pattern": "^(5[3-6]\\.\\d{4,6})$",
+              "x-isCoordX": true,
+              "pattern": "^(5[3-6]\\.\\d{4,})$",
               "errorMessage": {
                 "pattern": "Platumos  formatas turi būti galiojantis",
                 "minLength": "Koordinačių platuma privaloma"
@@ -172,7 +173,8 @@
             "ilguma": {
               "type": "string",
               "title": "Ilguma *",
-              "pattern": "^(2[0-6]\\.\\d{4,6})$",
+              "x-isCoordY": true,
+              "pattern": "^(2[0-6]\\.\\d{4,})$",
               "errorMessage": {
                 "pattern": "Ilgumos formatas turi būti galiojantis",
                 "minLength": "Koordinačių Ilguma privaloma"
