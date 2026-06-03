@@ -120,7 +120,7 @@ export default class SharePointService extends Moleculer.Service {
       vet: process.env.SHARE_POINT_DECISION_DRIVE_ID_VET,
     };
 
-    const url = `${this.settings.baseUrl}/${requestEnvDrive[certType]}/root:/${itemId}:/children`;
+    const url = `${this.settings.baseUrl}/${requestEnvDrive[certType]}/root:/${itemId}:/children?$expand=listItem($expand=fields($select=documentType))`;
 
     const response = await fetch(url, {
       method: 'GET',
@@ -134,7 +134,9 @@ export default class SharePointService extends Moleculer.Service {
     }
     const data = await response.json();
 
-    const decisionFile = data?.value.find((item: any) => item.name.startsWith('Sprendimas'));
+    const decisionFile = data?.value.find(
+      (item: any) => item.listItem.fields.documentType == 'Sprendimas',
+    );
 
     return decisionFile['@microsoft.graph.downloadUrl'];
   }
