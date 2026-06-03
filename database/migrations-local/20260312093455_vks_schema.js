@@ -62,6 +62,7 @@ exports.up = async function (knex) {
     table.text('spren_refusal').nullable();
 
     table.string('spren_manager_dep').nullable();
+    table.string('spren_susijes_reg_nr').nullable();
   });
 };
 

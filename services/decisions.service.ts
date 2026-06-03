@@ -206,6 +206,10 @@ export type TransportType<
         type: 'string',
         columnName: 'sprenManagerDep',
       },
+      parentRegNo: {
+        type: 'string',
+        columnName: 'sprenSusijesRegNr',
+      },
     },
     scopes: {
       ...SCOPE_VKO_DECISIONS,
@@ -305,6 +309,7 @@ export default class extends moleculer.Service {
       parent: {
         id: r.parentId,
         title: r.parentTitle,
+        parentRegNo: r.parentRegNo,
       },
       decision: {
         title: r.decisionTitle,
