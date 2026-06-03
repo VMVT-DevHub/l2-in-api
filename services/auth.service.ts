@@ -209,11 +209,7 @@ export default class AuthService extends moleculer.Service {
 
     const key = `sess:${session.sid}`;
     const blob = (await this.broker.cacher?.get(key)) || {};
-    await this.broker.cacher?.set(
-      key,
-      { ...blob, activeOrgCode: ctx.params.orgCode },
-      60 * 60 * 24,
-    );
+    await this.broker.cacher?.set(key, { ...blob, activeOrgCode: ctx.params.orgCode }, 60 * 60 * 1);
 
     session.activeOrgCode = ctx.params.orgCode;
     return { activeOrgCode: session.activeOrgCode };
@@ -226,7 +222,7 @@ export default class AuthService extends moleculer.Service {
 
     const key = `sess:${session.sid}`;
     const blob = (await this.broker.cacher?.get(key)) || {};
-    await this.broker.cacher?.set(key, { ...blob, activeOrgCode: null }, 60 * 60 * 24);
+    await this.broker.cacher?.set(key, { ...blob, activeOrgCode: null }, 60 * 60 * 1);
 
     session.activeOrgCode = null;
     return { activeOrgCode: null };
@@ -379,7 +375,7 @@ export default class AuthService extends moleculer.Service {
         roles: userRoles ?? null,
         activeOrgCode: companyCode ?? null,
       },
-      60 * 60 * 24,
+      60 * 60 * 1,
     );
 
     const token = generateToken({ sub: String(user.id), sid }, process.env.ACCESS_JWT_SECRET!);
@@ -388,7 +384,7 @@ export default class AuthService extends moleculer.Service {
       'Set-Cookie': cookie.serialize('vmvt-auth-token', token, {
         path: '/',
         httpOnly: true,
-        maxAge: 60 * 60 * 24, // 1 day
+        maxAge: 60 * 60 * 1, // 1 hour
       }),
     };
     ctx.meta.$statusCode = 302;
