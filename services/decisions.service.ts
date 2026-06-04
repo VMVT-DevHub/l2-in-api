@@ -206,6 +206,10 @@ export type TransportType<
         type: 'string',
         columnName: 'sprenManagerDep',
       },
+      parentRegNo: {
+        type: 'string',
+        columnName: 'sprenSusijesRegNr',
+      },
     },
     scopes: {
       ...SCOPE_VKO_DECISIONS,
@@ -305,6 +309,7 @@ export default class extends moleculer.Service {
       parent: {
         id: r.parentId,
         title: r.parentTitle,
+        parentRegNo: r.parentRegNo,
       },
       decision: {
         title: r.decisionTitle,
@@ -331,5 +336,35 @@ export default class extends moleculer.Service {
       createdAt: r.createdAt,
       updatedAt: r.updatedAt,
     };
+  }
+
+  @Action({
+    auth: RestrictionType.PUBLIC,
+    rest: 'GET /address',
+    params: {
+      id: 'string',
+    },
+  })
+  async getAddress(ctx: Context<{ id: string }>) {
+    const rows = await this.findEntities(ctx, {
+      query: {
+        regNo: ctx?.params?.id,
+      },
+    });
+
+    const r = rows[0];
+
+    if (!r) return null;
+
+    if (!r.actionAddressAob && r.actionAddressWgs) {
+      const coordX = r.actionAddressWgs.split(',')[0];
+      const coordY = r.actionAddressWgs.split(',')[1];
+      return { type: 'coords', coordX: coordX, coordY: coordY };
+    }
+    try {
+      return await ctx.call('addresses.findDist', { id: r.actionAddressAob, full: true });
+    } catch {
+      return;
+    }
   }
 }

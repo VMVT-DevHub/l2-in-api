@@ -132,17 +132,55 @@
           "type": "string",
           "title": "Registravimo / patvirtinimo Nr."
         },
-        "ja-gyv": {
+        "adresas": {
+          "type": "object",
+          "additionalProperties": false,
+          "default": {},
+          "properties": {
+            "ja-gyv": {
+              "type": "object",
+              "x-edit": true,
+              "properties": {
+                "gyvId": { "type": "number" },
+                "gyvName": { "type": "string" },
+                "adrId": { "type": "number" },
+                "adrName": { "type": "string" }
+              }
+              
+            },
+            "ar-bus-koordinates": {
+              "type": "boolean",
+              "title": "Adresas buvo nurodomas WGS koordinatėmis",
+              "description": "Žymima tuo atveju, kai arti veiklavietės nebuvo jokio pastato",
+              "default": false
+            }
+          }
+        },
+         "koordinates": {
           "type": "object",
           "default": {},
           "properties": {
-            "gyvId": { "type": "number" },
-            "gyvName": { "type": "string" },
-            "adrId": { "type": "number" },
-            "adrName": { "type": "string" }
-          },
-          "required": ["gyvId", "adrId"],
-          "errorMessage": { "required": { "gyvId": "Gyvenvietės adresas yra privalomas.",  "adrId": "Gatvės adresas yra privalomas." } }
+            "platuma": {
+              "type": "string",
+              "title": "Platuma *",
+              "x-isCoordX": true,
+              "pattern": "^(5[3-6]\\.\\d{4,})$",
+              "errorMessage": {
+                "pattern": "Platumos  formatas turi būti galiojantis",
+                "minLength": "Koordinačių platuma privaloma"
+              }
+            },
+            "ilguma": {
+              "type": "string",
+              "title": "Ilguma *",
+              "x-isCoordY": true,
+              "pattern": "^(2[0-6]\\.\\d{4,})$",
+              "errorMessage": {
+                "pattern": "Ilgumos formatas turi būti galiojantis",
+                "minLength": "Koordinačių Ilguma privaloma"
+              }
+            }
+          }
         },
         "pakeitimas": {
           "type": "string",
@@ -153,13 +191,40 @@
         }
       }
     },
-    "pakeitimas": {
+    "pakeitimai": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "kontaktai": {
+        "title": {
+          "type": "string"
+        },
+        "kontakt": {
+          "type": "boolean",
+          "title": "keičiami kontaktiniai duomenys"
+        },
+        "veikla": {
+          "type": "boolean",
+          "title": "plečiama patvirtinta / registruota veikla toje pačioje veiklavietėje įrengiant naujas patalpas"
+        },
+        "irenginiai": {
+          "type": "boolean",
+          "title": "keičiami įrenginiai"
+        },
+        "procesas": {
+          "type": "boolean",
+          "title": "keičiamas technologinis procesas"
+        },
+        "assort": {
+          "type": "boolean",
+          "title": "keičiamas tvarkomų produktų asortimentas"
+        },
+        "kita": {
+          "type": "boolean",
+          "title": "kita (nurodyti)"
+        },
+        "kita-info": {
           "type": "string",
-          "title": "Pakeisti kontaktinius duomenis"
+          "title": ""
         }
       }
     },
@@ -195,7 +260,7 @@
           "type": "string",
           "title": "Įveskite el. paštą"
         },
-        "atsakymas": {
+        "ats-gavimas": {
           "type": "string",
           "enum": [
             "Nacionalinę elektroninių siuntų pristatymo naudojant pašto tinklą informacinę sistemą",
@@ -205,61 +270,99 @@
           ]
         }
       },
-      "required": ["informuotas", "atsakymas"],
+      "required": ["informuotas", "ats-gavimas"],
       "errorMessage": {
         "required": {
           "informuotas": "Sutikimas yra privalomas.",
-          "atsakymas": "Atsakymo gavimo būdas yra privalomas."
+          "ats-gavimas": "Atsakymo gavimo būdas yra privalomas."
         }
       }
     }
   },
   "allOf": [
-        {
-          "if": {
-            "allOf": [
-              {
-                "anyOf": [
-                  {
-                    "not": {
-                      "properties": {
-                        "pareiskejas": {
-                          "properties": {
-                            "atsakingas-asmuo": {
-                              "properties": {
-                                "ja": {
-                                  "type": "string"
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "then": {
+    {
+      "if": {
+        "properties": {
+          "veiklaviete": {
             "properties": {
-              "veiklaviete": {
+              "adresas": {
+                "properties": {
+                  "ar-bus-koordinates": {
+                    "const": false
+                  }
+                },
+                "required": ["ar-bus-koordinates"]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "veiklaviete": {
+            "properties": {
+              "adresas": {
+                "required": ["ja-gyv"],
                 "properties": {
                   "ja-gyv": {
                     "required": ["gyvId", "adrId"],
                     "errorMessage": {
                       "required": {
-                        "gyvId": "Gyvenvietės adresas yra privalomas.",
-                        "adrId": "Gatvės adresas yra privalomas."
+                        "gyvId": "Adresas yra privalomas.",
+                        "adrId": "Tikslus adresas yra privalomas."
                       }
                     }
+                  }
+                },
+                "errorMessage": {
+                  "required": {
+                    "ja-gyv": "Adresas yra privalomas."
                   }
                 }
               }
             }
           }
         }
-      ],
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "veiklaviete": {
+            "properties": {
+              "adresas": {
+                "properties": {
+                  "ar-bus-koordinates": {
+                    "const": true
+                  }
+                },
+                "required": ["ar-bus-koordinates"]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "veiklaviete": {
+            "required": ["koordinates"],
+            "properties": {
+              "koordinates": {
+                "required": ["platuma", "ilguma"],
+                "errorMessage": {
+                  "required": {
+                    "platuma": "Koordinatės: Platuma yra privaloma.",
+                    "ilguma": "Koordinatės: Ilguma yra privaloma."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  
   "required": ["pareiskejas", "veiklaviete"],
   "errorMessage": {
     "required": {
