@@ -271,6 +271,17 @@ export default class ApiService extends moleculer.Service {
       return;
     }
 
+    await this.broker.cacher?.set(`sess:${sid}`, session, 60 * 60 * 1);
+
+    const freshToken = ctx.meta.session?.token ?? token;
+    (ctx.meta as any).$responseHeaders = {
+      'Set-Cookie': cookie.serialize('vmvt-auth-token', freshToken, {
+        path: '/',
+        httpOnly: true,
+        maxAge: 60 * 60, // reset to 1h on every request
+      }),
+    };
+
     ctx.meta.session = {
       token,
       sid,
