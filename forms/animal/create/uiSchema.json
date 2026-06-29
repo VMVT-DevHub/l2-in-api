@@ -1049,7 +1049,7 @@
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/ne-veisimo-gyvunai",
+                      "scope": "#/properties/gyvunai",
                       "options": {
                         "display": "addMore",
                         "addLabel": "Pridėti gyvūną",
@@ -1074,7 +1074,7 @@
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/gyvunai",
+                      "scope": "#/properties/ne-veisimo-gyvunai",
                       "options": {
                         "display": "addMore",
                         "addLabel": "Pridėti gyvūną",

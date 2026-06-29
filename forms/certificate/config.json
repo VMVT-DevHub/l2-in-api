@@ -23,6 +23,12 @@
       "title": "Matas",
       "path": "$.prekes[*]",
       "mapper": "kiekisMatas"
+    },
+    {
+      "name": "animalAmount",
+      "title": "Gyvūno kiekis",
+      "path": "$.gyvunai[*]",
+      "mapper": "kiekisMatas"
     }
   ]
 }
