@@ -12,7 +12,7 @@
         },
         "ja-duomenys": {
           "type": "object",
-          "additionalProperties": false,
+          "additionalProperties": true,
           "default": {},
           "properties": {
             "ja-pavadinimas": {
@@ -25,14 +25,18 @@
               "title": "Juridinio asmens teisinė foma",
               "readOnly": true
             },
-            "ja-gyv": {
+            "adresas": {
               "type": "object",
-            
               "properties": {
-                "gyvId": { "type": "number" },
-                "gyvName": { "type": "string" },
-                "adrId": { "type": "number" },
-                "adrName": { "type": "string" }
+                "ja-gyv": {
+                "type": "object",
+                "properties": {
+                  "gyvId": { "type": "number" },
+                  "gyvName": { "type": "string" },
+                  "adrId": { "type": "number" },
+                  "adrName": { "type": "string" }
+                  }
+                }
               }
             },
             "ja-moketojo-kodas": {

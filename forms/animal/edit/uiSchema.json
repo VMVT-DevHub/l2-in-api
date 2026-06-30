@@ -331,12 +331,8 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/sutikimai/properties/pastas",
-               "options": {
-                "clearOnCopy": true,
-                "display": "authField",
-                "key": "email"
-              }
+              "scope": "#/properties/sutikimai/properties/pastas"
+              
             }
           ],
           "rule": {
