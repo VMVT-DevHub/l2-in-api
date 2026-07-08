@@ -10,7 +10,7 @@ export default class AddressesService extends moleculer.Service {
   created() {
     this.baseUrl = process.env.REGISTRAI_BASE_URL || 'https://registrai.test.vmvt.lt';
   }
-
+  //
   @Action({
     name: 'findGyv',
     rest: 'GET /find/gyv',
