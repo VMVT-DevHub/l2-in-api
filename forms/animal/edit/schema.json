@@ -134,7 +134,15 @@
       "properties": {
         "registracijos-nr": {
           "type": "string",
-          "title": "Registravimo / patvirtinimo Nr."
+          "title": "Registravimo / patvirtinimo Nr. *"
+        },
+         "veikla": {
+          "title": "Pagrindinė veikla *",
+           "type": "string",
+          "fetchEnumFrom": "options.activities.getIDs",
+          "x-isVeikla": true,
+          "x-edit": true
+
         },
         "adresas": {
           "type": "object",
@@ -192,6 +200,13 @@
             "Pakeisti šiuos administracinius registruoto / patvirtinto valstybinės veterinarinės kontrolės subjekto duomenis",
             "Pakeisti šiuos registruotos / patvirtintos veiklos duomenis"
           ]
+        }
+      },
+      "required": ["registracijos-nr", "veikla"],
+      "errorMessage": {
+        "required": {
+          "registracijos-nr": "Veiklavietė: Registracijos nr. yra privalomas",
+          "veikla": "Veiklavietė: Veikla yra privaloma."
         }
       }
     },

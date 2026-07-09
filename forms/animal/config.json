@@ -12,6 +12,12 @@
       "path": "$.pareiskejas.atsakingas-asmuo.pavarde"
     },
     {
+      "name": "actionEdit",
+      "title": "Veikla",
+      "path": "$.veiklaviete.veikla",
+      "mapper": "actionNameEdit"
+    },
+    {
       "name": "action",
       "title": "Veikla",
       "path": "$.veiklos.veikla",
