@@ -322,7 +322,7 @@ export default class extends moleculer.Service {
     if (formType !== 'animal') return null;
 
     const veiklaviete = ctx.params?.data?.veiklaviete;
-    const action = ctx.params?.data?.veiklos?.veikla;
+    const action = ctx.params?.data?.veiklos?.veikla || ctx.params?.data?.veiklaviete?.veikla;
     const pareiskejas = ctx.params?.data?.pareiskejas;
     const companyAddress =
       pareiskejas?.['atsakingas-asmuo']?.aob ||
