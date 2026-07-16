@@ -18,6 +18,7 @@ import { Request, RequestStatus } from './requests.service';
 export enum RequestHistoryTypes {
   CREATED = 'CREATED',
   SUBMITTED = 'SUBMITTED',
+  REVIEW = 'REVIEW',
   REJECTED = 'REJECTED',
   RETURNED = 'RETURNED',
   APPROVED = 'APPROVED',
@@ -158,6 +159,7 @@ export default class extends moleculer.Service {
     const typesByStatus: any = {
       [RequestStatus.CREATED]: RequestHistoryTypes.CREATED,
       [RequestStatus.SUBMITTED]: RequestHistoryTypes.SUBMITTED,
+      [RequestStatus.REVIEW]: RequestHistoryTypes.REVIEW,
       [RequestStatus.REJECTED]: RequestHistoryTypes.REJECTED,
       [RequestStatus.RETURNED]: RequestHistoryTypes.RETURNED,
       [RequestStatus.APPROVED]: RequestHistoryTypes.APPROVED,

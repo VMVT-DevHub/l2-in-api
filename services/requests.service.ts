@@ -24,6 +24,7 @@ export enum RequestStatus {
   DRAFT = 'DRAFT', // juodrastis
   CREATED = 'CREATED', // pateikta
   SUBMITTED = 'SUBMITTED', // pakartotinai pateikta
+  REVIEW = 'REVIEW', // vertinama
   APPROVED = 'APPROVED', // patvirtinta
   REJECTED = 'REJECTED', // atmesta
   RETURNED = 'RETURNED', // grazinta taisyti
@@ -33,6 +34,7 @@ export enum RequestStatus {
 interface Fields extends CommonFields {
   id: number;
   status: RequestStatus;
+  exportCertificateNo: string;
   formType: string;
   form: string;
   companyCode: string;
@@ -125,6 +127,11 @@ const populatePermissions = (field: string) => {
         set: 'setHasChanged',
       },
 
+      exportCertificateNo: {
+        type: 'string',
+        columnName: 'export_certificate_no',
+      },
+
       completedAt: {
         type: 'date',
         columnType: 'datetime',
@@ -203,6 +210,7 @@ export default class extends moleculer.Service {
             RequestStatus.DRAFT,
             RequestStatus.CREATED,
             RequestStatus.SUBMITTED,
+            RequestStatus.REVIEW,
           ].includes(request.status),
         };
       else {
