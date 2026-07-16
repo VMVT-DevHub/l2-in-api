@@ -210,7 +210,6 @@ export default class extends moleculer.Service {
             RequestStatus.DRAFT,
             RequestStatus.CREATED,
             RequestStatus.SUBMITTED,
-            RequestStatus.REVIEW,
           ].includes(request.status),
         };
       else {
