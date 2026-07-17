@@ -11,6 +11,7 @@
     "start": "yarn run db:migrate --knexfile ./dist/knexfile.js && moleculer-runner --config dist/moleculer.config.js",
     "cli": "moleculer connect NATS",
     "lint": "eslint --ext .js,.ts .",
+    "test": "node -r ts-node/register test/run.ts",
     "dc:up": "docker compose -p l2-in-api up --build -d",
     "dc:down": "docker compose -p l2-in-api down",
     "dc:logs": "docker compose -p l2-in-api logs -f",

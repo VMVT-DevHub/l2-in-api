@@ -22,6 +22,122 @@ export interface FormType {
   }>;
 }
 
+export interface CertificateSearchQuery {
+  requestId?: string;
+  importer?: string;
+  manufacturerName?: string;
+  kpnCode?: string;
+  productName?: string;
+}
+
+export const hasCertificateSearch = ({
+  requestId,
+  importer,
+  manufacturerName,
+  kpnCode,
+  productName,
+}: CertificateSearchQuery) =>
+  !!requestId || !!importer || !!manufacturerName || !!kpnCode || !!productName;
+
+const norm = (v: any) => (v == null ? '' : String(v)).toLowerCase();
+
+const containsCI = (haystack: any, needle: string) =>
+  needle ? norm(haystack).includes(needle.toLowerCase()) : true;
+
+const getArray = (arr: any): any[] => {
+  return Array.isArray(arr) ? arr : [];
+};
+
+const getPrekes = (data: any): any[] => getArray(data?.prekes);
+
+const getGyvunai = (data: any): any[] => getArray(data?.gyvunai);
+
+const getImporterCandidates = (data: any): string[] => {
+  const candidates: any[] = [];
+  candidates.push(data?.gavejas?.asmuo?.['imones-pavadinimas']);
+  candidates.push(data?.gavejas?.['paskirties-vieta']?.asmuo?.['imones-pavadinimas']);
+  candidates.push(data?.gavejas?.paskirties_vieta?.asmuo?.['imones-pavadinimas']);
+  candidates.push(data?.siunta?.asmuo?.['imones-pavadinimas']);
+  candidates.push(data?.siunta?.siuntejas?.asmuo?.['imones-pavadinimas']);
+  candidates.push(data?.siunta?.gavejas?.asmuo?.['imones-pavadinimas']);
+  candidates.push(data?.siunta?.gavejas?.paskirties_vieta?.asmuo?.['imones-pavadinimas']);
+  candidates.push(data?.siunta?.gavejas?.['paskirties-vieta']?.asmuo?.['imones-pavadinimas']);
+  candidates.push(data?.importuotojas?.['imones-pavadinimas']);
+  candidates.push(data?.importuotojas?.name);
+  return candidates.filter(Boolean).map(String);
+};
+
+const getManufacturerCandidates = (product: any): string[] => {
+  const candidates: any[] = [];
+  candidates.push(product?.['gamintojo-pavadinimas']);
+  candidates.push(product?.gamintojas?.['gamintojo-pavadinimas']);
+  candidates.push(product?.gamintojas?.['imones-pavadinimas']);
+  return candidates.filter(Boolean).map(String);
+};
+
+const getKpnCandidates = (item: any): string[] => {
+  const candidates: any[] = [];
+  candidates.push(item?.['kpn-kodas']);
+  candidates.push(item?.kodas?.reiksme);
+  candidates.push(item?.kodas?.['tevine-reiksme']);
+  candidates.push(typeof item?.kodas === 'string' ? item.kodas : undefined);
+  return candidates.filter(Boolean).map(String);
+};
+
+export const filterCertificateRows = <T extends { id: string | number; data?: any }>(
+  rows: T[],
+  { requestId, importer, manufacturerName, kpnCode, productName }: CertificateSearchQuery,
+): T[] => {
+  const kpnDigits = (kpnCode ?? '').replace(/\D/g, '');
+  const kpnIsExact = /^\d{8}$/.test(kpnDigits);
+
+  return rows.filter((r) => {
+    if (requestId) {
+      const idNum = Number(requestId);
+      if (!Number.isNaN(idNum) && Number(r.id) !== idNum) return false;
+    }
+
+    const data = r.data;
+
+    if (importer) {
+      const candidates = getImporterCandidates(data);
+      const importerHit = candidates.some((c) => containsCI(c, importer));
+      if (!importerHit) return false;
+    }
+
+    const prekes = getPrekes(data);
+    const gyvunai = getGyvunai(data);
+
+    if (kpnDigits) {
+      const kpnHit = [...prekes, ...gyvunai].some((item) =>
+        getKpnCandidates(item).some((candidate) => {
+          const value = candidate.replace(/\D/g, '');
+          return kpnIsExact ? value === kpnDigits : value.startsWith(kpnDigits);
+        }),
+      );
+      if (!kpnHit) return false;
+    }
+
+    if (manufacturerName) {
+      const manHit = prekes.some((p) =>
+        getManufacturerCandidates(p).some((c) => containsCI(c, manufacturerName)),
+      );
+      if (!manHit) return false;
+    }
+
+    if (productName) {
+      const prodHit =
+        prekes.some((p) => containsCI(p?.pavadinimas, productName)) ||
+        gyvunai.some(
+          (g) => containsCI(g?.rusis, productName) || containsCI(g?.['rusis-kita'], productName),
+        );
+      if (!prodHit) return false;
+    }
+
+    return true;
+  });
+};
+
 @Service({
   name: 'reports.certificate',
 })
@@ -69,14 +185,23 @@ export default class extends moleculer.Service {
     const kpnCodeRaw = (kpnCodeRawRaw ?? '').toString().trim();
     const productName = (productNameRaw ?? '').toString().trim();
 
-    const hasSearch =
-      !!requestId || !!importer || !!manufacturerName || !!kpnCodeRaw || !!productName;
+    const searchQuery = {
+      requestId,
+      importer,
+      manufacturerName,
+      kpnCode: kpnCodeRaw,
+      productName,
+    };
+
+    const hasSearch = hasCertificateSearch(searchQuery);
 
     const baseQuery = {
       ...safeQuery,
       formType,
     };
 
+    // Search currently filters in memory over at most 10k visible certificate rows.
+    // If a single entity can exceed that, move this to DB-backed JSONB or indexed derived fields.
     const effectivePage = hasSearch ? 1 : page;
     const effectivePageSize = hasSearch ? 10000 : pageSize;
 
@@ -93,71 +218,7 @@ export default class extends moleculer.Service {
       [formType]: ft.columns,
     };
 
-    const norm = (v: any) => (v == null ? '' : String(v)).toLowerCase();
-    const containsCI = (haystack: any, needle: string) =>
-      needle ? norm(haystack).includes(needle.toLowerCase()) : true;
-
-    const getPrekes = (data: any): any[] => {
-      const arr = data?.prekes;
-      return Array.isArray(arr) ? arr : [];
-    };
-
-    // Not sure which one
-    const getImporterCandidates = (data: any): string[] => {
-      const candidates: any[] = [];
-      candidates.push(data?.siunta?.asmuo?.['imones-pavadinimas']);
-      candidates.push(data?.siunta?.siuntejas?.asmuo?.['imones-pavadinimas']);
-      candidates.push(data?.siunta?.gavejas?.asmuo?.['imones-pavadinimas']);
-      candidates.push(data?.siunta?.gavejas?.paskirties_vieta?.asmuo?.['imones-pavadinimas']);
-      candidates.push(data?.siunta?.gavejas?.['paskirties-vieta']?.asmuo?.['imones-pavadinimas']);
-      candidates.push(data?.importuotojas?.['imones-pavadinimas']);
-      candidates.push(data?.importuotojas?.name);
-      return candidates.filter(Boolean).map(String);
-    };
-
-    const kpnDigits = kpnCodeRaw.replace(/\D/g, '');
-    const kpnIsExact = /^\d{8}$/.test(kpnDigits);
-
-    const filteredRows = hasSearch
-      ? result.rows.filter((r) => {
-          if (requestId) {
-            const idNum = Number(requestId);
-            if (!Number.isNaN(idNum) && Number(r.id) !== idNum) return false;
-          }
-
-          const data = (r as any).data;
-
-          if (importer) {
-            const candidates = getImporterCandidates(data);
-            const importerHit = candidates.some((c) => containsCI(c, importer));
-            if (!importerHit) return false;
-          }
-
-          const prekes = getPrekes(data);
-
-          if (kpnDigits) {
-            const kpnHit = prekes.some((p) => {
-              const v = String(p?.['kpn-kodas'] ?? '');
-              return kpnIsExact ? v === kpnDigits : v.startsWith(kpnDigits);
-            });
-            if (!kpnHit) return false;
-          }
-
-          if (manufacturerName) {
-            const manHit = prekes.some((p) =>
-              containsCI(p?.['gamintojo-pavadinimas'], manufacturerName),
-            );
-            if (!manHit) return false;
-          }
-
-          if (productName) {
-            const prodHit = prekes.some((p) => containsCI(p?.pavadinimas, productName));
-            if (!prodHit) return false;
-          }
-
-          return true;
-        })
-      : result.rows;
+    const filteredRows = hasSearch ? filterCertificateRows(result.rows, searchQuery) : result.rows;
 
     const finalTotalPages = hasSearch
       ? Math.max(1, Math.ceil(filteredRows.length / pageSize))
@@ -204,7 +265,7 @@ export default class extends moleculer.Service {
       return {
         ...r,
         ...columns,
-        data: undefined,
+        data: undefined as undefined,
       };
     });
 

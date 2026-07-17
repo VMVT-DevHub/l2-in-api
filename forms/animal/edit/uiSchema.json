@@ -136,8 +136,25 @@
           "label": "Duomenys apie ūkio subjekto veiklavietę",
           "elements": [
             {
-              "type": "Control",
-              "scope": "#/properties/veiklaviete/properties/registracijos-nr"
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/registracijos-nr"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/veikla",
+                  "options": {
+                    "labelFormat": "${code} - ${name}",
+                    "value": "code",
+                    "fetchOptionsFrom": "options/activities/okis"
+                  }
+                }
+              ]
             }
           ]
         },
@@ -158,7 +175,7 @@
             }
           ]
         },
-         {
+        {
           "type": "Group",
           "label": "WGS koordinatės",
           "elements": [
@@ -206,56 +223,52 @@
             {
               "type": "Control",
               "scope": "#/properties/pakeitimai/properties/kontakt",
-               "options": {
+              "options": {
                 "margin": "16px"
               }
             },
             {
               "type": "Control",
               "scope": "#/properties/pakeitimai/properties/veikla",
-               "options": {
-                "margin": "16px"
-              }
-             
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/pakeitimai/properties/irenginiai", 
               "options": {
                 "margin": "16px"
               }
-             
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/pakeitimai/properties/irenginiai",
+              "options": {
+                "margin": "16px"
+              }
             },
             {
               "type": "Control",
               "scope": "#/properties/pakeitimai/properties/procesas",
-               "options": {
+              "options": {
                 "margin": "16px"
               }
-             
             },
             {
               "type": "Control",
               "scope": "#/properties/pakeitimai/properties/assort",
-               "options": {
+              "options": {
                 "margin": "16px"
               }
-             
             },
             {
               "type": "Control",
               "scope": "#/properties/pakeitimai/properties/kita",
-               "options": {
+              "options": {
                 "margin": "16px"
               }
             },
-             {
+            {
               "type": "Control",
               "scope": "#/properties/pakeitimai/properties/kita-info",
               "options": {
                 "margin": "32px"
               },
-               "rule": {
+              "rule": {
                 "effect": "SHOW",
                 "condition": {
                   "scope": "#/properties/pakeitimai/properties/kita",
@@ -267,7 +280,6 @@
             }
           ]
         }
-         
       ]
     },
     {

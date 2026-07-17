@@ -367,4 +367,25 @@ export default class extends moleculer.Service {
       return;
     }
   }
+
+  @Action({
+    auth: RestrictionType.PUBLIC,
+    rest: 'GET /action',
+    params: {
+      id: 'string',
+    },
+  })
+  async getAction(ctx: Context<{ id: string }>) {
+    const rows = await this.findEntities(ctx, {
+      query: {
+        regNo: ctx?.params?.id,
+      },
+    });
+
+    const r = rows[0];
+
+    if (!r) return null;
+
+    return r.actionTitle.split(' - ')[0] || null;
+  }
 }

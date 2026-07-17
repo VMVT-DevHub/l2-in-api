@@ -29,6 +29,7 @@ const API_WHITELIST = [
   'decisions.getAll',
   'decisions.get',
   'decisions.getAddress',
+  'decisions.getAction',
 
   'formTypes.formTypes',
   'formTypes.formType',

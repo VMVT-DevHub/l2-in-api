@@ -76,7 +76,7 @@ export default class extends moleculer.Service {
             (acc: number, number: string | number) => (acc += Number(number) || 0),
             0,
           );
-        } else if (column.mapper === 'actionName') {
+        } else if (column.mapper === 'actionName' || column.mapper === 'actionNameEdit') {
           responseValue = value.map((v: any) => {
             const mappedValue = activityList.find((item) => item.code == v);
             return mappedValue?.name ?? '-';

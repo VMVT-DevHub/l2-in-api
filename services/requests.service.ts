@@ -24,6 +24,7 @@ export enum RequestStatus {
   DRAFT = 'DRAFT', // juodrastis
   CREATED = 'CREATED', // pateikta
   SUBMITTED = 'SUBMITTED', // pakartotinai pateikta
+  REVIEW = 'REVIEW', // vertinama
   APPROVED = 'APPROVED', // patvirtinta
   REJECTED = 'REJECTED', // atmesta
   RETURNED = 'RETURNED', // grazinta taisyti
@@ -33,6 +34,7 @@ export enum RequestStatus {
 interface Fields extends CommonFields {
   id: number;
   status: RequestStatus;
+  exportCertificateNo: string;
   formType: string;
   form: string;
   companyCode: string;
@@ -123,6 +125,11 @@ const populatePermissions = (field: string) => {
         type: 'boolean',
         columnName: 'has_changes',
         set: 'setHasChanged',
+      },
+
+      exportCertificateNo: {
+        type: 'string',
+        columnName: 'export_certificate_no',
       },
 
       completedAt: {
@@ -322,7 +329,7 @@ export default class extends moleculer.Service {
     if (formType !== 'animal') return null;
 
     const veiklaviete = ctx.params?.data?.veiklaviete;
-    const action = ctx.params?.data?.veiklos?.veikla;
+    const action = ctx.params?.data?.veiklos?.veikla || ctx.params?.data?.veiklaviete?.veikla;
     const pareiskejas = ctx.params?.data?.pareiskejas;
     const companyAddress =
       pareiskejas?.['atsakingas-asmuo']?.aob ||
