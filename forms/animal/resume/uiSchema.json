@@ -136,8 +136,25 @@
           "label": "Duomenys apie ūkio subjekto veiklavietę",
           "elements": [
             {
-              "type": "Control",
-              "scope": "#/properties/veiklaviete/properties/registracijos-nr"
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/registracijos-nr"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/veikla",
+                  "options": {
+                    "labelFormat": "${code} - ${name}",
+                    "value": "code",
+                    "fetchOptionsFrom": "options/activities/okis"
+                  }
+                }
+              ]
             }
           ]
         },
@@ -157,8 +174,8 @@
               "scope": "#/properties/veiklaviete/properties/adresas/properties/ar-bus-koordinates"
             }
           ]
-        }, 
-        {
+        },
+         {
           "type": "Group",
           "label": "WGS koordinatės",
           "elements": [

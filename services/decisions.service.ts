@@ -386,6 +386,6 @@ export default class extends moleculer.Service {
 
     if (!r) return null;
 
-    return r.actionTitle.split(' - ')[0] || null;
+    return r?.actionTitle?.split(' - ')[0] || null;
   }
 }
