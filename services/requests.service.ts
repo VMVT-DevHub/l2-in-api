@@ -129,7 +129,6 @@ const populatePermissions = (field: string) => {
 
       exportCertificateNo: {
         type: 'string',
-        columnName: 'export_certificate_no',
       },
 
       completedAt: {
@@ -209,6 +208,7 @@ export default class extends moleculer.Service {
             RequestStatus.RETURNED,
             RequestStatus.DRAFT,
             RequestStatus.CREATED,
+            RequestStatus.REVIEW,
             RequestStatus.SUBMITTED,
           ].includes(request.status),
         };
@@ -283,6 +283,7 @@ export default class extends moleculer.Service {
     const allowed: Record<string, RequestStatus[]> = {
       [RequestStatus.DRAFT]: [RequestStatus.DRAFT, RequestStatus.CREATED],
       [RequestStatus.RETURNED]: [RequestStatus.SUBMITTED],
+      [RequestStatus.REVIEW]: [RequestStatus.SUBMITTED],
       [RequestStatus.CREATED]: [RequestStatus.CREATED, RequestStatus.SUBMITTED],
       [RequestStatus.SUBMITTED]: [RequestStatus.SUBMITTED, RequestStatus.CREATED],
     };
