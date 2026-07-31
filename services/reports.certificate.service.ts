@@ -27,6 +27,7 @@ export interface CertificateSearchQuery {
   importer?: string;
   manufacturerName?: string;
   kpnCode?: string;
+  status?: string;
   productName?: string;
 }
 
@@ -35,9 +36,10 @@ export const hasCertificateSearch = ({
   importer,
   manufacturerName,
   kpnCode,
+  status,
   productName,
 }: CertificateSearchQuery) =>
-  !!requestId || !!importer || !!manufacturerName || !!kpnCode || !!productName;
+  !!requestId || !!importer || !!manufacturerName || !!kpnCode || !!status || !!productName;
 
 const norm = (v: any) => (v == null ? '' : String(v)).toLowerCase();
 
@@ -84,9 +86,11 @@ const getKpnCandidates = (item: any): string[] => {
   return candidates.filter(Boolean).map(String);
 };
 
-export const filterCertificateRows = <T extends { id: string | number; data?: any }>(
+export const filterCertificateRows = <
+  T extends { id: string | number; data?: any; status?: string },
+>(
   rows: T[],
-  { requestId, importer, manufacturerName, kpnCode, productName }: CertificateSearchQuery,
+  { requestId, importer, manufacturerName, kpnCode, status, productName }: CertificateSearchQuery,
 ): T[] => {
   const kpnDigits = (kpnCode ?? '').replace(/\D/g, '');
   const kpnIsExact = /^\d{8}$/.test(kpnDigits);
@@ -95,6 +99,12 @@ export const filterCertificateRows = <T extends { id: string | number; data?: an
     if (requestId) {
       const idNum = Number(requestId);
       if (!Number.isNaN(idNum) && Number(r.id) !== idNum) return false;
+    }
+
+    if (status) {
+      if (r.status !== status) {
+        return false;
+      }
     }
 
     const data = r.data;
@@ -155,6 +165,7 @@ export default class extends moleculer.Service {
         importer?: string;
         manufacturerName?: string;
         kpnCode?: string;
+        status?: string;
         productName?: string;
         [key: string]: any;
       };
@@ -175,6 +186,7 @@ export default class extends moleculer.Service {
       importer: importerRaw,
       manufacturerName: manufacturerNameRaw,
       kpnCode: kpnCodeRawRaw,
+      status: statusRaw,
       productName: productNameRaw,
       ...safeQuery
     } = incomingQuery;
@@ -190,6 +202,7 @@ export default class extends moleculer.Service {
       importer,
       manufacturerName,
       kpnCode: kpnCodeRaw,
+      status: statusRaw,
       productName,
     };
 
