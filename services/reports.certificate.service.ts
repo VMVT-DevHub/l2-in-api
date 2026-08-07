@@ -223,7 +223,7 @@ export default class extends moleculer.Service {
       page: effectivePage,
       pageSize: effectivePageSize,
       query: baseQuery,
-      populate: ['formConfig'],
+      populate: ['formConfig', 'certType'],
     });
 
     const ft: FormType = await ctx.call('formTypes.formType', { formType });

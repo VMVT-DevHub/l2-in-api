@@ -106,6 +106,34 @@ const populatePermissions = (field: string) => {
         },
       },
 
+      certType: {
+        type: 'boolean',
+        virtual: true,
+        async populate(ctx: Context, _values: any[], items: any[]) {
+          const approved = items.filter(
+            (i) => i.status === RequestStatus.APPROVED || i.status === RequestStatus.COMPLETED,
+          );
+
+          const certNrs = [...new Set(approved.map((i) => i.exportCertificateNo))];
+
+          if (!certNrs.length) {
+            return items.map(() => null);
+          }
+
+          let certMap: Record<string, boolean> = {};
+          try {
+            certMap = await ctx.call('certificates.getCerts', { certNrs });
+          } catch (err) {
+            console.error('certificates.getCerts failed', err);
+          }
+          return items.map((i) => {
+            return i.status === RequestStatus.APPROVED
+              ? certMap[i.exportCertificateNo] ?? null
+              : null;
+          });
+        },
+      },
+
       companyCode: {
         type: 'string',
         columnName: 'company_code',
