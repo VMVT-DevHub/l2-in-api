@@ -21,6 +21,8 @@ const API_WHITELIST = [
   'auth.removeDelegatedUser',
   'auth.cancel',
 
+  'certificates.getCert',
+
   'addresses.findGyv',
   'addresses.findAdr',
   'addresses.findDist',

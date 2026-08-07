@@ -62,10 +62,10 @@ export default class AddressesService extends moleculer.Service {
       full: { type: 'boolean', optional: true, convert: true },
     },
   })
-  async findDist(ctx: Context<{ id: number; full: boolean }>) {
-    const { id, full = false } = ctx.params;
+  async findDist(ctx: Context<{ id: number; full: boolean; details: boolean }>) {
+    const { id, full = false, details = false } = ctx.params;
 
-    const url = `${this.baseUrl}/ar/details?id=${id}&details=false`;
+    const url = `${this.baseUrl}/ar/details?id=${id}&details=${details}`;
     const result: any = await this.broker.call('http.get', {
       url,
       opt: { responseType: 'json' },
