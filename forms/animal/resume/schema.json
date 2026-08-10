@@ -131,6 +131,13 @@
           "type": "string",
           "title": "Registravimo / patvirtinimo Nr."
         },
+        "veikla": {
+          "title": "Pagrindinė veikla *",
+          "type": "string",
+          "fetchEnumFrom": "options.activities.getIDs",
+          "x-isVeikla": true,
+          "x-edit": true
+        },
         "adresas": {
           "type": "object",
           "additionalProperties": false,
@@ -151,6 +158,30 @@
               "title": "Adresas buvo nurodomas WGS koordinatėmis",
               "description": "Žymima tuo atveju, kai arti veiklavietės nebuvo jokio pastato",
               "default": false
+            }
+          }
+        },
+          "koordinates": {
+          "type": "object",
+          "default": {},
+          "properties": {
+            "platuma": {
+              "type": "string",
+              "title": "Platuma *",
+              "pattern": "^(5[3-6]\\.\\d{4,})$",
+              "errorMessage": {
+                "pattern": "Platumos  formatas turi būti galiojantis",
+                "minLength": "Koordinačių platuma privaloma"
+              }
+            },
+            "ilguma": {
+              "type": "string",
+              "title": "Ilguma *",
+              "pattern": "^(2[0-6]\\.\\d{4,})$",
+              "errorMessage": {
+                "pattern": "Ilgumos formatas turi būti galiojantis",
+                "minLength": "Koordinačių Ilguma privaloma"
+              }
             }
           }
         }

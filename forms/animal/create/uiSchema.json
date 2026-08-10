@@ -1323,7 +1323,10 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/sutikimai/properties/patvirtinu-rinkliava/properties/mokejimo-data"
+                  "scope": "#/properties/sutikimai/properties/patvirtinu-rinkliava/properties/mokejimo-data",
+                   "options": {
+                      "untilToday": true
+                    }
                 },
                 {
                   "type": "Control",
