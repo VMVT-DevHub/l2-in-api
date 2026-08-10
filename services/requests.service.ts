@@ -127,7 +127,7 @@ const populatePermissions = (field: string) => {
             console.error('certificates.getCerts failed', err);
           }
           return items.map((i) => {
-            return i.status === RequestStatus.APPROVED
+            return i.status === RequestStatus.APPROVED || i.status === RequestStatus.COMPLETED
               ? certMap[i.exportCertificateNo] ?? null
               : null;
           });
