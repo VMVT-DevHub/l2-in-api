@@ -200,7 +200,7 @@
           "title": "Nurodyti priežastį",
           "enum": [
             "Dėl statinio (patalpų) rekonstrukcijos, remonto",
-            "Dėl priežaščių, nesusijusių su statinio (patalpų) rekonstrukcija, remontu"
+            "Dėl priežasčių, nesusijusių su statinio (patalpų) rekonstrukcija, remontu"
           ],
           "errorMessage": {
             "enum": "Sustabdymo priežastis yra privaloma."
