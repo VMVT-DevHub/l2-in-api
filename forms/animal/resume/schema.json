@@ -138,6 +138,12 @@
           "x-isVeikla": true,
           "x-edit": true
         },
+        "pavadinimas": {
+          "title": "Veiklavietės pavadinimas *",
+          "type": "string",
+          "x-isVeiklaTitle": true,
+          "x-edit": true
+        },
         "adresas": {
           "type": "object",
           "additionalProperties": false,
@@ -186,10 +192,11 @@
           }
         }
       },
-      "required": ["registracijos-nr"],
+      "required": ["registracijos-nr", "pavadinimas"],
       "errorMessage": {
         "required": {
-          "registracijos-nr": "Registracijos patvirtinimo numeris privalomas."
+          "registracijos-nr": "Registracijos patvirtinimo numeris privalomas.",
+          "pavadinimas": "Veiklavietė: Veiklavietės pavadinimas yra privalomas."
         }
       }
     },

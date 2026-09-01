@@ -153,6 +153,10 @@
                     "value": "code",
                     "fetchOptionsFrom": "options/activities/okis"
                   }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/pavadinimas"
                 }
               ]
             }
