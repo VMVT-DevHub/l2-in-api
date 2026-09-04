@@ -153,6 +153,10 @@
                     "value": "code",
                     "fetchOptionsFrom": "options/activities/okis"
                   }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/veiklaviete/properties/pavadinimas"
                 }
               ]
             }
@@ -234,7 +238,10 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/veiklaviete/properties/sustabdymas-data"
+                  "scope": "#/properties/veiklaviete/properties/sustabdymas-data",
+                    "options": {
+                      "yeartilToday":true
+                    }
                 }
               ],
                "rule": {

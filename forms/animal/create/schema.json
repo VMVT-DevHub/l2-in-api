@@ -975,7 +975,7 @@
                 },
                 "matas": {
                   "type": "string",
-                  "enum": ["vnt", "vnt/m²", "ha", "kg", "m²", "m³"]
+                  "enum": ["vnt", "vnt/m²", "ha", "kg", "m²", "m³", "t"]
                 }
               }
             }
