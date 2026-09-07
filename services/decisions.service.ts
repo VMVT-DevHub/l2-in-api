@@ -210,6 +210,10 @@ export type TransportType<
         type: 'string',
         columnName: 'sprenSusijesRegNr',
       },
+      dateUntil: {
+        type: 'date',
+        columnName: 'sprenDataIki',
+      },
     },
     scopes: {
       ...SCOPE_VKO_DECISIONS,
@@ -317,6 +321,7 @@ export default class extends moleculer.Service {
         date: r.date,
         docNo: r.docNo,
         regNo: r.regNo,
+        dateUntil: r.dateUntil,
       },
       users: {
         decider: r.decider,
