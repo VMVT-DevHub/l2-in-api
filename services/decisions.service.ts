@@ -212,7 +212,7 @@ export type TransportType<
       },
       dateUntil: {
         type: 'date',
-        columnName: 'sprenDataIki',
+        columnName: 'sprenExtraData',
       },
     },
     scopes: {
