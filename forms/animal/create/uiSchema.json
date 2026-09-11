@@ -303,13 +303,17 @@
                 "detail": {
                   "type": "HorizontalLayout",
                   "options": {
-                    "columns": 1,
-                    "gap": "0px"
+                    "columns": 1
                   },
                   "elements": [
-                    {
+                     {
+                      "type": "HorizontalLayout",
+                      "options": {
+                        "columns": 2
+                      },
+                      "elements": [  {
                       "type": "Control",
-                      "scope": "#/properties/yra-statinys"
+                      "scope": "#/properties/statinys-patalpa"
                     },
                     {
                       "type": "Control",
@@ -320,15 +324,11 @@
                       "rule": {
                         "effect": "SHOW",
                         "condition": {
-                          "scope": "#/properties/yra-statinys",
-                          "schema": { "const": true },
+                          "scope": "#/properties/statinys-patalpa",
+                          "schema": { "enum": ["Statinys", "Statinys ir patalpa"] },
                           "failWhenUndefined": true
                         }
                       }
-                    },
-                    {
-                      "type": "Control",
-                      "scope": "#/properties/yra-patalpa"
                     },
                     {
                       "type": "Control",
@@ -336,11 +336,12 @@
                       "rule": {
                         "effect": "SHOW",
                         "condition": {
-                          "scope": "#/properties/yra-patalpa",
-                          "schema": { "const": true },
+                          "scope": "#/properties/statinys-patalpa",
+                          "schema": { "enum": ["Patalpa", "Statinys ir patalpa"] },
                           "failWhenUndefined": true
                         }
                       }
+                    }] 
                     },
                     {
                       "type": "HorizontalLayout",
