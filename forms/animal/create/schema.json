@@ -211,17 +211,17 @@
           "items": {
             "type": "object",
             "properties": {
-              "yra-statinys": {
-                "type": "boolean",
-                "title": "Veikla registruojama statinyje"
-              },
-              "yra-patalpa": {
-                "type": "boolean",
-                "title": "Veikla registruojama patalpoje"
+              "statinys-patalpa": {
+                "type": "string",
+                "title": "Veiklos registravimo vieta",
+                "enum": ["Statinys", "Patalpa",  "Statinys ir patalpa"],
+                "errorMessage": {
+                  "enum": "Turi būti viena iš pateiktų vietų"
+                }
               },
               "statinys-numeris": {
                 "type": "string",
-                "title": "Daikto unikalus numeris (Nekilnojamo turto objekto unikalus numeris) *",
+                "title": "Statinio unikalus numeris (nekilnojamo turto objekto unikalus numeris) *",
                 "pattern": "^\\d{4}-\\d{4}-\\d{4}(?::\\d{4})?$",
                 "errorMessage": {
                   "pattern": "Statinio / patalpų unikalus numeris turi atitikti xxxx-xxxx-xxxx arba  xxxx-xxxx-xxxx:xxxx  formatą"
@@ -229,7 +229,7 @@
               },
               "patalpa-numeris": {
                 "type": "string",
-                "title": "Nekilnojamojo turto registre įregistruoto turto registro numeris *"
+                "title": "Nekilnojamojo turto registre įregistruotos patalpos unikalus numeris *"
               },
               "paskirtis": {
                 "type": "string",
@@ -262,6 +262,9 @@
                   "Asmeninio poilsio",
                   "Specialiųjų paslaugų"
                 ],
+                "errorMessage": {
+                  "enum": "Turi būti viena iš pateiktų paskirčių"
+                },
                 "x-need-ids": true
               },
               "paskirtis-id": {
@@ -271,6 +274,9 @@
                 "type": "string",
                 "title": "Teritorijos, statinio / patalpos teisėto naudojimo pagrindas *",
                 "enum": ["Terminuotas", "Neterminuotas"],
+                "errorMessage": {
+                  "enum": "Turi būti vienas iš pateiktų pagrindų"
+                },
                 "x-need-ids": true
               },
               "pagrindas-id": {
@@ -282,20 +288,27 @@
                 "format": "date"
               }
             },
-            "required": ["paskirtis", "pagrindas"],
+            "required": [
+            "paskirtis",
+            "pagrindas",
+            "statinys-patalpa"
+            ],
             "errorMessage": {
               "required": {
                 "paskirtis": "Statinio / patalpų paskirtis yra privaloma",
-                "pagrindas": "Statinio / patalpos teisėto naudojimo pagrindas yra privalomas"
+                "pagrindas": "Statinio / patalpos teisėto naudojimo pagrindas yra privalomas",
+                "yra-statinys":"statinys privalomas",
+                "yra-patalpa":"statinys privalomas",
+                "statinys-patalpa": "Veiklos registravimo vieta yra privaloma"
               }
             },
             "allOf": [
               {
                 "if": {
                   "properties": {
-                    "yra-statinys": { "const": true }
+                    "statinys-patalpa": { "enum": ["Statinys"] }
                   },
-                  "required": ["yra-statinys"]
+                  "required": ["statinys-patalpa"]
                 },
                 "then": {
                   "required": ["statinys-numeris"],
@@ -309,15 +322,32 @@
               {
                 "if": {
                   "properties": {
-                    "yra-patalpa": { "const": true }
+                    "statinys-patalpa": { "enum": ["Patalpa"] }
                   },
-                  "required": ["yra-patalpa"]
+                  "required": ["statinys-patalpa"]
                 },
                 "then": {
                   "required": ["patalpa-numeris"],
                   "errorMessage": {
                     "required": {
                       "patalpa-numeris": "Patalpų registro numeris yra privalomas"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "statinys-patalpa": { "enum": ["Statinys ir patalpa"] }
+                  },
+                  "required": ["statinys-patalpa"]
+                },
+                "then": {
+                  "required": ["patalpa-numeris", "statinys-numeris"],
+                  "errorMessage": {
+                    "required": {
+                      "patalpa-numeris": "Patalpų registro numeris yra privalomas",
+                      "statinys-numeris": "Statinio unikalus numeris yra privalomas"
                     }
                   }
                 }
