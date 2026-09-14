@@ -303,13 +303,15 @@
                 "detail": {
                   "type": "HorizontalLayout",
                   "options": {
-                    "columns": 1
+                    "columns": 1,
+                    "margin_bottom": "55px"
                   },
                   "elements": [
                      {
                       "type": "HorizontalLayout",
                       "options": {
-                        "columns": 2
+                        "columns": 2,
+                        "margin_bottom": "0px"
                       },
                       "elements": [  {
                       "type": "Control",
