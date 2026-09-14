@@ -221,7 +221,7 @@
               },
               "statinys-numeris": {
                 "type": "string",
-                "title": "Statinio unikalus numeris (Nekilnojamo turto objekto unikalus numeris) *",
+                "title": "Statinio unikalus numeris (nekilnojamo turto objekto unikalus numeris) *",
                 "pattern": "^\\d{4}-\\d{4}-\\d{4}(?::\\d{4})?$",
                 "errorMessage": {
                   "pattern": "Statinio / patalpų unikalus numeris turi atitikti xxxx-xxxx-xxxx arba  xxxx-xxxx-xxxx:xxxx  formatą"
@@ -229,7 +229,7 @@
               },
               "patalpa-numeris": {
                 "type": "string",
-                "title": "Nekilnojamojo turto registre įregistruotas patalpos registro numeris *"
+                "title": "Nekilnojamojo turto registre įregistruotos patalpos unikalus numeris *"
               },
               "paskirtis": {
                 "type": "string",
