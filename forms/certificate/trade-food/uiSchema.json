@@ -1,0 +1,677 @@
+{
+  "type": "Categorization",
+  "options": {
+    "display": "form",
+    "labels": {
+      "siuntejas": "Siuntėjas",
+      "marsrutas": "Maršrutas",
+      "siunta": "Siunta",
+      "prekes": "Prekės",
+      "pakrovimo-vieta": "Pakrovimo vieta",
+      "zaliavos": "Žaliavos",
+      "gavejas": "Gavėjas",
+      "dokumentai": "Dokumentai"
+    }
+  },
+
+  "elements": [
+    {
+      "type": "Category",
+      "label": "Siuntėjas",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Siuntėjas",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 3
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/ja-duomenys/properties/ja-pavadinimas",
+                  "options": {
+                    "display": "authField",
+                    "key": "companyName"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/ja-duomenys/properties/ja-moketojo-kodas",
+                  "options": {
+                    "display": "authField",
+                    "key": "activeOrgCode"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/ja-duomenys/properties/tvarkymo-nr"
+                }
+              ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/siuntejas/properties/ja-duomenys/properties/ja-gyv",
+              "options": {
+                "display": "addressSelect"
+              },
+              "rule": {
+                "effect": "DISABLE",
+                "condition": {
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/aob",
+                  "schema": { "type": "string" },
+                  "failWhenUndefined": true
+                }
+              }
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/ja",
+              "schema": { "type": "string" },
+              "failWhenUndefined": true
+            }
+          }
+        },
+        {
+          "type": "Group",
+          "label": "Siuntėjas",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/fa-duomenys/properties/vardas",
+                  "options": {
+                    "display": "authField",
+                    "key": "firstName"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/fa-duomenys/properties/pavarde",
+                  "options": {
+                    "display": "authField",
+                    "key": "lastName"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/fa-duomenys/properties/fa-moketojo-kodas",
+                  "options": {
+                    "display": "authField",
+                    "key": "ak"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/ja-duomenys/properties/pusris-nr"
+                }
+              ]
+            }
+          ],
+          "rule": {
+            "effect": "HIDE",
+            "condition": {
+              "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/ja",
+              "schema": { "type": "string" },
+              "failWhenUndefined": true
+            }
+          }
+        },
+        {
+          "type": "Group",
+          "label": "Atsakingas asmuo",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/ja",
+                  "options": {
+                    "display": "authField",
+                    "key": "activeOrgCode",
+                    "hidden": true
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/aob",
+                  "options": {
+                    "display": "authField",
+                    "key": "aob",
+                    "hidden": true
+                  }
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/vardas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/pareigos"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/telefono-nr",
+                  "options": {
+                    "placeholder": "+37060000000 arba 06000000",
+                    "display": "authField",
+                    "key": "phone"
+                  }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/el-pastas",
+                  "format": "email",
+                  "options": {
+                    "placeholder": "vardas.pavarde@domenas.lt",
+                    "display": "authField",
+                    "key": "email"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Prekės",
+      "elements": [
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/prekes",
+              "options": {
+                "display": "modal",
+                "addLabel": "Pridėti prekę",
+                "card": {
+                  "title": { "scope": "#/properties/komercinis-lotyniskas-pavadinimas" },
+                  "code": { "scope": "#/properties/kpn-kodas" },
+                  "top": [
+                    {
+                      "svg": "<svg width=\"16\" height=\"17\" viewBox=\"0 0 16 17\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M8 5.83337C9.10457 5.83337 10 4.93794 10 3.83337C10 2.7288 9.10457 1.83337 8 1.83337C6.89543 1.83337 6 2.7288 6 3.83337C6 4.93794 6.89543 5.83337 8 5.83337Z\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M4.33315 5.83337C4.04465 5.83637 3.76491 5.93286 3.53592 6.10836C3.30692 6.28386 3.14103 6.52891 3.06315 6.80671L1.39982 12.8334C1.34942 13.0284 1.34388 13.2324 1.38361 13.4299C1.42334 13.6274 1.50731 13.8133 1.62921 13.9737C1.75111 14.1341 1.90777 14.2648 2.08742 14.3559C2.26708 14.4471 2.46506 14.4964 2.66648 14.5H13.3332C13.5389 14.5 13.7419 14.4523 13.9262 14.3607C14.1104 14.2691 14.271 14.1361 14.3953 13.9721C14.5196 13.808 14.6042 13.6175 14.6426 13.4153C14.681 13.2132 14.672 13.0048 14.6165 12.8067L12.9332 6.83337C12.8597 6.54898 12.6945 6.29679 12.463 6.11596C12.2315 5.93514 11.9469 5.8358 11.6532 5.83337H4.33315Z\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+                      "scope": "#/properties/kiekis/properties/kiekis",
+                      "dynamicInfix": { "scope": "#/properties/kiekis/properties/matas" }
+                    },
+                    {
+                      "svg": "<svg width=\"16\" height=\"17\" viewBox=\"0 0 16 17\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1.97992 9.11333C1.78309 9.23159 1.62014 9.39867 1.50684 9.59839C1.39355 9.79812 1.33376 10.0237 1.33325 10.2533V12.4133C1.33376 12.643 1.39355 12.8686 1.50684 13.0683C1.62014 13.268 1.78309 13.4351 1.97992 13.5533L3.97992 14.7533C4.18729 14.8779 4.42466 14.9437 4.66659 14.9437C4.90851 14.9437 5.14588 14.8779 5.35325 14.7533L7.99992 13.1667V9.5L4.66659 7.5L1.97992 9.11333Z\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M4.66659 11.5L1.50659 9.59998\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M4.66675 11.5L8.00008 9.5\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M4.66675 11.5V14.9467\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M8 9.5V13.1667L10.6467 14.7533C10.854 14.8779 11.0914 14.9437 11.3333 14.9437C11.5753 14.9437 11.8126 14.8779 12.02 14.7533L14.02 13.5533C14.2168 13.4351 14.3798 13.268 14.4931 13.0683C14.6064 12.8686 14.6662 12.643 14.6667 12.4133V10.2533C14.6662 10.0237 14.6064 9.79812 14.4931 9.59839C14.3798 9.39867 14.2168 9.23159 14.02 9.11333L11.3333 7.5L8 9.5Z\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M11.3333 11.5L8 9.5\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M11.3333 11.5L14.4933 9.59998\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M11.3333 11.5V14.9467\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M5.31341 3.44669C5.11659 3.56494 4.95363 3.73202 4.84034 3.93175C4.72705 4.13147 4.66725 4.35707 4.66675 4.58669V7.50002L8.00008 9.50002L11.3334 7.50002V4.58669C11.3329 4.35707 11.2731 4.13147 11.1598 3.93175C11.0465 3.73202 10.8836 3.56494 10.6867 3.44669L8.68675 2.24669C8.47937 2.1221 8.24201 2.05627 8.00008 2.05627C7.75816 2.05627 7.52079 2.1221 7.31341 2.24669L5.31341 3.44669Z\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M8.00009 5.83335L4.84009 3.93335\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M8 5.83335L11.16 3.93335\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M8 9.50004V5.83337\" stroke=\"#8E93A2\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+                      "scope": "#/properties/pakuociu-skaicius",
+                      "infix": "vnt."
+                    }
+                  ],
+                  "bottom": [
+                    {
+                      "label": "Gamintojo pavadinimas",
+                      "scope": "#/properties/gamintojo-pavadinimas"
+                    },
+                    {
+                      "label": "Gamintojo adresas",
+                      "scope": "#/properties/adresas"
+                    },
+                    {
+                      "label": "Patvirtinimo ar registravimo Nr.",
+                      "scope": "#/properties/gamintojo-patvirtinimo-iregistravimo-nr"
+                    }
+                  ]
+                },
+                "detail": {
+                  "type": "Categorization",
+                  "elements": [
+                    {
+                      "type": "Category",
+                      "elements": [
+                        {
+                          "type": "HorizontalLayout",
+                          "elements": [
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/kpn-kodas",
+
+                              "options": {
+                                "display": "treeSelect",
+                                "labelFormat": "${name} - ${id}",
+                                "value": "id",
+                                "fetchOptionsFrom": "options/kpn/tree"
+                              }
+                            },
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/pavadinimas"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "HorizontalLayout",
+                          "elements": [
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/komercinis-lotyniskas-pavadinimas"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "HorizontalLayout",
+                          "elements": [
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/pakuotes-tipas",
+                              "options": {
+                                "labelFormat": "${title}",
+                                "value": "id",
+                                "fetchOptionsFrom": "options/packageTypes/all"
+                              }
+                            },
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/pakuotes-tipas-kita",
+                              "rule": {
+                                "effect": "SHOW",
+                                "condition": {
+                                  "scope": "#/properties/pakuotes-tipas",
+                                  "schema": {
+                                    "const": "10"
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+
+                        {
+                          "type": "HorizontalLayout",
+                          "options": {
+                            "columns": 2
+                          },
+                          "elements": [
+                            {
+                              "type": "Control",
+                              "label": "Šalis",
+                              "scope": "#/properties/salis",
+                              "options": {
+                                "labelFormat": "${name}",
+                                "value": "id",
+                                "display": "countrySelect",
+                                "fetchOptionsFrom": "options/countries/all"
+                              }
+                            },
+                            {
+                              "type": "Control",
+                              "label": "Prekės gamintojo pavadinimas *",
+                              "scope": "#/properties/gamintojo-pavadinimas"
+                            },
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/gamintojo-patvirtinimo-iregistravimo-nr"
+                            },
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/adresas"
+                            }
+                          ]
+                        }
+                      ],
+                      "label": "Prekės informacija"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "label": "Prekių identifikavimas",
+          "description": "Sąrašas su visa gabenamų prekių informacija. Kai eksportuojami produktai su tuo pačiu KPN kodu ir pavadinimu, esant daugiau kaip vienai tokio produkto partijai (įskaitant pagaminimo datą ir tinkamumo vartoti terminą), pridėkite failą su partijų, pagaminimo datų ir tinkamumo vartoti terminų informacija. Jei prekės su tuo pačiu KPN kodu, tačiau kitokiu pavadinimu, jos turėtų būti įrašomos kaip naujas produktas."
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Pakrovimo vieta",
+      "elements": [
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/ar-sutampa-adresas"
+                }
+              ],
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/ja",
+                  "schema": { "type": "string" },
+                  "failWhenUndefined": true
+                }
+              }
+            },
+            {
+              "type": "HorizontalLayout",
+              "options": {
+                "columns": 2
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "options": {
+                    "display": "buttonGroup",
+                    "onChangeClear": [
+                      "vardas-pavarde",
+                      "asmens-kodas",
+                      "imones-kodas",
+                      "imones-pavadinimas"
+                    ]
+                  },
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/tipas"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/tipas",
+                  "schema": {
+                    "const": "Juridinis asmuo"
+                  }
+                }
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/imones-pavadinimas"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/imones-kodas",
+                  "options": { "placeholder": "123456789" }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/patvirtinimo-iregistravimo-nr"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/tipas",
+                  "schema": {
+                    "const": "Fizinis asmuo"
+                  }
+                }
+              },
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/vardas-pavarde"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/asmens-kodas",
+                  "options": { "placeholder": "12345678900" }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/patvirtinimo-iregistravimo-nr"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/pakrovimo-vieta/properties/ja-gyv",
+                  "options": {
+                    "display": "addressSelect"
+                  }
+                }
+              ],
+              "rule": {
+                "effect": "DISABLE",
+                "condition": {
+                  "scope": "#/properties/pakrovimo-vieta/properties/ar-sutampa-adresas",
+                  "schema": { "const": true },
+                  "failWhenUndefined": true
+                }
+              }
+            }
+          ],
+          "label": "Pakrovimo vieta",
+          "description": "Vieta, kurioje vyksta produktų pakrovimas į transporto priemonę."
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Dokumentai",
+      "elements": [
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/sudetis",
+              "label": "",
+              "options": {
+                "display": "upload",
+                "multi": true,
+                "clearOnCopy": true
+              }
+            }
+          ],
+          "label": "Sudėtis, vartojimo sąlygos, instrukcijos",
+          "description": "Rašytinė informacija apie kiekvieno prašyme nurodyto maisto sudėtį, specialiąsias vartojimo sąlygas ir vartojimo instrukciją, jei be jos būtų sudėtinga tinkamai vartoti maistą "
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/papildoma-informacija",
+              "options": {
+                "display": "textarea"
+              }
+            }
+          ],
+          "label": "Papildoma informacija",
+          "description": "Bet kokia papildoma informacija apie siuntą ar gabenimą. Šioje skiltyje taip pat nurodykite jei pageidaujate, kad ši papildoma informacija turėtų būtų įtraukta į sertifkatą/pažymėjimą."
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "label": "Patvirtinu, kad:",
+              "scope": "#/properties/dokumentai/properties/patvirtinu",
+              "options": {
+                "display": "PlainText"
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/turiu-teise",
+              "options": {
+                "clearOnCopy": true
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/turiu-patvirtinima",
+              "options": {
+                "clearOnCopy": true
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/suprantu-negarantija",
+              "options": {
+                "clearOnCopy": true
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/atitinka-teisybe",
+              "options": {
+                "clearOnCopy": true
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/isipareigoju-nesiremti",
+              "options": {
+                "clearOnCopy": true
+              }
+            },
+            {
+            "type": "HorizontalLayout",
+            "options": {
+              "columns": 1
+            },
+            "elements": [
+              {
+                "type": "Control",
+                "scope": "#/properties/dokumentai/properties/patvirtinu-rinkliava/properties/sumoketa-rinkliava",
+                "options": {
+                  "clearOnCopy": true
+                }
+              },
+              {
+                "type": "HorizontalLayout",
+                "elements": [
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/dokumentai/properties/patvirtinu-rinkliava/properties/kitas-asmuo",
+                    "options": {
+                      "margin": "16px"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "HorizontalLayout",
+                "elements": [
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/dokumentai/properties/patvirtinu-rinkliava/properties/mokejimo-nr",
+                    "options": {
+                      "margin": "16px"
+                    }
+                  },
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/dokumentai/properties/patvirtinu-rinkliava/properties/mokejimo-data",
+                    "options": {
+                        "untilToday": true
+                      }
+                  },
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/dokumentai/properties/patvirtinu-rinkliava/properties/moketojas",
+                    "rule": {
+                      "effect": "SHOW",
+                      "condition": {
+                        "scope": "#/properties/dokumentai/properties/patvirtinu-rinkliava/properties/kitas-asmuo",
+                        "schema": { "const": true }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+            
+          }
+          ],
+          "label": "Deklaracija",
+          "description": "Patvirtinimas duomenų patikimumo."
+        },
+        {
+          "type": "Group",
+          "label": "Sutikimas",
+          "description": "Sutikimas dėl duomenų pateikimo",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/patvirtinu-teisybe",
+              "options": {
+                "clearOnCopy": true
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/sutikimas-ar-yra-email",
+              "options": {
+                "clearOnCopy": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/sutikimas-email",
+              "options": {
+                "clearOnCopy": true,
+                "display": "authField",
+                "key": "email"
+              }
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/dokumentai/properties/sutikimas-ar-yra-email",
+              "schema": { "const": true }
+            }
+          }
+        },
+        {
+          "type": "Group",
+          "label": "Atsakymas",
+          "description": "Pažymėkite būdą, kuriuo pageidaujate gauti atsakymą",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/dokumentai/properties/atsakymas/properties/ats-gavimas",
+              "options": {
+                "display": "radio",
+                "clearOnCopy": true
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
