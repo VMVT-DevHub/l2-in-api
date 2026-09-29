@@ -1,0 +1,666 @@
+{
+  "type": "object",
+  "title": "Prašymas išduoti laisvosios prekybos maistu pažymėjimą",
+  "additionalProperties": false,
+  "if": {
+    "properties": {
+      "marsrutas": {
+        "properties": {
+          "importuojanti-salis": {
+            "properties": {
+              "salis": { "enum": ["UKR", "GEO", "CHL", "GBR", "CAN", "MDA", "NZL"] }
+            }
+          }
+        }
+      }
+    }
+  },
+  "then": {
+    "properties": {
+      "siunta": {
+        "properties": {
+          "asmuo": { "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu-validacija" }
+        }
+      }
+    }
+  },
+  "properties": {
+    "siuntejas": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "atsakingas-asmuo": {
+          "type": "object",
+          "additionalProperties": true,
+          "default": {},
+          "properties": {
+            "vardas": {
+              "title": "Vardas, pavardė",
+              "type": "string"
+            },
+            "pareigos": {
+              "title": "Pareigos *",
+              "type": "string",
+              "maxLength": 100,
+              "errorMessage": {
+                "maxLength": "Pareigos negali būti ilgesnės nei 100 simbolių."
+              }
+            },
+            "telefono-nr": {
+              "title": "Telefono nr. *",
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^(\\+370|370|0)[\\s-]?\\d{8}$",
+              "errorMessage": {
+                "pattern": "Telefono numeris turi būti galiojantis",
+                "minLength": "Telefono numeris privalomas."
+              },
+              "x-isPhoneOrEmail": true
+            },
+            "el-pastas": {
+                "title": "El. paštas *",
+                "type": "string",
+                "format": "email",
+                "maxLength": 254,
+                "x-isPhoneOrEmail": true,
+                "errorMessage": {
+                  "format": "El. paštas turi būti galiojantis",
+                  "maxLength": "El. paštas negali būti ilgesnis nei 254 simboliai."
+                }
+            },
+            "ja":{
+              "title":"Juridinio asmens kodas",
+              "type":["string", "null"],
+              "readOnly": true
+            },
+            "aob":{
+              "title":"AOB kodas",
+              "type":"string",
+              "readOnly": true
+        }
+          },
+          "required": ["vardas", "pareigos"],
+            "errorMessage": {
+              "required": {
+                "vardas": "Vardas ir pavardė yra privalomi.",
+                "pareigos": "Pareigos yra privalomos."
+              }
+            }
+        },
+        "ja-duomenys": {
+          "type": "object",
+          "additionalProperties": true,
+          "default": {},
+          "properties": {
+            "ja-pavadinimas": {
+              "type": "string",
+              "title": "Juridinio asmens pavadinimas",
+              "readOnly": true
+            },
+            "tvarkymo-nr": {
+              "type": "string",
+              "title": "Patvirtinimo/registravimo (maisto tvarkymo pažymėjimo) numeris"
+            },
+            "ja-gyv": {
+              "type": "object",
+              "properties": {
+                "gyvId": { "type": "number" },
+                "gyvName": { "type": "string" },
+                "adrId": { "type": "number" },
+                "adrName": { "type": "string" }
+              }
+            },
+            "ja-moketojo-kodas": {
+              "type": "string",
+              "title": "Juridinio asmens kodas",
+              "pattern": "^\\d{9}$",
+              "errorMessage": {
+                "pattern": "Juridinio asmens kodas turi būti galiojantis"
+              }
+            }
+          },
+          "required": ["pusris-nr"],
+            "errorMessage": {
+              "required": {
+                "pusris-nr": "Patvirtinimo/registravimo (PŪSRIS) numeris yra privalomas."
+              }
+            }
+        },
+        "fa-duomenys": {
+          "type": "object",
+          "additionalProperties": false,
+          "default": {},
+          "properties": {
+            "vardas": {
+              "type": "string",
+              "title": "Vardas",
+              "readOnly": true
+            },
+            "pavarde": {
+              "type": "string",
+              "title": "Pavardė",
+              "readOnly": true
+            },
+            "fa-moketojo-kodas": {
+              "type": "string",
+              "title": "Mokesčių mokėtojo identifikacinis kodas",
+              "pattern": "^[0-9]{11}$",
+              "errorMessage": {
+                "pattern": "Mokesčių mokėtojo identifikacinis kodas turi būti galiojantis"
+              }
+            }
+          }
+        }
+      },
+      "required": ["atsakingas-asmuo"],
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "atsakingas-asmuo": {
+                "type": "object",
+                "properties": {
+                  "ja": { "minLength": 1, "type": "string" }
+                },
+                "required": ["ja"]
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "ja-duomenys": {
+                "type": "object",
+                "required": ["ja-pavadinimas", "ja-moketojo-kodas"],
+                "errorMessage": {
+                  "required": {
+                    "ja-pavadinimas": "Juridinio asmens pavadinimas yra privalomas.",
+                    "ja-gyvenviete": "Juridinio asmens gyvenvietė yra privaloma.",
+                    "ja-adresas": "Juridinio asmens adresas yra privalomas.",
+                    "ja-moketojo-kodas": "Juridinio asmens moketojo kodas yra privalomas."
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "type": "object",
+            "properties": {
+              "fa-duomenys": {
+                "type": "object",
+                "required": ["vardas", "pavarde", "fa-moketojo-kodas"],
+                "errorMessage": {
+                  "required": {
+                    "vardas": "Fizinio asmens vardas yra privalomas.",
+                    "pavarde": "Fizinio asmens pavardė yra privaloma.",
+                    "fa-moketojo-kodas": "Fizinio asmens mokėtojo kodas yra privalomas."
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+     "prekes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "default": {},
+        "properties": {
+          "kpn-kodas": {
+            "title": "KPN kodas *",
+            "type": "string",
+            "fetchEnumFrom": "options.kpn.getLeafIds",
+            "errorMessage": {
+              "enum": "KPN kodas privalomas."
+            }
+          },
+          "salis": {
+            "type": "string",
+            "fetchEnumFrom": "options.countries.getCountryIds"
+          },
+          "komercinis-lotyniskas-pavadinimas": {
+            "title": "Komercinis / lotyniškas pavadinimas",
+            "type": "string"
+          },
+          "pavadinimas": {
+            "title": "Pavadinimas *",
+            "type": "string"
+          },
+          "pakuotes-tipas": {
+            "title": "Pakuotės tipas (sufasavimo būdas)",
+            "type": "string",
+            "fetchEnumFrom": "options.packageTypes.findIds",
+            "errorMessage": {
+              "enum": "Pakuotės tipas privalomas."
+            }
+          },
+          "pakuotes-tipas-kita": {
+            "title": "Įveskite kitą pakuotės tipą *",
+            "type": "string"
+          },
+          "gamintojo-pavadinimas": {
+            "title": "Prekės gamintojo pavadinimas *",
+            "type": "string"
+          },
+          "gamintojo-patvirtinimo-iregistravimo-nr": {
+            "title": "Gamintojo patvirtinimo ar įregistravimo nr.",
+            "type": "string"
+          },
+          "adresas": {
+            "$ref": "#/definitions/adresas"
+          }
+        },
+        "required": [
+          "kpn-kodas",
+          "gamintojo-pavadinimas",
+          "adresas",
+          "salis",
+          "pakuotes-tipas",
+          "pavadinimas"
+        ],
+        "errorMessage": {
+          "required": {
+            "kpn-kodas": "Prekės: KPN kodas privalomas.",
+            "gamintojo-pavadinimas": "Prekės: Gamintojo pavadinimas privalomas.",
+            "salis": "Prekės: Šalis yra privaloma.",
+            "pakuotes-tipas": "Prekės: Pakuotės tipas yra privalomas.",
+            "pavadinimas": "Prekės: Pavadinimas yra privalomas."
+          }
+        }
+      },
+      "errorMessage": {
+        "minItems": "Turi būti nurodyta bent viena prekė."
+      }
+    },
+    "pakrovimo-vieta": {
+      "type": "object",
+      "additionalProperties": false,
+      "default": {},
+      "properties": {
+        "asmuo": {
+          "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu"
+        },
+        "ar-sutampa-adresas": {
+          "title": "Pakrovimo vietos (veiklavietės) pavadinimas ir adresas sutampa su Siuntėjo pavadinimu ir adresu",
+          "type": "boolean",
+          "default": false
+
+        },
+        "ja-gyv": {
+          "type": "object",
+          "properties": {
+            "gyvId": { "type": "number" },
+            "gyvName": { "type": "string" },
+            "adrId": { "type": "number" },
+            "adrName": { "type": "string" }
+          }
+        },
+        "patvirtinimo-iregistravimo-nr":{
+          "title": "Patvirtinimo ar įregistravimo numeris",
+          "type": "string"
+        }
+      },
+      "required": [
+        "patvirtinimo-iregistravimo-nr",
+        "asmuo"
+      ],
+      "errorMessage": {
+        "required": {
+          "patvirtinimo-iregistravimo-nr": "Patvirtinimo ar įregistravimo numeris privalomas.",
+          "asmuo": "Asmuo privalomas."
+        }
+      }
+    },
+    "dokumentai": {
+      "type": "object",
+      "additionalProperties": false,
+      "default": {},
+      "properties": {
+        "sudetis": {
+          "$ref": "forms/global/defs.json#/definitions/dokumentas"
+        },
+        "patvirtinu": {
+          "type": "string"
+        },
+        "patvirtinu-rinkliava": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": false,
+          "properties": {
+            "sumoketa-rinkliava": {
+              "type": "boolean",
+              "title": "Lietuvos Respublikos rinkliavų įstatymo nustatyta tvarka yra sumokėta Konkrečių valstybės rinkliavos dydžių sąraše, patvirtintame Lietuvos Respublikos Vyriausybės 2000 m. gruodžio 15 d. nutarimu Nr. 1458 „Dėl Konkrečių valstybės rinkliavos dydžių sąrašo ir Valstybės rinkliavos mokėjimo ir grąžinimo taisyklių patvirtinimo“, nustatyto dydžio valstybės rinkliava",
+              "const": true,
+              "errorMessage": {
+                "const": "Privalote patvirtinti, kad valstybės rinkliava yra sumokėta."
+              }
+            },
+            "kitas-asmuo": {
+              "type": "boolean",
+              "title": "Rinkliavą mokėjo kitas asmuo"
+            },
+            "mokejimo-nr": {
+              "type": "string",
+              "title": "Mokėjimo nurodymo numeris"
+            },
+            "mokejimo-data": {
+              "type": "string",
+              "title": "Mokėjimo nurodymo data",
+              "format": "date"
+            },
+            "moketojas": {
+              "type": "string",
+              "title": "Mokėtojo vardas pavardė"
+            }
+          },
+          "required": [
+            "sumoketa-rinkliava",
+            "kitas-asmuo",
+            "mokejimo-nr",
+            "mokejimo-data"
+          ],
+          "errorMessage": {
+            "required": {
+              "sumoketa-rinkliava": "Privalote patvirtinti, kad valstybės rinkliava yra sumokėta.",
+              "kitas-asmuo": "Privalote nurodyti, ar valstybės rinkliavą mokėjo kitas asmuo.",
+              "mokejimo-nr": "Privalote nurodyti mokėjimo nurodymo numerį.",
+              "mokejimo-data": "Privalote nurodyti mokėjimo nurodymo datą."
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "kitas-asmuo": { "const": true }
+                },
+                "required": ["kitas-asmuo"]
+              },
+              "then": {
+                "required": ["moketojas"],
+                "errorMessage": {
+                  "required": {
+                    "moketojas": "Mokėtojo vardas pavardė yra privalomas"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "papildoma-informacija": {
+          "type": "string",
+          "title": ""
+        },
+        "sutikimas": {
+          "type": "boolean",
+          "title": "Esu informuotas (-a), jog mano asmens duomenys bus tvarkomi asmens, teikiančio šį prašymą, tapatybės nustatymo ir informavimo apie prašymo nagrinėjimą tikslais",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti šiame pareiškime nurodytą atsakingo asmens deklaraciją."
+          }
+        },
+
+        "turiu-teise": {
+          "type": "boolean",
+          "title": "turiu teisę tiekti ES rinkai ir jai tiekiu šiame prašyme nurodytą pašarą;",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti, kad turite teisę tiekti ir tiekiate šiame prašyme nurodytą pašarą ES rinkai."
+          }
+        },
+
+        "turiu-patvirtinima": {
+          "type": "boolean",
+          "title": "man suteiktas pašarų ūkio subjekto patvirtinimas / registravimas nėra sustabdytas / panaikintas;",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti, kad jūsų pašarų ūkio subjekto patvirtinimas ar registravimas nėra sustabdytas arba panaikintas."
+          }
+        },
+
+        "suprantu-negarantija": {
+          "type": "boolean",
+          "title": "suprantu, kad šio prašymo pagrindu išduotas pažymėjimas nepatvirtina ir negarantuoja, kad mano eksportuojamas maistas atitinka ES, Lietuvos Respublikos ir importuojančios šalies teisės aktų reikalavimus, yra saugus, tinkamos kokybės ir gali būti žmonių vartojamas;",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti, kad suprantate pažymėjimo paskirtį ir jo nesuteikiamas garantijas."
+          }
+        },
+
+        "isipareigoju-nesiremti": {
+          "type": "boolean",
+          "title": "įsipareigoju nesiremti šio prašymo pagrindu išduotu Pažymėjimu, jeigu pasikeitė prašyme nurodyto maisto sudėtis, ir apie tai informuoti Valstybinę maisto ir veterinarijos tarnybą (toliau – VMVT) raštu;",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote įsipareigoti informuoti VMVT apie pašaro sudėties, paskirties ar naudojimo sąlygų pasikeitimus."
+          }
+        },
+
+        "atitinka-teisybe": {
+          "type": "boolean",
+          "title": "šiame prašyme ir prie jo pridėtuose dokumentuose pateikta informacija ir duomenys, mano žiniomis ir įsitikinimu, yra teisinga ir atitinka tikrovę;",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti, kad pateikta informacija ir dokumentai yra teisingi ir atitinka tikrovę."
+          }
+        },
+
+        "patvirtinu-teisybe": {
+          "type": "boolean",
+          "title": "Esu informuotas (-a), jog mano asmens duomenys bus tvarkomi asmens, teikiančio šį prašymą, tapatybės nustatymo ir informavimo apie prašymo nagrinėjimą tikslais",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti, kad pateikta informacija ir duomenys yra teisingi ir atitinka tikrovę."
+          }
+        },
+
+        "sutikimas-informuotas": {
+          "type": "boolean",
+          "title": "...",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti, kad esate informuotas (-a) apie savo asmens duomenų tvarkymą."
+          }
+        },
+        "sutikimas-ar-yra-email": {
+          "type": "boolean",
+          "title": "Sutinku gauti informaciją apie reikalavimų pakeitimus el. paštu"
+        },
+        "sutikimas-email": {
+          "type": "string",
+          "title": "Įveskite savo el. paštą:"
+        },
+
+        "atsakymas": {
+          "type": "object",
+          "additionalProperties": false,
+          "default": {},
+          "properties": {
+            "ats-gavimas": {
+              "type": "string",
+              "enum": [
+                "Kvalifikuotu elektroniniu parašu pasirašytą pažymėjimą, kurį pageidauju gauti el. paštu",
+                "Kvalifikuotu elektroniniu parašu pasirašytą pažymėjimą, kurį pageidauju gauti per e. pristatymo sistemą",
+                "Fiziniu parašu pasirašytą Pažymėjimą, kurį pageidauju gauti paštu",
+                "Fiziniu parašu pasirašytą pažymėjimą, kurį pageidauju gauti kreipiantis asmeniškai arba per atstovą VMVT Paslaugų departamento apygardos skyriuje"
+              ]
+            }
+          },
+          "required": ["ats-gavimas"],
+          "errorMessage": {
+            "required": { "ats-gavimas": "Privalote pasirinkti, kaip gauti atsakymą" }
+          }
+        }
+      },
+      
+       "if": {
+        "properties": {
+          "sutikimas-ar-yra-email": {
+            "const": true
+          }
+        },
+        "required": ["sutikimas-ar-yra-email"]
+      },
+      "then": {
+        "required": ["sutikimas-email"],
+        "properties": {
+          "sutikimas-email": {
+            "format": "email",
+            "errorMessage": {
+              "format": "El. paštas turi būti galiojantis"
+            }
+          }
+        }
+      },
+      "required": [
+        "ats-gavimas",
+        "sutikimas",
+        "turiu-teise",
+        "turiu-patvirtinima",
+        "suprantu-negarantija",
+        "isipareigoju-nesiremti",
+        "patvirtinu-teisybe",
+        "sutikimas-informuotas"
+      ],
+      "errorMessage": {
+        "required": {
+          "ats-gavimas": "Privalote pasirinkti, kaip gauti atsakymą.",
+          "sutikimas": "Privalote patvirtinti šiame pareiškime nurodytą atsakingo asmens deklaraciją.",
+          "turiu-teise": "Privalote patvirtinti, kad turite teisę tiekti ir tiekiate šiame prašyme nurodytą pašarą ES rinkai.",
+          "turiu-patvirtinima": "Privalote patvirtinti, kad jūsų pašarų ūkio subjekto patvirtinimas ar registravimas nėra sustabdytas arba panaikintas.",
+          "suprantu-negarantija": "Privalote patvirtinti, kad suprantate pažymėjimo paskirtį ir jo nesuteikiamas garantijas.",
+          "isipareigoju-nesiremti": "Privalote įsipareigoti informuoti VMVT apie pašaro sudėties, paskirties ar naudojimo sąlygų pasikeitimus.",
+          "patvirtinu-teisybe": "Privalote patvirtinti, kad pateikta informacija ir duomenys yra teisingi ir atitinka tikrovę.",
+          "sutikimas-informuotas": "Privalote patvirtinti, kad esate informuotas (-a) apie savo asmens duomenų tvarkymą."
+        }
+      }
+    }
+  },
+  "required": ["siuntejas", "prekes"],
+  "errorMessage": {
+    "required": {
+      "siuntejas": "Siuntėjo informacija yra privaloma.",
+      "marsrutas": "Kelionės maršruto informacija yra privaloma.",
+      "gavejas": "Gavėjo informacija yra privaloma.",
+      "prekes": "Prekių informacija yra privaloma.",
+      "siunta": "Siuntos informacija yra privaloma."
+    }
+  },
+  "definitions": {
+    "atsakingas-asmuo": {
+      "title": "Atsakingas asmuo",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "vardas-pavarde": {
+          "$ref": "forms/global/defs.json#/definitions/vardas-pavarde"
+        },
+        "pareigos": {
+          "title": "Pareigos *",
+          "type": "string",
+          "maxLength": 100,
+          "errorMessage": {
+            "maxLength": "Pareigos negali būti ilgesnės nei 100 simbolių."
+          }
+        },
+        "telefono-nr": {
+          "$ref": "forms/global/defs.json#/definitions/telefono-nr"
+        },
+        "el-pastas": {
+          "$ref": "forms/global/defs.json#/definitions/el-pastas"
+        }
+      },
+      "required": ["vardas-pavarde", "pareigos", "telefono-nr", "el-pastas"],
+      "errorMessage": {
+        "required": {
+          "vardas-pavarde": "Vardas ir pavardė yra privalomi.",
+          "pareigos": "Pareigos yra privalomos.",
+          "telefono-nr": "Telefono numeris privalomas.",
+          "el-pastas": "El. paštas privalomas."
+        }
+      }
+    },
+    "adresas": {
+      "title": "Adresas *",
+      "type": "string"
+    },
+    "laikas": {
+      "title": "Laikas",
+      "type": "string",
+      "format": "time"
+    },
+    "data": {
+      "title": "Data",
+      "type": "string",
+      "format": "date"
+    },
+    "salis": {
+      "type": "string",
+      "fetchEnumFrom": "options.countries.getCountryIds"
+    }
+  },
+ 
+  "allOf": [
+    {
+      "if": {
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "properties": {
+                  "pakrovimo-vieta": {
+                    "properties": {
+                      "ar-sutampa-adresas": { "const": false }
+                    }
+                  }
+                }
+              },
+              {
+                "not": {
+                  "properties": {
+                    "siuntejas": {
+                      "properties": {
+                        "atsakingas-asmuo": {
+                          "properties": {
+                            "ja": { "type": "string" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+        "pakrovimo-vieta": {
+          "required": ["ja-gyv"],
+          "errorMessage": {
+            "required": {
+              "ja-gyv": "Adresas yra privalomas."
+            }
+          },
+          "properties": {
+            "ja-gyv": {
+              "required": ["gyvId", "adrId"],
+              "errorMessage": {
+                "required": {
+                  "gyvId": "Gyvenvietė yra privaloma.",
+                  "adrId": "Tikslus adresas yra privalomas."
+                }
+              }
+            }
+          }
+        }
+      }
+      }
+    }
+  ]
+}
