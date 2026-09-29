@@ -185,7 +185,7 @@
       "type": "object",
       "title": "Kelionės maršrutas",
       "additionalProperties": false,
-      "validateEuTransit": true,
+      "validateEuTransit": false,
       "default": {},
       "required": ["eksportuojanti-salis", "importuojanti-salis"],
       "errorMessage": {
