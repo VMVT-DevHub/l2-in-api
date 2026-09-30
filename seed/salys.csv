@@ -1,195 +1,202 @@
-"id","sal_pavad","sal_iso2"
-"AFG","Afganistano Islamo Respublika","AF"
-"IRL","Airija","IE"
-"ALB","Albanijos Respublika","AL"
-"DZA","Alžyro Liaudies Demokratinė Respublika","DZ"
-"AND","Andoros Kunigaikštystė","AD"
-"AGO","Angolos Respublika","AO"
-"ATG","Antigva ir Barbuda","AG"
-"ARG","Argentinos Respublika","AR"
-"ARM","Armėnijos Respublika","AM"
-"AUS","Australija","AU"
-"AUT","Austrijos Respublika","AT"
-"AZE","Azerbaidžano Respublika","AZ"
-"BHS","Bahamų Sandrauga","BS"
-"BHR","Bahreino Karalystė","BH"
-"BLR","Baltarusijos Respublika","BY"
-"BGD","Bangladešo Liaudies Respublika ","BD"
-"BRB","Barbadosas","BB"
-"BEL","Belgijos Karalystė","BE"
-"BLZ","Belizas","BZ"
-"BEN","Benino Respublika","BJ"
-"GNB","Bisau Gvinėjos Respublika","GW"
-"BOL","Bolivijos Daugiatautė Valstybė","BO"
-"BIH","Bosnija ir Hercegovina","BA"
-"BWA","Botsvanos Respublika","BW"
-"BRA","Brazilijos Federacinė Respublika","BR"
-"BRN","Brunėjaus Darusalamas","BN"
-"BGR","Bulgarijos Respublika","BG"
-"BFA","Burkina Fasas","BF"
-"BDI","Burundžio Respublika","BI"
-"BTN","Butano Karalystė","BT"
-"CAF","Centrinės Afrikos Respublika","CF"
-"TCD","Čado Respublika","TD"
-"CZE","Čekijos Respublika","CZ"
-"CHL","Čilės Respublika","CL"
-"DNK","Danijos Karalystė","DK"
-"DMA","Dominikos Sandrauga","DM"
-"DOM","Dominikos Respublika","DO"
-"CIV","Dramblio Kaulo Kranto Respublika","CI"
-"DJI","Džibučio Respublika","DJ"
-"EGY","Egipto Arabų Respublika","EG"
-"ECU","Ekvadoro Respublika","EC"
-"ERI","Eritrėjos Valstybė","ER"
-"EST","Estijos Respublika","EE"
-"SWZ","Esvatinio Karalystė","SZ"
-"ETH","Etiopijos Federacinė Demokratinė Respublika","ET"
-"FJI","Fidžio Respublika","FJ"
-"PHL","Filipinų Respublika","PH"
-"GAB","Gabono Respublika","GA"
-"GUY","Gajanos Kooperacinė Respublika","GY"
-"GMB","Gambijos Respublika","GM"
-"GHA","Ganos Respublika","GH"
-"GRC","Graikijos Respublika","EL"
-"GRD","Grenada","GD"
-"GTM","Gvatemalos Respublika","GT"
-"GIN","Gvinėjos Respublika","GN"
-"HTI","Haičio Respublika","HT"
-"HND","Hondūro Respublika","HN"
-"IND","Indijos Respublika","IN"
-"IDN","Indonezijos Respublika","ID"
-"IRQ","Irako Respublika","IQ"
-"IRN","Irano Islamo Respublika","IR"
-"ISL","Islandija","IS"
-"ESP","Ispanijos Karalystė","ES"
-"ITA","Italijos Respublika","IT"
-"ISR","Izraelio Valstybė","IL"
-"JAM","Jamaika","JM"
-"JPN","Japonija","JP"
-"YEM","Jemeno Respublika","YE"
-"JOR","Jordanijos Hašimitų Karalystė","JO"
-"GBR","Jungtinė Didžiosios Britanijos ir Šiaurės Airijos Karalystė","UK"
-"USA","Jungtinės Amerikos Valstijos","US"
-"ARE","Jungtiniai Arabų Emyratai","AE"
-"MNE","Juodkalnija","ME"
-"KHM","Kambodžos Karalystė","KH"
-"CMR","Kamerūno Respublika","CM"
-"CAN","Kanada","CA"
-"QAT","Kataro Valstybė","QA"
-"KAZ","Kazachstano Respublika","KZ"
-"KEN","Kenijos Respublika","KE"
-"CHN","Kinijos Liaudies Respublika","CN"
-"CYP","Kipro Respublika","CY"
-"KGZ","Kirgizijos Respublika","KG"
-"KIR","Kiribačio Respublika","KI"
-"COL","Kolumbijos Respublika","CO"
-"COM","Komorų Sąjunga","KM"
-"COG","Kongo Respublika","CG"
-"COD","Kongo Demokratinė Respublika","CD"
-"CRI","Kosta Rikos Respublika","CR"
-"HRV","Kroatijos Respublika","HR"
-"CUB","Kubos Respublika","CU"
-"KWT","Kuveito Valstybė","KW"
-"LAO","Laoso Liaudies Demokratinė Respublika","LA"
-"LVA","Latvijos Respublika","LV"
-"POL","Lenkijos Respublika","PL"
-"LSO","Lesoto Karalystė","LS"
-"LBN","Libano Respublika","LB"
-"LBR","Liberijos Respublika","LR"
-"LBY","Libijos Valstybė","LY"
-"LIE","Lichtenšteino Kunigaikštystė","LI"
-"LTU","Lietuvos Respublika","LT"
-"LUX","Liuksemburgo Didžioji Hercogystė","LU"
-"MDG","Madagaskaro Demokratinė Respublika","MG"
-"MYS","Malaizija","MY"
-"MWI","Malavio Respublika","MW"
-"MDV","Maldyvų Respublika","MV"
-"MLI","Malio Respublika","ML"
-"MLT","Maltos Respublika","MT"
-"MAR","Maroko Karalystė","MA"
-"MHL","Maršalo Salų Respublika","MH"
-"MUS","Mauricijaus Respublika","MU"
-"MRT","Mauritanijos Islamo Respublika","MR"
-"MEX","Meksikos Jungtinės Valstijos","MX"
-"MMR","Mianmaro Sąjungos Respublika","MM"
-"FSM","Mikronezijos Federacinės Valstijos","FM"
-"MDA","Moldovos Respublika","MD"
-"MCO","Monako Kunigaikštystė","MC"
-"MNG","Mongolija","MN"
-"MOZ","Mozambiko Respublika","MZ"
-"NAM","Namibijos Respublika","NA"
-"NZL","Naujoji Zelandija","NZ"
-"NRU","Nauru Respublika","NR"
-"NPL","Nepalo Federacinė Demokratinė Respublika","NP"
-"NLD","Nyderlandų Karalystė","NL"
-"NGA","Nigerijos Federacinė Respublika","NG"
-"NER","Nigerio Respublika","NE"
-"NIC","Nikaragvos Respublika","NI"
-"NOR","Norvegijos Karalystė","NO"
-"OMN","Omano Sultonatas","OM"
-"PAK","Pakistano Islamo Respublika","PK"
-"PSE","Palestina","PS"
-"PAN","Panamos Respublika","PA"
-"PNG","Papua Naujosios Gvinėjos Nepriklausomoji Valstybė","PG"
-"PRY","Paragvajaus Respublika","PY"
-"PER","Peru Respublika","PE"
-"ZAF","Pietų Afrikos Respublika","ZA"
-"KOR","Korėjos Respublika","KR"
-"SSD","Pietų Sudano Respublika","SS"
-"PRT","Portugalijos Respublika","PT"
-"FRA","Prancūzijos Respublika","FR"
-"GNQ","Pusiaujo Gvinėjos Respublika","GQ"
-"TLS","Rytų Timoro Demokratinė Respublika","TL"
-"RWA","Ruandos Respublika","RW"
-"ROU","Rumunija","RO"
-"RUS","Rusijos Federacija","RU"
-"GEO","Sakartvelas","GE"
-"SLB","Saliamono Salos","SB"
-"SLV","Salvadoro Respublika","SV"
-"WSM","Samoa Nepriklausomoji Valstybė","WS"
-"SMR","San Marino Respublika","SM"
-"STP","San Tomė ir Prinsipės Demokratinė Respublika","ST"
-"SAU","Saudo Arabijos Karalystė","SA"
-"SYC","Seišelių Respublika","SC"
-"SEN","Senegalo Respublika","SN"
-"KNA","Sent Kitsas ir Nevis","KN"
-"LCA","Sent Lusija","LC"
-"VCT","Sent Vinsentas ir Grenadinai","VC"
-"SRB","Serbijos Respublika","RS"
-"SLE","Siera Leonės Respublika","SL"
-"SGP","Singapūro Respublika","SG"
-"SYR","Sirijos Arabų Respublika","SY"
-"SVK","Slovakijos Respublika","SK"
-"SVN","Slovėnijos Respublika","SI"
-"SOM","Somalio Federacinė Respublika","SO"
-"SDN","Sudano Respublika","SD"
-"FIN","Suomijos Respublika","FI"
-"SUR","Surinamo Respublika","SR"
-"PRK","Korėjos Liaudies Demokratinė Respublika","KP"
-"MKD","Šiaurės Makedojinos Respublika","MK"
-"LKA","Šri Lankos Demokratinė Socialistinė Respublika","LK"
-"SWE","Švedijos Karalystė","SE"
-"CHE","Šveicarijos Konfederacija","CH"
-"TJK","Tadžikistano Respublika","TJ"
-"THA","Tailando Karalystė","TH"
-"TZA","Tanzanijos Jungtinė Respublika","TZ"
-"TGO","Togo Respublika","TG"
-"TON","Tongos Karalystė","TO"
-"TTO","Trinidado ir Tobago Respublika","TT"
-"TUN","Tuniso Respublika","TN"
-"TUR","Turkijos Respublika","TR"
-"TKM","Turkmėnistanas","TM"
-"TUV","Tuvalu","TV"
-"UGA","Ugandos Respublika","UG"
-"UKR","Ukraina","UA"
-"URY","Urugvajaus Rytų Respublika","UY"
-"UZB","Uzbekistano Respublika","UZ"
-"VUT","Vanuatu Respublika","VU"
-"VAT","Šventasis Sostas; Vatikano Miesto Valstybė","VA"
-"VEN","Venesuelos Bolivaro Respublika","VE"
-"HUN","Vengrija","HU"
-"VNM","Vietnamo Socialistinė Respublika","VN"
-"DEU","Vokietijos Federacinė Respublika","DE"
-"ZMB","Zambijos Respublika","ZM"
-"ZWE","Zimbabvės Respublika","ZW"
-"CPV","Žaliojo Kyšulio Respublika","CV"
+"id","sal_pavad","sal_iso2","sal_es","sal_elpa","sal_search","sal_rizika"
+"AFG","Afganistano Islamo Respublika","AF",False,False,"afganistano islamo respublika afg af",NULL
+"AGO","Angolos Respublika","AO",False,False,"angolos respublika ago ao",NULL
+"ALB","Albanijos Respublika","AL",False,False,"albanijos respublika alb al",NULL
+"AND","Andoros Kunigaikštystė","AD",False,False,"andoros kunigaikstyste and ad",NULL
+"ARE","Jungtiniai Arabų Emyratai","AE",False,False,"jungtiniai arabu emyratai are ae",NULL
+"ARG","Argentinos Respublika","AR",False,False,"argentinos respublika arg ar",NULL
+"ARM","Armėnijos Respublika","AM",False,False,"armenijos respublika arm am",200
+"ATG","Antigva ir Barbuda","AG",False,False,"antigva ir barbuda atg ag",NULL
+"AUS","Australija","AU",False,False,"australija aus au",36
+"AUT","Austrijos Respublika","AT",True,True,"austrijos respublika aut at",9
+"AZE","Azerbaidžano Respublika","AZ",False,False,"azerbaidzano respublika aze az",NULL
+"BDI","Burundžio Respublika","BI",False,False,"burundzio respublika bdi bi",NULL
+"BEL","Belgijos Karalystė","BE",True,True,"belgijos karalyste bel be",9
+"BEN","Benino Respublika","BJ",False,False,"benino respublika ben bj",NULL
+"BFA","Burkina Fasas","BF",False,False,"burkina fasas bfa bf",NULL
+"BGD","Bangladešo Liaudies Respublika ","BD",False,False,"bangladeso liaudies respublika  bgd bd",NULL
+"BGR","Bulgarijos Respublika","BG",True,True,"bulgarijos respublika bgr bg",9
+"BHR","Bahreino Karalystė","BH",False,False,"bahreino karalyste bhr bh",NULL
+"BHS","Bahamų Sandrauga","BS",False,False,"bahamu sandrauga bhs bs",NULL
+"BIH","Bosnija ir Hercegovina","BA",False,False,"bosnija ir hercegovina bih ba",NULL
+"BLR","Baltarusijos Respublika","BY",False,False,"baltarusijos respublika blr by",200
+"BLZ","Belizas","BZ",False,False,"belizas blz bz",NULL
+"BOL","Bolivijos Daugiatautė Valstybė","BO",False,False,"bolivijos daugiataute valstybe bol bo",NULL
+"BRA","Brazilijos Federacinė Respublika","BR",False,False,"brazilijos federacine respublika bra br",NULL
+"BRB","Barbadosas","BB",False,False,"barbadosas brb bb",NULL
+"BRN","Brunėjaus Darusalamas","BN",False,False,"brunejaus darusalamas brn bn",NULL
+"BTN","Butano Karalystė","BT",False,False,"butano karalyste btn bt",NULL
+"BWA","Botsvanos Respublika","BW",False,False,"botsvanos respublika bwa bw",NULL
+"CAF","Centrinės Afrikos Respublika","CF",False,False,"centrines afrikos respublika caf cf",NULL
+"CAN","Kanada","CA",False,False,"kanada can ca",36
+"CHE","Šveicarijos Konfederacija","CH",False,True,"sveicarijos konfederacija che ch",9
+"CHL","Čilės Respublika","CL",False,False,"ciles respublika chl cl",NULL
+"CHN","Kinijos Liaudies Respublika","CN",False,False,"kinijos liaudies respublika chn cn",NULL
+"CIV","Dramblio Kaulo Kranto Respublika","CI",False,False,"dramblio kaulo kranto respublika civ ci",NULL
+"CMR","Kamerūno Respublika","CM",False,False,"kameruno respublika cmr cm",NULL
+"COD","Kongo Demokratinė Respublika","CD",False,False,"kongo demokratine respublika cod cd",NULL
+"COG","Kongo Respublika","CG",False,False,"kongo respublika cog cg",NULL
+"COL","Kolumbijos Respublika","CO",False,False,"kolumbijos respublika col co",NULL
+"COM","Komorų Sąjunga","KM",False,False,"komoru sajunga com km",NULL
+"CPV","Žaliojo Kyšulio Respublika","CV",False,False,"zaliojo kysulio respublika cpv cv",NULL
+"CRI","Kosta Rikos Respublika","CR",False,False,"kosta rikos respublika cri cr",NULL
+"CUB","Kubos Respublika","CU",False,False,"kubos respublika cub cu",NULL
+"CYP","Kipro Respublika","CY",True,True,"kipro respublika cyp cy",9
+"CZE","Čekijos Respublika","CZ",True,True,"cekijos respublika cze cz",9
+"DEU","Vokietijos Federacinė Respublika","DE",True,True,"vokietijos federacine respublika deu de",9
+"DJI","Džibučio Respublika","DJ",False,False,"dzibucio respublika dji dj",NULL
+"DMA","Dominikos Sandrauga","DM",False,False,"dominikos sandrauga dma dm",NULL
+"DNK","Danijos Karalystė","DK",True,True,"danijos karalyste dnk dk",9
+"DOM","Dominikos Respublika","DO",False,False,"dominikos respublika dom do",NULL
+"DZA","Alžyro Liaudies Demokratinė Respublika","DZ",False,False,"alzyro liaudies demokratine respublika dza dz",NULL
+"ECU","Ekvadoro Respublika","EC",False,False,"ekvadoro respublika ecu ec",NULL
+"EGY","Egipto Arabų Respublika","EG",False,False,"egipto arabu respublika egy eg",NULL
+"ERI","Eritrėjos Valstybė","ER",False,False,"eritrejos valstybe eri er",NULL
+"ESP","Ispanijos Karalystė","ES",True,True,"ispanijos karalyste esp es",9
+"EST","Estijos Respublika","EE",True,True,"estijos respublika est ee",9
+"ETH","Etiopijos Federacinė Demokratinė Respublika","ET",False,False,"etiopijos federacine demokratine respublika eth et",NULL
+"FIN","Suomijos Respublika","FI",True,True,"suomijos respublika fin fi",9
+"FJI","Fidžio Respublika","FJ",False,False,"fidzio respublika fji fj",NULL
+"FLK","Folklando salos","FK",False,False,"folklando salos flk fk",NULL
+"FRA","Prancūzijos Respublika","FR",True,True,"prancuzijos respublika fra fr",9
+"FRO","Farerų salos","FO",False,False,"fareru salos fro fo",36
+"FSM","Mikronezijos Federacinės Valstijos","FM",False,False,"mikronezijos federacines valstijos fsm fm",NULL
+"GAB","Gabono Respublika","GA",False,False,"gabono respublika gab ga",NULL
+"GBR","Jungtinė Didžiosios Britanijos ir Šiaurės Airijos Karalystė","UK",False,False,"jungtine didziosios britanijos ir siaures airijos karalyste gbr uk",NULL
+"GEO","Sakartvelas","GE",False,False,"sakartvelas geo ge",NULL
+"GHA","Ganos Respublika","GH",False,False,"ganos respublika gha gh",NULL
+"GIN","Gvinėjos Respublika","GN",False,False,"gvinejos respublika gin gn",NULL
+"GMB","Gambijos Respublika","GM",False,False,"gambijos respublika gmb gm",NULL
+"GNB","Bisau Gvinėjos Respublika","GW",False,False,"bisau gvinejos respublika gnb gw",NULL
+"GNQ","Pusiaujo Gvinėjos Respublika","GQ",False,False,"pusiaujo gvinejos respublika gnq gq",NULL
+"GRC","Graikijos Respublika","EL",True,True,"graikijos respublika grc el",9
+"GRD","Grenada","GD",False,False,"grenada grd gd",NULL
+"GTM","Gvatemalos Respublika","GT",False,False,"gvatemalos respublika gtm gt",NULL
+"GUY","Gajanos Kooperacinė Respublika","GY",False,False,"gajanos kooperacine respublika guy gy",NULL
+"HKG","Honkongas","HK",False,False,"honkongas hkg hk",36
+"HND","Hondūro Respublika","HN",False,False,"honduro respublika hnd hn",NULL
+"HRV","Kroatijos Respublika","HR",True,True,"kroatijos respublika hrv hr",9
+"HTI","Haičio Respublika","HT",False,False,"haicio respublika hti ht",NULL
+"HUN","Vengrija","HU",True,True,"vengrija hun hu",9
+"IDN","Indonezijos Respublika","ID",False,False,"indonezijos respublika idn id",NULL
+"IND","Indijos Respublika","IN",False,False,"indijos respublika ind in",NULL
+"IRL","Airija","IE",True,True,"airija irl ie",9
+"IRN","Irano Islamo Respublika","IR",False,False,"irano islamo respublika irn ir",NULL
+"IRQ","Irako Respublika","IQ",False,False,"irako respublika irq iq",NULL
+"ISL","Islandija","IS",False,True,"islandija isl is",9
+"ISR","Izraelio Valstybė","IL",False,False,"izraelio valstybe isr il",NULL
+"ITA","Italijos Respublika","IT",True,True,"italijos respublika ita it",9
+"JAM","Jamaika","JM",False,False,"jamaika jam jm",NULL
+"JOR","Jordanijos Hašimitų Karalystė","JO",False,False,"jordanijos hasimitu karalyste jor jo",NULL
+"JPN","Japonija","JP",False,False,"japonija jpn jp",36
+"KAZ","Kazachstano Respublika","KZ",False,False,"kazachstano respublika kaz kz",200
+"KEN","Kenijos Respublika","KE",False,False,"kenijos respublika ken ke",NULL
+"KGZ","Kirgizijos Respublika","KG",False,False,"kirgizijos respublika kgz kg",200
+"KHM","Kambodžos Karalystė","KH",False,False,"kambodzos karalyste khm kh",NULL
+"KIR","Kiribačio Respublika","KI",False,False,"kiribacio respublika kir ki",NULL
+"KNA","Sent Kitsas ir Nevis","KN",False,False,"sent kitsas ir nevis kna kn",NULL
+"KOR","Korėjos Respublika","KR",False,False,"korejos respublika kor kr",36
+"KWT","Kuveito Valstybė","KW",False,False,"kuveito valstybe kwt kw",NULL
+"LAO","Laoso Liaudies Demokratinė Respublika","LA",False,False,"laoso liaudies demokratine respublika lao la",NULL
+"LBN","Libano Respublika","LB",False,False,"libano respublika lbn lb",NULL
+"LBR","Liberijos Respublika","LR",False,False,"liberijos respublika lbr lr",NULL
+"LBY","Libijos Valstybė","LY",False,False,"libijos valstybe lby ly",NULL
+"LCA","Sent Lusija","LC",False,False,"sent lusija lca lc",NULL
+"LIE","Lichtenšteino Kunigaikštystė","LI",False,True,"lichtensteino kunigaikstyste lie li",9
+"LKA","Šri Lankos Demokratinė Socialistinė Respublika","LK",False,False,"sri lankos demokratine socialistine respublika lka lk",NULL
+"LSO","Lesoto Karalystė","LS",False,False,"lesoto karalyste lso ls",NULL
+"LTU","Lietuvos Respublika","LT",True,True,"lietuvos respublika ltu lt",9
+"LUX","Liuksemburgo Didžioji Hercogystė","LU",True,True,"liuksemburgo didzioji hercogyste lux lu",9
+"LVA","Latvijos Respublika","LV",True,True,"latvijos respublika lva lv",9
+"MAR","Maroko Karalystė","MA",False,False,"maroko karalyste mar ma",NULL
+"MCO","Monako Kunigaikštystė","MC",False,False,"monako kunigaikstyste mco mc",NULL
+"MDA","Moldovos Respublika","MD",False,False,"moldovos respublika mda md",NULL
+"MDG","Madagaskaro Demokratinė Respublika","MG",False,False,"madagaskaro demokratine respublika mdg mg",NULL
+"MDV","Maldyvų Respublika","MV",False,False,"maldyvu respublika mdv mv",NULL
+"MEX","Meksikos Jungtinės Valstijos","MX",False,False,"meksikos jungtines valstijos mex mx",NULL
+"MHL","Maršalo Salų Respublika","MH",False,False,"marsalo salu respublika mhl mh",NULL
+"MKD","Šiaurės Makedonijos Respublika","MK",False,False,"siaures makedonijos respublika mkd mk",NULL
+"MLI","Malio Respublika","ML",False,False,"malio respublika mli ml",NULL
+"MLT","Maltos Respublika","MT",True,True,"maltos respublika mlt mt",9
+"MMR","Mianmaro Sąjungos Respublika","MM",False,False,"mianmaro sajungos respublika mmr mm",NULL
+"MNE","Juodkalnija","ME",False,False,"juodkalnija mne me",NULL
+"MNG","Mongolija","MN",False,False,"mongolija mng mn",NULL
+"MOZ","Mozambiko Respublika","MZ",False,False,"mozambiko respublika moz mz",NULL
+"MRT","Mauritanijos Islamo Respublika","MR",False,False,"mauritanijos islamo respublika mrt mr",NULL
+"MUS","Mauricijaus Respublika","MU",False,False,"mauricijaus respublika mus mu",NULL
+"MWI","Malavio Respublika","MW",False,False,"malavio respublika mwi mw",NULL
+"MYS","Malaizija","MY",False,False,"malaizija mys my",NULL
+"NAM","Namibijos Respublika","NA",False,False,"namibijos respublika nam na",NULL
+"NCL","Naujoji Kaledonija","NC",False,False,"naujoji kaledonija ncl nc",36
+"NER","Nigerio Respublika","NE",False,False,"nigerio respublika ner ne",NULL
+"NGA","Nigerijos Federacinė Respublika","NG",False,False,"nigerijos federacine respublika nga ng",NULL
+"NIC","Nikaragvos Respublika","NI",False,False,"nikaragvos respublika nic ni",NULL
+"NLD","Nyderlandų Karalystė","NL",True,True,"nyderlandu karalyste nld nl",9
+"NOR","Norvegijos Karalystė","NO",False,True,"norvegijos karalyste nor no",9
+"NPL","Nepalo Federacinė Demokratinė Respublika","NP",False,False,"nepalo federacine demokratine respublika npl np",NULL
+"NRU","Nauru Respublika","NR",False,False,"nauru respublika nru nr",NULL
+"NZL","Naujoji Zelandija","NZ",False,False,"naujoji zelandija nzl nz",36
+"OMN","Omano Sultonatas","OM",False,False,"omano sultonatas omn om",NULL
+"PAK","Pakistano Islamo Respublika","PK",False,False,"pakistano islamo respublika pak pk",NULL
+"PAN","Panamos Respublika","PA",False,False,"panamos respublika pan pa",NULL
+"PER","Peru Respublika","PE",False,False,"peru respublika per pe",NULL
+"PHL","Filipinų Respublika","PH",False,False,"filipinu respublika phl ph",NULL
+"PNG","Papua Naujosios Gvinėjos Nepriklausomoji Valstybė","PG",False,False,"papua naujosios gvinejos nepriklausomoji valstybe png pg",NULL
+"POL","Lenkijos Respublika","PL",True,True,"lenkijos respublika pol pl",9
+"PRK","Korėjos Liaudies Demokratinė Respublika","KP",False,False,"korejos liaudies demokratine respublika prk kp",NULL
+"PRT","Portugalijos Respublika","PT",True,True,"portugalijos respublika prt pt",9
+"PRY","Paragvajaus Respublika","PY",False,False,"paragvajaus respublika pry py",NULL
+"PSE","Palestina","PS",False,False,"palestina pse ps",NULL
+"PYF","Prancūzijos Polinezija","PF",False,False,"prancuzijos polinezija pyf pf",36
+"QAT","Kataro Valstybė","QA",False,False,"kataro valstybe qat qa",NULL
+"ROU","Rumunija","RO",True,True,"rumunija rou ro",9
+"RUS","Rusijos Federacija","RU",False,False,"rusijos federacija rus ru",200
+"RWA","Ruandos Respublika","RW",False,False,"ruandos respublika rwa rw",NULL
+"SAU","Saudo Arabijos Karalystė","SA",False,False,"saudo arabijos karalyste sau sa",NULL
+"SDN","Sudano Respublika","SD",False,False,"sudano respublika sdn sd",NULL
+"SEN","Senegalo Respublika","SN",False,False,"senegalo respublika sen sn",NULL
+"SGP","Singapūro Respublika","SG",False,False,"singapuro respublika sgp sg",NULL
+"SLB","Saliamono Salos","SB",False,False,"saliamono salos slb sb",NULL
+"SLE","Siera Leonės Respublika","SL",False,False,"siera leones respublika sle sl",NULL
+"SLV","Salvadoro Respublika","SV",False,False,"salvadoro respublika slv sv",NULL
+"SMR","San Marino Respublika","SM",False,False,"san marino respublika smr sm",NULL
+"SOM","Somalio Federacinė Respublika","SO",False,False,"somalio federacine respublika som so",NULL
+"SRB","Serbijos Respublika","RS",False,False,"serbijos respublika srb rs",NULL
+"SSD","Pietų Sudano Respublika","SS",False,False,"pietu sudano respublika ssd ss",NULL
+"STP","San Tomė ir Prinsipės Demokratinė Respublika","ST",False,False,"san tome ir prinsipes demokratine respublika stp st",NULL
+"SUR","Surinamo Respublika","SR",False,False,"surinamo respublika sur sr",NULL
+"SVK","Slovakijos Respublika","SK",True,True,"slovakijos respublika svk sk",9
+"SVN","Slovėnijos Respublika","SI",True,True,"slovenijos respublika svn si",9
+"SWE","Švedijos Karalystė","SE",True,True,"svedijos karalyste swe se",9
+"SWZ","Esvatinio Karalystė","SZ",False,False,"esvatinio karalyste swz sz",NULL
+"SYC","Seišelių Respublika","SC",False,False,"seiseliu respublika syc sc",NULL
+"SYR","Sirijos Arabų Respublika","SY",False,False,"sirijos arabu respublika syr sy",NULL
+"TCD","Čado Respublika","TD",False,False,"cado respublika tcd td",NULL
+"TGO","Togo Respublika","TG",False,False,"togo respublika tgo tg",NULL
+"THA","Tailando Karalystė","TH",False,False,"tailando karalyste tha th",NULL
+"TJK","Tadžikistano Respublika","TJ",False,False,"tadzikistano respublika tjk tj",NULL
+"TKM","Turkmėnistanas","TM",False,False,"turkmenistanas tkm tm",NULL
+"TLS","Rytų Timoro Demokratinė Respublika","TL",False,False,"rytu timoro demokratine respublika tls tl",NULL
+"TON","Tongos Karalystė","TO",False,False,"tongos karalyste ton to",NULL
+"TTO","Trinidado ir Tobago Respublika","TT",False,False,"trinidado ir tobago respublika tto tt",NULL
+"TUN","Tuniso Respublika","TN",False,False,"tuniso respublika tun tn",NULL
+"TUR","Turkijos Respublika","TR",False,False,"turkijos respublika tur tr",NULL
+"TUV","Tuvalu","TV",False,False,"tuvalu tuv tv",NULL
+"TWN","Taivanas","TW",False,False,"taivanas twn tw",36
+"TZA","Tanzanijos Jungtinė Respublika","TZ",False,False,"tanzanijos jungtine respublika tza tz",NULL
+"UGA","Ugandos Respublika","UG",False,False,"ugandos respublika uga ug",NULL
+"UKR","Ukraina","UA",False,False,"ukraina ukr ua",NULL
+"URY","Urugvajaus Rytų Respublika","UY",False,False,"urugvajaus rytu respublika ury uy",NULL
+"USA","Jungtinės Amerikos Valstijos","US",False,False,"jungtines amerikos valstijos usa us",36
+"UZB","Uzbekistano Respublika","UZ",False,False,"uzbekistano respublika uzb uz",NULL
+"VAT","Šventasis Sostas; Vatikano Miesto Valstybė","VA",False,False,"sventasis sostas; vatikano miesto valstybe vat va",NULL
+"VCT","Sent Vinsentas ir Grenadinai","VC",False,False,"sent vinsentas ir grenadinai vct vc",NULL
+"VEN","Venesuelos Bolivaro Respublika","VE",False,False,"venesuelos bolivaro respublika ven ve",NULL
+"VNM","Vietnamo Socialistinė Respublika","VN",False,False,"vietnamo socialistine respublika vnm vn",NULL
+"VUT","Vanuatu Respublika","VU",False,False,"vanuatu respublika vut vu",NULL
+"WSM","Samoa Nepriklausomoji Valstybė","WS",False,False,"samoa nepriklausomoji valstybe wsm ws",NULL
+"XKX","Kosovas","XK",False,False,"kosovas xkx xk",36
+"YEM","Jemeno Respublika","YE",False,False,"jemeno respublika yem ye",NULL
+"ZAF","Pietų Afrikos Respublika","ZA",False,False,"pietu afrikos respublika zaf za",NULL
+"ZMB","Zambijos Respublika","ZM",False,False,"zambijos respublika zmb zm",NULL
+"ZWE","Zimbabvės Respublika","ZW",False,False,"zimbabves respublika zwe zw",NULL

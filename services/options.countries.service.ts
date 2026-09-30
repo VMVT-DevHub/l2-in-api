@@ -51,10 +51,6 @@ export type Country<
         type: 'string',
         columnName: 'salIso2',
       },
-      search: {
-        type: 'string',
-        columnName: 'salSearch',
-      },
       es: {
         type: 'boolean',
         columnName: 'salEs',
@@ -62,6 +58,14 @@ export type Country<
       elpa: {
         type: 'boolean',
         columnName: 'salElpa',
+      },
+      search: {
+        type: 'string',
+        columnName: 'salSearch',
+      },
+      rizika: {
+        type: 'number',
+        columnName: 'salRizika',
       },
     },
   },
@@ -93,6 +97,6 @@ export default class extends moleculer.Service {
 
   @Action()
   async seedDB() {
-    await this.seedCsv('salys', ['id', 'name', 'iso', 'search', 'es', 'elpa']);
+    await this.seedCsv('salys', ['id', 'name', 'iso', 'es', 'elpa', 'search', 'rizika']);
   }
 }
