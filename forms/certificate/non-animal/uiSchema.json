@@ -661,10 +661,28 @@
                             }
                           ]
                         },
-                        {
+                         {
+                          "type": "HorizontalLayout",
+                          "elements": [
+                             {
                           "type": "Control",
                           "scope": "#/properties/laikymo-ir-transportavimo-salygos"
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/laikymo-ir-transportavimo-salygos-kita",
+                           "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/laikymo-ir-transportavimo-salygos",
+                              "schema": {
+                                "enum": ["Kita (laukas įrašyti savo)"]
+                              }
+                            }
+                          }
                         }
+                          ]}
+                       
                       ],
                       "label": "Prekės informacija"
                     },
