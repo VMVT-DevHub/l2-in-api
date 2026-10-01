@@ -112,7 +112,7 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/siuntejas/properties/ja-duomenys/properties/pusris-nr"
+                  "scope": "#/properties/siuntejas/properties/ja-duomenys/properties/tvarkymo-nr"
                 }
               ]
             }
