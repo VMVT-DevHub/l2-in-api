@@ -309,8 +309,8 @@
         "ar-sutampa-adresas": {
           "title": "Pakrovimo vietos (veiklavietės) pavadinimas ir adresas sutampa su Siuntėjo pavadinimu ir adresu",
           "type": "boolean",
-          "default": false
-
+          "default": false,
+          "x-isJACopy": true
         },
         "ja-gyv": {
           "type": "object",
@@ -515,7 +515,7 @@
       "default": {},
       "properties": {
         "asmuo": {
-          "$ref": "forms/global/defs.json#/definitions/asmuo-be-kodo"
+          "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu"
         },
         
         "adresas": {
@@ -524,6 +524,10 @@
         },
         "ja": {
           "title": "Juridinio asmens kodas",
+          "type": "string"
+        },
+         "fa": {
+          "title": "Fizinio asmens kodas",
           "type": "string"
         },
         "atsakingas-asmuo": {
@@ -543,18 +547,19 @@
             "ar-sutampa": {
               "title": "Paskirties vietos ūkio subjekto pavadinimas ir adresas sutampa su gavėjo pavadinimu ir adresu",
               "type": "boolean",
-              "default": false
+              "default": false,
+              "x-sutampa": true
             }
           }
          
         }
       },
       "required": ["adresas"],
-          "errorMessage": {
-            "required": {
-              "adresas": "Adresas privalomas paskirties vietoje."
-            }
-          }
+      "errorMessage": {
+        "required": {
+          "adresas": "Adresas privalomas paskirties vietoje."
+        }
+      }
     },
     "dokumentai": {
       "type": "object",

@@ -119,10 +119,10 @@
               }
             }
           },
-          "required": ["pusris-nr"],
+          "required": ["tvarkymo-nr"],
             "errorMessage": {
               "required": {
-                "pusris-nr": "Patvirtinimo/registravimo (PŪSRIS) numeris yra privalomas."
+                "tvarkymo-nr": "Patvirtinimo/registravimo (PŪSRIS) numeris yra privalomas."
               }
             }
         },
@@ -322,7 +322,10 @@
       "default": {},
       "properties": {
         "sudetis": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
+          "type": "array",
+           "items": {
+            "$ref": "forms/global/defs.json#/definitions/dokumentas"
+            }
         },
         "patvirtinu": {
           "type": "string"
@@ -360,14 +363,12 @@
           },
           "required": [
             "sumoketa-rinkliava",
-            "kitas-asmuo",
             "mokejimo-nr",
             "mokejimo-data"
           ],
           "errorMessage": {
             "required": {
               "sumoketa-rinkliava": "Privalote patvirtinti, kad valstybės rinkliava yra sumokėta.",
-              "kitas-asmuo": "Privalote nurodyti, ar valstybės rinkliavą mokėjo kitas asmuo.",
               "mokejimo-nr": "Privalote nurodyti mokėjimo nurodymo numerį.",
               "mokejimo-data": "Privalote nurodyti mokėjimo nurodymo datą."
             }
@@ -406,7 +407,7 @@
 
         "turiu-teise": {
           "type": "boolean",
-          "title": "turiu teisę tiekti ES rinkai ir jai tiekiu šiame prašyme nurodytą pašarą;",
+          "title": "turiu teisę tiekti ES rinkai ir jai tiekiu šiame prašyme nurodytą maistą;",
           "const": true,
           "errorMessage": {
             "const": "Privalote patvirtinti, kad turite teisę tiekti ir tiekiate šiame prašyme nurodytą pašarą ES rinkai."
@@ -415,7 +416,7 @@
 
         "turiu-patvirtinima": {
           "type": "boolean",
-          "title": "man suteiktas pašarų ūkio subjekto patvirtinimas / registravimas nėra sustabdytas / panaikintas;",
+          "title": "man suteiktas maisto tvarkymo subjekto patvirtinimas / registravimas nėra sustabdytas / panaikintas;",
           "const": true,
           "errorMessage": {
             "const": "Privalote patvirtinti, kad jūsų pašarų ūkio subjekto patvirtinimas ar registravimas nėra sustabdytas arba panaikintas."
@@ -517,25 +518,25 @@
         }
       },
       "required": [
-        "ats-gavimas",
-        "sutikimas",
+        "sudetis",
+        "atsakymas",
         "turiu-teise",
         "turiu-patvirtinima",
         "suprantu-negarantija",
         "isipareigoju-nesiremti",
         "patvirtinu-teisybe",
-        "sutikimas-informuotas"
+        "atitinka-teisybe"
       ],
       "errorMessage": {
         "required": {
-          "ats-gavimas": "Privalote pasirinkti, kaip gauti atsakymą.",
-          "sutikimas": "Privalote patvirtinti šiame pareiškime nurodytą atsakingo asmens deklaraciją.",
+          "sudetis": "Privalote pridėti sudėties instrukcijas",
+          "atsakymas": "Privalote pasirinkti, kaip gauti atsakymą.",
           "turiu-teise": "Privalote patvirtinti, kad turite teisę tiekti ir tiekiate šiame prašyme nurodytą pašarą ES rinkai.",
           "turiu-patvirtinima": "Privalote patvirtinti, kad jūsų pašarų ūkio subjekto patvirtinimas ar registravimas nėra sustabdytas arba panaikintas.",
           "suprantu-negarantija": "Privalote patvirtinti, kad suprantate pažymėjimo paskirtį ir jo nesuteikiamas garantijas.",
           "isipareigoju-nesiremti": "Privalote įsipareigoti informuoti VMVT apie pašaro sudėties, paskirties ar naudojimo sąlygų pasikeitimus.",
           "patvirtinu-teisybe": "Privalote patvirtinti, kad pateikta informacija ir duomenys yra teisingi ir atitinka tikrovę.",
-          "sutikimas-informuotas": "Privalote patvirtinti, kad esate informuotas (-a) apie savo asmens duomenų tvarkymą."
+          "atitinka-teisybe": "Privalote patvirtinti, jog informacija atitinka teisybę"
         }
       }
     }

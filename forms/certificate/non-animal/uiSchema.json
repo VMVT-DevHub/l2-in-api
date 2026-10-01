@@ -362,26 +362,13 @@
                       "type": "Control",
                       "scope": "#/properties/pakrovimo-vieta/properties/ar-sutampa-adresas"
                     }
-                  ],
-                  "rule": {
-                    "effect": "SHOW",
-                    "condition": {
-                      "scope": "#/properties/siuntejas/properties/atsakingas-asmuo/properties/ja",
-                      "schema": { "type": "string" },
-                      "failWhenUndefined": true
-                    }
-                  }
+                  ]
                 },
                 {
                   "type": "Control",
                   "options": {
-                    "display": "buttonGroup",
-                    "onChangeClear": [
-                      "vardas-pavarde",
-                      "asmens-kodas",
-                      "imones-kodas",
-                      "imones-pavadinimas"
-                    ]
+                    "display": "buttonGroup"
+                    
                   },
                   "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/tipas"
                 }
@@ -451,15 +438,7 @@
                     "display": "addressSelect"
                   }
                 }
-              ],
-              "rule": {
-                "effect": "DISABLE",
-                "condition": {
-                  "scope": "#/properties/pakrovimo-vieta/properties/ar-sutampa-adresas",
-                  "schema": { "const": true },
-                  "failWhenUndefined": true
-                }
-              }
+              ]
             }
           ],
           "label": "Pakrovimo vieta",
@@ -889,8 +868,29 @@
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/gavejas/properties/ja"
-                  
+                  "scope": "#/properties/gavejas/properties/ja",
+                   "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/gavejas/properties/asmuo/properties/tipas",
+                      "schema": {
+                        "const": "Juridinis asmuo"
+                      }
+                    }
+                  }
+                },
+                 {
+                  "type": "Control",
+                  "scope": "#/properties/gavejas/properties/fa",
+                   "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/gavejas/properties/asmuo/properties/tipas",
+                      "schema": {
+                        "const": "Fizinis asmuo"
+                      }
+                    }
+                  }
                 },
                 {
                   "type": "Control",
@@ -919,8 +919,7 @@
                   "type": "Control",
                   "scope": "#/properties/gavejas/properties/paskirties-vieta/properties/asmuo/properties/tipas",
                   "options": {
-                    "display": "buttonGroup",
-                    "onChangeClear": ["vardas-pavarde", "imones-pavadinimas"]
+                    "display": "buttonGroup"
                   }
                 }
               ]

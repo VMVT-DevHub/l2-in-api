@@ -309,7 +309,10 @@
       "default": {},
       "properties": {
         "sudetis": {
-          "$ref": "forms/global/defs.json#/definitions/dokumentas"
+          "type": "array",
+          "items": {
+            "$ref": "forms/global/defs.json#/definitions/dokumentas"
+            }
         },
         "patvirtinu": {
           "type": "string"
@@ -317,14 +320,6 @@
         "papildoma-informacija": {
           "type": "string",
           "title": ""
-        },
-        "sutikimas": {
-          "title": "Aš, atsakingas asmuo, patvirtinu, kad prašyme pateikti duomenys yra paremti dokumentais, jie patikrinti ir atitinka tikrovę, produktų sauga ir kokybė atitinka ES ir Lietuvos bei šalies importuotojos teisės aktų reikalavimus, trečiajai šaliai priėmus sprendimą grąžinti prekę, nedelsiant informuosiu Valstybinės maisto ir veterinarijos tarnybos skyrių, išdavusį veterinarijos sertifikatą, pateikdamas išsamią informaciją ir dokumentus.",
-          "type": "boolean",
-          "const": true,
-          "errorMessage": {
-            "const": "Privalote patvirtinti šiame pareiškime nurodytą atsakingo asmens deklaraciją."
-          }
         },
         "turiu-teise": {
           "type": "boolean",
@@ -426,7 +421,7 @@
         }
       },
       "required": [
-        "sutikimas",
+        "sudetis",
         "turiu-teise",
         "turiu-patvirtinima",
         "suprantu-negarantija",
@@ -435,15 +430,15 @@
         "sutikimas-informuotas"
       ],
       "errorMessage": {
-          "required": {
-            "sutikimas": "Privalote patvirtinti šiame pareiškime nurodytą atsakingo asmens deklaraciją.",
-            "turiu-teise": "Privalote patvirtinti, kad turite teisę tiekti ir tiekiate šiame prašyme nurodytą pašarą ES rinkai.",
-            "turiu-patvirtinima": "Privalote patvirtinti, kad jūsų pašarų ūkio subjekto patvirtinimas ar registravimas nėra sustabdytas arba panaikintas.",
-            "suprantu-negarantija": "Privalote patvirtinti, kad suprantate pažymėjimo paskirtį ir jo nesuteikiamas garantijas.",
-            "isipareigoju-nesiremti": "Privalote įsipareigoti informuoti VMVT apie pašaro sudėties, paskirties ar naudojimo sąlygų pasikeitimus.",
-            "patvirtinu-teisybe": "Privalote patvirtinti, kad pateikta informacija ir duomenys yra teisingi ir atitinka tikrovę.",
-            "sutikimas-informuotas": "Privalote patvirtinti, kad esate informuotas (-a) apie savo asmens duomenų tvarkymą."
-          }
+        "required": {
+          "sudetis": "Privalote pridėti sudėties instrukcijas",
+          "turiu-teise": "Privalote patvirtinti, kad turite teisę tiekti ir tiekiate šiame prašyme nurodytą pašarą ES rinkai.",
+          "turiu-patvirtinima": "Privalote patvirtinti, kad jūsų pašarų ūkio subjekto patvirtinimas ar registravimas nėra sustabdytas arba panaikintas.",
+          "suprantu-negarantija": "Privalote patvirtinti, kad suprantate pažymėjimo paskirtį ir jo nesuteikiamas garantijas.",
+          "isipareigoju-nesiremti": "Privalote įsipareigoti informuoti VMVT apie pašaro sudėties, paskirties ar naudojimo sąlygų pasikeitimus.",
+          "patvirtinu-teisybe": "Privalote patvirtinti, kad pateikta informacija ir duomenys yra teisingi ir atitinka tikrovę.",
+          "sutikimas-informuotas": "Privalote patvirtinti, kad esate informuotas (-a) apie savo asmens duomenų tvarkymą."
+        }
       }
     }
   },

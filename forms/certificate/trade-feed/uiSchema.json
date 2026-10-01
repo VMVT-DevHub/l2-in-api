@@ -546,7 +546,7 @@
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/patvirtinu-teisybe",
+              "scope": "#/properties/dokumentai/properties/sutikimas-informuotas",
               "options": {
                 "clearOnCopy": true
               }
