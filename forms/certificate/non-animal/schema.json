@@ -454,8 +454,25 @@
           "laikymo-ir-transportavimo-salygos": {
             "title": "Laikymo ir transportavimo sąlygos *",
             "type": "string",
-            "enum": ["Aplinkos", "Atvėsintas", "Užšaldytas"]
+            "enum": [
+              "Užšaldytas laikymas (−18 °C)",
+              "Laikyti nuo +2 °C iki +6 °C",
+              "Laikyti nuo +2 °C iki +20 °C",
+              "Laikyti nuo +2 °C iki +25 °C",
+              "Laikyti nuo +4 °C iki +21 °C",
+              "Laikyti nuo +5 °C iki +25 °C",
+              "Laikyti nuo 0 °C iki +25 °C",
+              "Laikyti nuo 0 °C iki +30 °C",
+              "Laikyti ne aukštesnėje kaip +25 °C temperatūroje",
+              "Laikyti aplinkos temperatūroje",
+              "Laikyti vėsioje, sausoje vietoje, apsaugotoje nuo tiesioginių saulės spindulių",
+              "Kita (laukas įrašyti savo)"
+            ]
           },
+           "laikymo-ir-transportavimo-salygos-kita": {
+             "title": "Įrašykite kitą laikymo ir transportavimo sąlygą *",
+            "type": "string"
+           },
           "salis": {
             "$ref": "#/definitions/salis"
           },

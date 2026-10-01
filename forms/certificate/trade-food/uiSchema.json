@@ -208,7 +208,7 @@
                 "display": "modal",
                 "addLabel": "Pridėti prekę",
                 "card": {
-                  "title": { "scope": "#/properties/komercinis-lotyniskas-pavadinimas" },
+                  "title": { "scope": "#/properties/pavadinimas" },
                   "code": { "scope": "#/properties/kpn-kodas" },
                   "top": [
                     {
