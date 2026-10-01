@@ -515,7 +515,7 @@
       "default": {},
       "properties": {
         "asmuo": {
-          "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu"
+          "$ref": "forms/global/defs.json#/definitions/asmuo-be-kodo"
         },
         
         "adresas": {
