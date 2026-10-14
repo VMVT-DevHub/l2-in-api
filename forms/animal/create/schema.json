@@ -476,7 +476,7 @@
           "x-EVRK": true
         },
         "detalizacija": {
-            "type": "array",
+          "type": "array",
           "default": [{}],
           "items": {
             "type": "object",
@@ -501,7 +501,6 @@
                 "title": "Tvarkomų ŠGP ir jų gaminių kategorija *",
                 "uniqueItems": true,
                 "additionalProperties": true,
-                "default": [],
                 "items": {
                   "type": "string",
                   "x-category": true,
@@ -667,7 +666,6 @@
               },
               "sgp-detail": {
                 "type": "object",
-                "default": {},
                 "properties": {
                   "API": {
                     "type": "object",
@@ -748,13 +746,6 @@
               "sgp-santrupa-kita": {
                 "type": "string",
                 "title": "Kita tvarkomų ŠGP ir jų gaminių santrumpa *"
-              }
-            },
-            "required": ["sgp-kodas", "kategorija", "sgp-santrupa"],
-            "errorMessage": {
-              "required": {
-                "sgp-kodas": "ŠGP veiklos kodas yra privalomos",
-                "kategorija": "Kategorija yra privaloma"
               }
             },
             "allOf": [
@@ -1123,7 +1114,7 @@
           "default": [{}],
           "items": {
             "type": "object",
-            "properties": {
+            "properties": { 
               "pasaru-kodas": {
                 "type": "string",
                 "title": "Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa *",
@@ -1137,7 +1128,7 @@
                   "FEED SE": "Ūkio subjektas, sandėliuojantis eksportui palaidus perdirbtus gyvūninius baltymus iš neatrajotojų ir (ar) kombinuotuosius pašarus su tokiais baltymais ir sandėliuojantis ES rinkai pašarus atrajotojams arba ūkiniams neatrajotojams, išskyrus akvakultūros gyvūnus (kaip nustatyta Reglamento (EB) Nr. 999/2001 IV priedo V skyriaus E skirsnio 3 punkto d papunkčio trečiojoje pastraipoje)"
                 }
               },
-              "sgpg": {
+              "psgp": {
                 "title": "ŠGPG, kuris sandėliuojamas ir (ar) įeina į kombinuotojo pašaro sudėtį, santrumpa *",
                 "type": "array",
                 "uniqueItems": true,
@@ -1150,6 +1141,58 @@
                     "TCAP": "Trikalcio fosfatas",
                     "BLPF": "Kraujo produktai, gauti iš neatrajotojų",
                     "PAP": "Perdirbti gyvūniniai baltymai"
+                  }
+                }
+              },
+              "psgp-detail": {
+                "type": "object",
+                "properties": {
+                  "PAP": {
+                    "type": "object",
+                    "properties": {
+                      "gyvunas": {
+                        "type": "array",
+                        "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai *",
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "string",
+                          "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "pasaro-santrupa-detail": {
+                "type": "object",
+                "properties": {
+                  "PAPO": {
+                    "type": "object",
+                    "properties": {
+                      "gyvunas": {
+                        "type": "array",
+                        "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai *",
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "string",
+                          "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
+                        }
+                      }
+                    }
+                  },
+                  "PAPNO": {
+                    "type": "object",
+                    "properties": {
+                      "gyvunas": {
+                        "type": "array",
+                        "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai *",
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "string",
+                          "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -1215,22 +1258,13 @@
                 "errorMessage": {
                   "oneOf": "Trumpiniai turi priklausyti vienai grupei."
                 }
-              },
-              "gyvunas": {
-                "type": "array",
-                "title": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai *",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string",
-                  "enum": ["Neatrajotojai", "Naminiai paukščiai", "Kiaulės", "Ūkiniai vabzdžiai"]
-                }
               }
             },
             "required": [],
             "errorMessage": {
               "required": {
-                "pasaru-kodas": " 68 Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa yra privaloma",
-                "sgpg": "68 ŠGPG santrupa yra privaloma"
+                "pasaru-kodas": "68 Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa yra privaloma",
+                "psgp": "68 ŠGPG santrupa yra privaloma"
               }
             }
           }
@@ -1420,7 +1454,210 @@
             }
           }
         }
-      }
+      },
+       "allOf": [
+          {
+            "if": {
+              "properties": {
+                "veikla": {
+                  "enum": [
+                    "25", "26", "27", "28", "29", "30", "31", "32", "33", "34",
+                    "35", "36", "37", "38", "39", "40", "42", "78", "80", "82", "89"
+                  ]
+                }
+              },
+              "required": ["veikla"]
+            },
+            "then": {
+              "properties": {
+                "detalizacija": {
+                  "items": {
+                    "required": ["sgp-kodas", "kategorija", "sgp-santrupa"],
+                    "errorMessage": {
+                      "required": {
+                        "sgp-kodas": "ŠGP veiklos kodas yra privalomas",
+                        "kategorija": "Kategorija yra privaloma",
+                        "sgp-santrupa": "ŠGP santrumpa yra privaloma"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+          "if": {
+            "properties": { "veikla": { "const": "68" } },
+            "required": ["veikla"]
+          },
+          "then": {
+            "properties": {
+              "pasaru-detalizacija-68": {
+                "items": {
+                  "required": ["pasaru-kodas"],
+                  "errorMessage": {
+                    "required": {
+                      "pasaru-kodas": "Pašarų su ŠGP gaminiais tvarkymo veiklos santrumpa yra privaloma"
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "pasaru-kodas": { "enum": ["FEED M", "FEED ME", "FEED MEM", "FEED F"] }
+                        },
+                        "required": ["pasaru-kodas"]
+                      },
+                      "then": {
+                        "required": ["pasaro-santrupa"],
+                        "properties": {
+                          "pasaro-santrupa": {
+                            "minItems": 1,
+                            "errorMessage": {
+                              "minItems": "Gaminami kombinuoti pašarai su ŠGPG yra privalomi"
+                            }
+                          }
+                        },
+                        "errorMessage": {
+                          "required": {
+                            "pasaro-santrupa": "Gaminami kombinuoti pašarai su ŠGPG yra privalomi"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": { "pasaro-santrupa": { "contains": { "const": "PAPO" } } },
+                        "required": ["pasaro-santrupa"]
+                      },
+                      "then": {
+                        "required": ["pasaro-santrupa-detail"],
+                        "properties": {
+                          "pasaro-santrupa-detail": {
+                            "required": ["PAPO"],
+                            "properties": {
+                              "PAPO": {
+                                "required": ["gyvunas"],
+                                "properties": {
+                                  "gyvunas": {
+                                    "minItems": 1,
+                                    "errorMessage": {
+                                      "minItems": "PAPO: gyvūnų rūšis, iš kurių gauti perdirbti baltymai, yra privaloma"
+                                    }
+                                  }
+                                },
+                                "errorMessage": {
+                                  "required": {
+                                    "gyvunas": "PAPO: gyvūnų rūšis, iš kurių gauti perdirbti baltymai, yra privaloma"
+                                  }
+                                }
+                              }
+                            },
+                            "errorMessage": {
+                              "required": {
+                                "PAPO": "PAPO: gyvūnų rūšis, iš kurių gauti perdirbti baltymai, yra privaloma"
+                              }
+                            }
+                          }
+                        },
+                        "errorMessage": {
+                          "required": {
+                            "pasaro-santrupa-detail": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai, yra privaloma"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": { "pasaro-santrupa": { "contains": { "const": "PAPNO" } } },
+                        "required": ["pasaro-santrupa"]
+                      },
+                      "then": {
+                        "required": ["pasaro-santrupa-detail"],
+                        "properties": {
+                          "pasaro-santrupa-detail": {
+                            "required": ["PAPNO"],
+                            "properties": {
+                              "PAPNO": {
+                                "required": ["gyvunas"],
+                                "properties": {
+                                  "gyvunas": {
+                                    "minItems": 1,
+                                    "errorMessage": {
+                                      "minItems": "PAPNO: gyvūnų rūšis, iš kurių gauti perdirbti baltymai, yra privaloma"
+                                    }
+                                  }
+                                },
+                                "errorMessage": {
+                                  "required": {
+                                    "gyvunas": "PAPNO: gyvūnų rūšis, iš kurių gauti perdirbti baltymai, yra privaloma"
+                                  }
+                                }
+                              }
+                            },
+                            "errorMessage": {
+                              "required": {
+                                "PAPNO": "PAPNO: gyvūnų rūšis, iš kurių gauti perdirbti baltymai, yra privaloma"
+                              }
+                            }
+                          }
+                        },
+                        "errorMessage": {
+                          "required": {
+                            "pasaro-santrupa-detail": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai, yra privaloma"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": { "psgp": { "contains": { "const": "PAP" } } },
+                        "required": ["psgp"]
+                      },
+                      "then": {
+                        "required": ["psgp-detail"],
+                        "properties": {
+                          "psgp-detail": {
+                            "required": ["PAP"],
+                            "properties": {
+                              "PAP": {
+                                "required": ["gyvunas"],
+                                "properties": {
+                                  "gyvunas": {
+                                    "minItems": 1,
+                                    "errorMessage": {
+                                      "minItems": "PAP: gyvūnų rūšis, iš kurių gauti perdirbti baltymai, yra privaloma"
+                                    }
+                                  }
+                                },
+                                "errorMessage": {
+                                  "required": {
+                                    "gyvunas": "PAP: gyvūnų rūšis, iš kurių gauti perdirbti baltymai, yra privaloma"
+                                  }
+                                }
+                              }
+                            },
+                            "errorMessage": {
+                              "required": {
+                                "PAP": "PAP: gyvūnų rūšis, iš kurių gauti perdirbti baltymai, yra privaloma"
+                              }
+                            }
+                          }
+                        },
+                        "errorMessage": {
+                          "required": {
+                            "psgp-detail": "Gyvūnų rūšis, iš kurių gauti perdirbti baltymai, yra privaloma"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "dokumentai": {
       "type": "object",
