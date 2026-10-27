@@ -329,7 +329,7 @@
           }
         }
       },
-      "required": ["transporto-priemones, transporto-priemones-dalys"],
+      "required": ["transporto-priemones", "transporto-priemones-dalys"],
       "errorMessage": {
         "required": {
           "transporto-priemones": "Transporto premonės informacija yra privaloma.",
