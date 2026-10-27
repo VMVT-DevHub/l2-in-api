@@ -301,7 +301,7 @@
           }
         },
         "patvirtinimo-iregistravimo-nr":{
-          "title": "Patvirtinimo ar įregistravimo numeris",
+          "title": "Patvirtinimo/įregistravimo numeris *",
           "type": "string"
         }
       },
@@ -311,7 +311,7 @@
       ],
       "errorMessage": {
         "required": {
-          "patvirtinimo-iregistravimo-nr": "Patvirtinimo ar įregistravimo numeris privalomas.",
+          "patvirtinimo-iregistravimo-nr": "Patvirtinimo/įregistravimo numeris privalomas.",
           "asmuo": "Asmuo privalomas."
         }
       }
