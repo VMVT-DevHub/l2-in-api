@@ -36,34 +36,34 @@
               "x-isPhoneOrEmail": true
             },
             "el-pastas": {
-                "title": "El. paštas *",
-                "type": "string",
-                "format": "email",
-                "maxLength": 254,
-                "x-isPhoneOrEmail": true,
-                "errorMessage": {
-                  "format": "El. paštas turi būti galiojantis",
-                  "maxLength": "El. paštas negali būti ilgesnis nei 254 simboliai."
-                }
+              "title": "El. paštas *",
+              "type": "string",
+              "format": "email",
+              "maxLength": 254,
+              "x-isPhoneOrEmail": true,
+              "errorMessage": {
+                "format": "El. paštas turi būti galiojantis",
+                "maxLength": "El. paštas negali būti ilgesnis nei 254 simboliai."
+              }
             },
-            "ja":{
-              "title":"Juridinio asmens kodas",
-              "type":["string", "null"],
+            "ja": {
+              "title": "Juridinio asmens kodas",
+              "type": ["string", "null"],
               "readOnly": true
             },
-            "aob":{
-              "title":"AOB kodas",
-              "type":"string",
+            "aob": {
+              "title": "AOB kodas",
+              "type": "string",
               "readOnly": true
-        }
+            }
           },
           "required": ["vardas", "pareigos"],
-            "errorMessage": {
-              "required": {
-                "vardas": "Vardas ir pavardė yra privalomi.",
-                "pareigos": "Pareigos yra privalomos."
-              }
+          "errorMessage": {
+            "required": {
+              "vardas": "Vardas ir pavardė yra privalomi.",
+              "pareigos": "Pareigos yra privalomos."
             }
+          }
         },
         "ja-duomenys": {
           "type": "object",
@@ -77,7 +77,7 @@
             },
             "pusris-nr": {
               "type": "string",
-              "title": "Patvirtinimo/registravimo (PŪSRIS) numeris"
+              "title": "Patvirtinimo/registravimo numeris *"
             },
             "ja-gyv": {
               "type": "object",
@@ -98,11 +98,11 @@
             }
           },
           "required": ["pusris-nr"],
-            "errorMessage": {
-              "required": {
-                "pusris-nr": "Patvirtinimo/registravimo (PŪSRIS) numeris yra privalomas."
-              }
+          "errorMessage": {
+            "required": {
+              "pusris-nr": "Patvirtinimo/registravimo numeris yra privalomas."
             }
+          }
         },
         "fa-duomenys": {
           "type": "object",
@@ -181,7 +181,7 @@
         }
       ]
     },
-     "marsrutas": {
+    "marsrutas": {
       "type": "object",
       "title": "Kelionės maršrutas",
       "additionalProperties": false,
@@ -210,7 +210,6 @@
               "$ref": "#/definitions/salis",
               "default": "LTU"
             }
-           
           }
         },
         "tranzitines-salys": {
@@ -258,10 +257,17 @@
       "properties": {
         "transporto-priemones": {
           "type": "array",
-          "default": [{}],
+          "default":[{}],
           "items": {
             "type": "object",
             "additionalProperties": false,
+            "required": ["rusis-id", "numeris"],
+            "errorMessage": {
+              "required": {
+                "rusis-id": "Transporto rūšis yra privaloma.",
+                "numeris": "Transporto priemonės numeris yra privalomas."
+              }
+            },
             "properties": {
               "rusis-id": {
                 "title": "Transporto priemonės rūšis *",
@@ -280,25 +286,58 @@
                 "title": "Transporto priemonės Nr. *",
                 "type": "string"
               }
-            },
-            "required": ["rusis-id", "numeris"],
+            }
+          }
+        },
+        "transporto-priemones-dalys": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["dalis-id"],
             "errorMessage": {
               "required": {
-                "rusis-id": "Transporto priemonės rūšis yra privaloma.",
-                "numeris": "Transporto priemonės numeris yra privalomas."
+                "dalis-id": "Transporto priemonės dalis yra privaloma."
+              }
+            },
+            "properties": {
+              "dalis-id": {
+                "title": "Transporto priemonės dalis *",
+                "type": "string",
+                "fetchEnumFrom": "options.transportParts.findIds"
+              },
+              "dalis": {
+                "title": "Transporto priemonės dalis",
+                "type": "string"
+              },
+              "dalis-kita": {
+                "title": "Nurodykite transporto priemonės dalį",
+                "type": "string"
+              },
+              "numeris": {
+                "type": "string"
+              },
+              "patvirtinimo-iregistravimo-nr": {
+                "title": "Patvirtinimo/Įregistravimo Nr.",
+                "type": "string"
+              },
+              "plombos-nr": {
+                "title": "Plombos Nr",
+                "type": "string"
               }
             }
           }
         }
       },
-      "required": ["transporto-priemones"],
+      "required": ["transporto-priemones, transporto-priemones-dalys"],
       "errorMessage": {
         "required": {
-          "transporto-priemones": "Transporto premonės informacija yra privaloma."
+          "transporto-priemones": "Transporto premonės informacija yra privaloma.",
+          "transporto-priemones-dalys": "Transporto premonių dalių informacija yra privaloma."
         }
       }
     },
-     "pakrovimo-vieta": {
+    "pakrovimo-vieta": {
       "type": "object",
       "additionalProperties": false,
       "default": {},
@@ -321,21 +360,17 @@
             "adrName": { "type": "string" }
           }
         },
-        "patvirtinimo-iregistravimo-nr":{
-          "title": "Patvirtinimo ar įregistravimo numeris",
+        "patvirtinimo-iregistravimo-nr": {
+          "title": "Patvirtinimo ar įregistravimo numeris *",
           "type": "string"
         },
-        "isvykimas":{
+        "isvykimas": {
           "title": "Numatoma krovinio išvykimo data",
           "type": "string",
           "format": "date"
         }
       },
-      "required": [
-        "patvirtinimo-iregistravimo-nr",
-        "asmuo",
-        "isvykimas"
-      ],
+      "required": ["patvirtinimo-iregistravimo-nr", "asmuo", "isvykimas"],
       "errorMessage": {
         "required": {
           "patvirtinimo-iregistravimo-nr": "Patvirtinimo ar įregistravimo numeris privalomas.",
@@ -469,10 +504,10 @@
               "Kita (laukas įrašyti savo)"
             ]
           },
-           "laikymo-ir-transportavimo-salygos-kita": {
-             "title": "Įrašykite kitą laikymo ir transportavimo sąlygą *",
+          "laikymo-ir-transportavimo-salygos-kita": {
+            "title": "Įrašykite kitą laikymo ir transportavimo sąlygą *",
             "type": "string"
-           },
+          },
           "salis": {
             "$ref": "#/definitions/salis"
           },
@@ -513,7 +548,7 @@
             "pagaminimo-data": "Prekės: Pagaminimo data yra privaloma.",
             "pakuotes-tipas": "Prekės: Pakuotės tipas privalomas.",
             "pakuociu-skaicius": "Prekės: Pakuočių skaičius privalomas.",
-            "neto-kiekis-matas":"Prekės: Kiekis privalomas.",
+            "neto-kiekis-matas": "Prekės: Kiekis privalomas.",
             "patvirtinimo-nr": "Prekės: Patvirtinimo numeris privalomas.",
             "laikymo-ir-transportavimo-salygos": "Prekės: Laikymo ir transportavimo sąlygos yra privalomos.",
             "salis": "Prekės: Šalis yra privaloma.",
@@ -525,7 +560,7 @@
         "minItems": "Turi būti nurodyta bent viena prekė."
       }
     },
-   
+
     "gavejas": {
       "type": "object",
       "additionalProperties": false,
@@ -534,7 +569,7 @@
         "asmuo": {
           "$ref": "forms/global/defs.json#/definitions/asmuo-be-kodo"
         },
-        
+
         "adresas": {
           "title": "Adresas",
           "type": "string"
@@ -543,7 +578,7 @@
           "title": "Juridinio asmens kodas",
           "type": "string"
         },
-         "fa": {
+        "fa": {
           "title": "Fizinio asmens kodas",
           "type": "string"
         },
@@ -568,7 +603,6 @@
               "x-sutampa": true
             }
           }
-         
         }
       },
       "required": ["adresas"],
@@ -587,34 +621,34 @@
           "default": {},
           "additionalProperties": false,
           "properties": {
-             "tyrimai": {
-                 "type": "array",
-                  "items": {
-                    "$ref": "forms/global/defs.json#/definitions/dokumentas"
-                  }
-              },
-              "adresas": {
-               "type": "string",
-               "title": "Laboratorijos adresas"
-              },
-              "numeris": {
-               "type": "string",
-               "title": "Tyrimo protokolo numeris"
-              },
-              "data": {
-               "type": "string",
-               "format": "date",
-               "title": "Tyrimo protokolo data"
+            "tyrimai": {
+              "type": "array",
+              "items": {
+                "$ref": "forms/global/defs.json#/definitions/dokumentas"
               }
+            },
+            "adresas": {
+              "type": "string",
+              "title": "Laboratorijos adresas"
+            },
+            "numeris": {
+              "type": "string",
+              "title": "Tyrimo protokolo numeris"
+            },
+            "data": {
+              "type": "string",
+              "format": "date",
+              "title": "Tyrimo protokolo data"
+            }
           },
           "required": ["tyrimai", "adresas", "numeris", "data"],
           "errorMessage": {
-            "required": { 
+            "required": {
               "tyrimai": "Laboratorijos tyrimai privalomi",
               "adresas": "Laboratorijos adresas privalomas",
               "numeris": "Tyrimo protokolo numeris privalomas",
               "data": "Tyrimo protokolo data privaloma"
-           }
+            }
           }
         },
         "patvirtinu": {
@@ -630,62 +664,55 @@
           "type": "string",
           "title": ""
         },
-       "turiu-teise": {
-        "type": "boolean",
-        "title": "turiu teisę tiekti ES rinkai ir jai tiekiu šiame prašyme nurodytą maistą;",
-        "const": true,
-        "errorMessage": {
-          "const": "Privalote patvirtinti, kad turite teisę tiekti ES rinkai ir jai tiekiate šiame prašyme nurodytą maistą."
-        }
-      },
-      "turiu-patvirtinima": {
-        "type": "boolean",
-        "title": "man suteiktas maisto tvarkymo subjekto patvirtinimas / registravimas nėra sustabdytas / panaikintas;",
-        "const": true,
-        "errorMessage": {
-          "const": "Privalote patvirtinti, kad maisto tvarkymo subjekto patvirtinimas ar registravimas nėra sustabdytas arba panaikintas."
-        }
-      },
-      "suprantu-negarantija": {
-        "type": "boolean",
-        "title": "suprantu, kad šio prašymo pagrindu išduotas sertifikatas nepatvirtina ir negarantuoja, kad mano eksportuojamas maistas atitinka importuojančios šalies teisės aktų reikalavimus, yra saugus, tinkamos kokybės ir gali būti žmonių vartojamas;",
-        "const": true,
-        "errorMessage": {
-          "const": "Privalote patvirtinti, kad suprantate sertifikato taikymo ribas ir jo nesuteikiamas garantijas."
-        }
-      },
-      "isipareigoju-nesiremti": {
-        "type": "boolean",
-        "title": "įsipareigoju nesiremti šio prašymo pagrindu išduotu sertifikatu, jeigu pasikeitė prašyme nurodyto maisto sudėtis, ir apie tai informuoti VMVT raštu;",
-        "const": true,
-        "errorMessage": {
-          "const": "Privalote įsipareigoti informuoti VMVT apie maisto sudėties pasikeitimus ir nesiremti anksčiau išduotu sertifikatu."
-        }
-      },
-      "patvirtinu-dokumentus": {
-        "type": "boolean",
-        "title": "šiame prašyme ir prie jo pridėtuose dokumentuose pateikta informacija ir duomenys, mano žiniomis ir įsitikinimu, yra teisinga ir atitinka tikrovę;",
-        "const": true,
-        "errorMessage": {
-          "const": "Privalote patvirtinti, kad prašyme ir pridėtuose dokumentuose pateikta informacija yra teisinga ir atitinka tikrovę."
-        }
-      },
-      "patvirtinu-teisybe": {
-        "type": "boolean",
-        "title": "prašyme pateikti duomenys yra paremti dokumentais, jie patikrinti ir atitinka tikrovę, produktų sauga ir kokybė atitinka ES ir Lietuvos bei šalies importuotojos teisės aktų reikalavimus, trečiajai šaliai priėmus sprendimą grąžinti prekę, nedelsiant informuosiu VMVT skyrių, išdavusį sertifikatą ar pažymėjimą, pateikdamas išsamią informaciją ir dokumentus.",
-        "const": true,
-        "errorMessage": {
-          "const": "Privalote patvirtinti pateiktų duomenų teisingumą, produktų atitiktį reikalavimams ir įsipareigoti informuoti VMVT apie grąžintą prekę."
-        }
-      },
-      "sutikimas-informuotas": {
-        "type": "boolean",
-        "title": "Esu informuotas (-a), jog mano asmens duomenys bus tvarkomi asmens, teikiančio šį prašymą, tapatybės nustatymo ir informavimo apie prašymo nagrinėjimą tikslais.",
-        "const": true,
-        "errorMessage": {
-          "const": "Privalote patvirtinti, kad esate informuotas (-a) apie asmens duomenų tvarkymą."
-        }
-      },
+        "turiu-teise": {
+          "type": "boolean",
+          "title": "turiu teisę tiekti ES rinkai ir jai tiekiu šiame prašyme nurodytą maistą;",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti, kad turite teisę tiekti ES rinkai ir jai tiekiate šiame prašyme nurodytą maistą."
+          }
+        },
+        "turiu-patvirtinima": {
+          "type": "boolean",
+          "title": "man suteiktas maisto tvarkymo subjekto patvirtinimas / registravimas nėra sustabdytas / panaikintas;",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti, kad maisto tvarkymo subjekto patvirtinimas ar registravimas nėra sustabdytas arba panaikintas."
+          }
+        },
+        "suprantu-negarantija": {
+          "type": "boolean",
+          "title": "suprantu, kad šio prašymo pagrindu išduotas sertifikatas nepatvirtina ir negarantuoja, kad mano eksportuojamas maistas atitinka importuojančios šalies teisės aktų reikalavimus, yra saugus, tinkamos kokybės ir gali būti žmonių vartojamas;",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti, kad suprantate sertifikato taikymo ribas ir jo nesuteikiamas garantijas."
+          }
+        },
+        "isipareigoju-nesiremti": {
+          "type": "boolean",
+          "title": "įsipareigoju nesiremti šio prašymo pagrindu išduotu sertifikatu, jeigu pasikeitė prašyme nurodyto maisto sudėtis, ir apie tai informuoti Valstybinę maisto ir veterinarijos tarnybą (toliau – VMVT) raštu;",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote įsipareigoti informuoti VMVT apie maisto sudėties pasikeitimus ir nesiremti anksčiau išduotu sertifikatu."
+          }
+        },
+
+        "patvirtinu-teisybe": {
+          "type": "boolean",
+          "title": "prašyme pateikti duomenys dokumentai yra paremti dokumentais, jie patikrinti ir atitinka tikrovę, produktų sauga ir kokybė atitinka ES ir Lietuvos bei šalies importuotojos teisės aktų reikalavimus, trečiajai šaliai priėmus sprendimą grąžinti prekę, nedelsiant informuosiu Valstybinės  maisto ir veterinarijos tarnybos skyrių, išdavusį sertifikatą ar pažymėjimą, pateikdamas išsamią informaciją ir dokumentus.",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti pateiktų duomenų teisingumą, produktų atitiktį reikalavimams ir įsipareigoti informuoti VMVT apie grąžintą prekę."
+          }
+        },
+        "sutikimas-informuotas": {
+          "type": "boolean",
+          "title": "Esu informuotas (-a), jog mano asmens duomenys bus tvarkomi asmens, teikiančio šį prašymą, tapatybės nustatymo ir informavimo apie prašymo nagrinėjimą tikslais.",
+          "const": true,
+          "errorMessage": {
+            "const": "Privalote patvirtinti, kad esate informuotas (-a) apie asmens duomenų tvarkymą."
+          }
+        },
         "sutikimas-ar-yra-email": {
           "type": "boolean",
           "title": "Sutinku gauti informaciją apie reikalavimų pakeitimus el. paštu"
@@ -694,7 +721,7 @@
           "type": "string",
           "title": "Įveskite savo el. paštą:"
         },
-     
+
         "atsakymas": {
           "type": "object",
           "additionalProperties": false,
@@ -717,7 +744,7 @@
         }
       },
 
-       "if": {
+      "if": {
         "properties": {
           "sutikimas-ar-yra-email": {
             "const": true
@@ -736,26 +763,24 @@
           }
         }
       },
-     "required": [
-      "turiu-teise",
-      "turiu-patvirtinima",
-      "suprantu-negarantija",
-      "isipareigoju-nesiremti",
-      "patvirtinu-dokumentus",
-      "patvirtinu-teisybe",
-      "sutikimas-informuotas"
-    ],
-    "errorMessage": {
-      "required": {
-        "turiu-teise": "Privalote patvirtinti, kad turite teisę tiekti ES rinkai ir jai tiekiate šiame prašyme nurodytą maistą.",
-        "turiu-patvirtinima": "Privalote patvirtinti, kad maisto tvarkymo subjekto patvirtinimas ar registravimas nėra sustabdytas arba panaikintas.",
-        "suprantu-negarantija": "Privalote patvirtinti, kad suprantate sertifikato taikymo ribas ir jo nesuteikiamas garantijas.",
-        "isipareigoju-nesiremti": "Privalote įsipareigoti informuoti VMVT apie maisto sudėties pasikeitimus ir nesiremti anksčiau išduotu sertifikatu.",
-        "patvirtinu-dokumentus": "Privalote patvirtinti, kad prašyme ir pridėtuose dokumentuose pateikta informacija yra teisinga ir atitinka tikrovę.",
-        "patvirtinu-teisybe": "Privalote patvirtinti pateiktų duomenų teisingumą, produktų atitiktį reikalavimams ir įsipareigoti informuoti VMVT apie grąžintą prekę.",
-        "sutikimas-informuotas": "Privalote patvirtinti, kad esate informuotas (-a) apie asmens duomenų tvarkymą."
+      "required": [
+        "turiu-teise",
+        "turiu-patvirtinima",
+        "suprantu-negarantija",
+        "isipareigoju-nesiremti",
+        "patvirtinu-teisybe",
+        "sutikimas-informuotas"
+      ],
+      "errorMessage": {
+        "required": {
+          "turiu-teise": "Privalote patvirtinti, kad turite teisę tiekti ES rinkai ir jai tiekiate šiame prašyme nurodytą maistą.",
+          "turiu-patvirtinima": "Privalote patvirtinti, kad maisto tvarkymo subjekto patvirtinimas ar registravimas nėra sustabdytas arba panaikintas.",
+          "suprantu-negarantija": "Privalote patvirtinti, kad suprantate sertifikato taikymo ribas ir jo nesuteikiamas garantijas.",
+          "isipareigoju-nesiremti": "Privalote įsipareigoti informuoti VMVT apie maisto sudėties pasikeitimus ir nesiremti anksčiau išduotu sertifikatu.",
+          "patvirtinu-teisybe": "Privalote patvirtinti pateiktų duomenų teisingumą, produktų atitiktį reikalavimams ir įsipareigoti informuoti VMVT apie grąžintą prekę.",
+          "sutikimas-informuotas": "Privalote patvirtinti, kad esate informuotas (-a) apie asmens duomenų tvarkymą."
+        }
       }
-    }
     }
   },
   "required": ["siuntejas", "prekes"],
@@ -821,14 +846,13 @@
       "fetchEnumFrom": "options.countries.getCountryIds"
     }
   },
- 
+
   "allOf": [
     {
       "if": {
         "allOf": [
           {
             "anyOf": [
-             
               {
                 "properties": {
                   "pakrovimo-vieta": {
@@ -859,26 +883,26 @@
       },
       "then": {
         "properties": {
-        "pakrovimo-vieta": {
-          "required": ["ja-gyv"],
-          "errorMessage": {
-            "required": {
-              "ja-gyv": "Adresas yra privalomas."
-            }
-          },
-          "properties": {
-            "ja-gyv": {
-              "required": ["gyvId", "adrId"],
-              "errorMessage": {
-                "required": {
-                  "gyvId": "Gyvenvietė yra privaloma.",
-                  "adrId": "Tikslus adresas yra privalomas."
+          "pakrovimo-vieta": {
+            "required": ["ja-gyv"],
+            "errorMessage": {
+              "required": {
+                "ja-gyv": "Adresas yra privalomas."
+              }
+            },
+            "properties": {
+              "ja-gyv": {
+                "required": ["gyvId", "adrId"],
+                "errorMessage": {
+                  "required": {
+                    "gyvId": "Gyvenvietė yra privaloma.",
+                    "adrId": "Tikslus adresas yra privalomas."
+                  }
                 }
               }
             }
           }
         }
-      }
       }
     },
     {
@@ -886,8 +910,8 @@
         "properties": {
           "gavejas": {
             "properties": {
-              "paskirties-vieta":{
-                "properties":{
+              "paskirties-vieta": {
+                "properties": {
                   "ar-sutampa": { "const": false }
                 }
               }
@@ -895,11 +919,11 @@
           }
         }
       },
-      "then":{
+      "then": {
         "properties": {
           "gavejas": {
             "properties": {
-              "paskirties-vieta":{
+              "paskirties-vieta": {
                 "required": ["asmuo", "adresas"],
                 "errorMessage": {
                   "required": {

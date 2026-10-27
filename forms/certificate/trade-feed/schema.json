@@ -288,7 +288,7 @@
           }
         },
         "patvirtinimo-iregistravimo-nr":{
-          "title": "Patvirtinimo ar įregistravimo numeris",
+          "title": "Patvirtinimo ar įregistravimo numeris *",
           "type": "string"
         }
       },

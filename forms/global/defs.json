@@ -13,9 +13,9 @@
     "imones-kodas": {
       "title": "Juridinio asmens kodas *",
       "type": "string",
-      "pattern": "\\d{7}",
+      "pattern": "^(?:\\d{7}|\\d{9})$",
       "errorMessage": {
-        "pattern": "Juridinio asmens kodas turi būti galiojantis"
+        "pattern": "Juridinio asmens kodas turi būti galiojantis ir neturėti tarpų"
       }
     },
     "vardas-pavarde": {

@@ -13,7 +13,7 @@
       "dokumentai": "Dokumentai"
     }
   },
-  
+
   "elements": [
     {
       "type": "Category",
@@ -338,7 +338,69 @@
             }
           ],
           "label": "Transporto priemonės",
-          "description": "Transporto priemonės, naudojamos produktų gabenimui."
+          "description": "Transporto priemonės, naudojamos produktų gabenimui.\nNurodyti planuojamas naudoti plombas. Esant nuotolinio sertifikavimo atvejui pateiktas (-i) plombos (-ų) numeris (-iai) bus nurodytas (-i) eksporto veterinarijos sertifikate."
+        },
+
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/transportas/properties/transporto-priemones-dalys",
+              "options": {
+                "addLabel": "Pridėti transporto priemonės dalį",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/dalis-id",
+                      "options": {
+                        "labelFormat": "${name}",
+                        "value": "id",
+                        "fetchOptionsFrom": "options/transportParts/all",
+                        "onChangeSet": {
+                          "dalis": "name"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/dalis-kita",
+                      "options": {
+                        "placeholder": "Įrašykite transporto dalį"
+                      },
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/dalis-id",
+                          "schema": {
+                            "const": "0"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/numeris",
+                      "options": {
+                        "placeholder": "Įrašykite transporto dalies Nr."
+                      }
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/plombos-nr",
+                      "options": {
+                        "placeholder": "Įrašykite plombos Nr."
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "label": "Transporto priemonės dalys",
+          "description": "Pasirinkite transporto priemonės dalis ir nurodykite planuojamas naudoti plombas. Nuotolinio sertifikavimo atveju plombos numeris (-iai) bus pateiktas (-i) eksporto veterinarijos sertifikate."
         }
       ]
     },
@@ -368,7 +430,6 @@
                   "type": "Control",
                   "options": {
                     "display": "buttonGroup"
-                    
                   },
                   "scope": "#/properties/pakrovimo-vieta/properties/asmuo/properties/tipas"
                 }
@@ -458,15 +519,14 @@
                   "scope": "#/properties/pakrovimo-vieta/properties/isvykimas"
                 }
               ]
-             
             }
           ],
-           "label": "Pakrovimo Informacija",
-              "description": "Informacija apie produktų pakrovimą."
+          "label": "Pakrovimo Informacija",
+          "description": "Informacija apie produktų pakrovimą."
         }
       ]
     },
-     {
+    {
       "type": "Category",
       "label": "Prekės",
       "elements": [
@@ -551,7 +611,7 @@
                         },
                         {
                           "type": "HorizontalLayout",
-                          
+
                           "elements": [
                             {
                               "type": "Control",
@@ -661,28 +721,28 @@
                             }
                           ]
                         },
-                         {
+                        {
                           "type": "HorizontalLayout",
                           "elements": [
-                             {
-                          "type": "Control",
-                          "scope": "#/properties/laikymo-ir-transportavimo-salygos"
-                        },
-                        {
-                          "type": "Control",
-                          "scope": "#/properties/laikymo-ir-transportavimo-salygos-kita",
-                           "rule": {
-                            "effect": "SHOW",
-                            "condition": {
-                              "scope": "#/properties/laikymo-ir-transportavimo-salygos",
-                              "schema": {
-                                "enum": ["Kita (laukas įrašyti savo)"]
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/laikymo-ir-transportavimo-salygos"
+                            },
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/laikymo-ir-transportavimo-salygos-kita",
+                              "rule": {
+                                "effect": "SHOW",
+                                "condition": {
+                                  "scope": "#/properties/laikymo-ir-transportavimo-salygos",
+                                  "schema": {
+                                    "enum": ["Kita (laukas įrašyti savo)"]
+                                  }
+                                }
                               }
                             }
-                          }
+                          ]
                         }
-                          ]}
-                       
                       ],
                       "label": "Prekės informacija"
                     },
@@ -827,7 +887,7 @@
           ],
           "label": "Prekių identifikavimas",
           "description": "Sąrašas su visa gabenamų prekių informacija."
-          }
+        }
       ]
     },
 
@@ -887,7 +947,7 @@
                 {
                   "type": "Control",
                   "scope": "#/properties/gavejas/properties/ja",
-                   "rule": {
+                  "rule": {
                     "effect": "SHOW",
                     "condition": {
                       "scope": "#/properties/gavejas/properties/asmuo/properties/tipas",
@@ -897,10 +957,10 @@
                     }
                   }
                 },
-                 {
+                {
                   "type": "Control",
                   "scope": "#/properties/gavejas/properties/fa",
-                   "rule": {
+                  "rule": {
                     "effect": "SHOW",
                     "condition": {
                       "scope": "#/properties/gavejas/properties/asmuo/properties/tipas",
@@ -1030,11 +1090,11 @@
             },
             {
               "type": "HorizontalLayout",
-              "title":"",
+              "title": "",
               "options": {
-                "columns":3
+                "columns": 3
               },
-              "elements":[
+              "elements": [
                 {
                   "type": "Control",
                   "scope": "#/properties/dokumentai/properties/laboratorija/properties/adresas"
@@ -1146,16 +1206,9 @@
                 "clearOnCopy": true
               }
             },
-             {
+            {
               "type": "Control",
               "scope": "#/properties/dokumentai/properties/isipareigoju-nesiremti",
-              "options": {
-                "clearOnCopy": true
-              }
-            },
-             {
-              "type": "Control",
-              "scope": "#/properties/dokumentai/properties/patvirtinu-dokumentus",
               "options": {
                 "clearOnCopy": true
               }
