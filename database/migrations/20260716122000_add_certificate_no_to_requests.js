@@ -44,14 +44,17 @@ BEGIN
     assigned_partners = COALESCE(NEW.rep_assigned_partners, r.assigned_partners),
     inspector_email = COALESCE(NEW.rep_user, r.inspector_email),
     assigned_id = COALESCE(NEW.rep_cert, r.assigned_id),
-    export_certificate_no = COALESCE(
-      (
-        SELECT s.cert_nr
-        FROM export.sertifikatai s
-        WHERE s.id = COALESCE(NEW.rep_cert, r.assigned_id)::int
-      ),
-      r.export_certificate_no
-    )
+    export_certificate_no = CASE
+      WHEN r.form_type = 'certificate' THEN COALESCE(
+        (
+          SELECT s.cert_nr
+          FROM export.sertifikatai s
+          WHERE s.id = COALESCE(NEW.rep_cert, r.assigned_id)::int
+        ),
+        r.export_certificate_no
+      )
+      ELSE NULL
+    END
   WHERE r.id = NEW.rep_id;
 
   RETURN NEW;
