@@ -491,75 +491,163 @@
         },
         {
           "type": "Group",
-          "label": "Šalutinių gyvūninių produktų veiklos detalizacija",
+          "label": "Pašarų su ŠGP gaminiais veiklos detalizacija",
           "elements": [
             {
-              "type": "HorizontalLayout",
+              "type": "Control",
+              "scope": "#/properties/veiklos/properties/detalizacija",
               "options": {
-                "columns": 2
-              },
-              "elements": [
-                {
-                  "type": "Control",
-                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas",
-                  "options": {
-                    "display": "multiSelect",
-                    "props": {
-                      "placeholder": "Pasirinkite reikšmes",
-                      "clearable": true
-                    }
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas-kita",
-                  "rule": {
-                    "effect": "SHOW",
-                    "condition": {
-                      "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-kodas",
-                      "schema": {
-                        "contains": {
-                          "const": "OTHER – kita šalutinių gyvūninių produktų ir jų gaminių tvarkymo veikla (nurodykite)"
+                "display": "addMore",
+                "addLabel": "Pridėti ŠGP veiklą",
+                "detail": {
+                  "type": "HorizontalLayout",
+                  "options": { "columns": 1, 
+                    "margin_bottom": "100px"
+                 },
+                  "elements": [
+                    {
+                      "type": "HorizontalLayout",
+                      "options": { "columns": 2 },
+                      "elements": [
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/sgp-kodas-id",
+                          "options": {
+                            "labelFormat": "${code} - ${name}",
+                            "value": "id",
+                            "fetchOptionsFrom": "options/sgp/all",
+                            "onChangeSet": {
+                            "sgp-kodas": "code",
+                            "allowedCategories": "allowedCategories"
+                          }
+                          }
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/kategorija",
+                          "options": { "display": "multiSelect" }
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/sgp-kodas-kita",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/sgp-kodas",
+                              "schema": {
+                                "const": "OTHER"
+                              },
+                              "failWhenUndefined": true
+                            }
+                          }
                         }
-                      },
-                      "failWhenUndefined": true
+                      ]
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/sgp-santrupa",
+                      "options": {
+                        "display": "multiSelectCardDisplay",
+                        "detailsKey": "sgp-detail",
+                        "detail": {
+                          "PAP": {
+                            "type": "HorizontalLayout",
+                            "options": { "columns": 1 },
+                            "elements": [
+                               {
+                                "type": "Control",
+                                "scope": "#/properties/gyvunu-rusis",
+                                "options": { "display": "animalSelect" }
+                              }
+                            ]
+                          },
+                          "API": {
+                            "type": "HorizontalLayout",
+                            "options": { "columns": 1 },
+                            "elements": [
+                               {
+                                "type": "Control",
+                                "scope": "#/properties/gyvunu-rusis",
+                                "options": { "display": "animalSelect" }
+                              }
+                            ]
+                          },
+                          "BLM": {
+                            "type": "HorizontalLayout",
+                            "options": { "columns": 1 },
+                            "elements": [
+                               {
+                                "type": "Control",
+                                "scope": "#/properties/gyvunu-rusis",
+                                "options": { "display": "animalSelect" }
+                              }
+                            ]
+                          },
+                          "BLPF": {
+                            "type": "HorizontalLayout",
+                            "options": { "columns": 1 },
+                            "elements": [
+                               {
+                                "type": "Control",
+                                "scope": "#/properties/gyvunu-rusis",
+                                "options": { "display": "animalSelect" }
+                              }
+                            ]
+                          },
+                          "BLPT": {
+                            "type": "HorizontalLayout",
+                            "options": { "columns": 1 },
+                            "elements": [
+                               {
+                                "type": "Control",
+                                "scope": "#/properties/gyvunu-rusis",
+                                "options": { "display": "animalSelect" }
+                              }
+                            ]
+                          },
+                          "HYDP": {
+                            "type": "HorizontalLayout",
+                            "options": { "columns": 1 },
+                            "elements": [
+                               {
+                                "type": "Control",
+                                "scope": "#/properties/gyvunu-rusis",
+                                "options": { "display": "animalSelect" }
+                              }
+                            ]
+                          },
+                          "PAPOTH": {
+                            "type": "HorizontalLayout",
+                            "options": { "columns": 1 },
+                            "elements": [
+                               {
+                                "type": "Control",
+                                "scope": "#/properties/gyvunu-rusis",
+                                "options": { "display": "animalSelect" }
+                              }
+                            ]
+                          }
+                          
+                        }
+                      }
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/sgp-santrupa-kita",
+                      "rule": {
+                        "effect": "SHOW",
+                        "condition": {
+                          "scope": "#/properties/sgp-santrupa",
+                          "schema": { "contains": { "const": "OTHER" } },
+                          "failWhenUndefined": true
+                        }
+                      }
                     }
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
-                  "options": {
-                    "display": "multiSelect"
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa-kita",
-                  "rule": {
-                    "effect": "SHOW",
-                    "condition": {
-                      "scope": "#/properties/veiklos/properties/detalizacija/properties/sgp-santrupa",
-                      "schema": { "contains": { "const": "OTHER – kiti produktai (nurodykite)" } },
-                      "failWhenUndefined": true
-                    }
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/veiklos/properties/detalizacija/properties/kategorija",
-                  "options": {
-                    "display": "multiSelect"
-                  }
-                },
-                {
-                  "type": "Control",
-                  "scope": "#/properties/veiklos/properties/detalizacija/properties/gyvunu-rusys",
-                  "options": {
-                    "display": "animalSelect"
-                  }
+                   
+                   
+                  ]
                 }
-              ]
+              }
             }
           ],
           "rule": {
@@ -579,15 +667,22 @@
                   "33",
                   "34",
                   "35",
+                  "36",
+                  "37",
                   "38",
                   "39",
                   "40",
-                  "78"
+                  "42",
+                  "78",
+                  "80",
+                  "82",
+                  "89"
                 ]
               }
             }
           }
         },
+
         {
           "type": "Group",
           "label": "Pašarų su ŠGP gaminiais veiklos detalizacija",
@@ -608,7 +703,7 @@
                 "detail": {
                   "type": "HorizontalLayout",
                   "options": {
-                    "columns": 2
+                    "columns": 1
                   },
                   "elements": [
                     {
@@ -623,27 +718,23 @@
                       "elements": [
                         {
                           "type": "Control",
-                          "scope": "#/properties/sgpg",
-                          "options": {
-                            "display": "multiSelect"
-                          }
-                        },
-                        {
-                          "type": "Control",
-                          "scope": "#/properties/gyvunas",
-                          "options": {
-                            "display": "multiSelect"
-                          },
-                          "rule": {
-                            "effect": "SHOW",
-                            "condition": {
-                              "scope": "#/properties/sgpg",
-                              "schema": {
-                                "type": "array",
-                                "minItems": 1,
-                                "contains": {
-                                  "enum": ["PAP"]
-                                }
+                          "scope": "#/properties/psgp",
+                           "options": {
+                            "display": "multiSelectCardDisplay",
+                            "detailsKey": "psgp-detail",
+                            "detail": {
+                              "PAP": {
+                                "type": "HorizontalLayout",
+                                "options": { "columns": 1 },
+                                "elements": [
+                                  {
+                                    "type": "Control",
+                                    "scope": "#/properties/gyvunas",
+                                    "options": {
+                                      "display": "multiSelect"
+                                    }
+                                  }
+                                ]
                               }
                             }
                           }
@@ -668,26 +759,35 @@
                         {
                           "type": "Control",
                           "scope": "#/properties/pasaro-santrupa",
-                          "options": {
-                            "display": "multiSelect"
-                          }
-                        },
-                        {
-                          "type": "Control",
-                          "scope": "#/properties/gyvunas",
-                          "options": {
-                            "display": "multiSelect"
-                          },
-                          "rule": {
-                            "effect": "SHOW",
-                            "condition": {
-                              "scope": "#/properties/pasaro-santrupa",
-                              "schema": {
-                                "type": "array",
-                                "minItems": 1,
-                                "contains": {
-                                  "enum": ["PAPO", "PAPNO"]
-                                }
+                           "options": {
+                            "display": "multiSelectCardDisplay",
+                            "detailsKey": "pasaro-santrupa-detail",
+                            "detail": {
+                              "PAPO": {
+                                "type": "HorizontalLayout",
+                                "options": { "columns": 1 },
+                                "elements": [
+                                  {
+                                    "type": "Control",
+                                    "scope": "#/properties/gyvunas",
+                                    "options": {
+                                      "display": "multiSelect"
+                                    }
+                                  }
+                                ]
+                              },
+                              "PAPNO": {
+                                "type": "HorizontalLayout",
+                                "options": { "columns": 1 },
+                                "elements": [
+                                  {
+                                    "type": "Control",
+                                    "scope": "#/properties/gyvunas",
+                                    "options": {
+                                      "display": "multiSelect"
+                                    }
+                                  }
+                                ]
                               }
                             }
                           }
@@ -754,7 +854,7 @@
               },
               "rule": {
                 "effect": "SHOW",
-                 "condition": {
+                "condition": {
                   "type": "AND",
                   "conditions": [
                     {
@@ -795,7 +895,7 @@
                 {
                   "type": "Control",
                   "scope": "#/properties/veiklos/properties/pasaru-detalizacija-79/properties/pap/properties/gyvunas",
-                  "options":{
+                  "options": {
                     "display": "multiSelect"
                   },
                   "rule": {
@@ -887,16 +987,16 @@
                 }
               },
               "rule": {
-              "effect": "SHOW",
-              "condition": {
-                "scope": "#/properties/veiklos/properties/veikla",
-                "schema": {
-                  "enum": ["62"]
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/veiklos/properties/veikla",
+                  "schema": {
+                    "enum": ["62"]
+                  }
                 }
               }
-            }
             },
-             {
+            {
               "type": "Control",
               "scope": "#/properties/veiklos/properties/transporto-priemones/properties/transportas",
               "options": {
@@ -921,14 +1021,14 @@
                 }
               },
               "rule": {
-              "effect": "SHOW",
-              "condition": {
-                "scope": "#/properties/veiklos/properties/veikla",
-                "schema": {
-                  "enum": ["78"]
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/veiklos/properties/veikla",
+                  "schema": {
+                    "enum": ["78"]
+                  }
                 }
               }
-            }
             }
           ],
           "rule": {

@@ -54,6 +54,8 @@ const API_WHITELIST = [
   'options.pkp.findIds',
   'options.selfControl.getTree',
   'options.selfControl.getLeafIds',
+  'options.sgp.find',
+  'options.sgp.findIds',
   'options.transportParts.find',
   'options.transportParts.findIds',
   'options.transportTypes.find',

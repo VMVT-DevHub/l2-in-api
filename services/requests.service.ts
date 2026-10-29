@@ -37,6 +37,7 @@ interface Fields extends CommonFields {
   exportCertificateNo: string;
   formType: string;
   form: string;
+  formSubtype: string;
   companyCode: string;
   data: any;
 }
@@ -83,6 +84,11 @@ const populatePermissions = (field: string) => {
         enum: Object.values(RequestStatus),
         default: RequestStatus.DRAFT,
         validate: 'validateStatus',
+      },
+
+      formSubtype: {
+        type: 'string',
+        required: false,
       },
 
       formType: {
