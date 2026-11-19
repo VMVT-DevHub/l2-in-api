@@ -338,12 +338,29 @@
           "pagaminimo-data": {
             "$ref": "#/definitions/data"
           },
-          "partijos-numeris": {
-            "title": "Partijos nr. *",
-            "type": "string"
-          },
-          "tinkamumo-naudoti-terminas": {
-            "$ref": "#/definitions/data"
+          "partijos": {
+            "type": "array",
+            "default": [{}],
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "partijos-numeris": {
+                  "title": "Partijos nr. *",
+                  "type": "string"
+                },
+                "tinkamumo-naudoti-terminas": {
+                  "$ref": "#/definitions/data"
+                }
+              },
+              "required": ["partijos-numeris", "tinkamumo-naudoti-terminas"],
+              "errorMessage": {
+                "required": {
+                  "partijos-numeris": "Prekės: Partijos numeris privalomas.",
+                  "tinkamumo-naudoti-terminas": "Prekės: Tinkamumo naudoti terminas privalomas."
+                }
+              }
+            }
           },
           "pakuotes-tipas": {
             "title": "Pakuotės tipas *",
@@ -429,6 +446,16 @@
           "asmuo": {
             "allOf": [{ "$ref": "forms/global/defs.json#/definitions/asmuo-su-kodu" }]
           },
+          "gyv": {
+            "type": "object",
+            "x-autoFill": false,
+            "properties": {
+              "gyvId": { "type": "number" },
+              "gyvName": { "type": "string" },
+              "adrId": { "type": "number" },
+              "adrName": { "type": "string" }
+            }
+          },
           "gamintojo-pavadinimas": {
             "title": "Prekės gamintojo pavadinimas *",
             "type": "string"
@@ -453,103 +480,139 @@
           "kpn-kodas",
           "pavadinimas",
           "pagaminimo-data",
-          "partijos-numeris",
-          "tinkamumo-naudoti-terminas",
           "pakuotes-tipas",
           "pakuociu-skaicius",
           "neto-kiekis-matas",
           "patvirtinimo-nr",
           "laikymo-ir-transportavimo-salygos",
-          "salis",
-          "adresas"
+          "salis"
         ],
         "errorMessage": {
           "required": {
             "kpn-kodas": "Prekės: KPN kodas privalomas.",
             "pavadinimas": "Prekės: Pavadinimas privalomas.",
             "pagaminimo-data": "Prekės: Pagaminimo data yra privaloma.",
-            "partijos-numeris": "Prekės: Partijos numeris privalomas.",
-            "tinkamumo-naudoti-terminas": "Prekės: Tinkamumo naudoti terminas privalomas.",
             "pakuotes-tipas": "Prekės: Pakuotės tipas privalomas.",
             "pakuociu-skaicius": "Prekės: Pakuočių skaičius privalomas.",
             "neto-kiekis-matas":"Prekės: Kiekis privalomas.",
             "patvirtinimo-nr": "Prekės: Patvirtinimo numeris privalomas.",
             "laikymo-ir-transportavimo-salygos": "Prekės: Laikymo ir transportavimo sąlygos yra privalomos.",
-            "salis": "Prekės: Šalis yra privaloma.",
-            "adresas": "Prekės: Adresas privalomas."
+            "salis": "Prekės: Šalis yra privaloma."
           }
         },
-        "if": {
-          "properties": {
-            "salis": {
-              "not": {
-                "enum": [
-                  "LTU",
-                  "BEL",
-                  "ITA",
-                  "LUX",
-                  "NLD",
-                  "FRA",
-                  "DEU",
-                  "IRL",
-                  "DNK",
-                  "GRC",
-                  "ESP",
-                  "PRT",
-                  "AUT",
-                  "FIN",
-                  "SWE",
-                  "CZE",
-                  "EST",
-                  "CYP",
-                  "LVA",
-                  "POL",
-                  "MLT",
-                  "SVK",
-                  "SVN",
-                  "HUN",
-                  "BGR",
-                  "ROU",
-                  "HRV"
-                ]
+        "allOf": [
+          {
+            
+            "if": {
+              "properties": {
+                "salis": { "const": "LTU" }
+              },
+              "required": ["salis"]
+            },
+            "then": {
+              "required": ["gyv"],
+              "errorMessage": {
+                "required": {
+                  "gyv": "Adresas yra privalomas."
+                }
+              },
+              "properties": {
+                "gyv": {
+                  "required": ["gyvId", "adrId"],
+                  "errorMessage": {
+                    "required": {
+                      "gyvId": "Gyvenvietė yra privaloma.",
+                      "adrId": "Tikslus adresas yra privalomas."
+                    }
+                  }
+                }
+              }
+            },
+            "else": {
+              "required": ["adresas"],
+              "errorMessage": {
+                "required": {
+                  "adresas": "Prekės: Adresas privalomas."
+                }
               }
             }
-          }
-        },
-        "then": {
-          "required": ["sertifikatas", "gamintojo-pavadinimas"],
-          "errorMessage": {
-            "required": {
-              "sertifikatas": "Prekės: Sertifikatas privalomas.",
-              "gamintojo-pavadinimas": "Prekės: Gamintojo pavadinimas privalomas."
-            }
-          }
-        },
-        "else": {
+          
+          },
+          {
           "if": {
-            "properties": {
-              "salis": {
-                "enum": ["LTU"]
+              "properties": {
+                "salis": {
+                  "not": {
+                    "enum": [
+                      "LTU",
+                      "BEL",
+                      "ITA",
+                      "LUX",
+                      "NLD",
+                      "FRA",
+                      "DEU",
+                      "IRL",
+                      "DNK",
+                      "GRC",
+                      "ESP",
+                      "PRT",
+                      "AUT",
+                      "FIN",
+                      "SWE",
+                      "CZE",
+                      "EST",
+                      "CYP",
+                      "LVA",
+                      "POL",
+                      "MLT",
+                      "SVK",
+                      "SVN",
+                      "HUN",
+                      "BGR",
+                      "ROU",
+                      "HRV"
+                    ]
+                  }
+                }
               }
-            }
-          },
-          "then": {
-            "required": ["asmuo"],
-            "errorMessage": {
-              "required": {
-                "asmuo": "Prekės: Gamintojas privalomas."
+            },
+            "then": {
+              "required": ["sertifikatas", "gamintojo-pavadinimas"],
+              "errorMessage": {
+                "required": {
+                  "sertifikatas": "Prekės: Sertifikatas privalomas.",
+                  "gamintojo-pavadinimas": "Prekės: Gamintojo pavadinimas privalomas."
+                }
               }
-            }
-          },
-          "else": {
-            "required": ["gamintojo-pavadinimas"],
-            "errorMessage": {
-              "required": {
-                "gamintojo-pavadinimas": "Prekės: Gamintojo pavadinimas privalomas."
+            },
+            "else": {
+              "if": {
+                "properties": {
+                  "salis": {
+                    "enum": ["LTU"]
+                  }
+                }
+              },
+              "then": {
+                "required": ["asmuo"],
+                "errorMessage": {
+                  "required": {
+                    "asmuo": "Prekės: Gamintojas privalomas."
+                  }
+                }
+              },
+              "else": {
+                "required": ["gamintojo-pavadinimas"],
+                "errorMessage": {
+                  "required": {
+                    "gamintojo-pavadinimas": "Prekės: Gamintojo pavadinimas privalomas."
+                  }
+                }
               }
             }
           }
-        }
+        ]
+       
       },
       "errorMessage": {
         "minItems": "Turi būti nurodyta bent viena prekė."

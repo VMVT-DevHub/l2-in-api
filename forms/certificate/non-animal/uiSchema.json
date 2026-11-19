@@ -742,13 +742,7 @@
                               }
                             }
                           ]
-                        }
-                      ],
-                      "label": "Prekės informacija"
-                    },
-                    {
-                      "type": "Category",
-                      "elements": [
+                        },
                         {
                           "type": "HorizontalLayout",
                           "elements": [
@@ -863,22 +857,72 @@
                             }
                           ]
                         },
+                         {
+                           "type": "HorizontalLayout",
+                          "elements": [
+                            {
+                               "type": "Control",
+                              "scope": "#/properties/gyv",
+                               "options": {
+                                "display": "addressSelect"
+                              }
+                             
+                            }
+                          ],
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          }
+                        },
 
                         {
+                           "type": "HorizontalLayout",
+                           "options": {
+                            "columns": 2
+                          },
+                          "elements": [
+                        {
                           "type": "HorizontalLayout",
+                           "options": {
+                            "columns": 1
+                          },
                           "elements": [
                             {
                               "type": "Control",
                               "scope": "#/properties/gamintojo-patvirtinimo-iregistravimo-nr"
-                            },
+                            }
+                          ]
+                        },
+                        {
+                          "type": "HorizontalLayout",
+                           "options": {
+                            "columns": 1
+                          },
+                          "elements": [
                             {
                               "type": "Control",
                               "scope": "#/properties/adresas"
                             }
-                          ]
+                          ],
+                           "rule": {
+                            "effect": "HIDE",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          }
+                        }
+                        ]
                         }
                       ],
-                      "label": "Prekės kilmė"
+                      "label": "Prekės informacija"
                     }
                   ]
                 }

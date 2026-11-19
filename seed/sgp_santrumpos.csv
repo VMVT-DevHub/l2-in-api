@@ -1,0 +1,69 @@
+"id","code","title","display","requires_animal","allowed_categories"
+1,"API","bitininkystės šalutiniai produktai bitininkystės veiklai","API - bitininkystės šalutiniai produktai bitininkystės veiklai",True,NULL
+2,"APITEC","bitininkystės šalutiniai produktai techninėms reikmėms","APITEC - bitininkystės šalutiniai produktai techninėms reikmėms",False,NULL
+3,"BAIT","žvejybos masalai","BAIT - žvejybos masalai",False,NULL
+4,"BHHP","kaulai, ragai, kanopos ir jų produktai","BHHP - kaulai, ragai, kanopos ir jų produktai",False,NULL
+5,"BIOG","biodujos","BIOG - biodujos",False,NULL
+6,"BIOD","biodyzelinas","BIOD - biodyzelinas",False,NULL
+7,"BIOR","biodujų gamybos liekanos","BIOR - biodujų gamybos liekanos",False,NULL
+8,"BLM","kraujo miltai (3 kategorija; nurodykite gyvūnų rūšį)","BLM - kraujo miltai (3 kategorija; nurodykite gyvūnų rūšį)",True,"3"
+9,"BLPF","kraujo produktai pašarams gaminti (3 kategorija; nurodykite gyvūnų rūšį)","BLPF - kraujo produktai pašarams gaminti (3 kategorija; nurodykite gyvūnų rūšį)",True,"3"
+10,"BLPT","kraujo produktai techninėms reikmėms (nurodykite gyvūnų rūšį)","BLPT - kraujo produktai techninėms reikmėms (nurodykite gyvūnų rūšį)",True,NULL
+11,"CAD","gyvūnų, išskyrus gyvūnus augintinius, gaišenos","CAD - gyvūnų, išskyrus gyvūnus augintinius, gaišenos",False,NULL
+12,"CADPET","gyvūnų augintinių gaišenos","CADPET - gyvūnų augintinių gaišenos",False,NULL
+13,"COL","kolagenas","COL - kolagenas",False,NULL
+14,"COMR","kompostas po kompostavimo, įskaitant panaudotą grybų kompostą","COMR - kompostas po kompostavimo, įskaitant panaudotą grybų kompostą",False,NULL
+15,"COSM","kosmetikos produktai","COSM - kosmetikos produktai",False,NULL
+16,"CATW","viešojo maitinimo atliekos, įskaitant naudotą kepimo aliejų","CATW - viešojo maitinimo atliekos, įskaitant naudotą kepimo aliejų",False,NULL
+17,"CSSM","centrifugos arba separatoriaus nuosėdos iš pieno perdirbimo įmonių","CSSM - centrifugos arba separatoriaus nuosėdos iš pieno perdirbimo įmonių",False,NULL
+18,"DP","šalutinių gyvūninių produktų gaminiai","DP - šalutinių gyvūninių produktų gaminiai",False,NULL
+19,"DCAP","dikalcio fosfatas","DCAP - dikalcio fosfatas",False,NULL
+20,"DTC","virškinamojo trakto turinys","DTC - virškinamojo trakto turinys",False,NULL
+21,"EGG","kiaušinių produktai","EGG - kiaušinių produktai",False,NULL
+22,"FERT","kitos trąšos, išskyrus COMR, BIOR, MANU, MANP, OFSIBU, OFSIPA","FERT - kitos trąšos, išskyrus COMR, BIOR, MANU, MANP, OFSIBU, OFSIPA",False,NULL
+23,"GROWME","auginimo terpės","GROWME - auginimo terpės",False,NULL
+24,"GUANO","nemineralizuotas perdirbtas paukščių ir šikšnosparnių guanas","GUANO - nemineralizuotas perdirbtas paukščių ir šikšnosparnių guanas",False,NULL
+25,"OFSIBU","birios organinės trąšos ar dirvožemį gerinančios medžiagos","OFSIBU - birios organinės trąšos ar dirvožemį gerinančios medžiagos",False,NULL
+26,"OFSIPA","supakuotos organinės trąšos ar dirvožemį gerinančios medžiagos","OFSIPA - supakuotos organinės trąšos ar dirvožemį gerinančios medžiagos",False,NULL
+27,"FATB","riebalų rutuliukai paukščiams","FATB - riebalų rutuliukai paukščiams",False,NULL
+28,"FATOT","perdirbti riebalai ir žuvų taukai, neskirti pašarams gaminti ar aliejaus chemijos gamybos pramonei","FATOT - perdirbti riebalai ir žuvų taukai, neskirti pašarams gaminti ar aliejaus chemijos gamybos pramonei",False,NULL
+29,"FATOL","perdirbti riebalai iš šalutinių gyvūninių produktų, skirti aliejaus chemijos gamybos pramonei","FATOL - perdirbti riebalai iš šalutinių gyvūninių produktų, skirti aliejaus chemijos gamybos pramonei",False,NULL
+30,"FATD","riebalų dariniai","FATD - riebalų dariniai",False,NULL
+31,"FATF","perdirbti riebalai ir žuvų taukai, skirti pašarams gaminti","FATF - perdirbti riebalai ir žuvų taukai, skirti pašarams gaminti",False,NULL
+32,"FATR","lydyti riebalai","FATR - lydyti riebalai",False,NULL
+33,"FIM","žuvų miltai","FIM - žuvų miltai",False,NULL
+34,"FORMF","buvęs gyvūninis maistas: gyvūniniai produktai, neskirti žmonėms vartoti","FORMF - buvęs gyvūninis maistas: gyvūniniai produktai, neskirti žmonėms vartoti",False,NULL
+35,"FRASS","perdirbtos vabzdžių atmatos","FRASS - perdirbtos vabzdžių atmatos",False,NULL
+36,"FUR","kailiai","FUR - kailiai",False,NULL
+37,"GATR","medžioklės trofėjai","GATR - medžioklės trofėjai",False,NULL
+38,"GEL","želatina","GEL - želatina",False,NULL
+39,"GLYT","glicerinas techninėms reikmėms","GLYT - glicerinas techninėms reikmėms",False,NULL
+40,"GLYF","glicerinas šėrimo reikmėms","GLYF - glicerinas šėrimo reikmėms",False,NULL
+41,"GLYTCW","glicerinas techninėms reikmėms, gautas iš viešojo maitinimo atliekų","GLYTCW - glicerinas techninėms reikmėms, gautas iš viešojo maitinimo atliekų",False,NULL
+42,"GRE","spirgai","GRE - spirgai",False,NULL
+43,"HISKR","žalios odos ir kailiai","HISKR - žalios odos ir kailiai",False,NULL
+44,"HISKT","apdorotos odos ir kailiai","HISKT - apdorotos odos ir kailiai",False,NULL
+45,"HYDP","hidrolizuoti baltymai (3 kategorija; nurodykite gyvūnų rūšį)","HYDP - hidrolizuoti baltymai (3 kategorija; nurodykite gyvūnų rūšį)",True,"3"
+46,"INSE","vabzdžiai, jų lervos ir vikšrai bei kirminai","INSE - vabzdžiai, jų lervos ir vikšrai bei kirminai",False,NULL
+47,"MANU","neperdirbtas mėšlas","MANU - neperdirbtas mėšlas",False,NULL
+48,"MANP","perdirbtas mėšlas ir jo produktai","MANP - perdirbtas mėšlas ir jo produktai",False,NULL
+49,"MBM","mėsos ir kaulų miltai (1 ar 2 kategorijos)","MBM - mėsos ir kaulų miltai (1 ar 2 kategorijos)",False,NULL
+50,"MEDD","medicininės priemonės","MEDD - medicininės priemonės",False,NULL
+51,"MIMC","pienas, krekenos ir gaminiai, gauti iš pieno ir krekenų","MIMC - pienas, krekenos ir gaminiai, gauti iš pieno ir krekenų",False,NULL
+52,"OTHER","kiti produktai (nurodykite)","OTHER - kiti produktai (nurodykite)",False,NULL
+53,"PAP","perdirbti gyvūniniai baltymai (3 kategorija; nurodykite gyvūnų rūšį)","PAP - perdirbti gyvūniniai baltymai (3 kategorija; nurodykite gyvūnų rūšį)",True,"3"
+54,"PAPOTH","PAP, gauti iš gyvūnų, išskyrus atrajotojus (nurodykite gyvūnų rūšį)","PAPOTH - PAP, gauti iš gyvūnų, išskyrus atrajotojus (nurodykite gyvūnų rūšį)",True,NULL
+55,"PAPRUM","PAP, gauti iš atrajotojų","PAPRUM - PAP, gauti iš atrajotojų",False,NULL
+56,"PETC","konservuotas gyvūnų augintinių ėdalas","PETC - konservuotas gyvūnų augintinių ėdalas",False,NULL
+57,"PETFI","aromatinės medžiagos gyvūnų augintinių ėdalui","PETFI - aromatinės medžiagos gyvūnų augintinių ėdalui",False,NULL
+58,"PETD","kramtukai gyvūnams augintiniams","PETD - kramtukai gyvūnams augintiniams",False,NULL
+59,"PETP","perdirbtas gyvūnų augintinių ėdalas, išskyrus konservuotą","PETP - perdirbtas gyvūnų augintinių ėdalas, išskyrus konservuotą",False,NULL
+60,"PETR","žalias gyvūnų augintinių ėdalas","PETR - žalias gyvūnų augintinių ėdalas",False,NULL
+61,"PHARM","farmacijos produktai","PHARM - farmacijos produktai",False,NULL
+62,"RAW","šalutiniai gyvūniniai produktai perdirbimui","RAW - šalutiniai gyvūniniai produktai perdirbimui",False,NULL
+63,"RAWSFP","šalutiniai gyvūniniai produktai specialiosioms šėrimo reikmėms","RAWSFP - šalutiniai gyvūniniai produktai specialiosioms šėrimo reikmėms",False,NULL
+64,"SERE","arklinių šeimos gyvūnų kraujas ir kraujo produktai","SERE - arklinių šeimos gyvūnų kraujas ir kraujo produktai",False,NULL
+65,"TCAP","trikalcio fosfatas","TCAP - trikalcio fosfatas",False,NULL
+66,"TECPRD","techniniai produktai (jei nenurodyta kitur)","TECPRD - techniniai produktai (jei nenurodyta kitur)",False,NULL
+67,"WHBF","vilna, plaukai, šeriai, plunksnos","WHBF - vilna, plaukai, šeriai, plunksnos",False,NULL
+68,"WWT","iš vandens valymo įrenginių surinktos medžiagos","WWT - iš vandens valymo įrenginių surinktos medžiagos",False,NULL

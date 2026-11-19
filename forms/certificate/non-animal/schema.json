@@ -528,7 +528,17 @@
           },
           "adresas": {
             "$ref": "#/definitions/adresas"
+          },
+          "gyv": {
+          "type": "object",
+          "x-autoFill": false,
+          "properties": {
+            "gyvId": { "type": "number" },
+            "gyvName": { "type": "string" },
+            "adrId": { "type": "number" },
+            "adrName": { "type": "string" }
           }
+        }
         },
         "required": [
           "kpn-kodas",
@@ -538,8 +548,7 @@
           "pakuociu-skaicius",
           "neto-kiekis-matas",
           "laikymo-ir-transportavimo-salygos",
-          "salis",
-          "adresas"
+          "salis"
         ],
         "errorMessage": {
           "required": {
@@ -551,10 +560,47 @@
             "neto-kiekis-matas": "Prekės: Kiekis privalomas.",
             "patvirtinimo-nr": "Prekės: Patvirtinimo numeris privalomas.",
             "laikymo-ir-transportavimo-salygos": "Prekės: Laikymo ir transportavimo sąlygos yra privalomos.",
-            "salis": "Prekės: Šalis yra privaloma.",
-            "adresas": "Prekės: Adresas privalomas."
+            "salis": "Prekės: Šalis yra privaloma."
           }
-        }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "salis": { "const": "LTU" }
+              },
+              "required": ["salis"]
+            },
+            "then": {
+              "required": ["gyv"],
+              "errorMessage": {
+                "required": {
+                  "gyv": "Adresas yra privalomas."
+                }
+              },
+              "properties": {
+                "gyv": {
+                  "required": ["gyvId", "adrId"],
+                  "errorMessage": {
+                    "required": {
+                      "gyvId": "Gyvenvietė yra privaloma.",
+                      "adrId": "Tikslus adresas yra privalomas."
+                    }
+                  }
+                }
+              }
+            },
+            "else": {
+              "required": ["adresas",  "gamintojo-pavadinimas"],
+              "errorMessage": {
+                "required": {
+                  "adresas": "Prekės: Adresas privalomas.",
+                  "gamintojo-pavadinimas": "Pavadinimas yra privalomas."
+                }
+              }
+            }
+          }
+        ]
       },
       "errorMessage": {
         "minItems": "Turi būti nurodyta bent viena prekė."

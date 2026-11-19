@@ -269,12 +269,7 @@
                             {
                               "type": "Control",
                               "scope": "#/properties/komercinis-lotyniskas-pavadinimas"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "HorizontalLayout",
-                          "elements": [
+                            },
                             {
                               "type": "Control",
                               "scope": "#/properties/pakuotes-tipas",
@@ -283,7 +278,13 @@
                                 "value": "id",
                                 "fetchOptionsFrom": "options/packageTypes/all"
                               }
-                            },
+                            }
+                          ]
+                        },
+                        {
+                          "type": "HorizontalLayout",
+                          "elements": [
+                            
                             {
                               "type": "Control",
                               "scope": "#/properties/pakuotes-tipas-kita",
@@ -302,35 +303,181 @@
 
                         {
                           "type": "HorizontalLayout",
-                          "options": {
-                            "columns": 2
-                          },
                           "elements": [
                             {
                               "type": "Control",
-                              "label": "Šalis",
+                              "label": "Šalis *",
                               "scope": "#/properties/salis",
                               "options": {
                                 "labelFormat": "${name}",
                                 "value": "id",
                                 "display": "countrySelect",
-                                "fetchOptionsFrom": "options/countries/all"
+                                "fetchOptionsFrom": "options/countries/all",
+                                "onChangeClear": ["gamintojo-pavadinimas", "asmuo"]
                               }
                             },
                             {
                               "type": "Control",
-                              "label": "Prekės gamintojo pavadinimas *",
-                              "scope": "#/properties/gamintojo-pavadinimas"
+                              "scope": "#/properties/gamintojo-pavadinimas",
+                              "rule": {
+                                "effect": "SHOW",
+                                "condition": {
+                                  "scope": "#/properties/salis",
+                                  "schema": {
+                                    "not": {
+                                      "const": "LTU"
+                                    }
+                                  }
+                                }
+                              }
                             },
                             {
                               "type": "Control",
-                              "scope": "#/properties/gamintojo-patvirtinimo-iregistravimo-nr"
+                              "options": {
+                                "display": "buttonGroup",
+                                "onChangeClear": [
+                                  "vardas-pavarde",
+                                  "asmens-kodas",
+                                  "imones-kodas",
+                                  "imones-pavadinimas"
+                                ]
+                              },
+                              "scope": "#/properties/asmuo/properties/tipas",
+                              "rule": {
+                                "effect": "SHOW",
+                                "condition": {
+                                  "scope": "#/properties/salis",
+                                  "schema": {
+                                    "const": "LTU"
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "HorizontalLayout",
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          },
+                          "elements": [
+                            {
+                              "type": "HorizontalLayout",
+                              "rule": {
+                                "effect": "SHOW",
+                                "condition": {
+                                  "scope": "#/properties/asmuo/properties/tipas",
+                                  "schema": {
+                                    "const": "Juridinis asmuo"
+                                  }
+                                }
+                              },
+                              "elements": [
+                                {
+                                  "type": "Control",
+                                  "scope": "#/properties/asmuo/properties/imones-pavadinimas"
+                                },
+                                {
+                                  "type": "Control",
+                                  "scope": "#/properties/asmuo/properties/imones-kodas",
+                                  "options": { "placeholder": "123456789" }
+                                }
+                              ]
                             },
+                            {
+                              "type": "HorizontalLayout",
+                              "rule": {
+                                "effect": "SHOW",
+                                "condition": {
+                                  "scope": "#/properties/asmuo/properties/tipas",
+                                  "schema": {
+                                    "const": "Fizinis asmuo"
+                                  }
+                                }
+                              },
+                              "elements": [
+                                {
+                                  "type": "Control",
+                                  "scope": "#/properties/asmuo/properties/vardas-pavarde"
+                                },
+                                {
+                                  "type": "Control",
+                                  "scope": "#/properties/asmuo/properties/asmens-kodas",
+                                  "options": { "placeholder": "12345678900" }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                         
+                         {
+                           "type": "HorizontalLayout",
+                          "elements": [
+                            {
+                               "type": "Control",
+                              "scope": "#/properties/gyv",
+                               "options": {
+                                "display": "addressSelect"
+                              }
+                             
+                            }
+                          ],
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          }
+                        },
+                        {
+                           "type": "HorizontalLayout",
+                           "options": {
+                            "columns": 2
+                          },
+                          "elements": [
+                          {
+                          "type": "HorizontalLayout",
+                           "options": {
+                            "columns": 1
+                          },
+                          "elements": [
+                            {
+                              "type": "Control",
+                              "scope": "#/properties/gamintojo-patvirtinimo-iregistravimo-nr"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "HorizontalLayout",
+                           "options": {
+                            "columns": 1
+                          },
+                          "elements": [
                             {
                               "type": "Control",
                               "scope": "#/properties/adresas"
                             }
-                          ]
+                          ],
+                           "rule": {
+                            "effect": "HIDE",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          }
+                        }
+                        ]
                         }
                       ],
                       "label": "Prekės informacija"

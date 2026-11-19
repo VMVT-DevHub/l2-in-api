@@ -656,30 +656,39 @@
                             }
                           ]
                         },
-                        {
+                         {
                           "type": "HorizontalLayout",
 
                           "elements": [
                             {
                               "type": "Control",
-                              "scope": "#/properties/partijos-numeris"
-                            },
-                            {
-                              "type": "Control",
-                              "label": "Tinkamumo naudoti (vartoti) terminas *",
-                              "scope": "#/properties/tinkamumo-naudoti-terminas",
+                              "scope": "#/properties/partijos",
                               "options": {
-                                "minDate": "pagaminimo-data"
+                                "addLabel": "Pridėti partiją",
+                                "detail": {
+                                  "type": "HorizontalLayout",
+                                  "elements": [
+                                    {
+                                      "type": "Control",
+                                      "scope": "#/properties/partijos-numeris"
+                                    },
+                                    {
+                                      "type": "Control",
+                                      "label": "Tinkamumo naudoti (vartoti) terminas *",
+                                      "scope": "#/properties/tinkamumo-naudoti-terminas",
+                                      "options": {
+                                        "minDate": "pagaminimo-data"
+                                      }
+                                    }
+                                  ]
+                                }
                               }
                             }
                           ]
                         },
 
-                        {
+                       {
                           "type": "HorizontalLayout",
-                          "options": {
-                            "bottomLabel": "Laukuose turite nurodyti partijos Nr., pagaminimo datą ir tinkamumo vartoti terminą produkto, kuris buvo pagamintas anksčiausiai ir kurio tinkamumo vartoti terminas trumpiausias, o visų kitų partijų ir datų informaciją pateikiama pridedant excel dokumentą. Laukelyje 'Kiekis' turi būti nurodytas visų partijų svoris."
-                          },
                           "elements": [
                             {
                               "type": "Control",
@@ -700,7 +709,10 @@
                                 "availableExtensionsTypes": [".xls", ".xlsx"]
                               }
                             }
-                          ]
+                          ],
+                          "options": {
+                            "bottomLabel": "Laukuose turite nurodyti partijos Nr., pagaminimo datą ir tinkamumo vartoti terminą produkto, kuris buvo pagamintas anksčiausiai ir kurio tinkamumo vartoti terminas trumpiausias, o visų kitų partijų ir datų informaciją pateikiama pridedant excel dokumentą. Laukelyje 'Kiekis' turi būti nurodytas visų partijų svoris."
+                          }
                         },
 
                         {
@@ -920,19 +932,69 @@
                             }
                           ]
                         },
+                        {
+                           "type": "HorizontalLayout",
+                          "elements": [
+                            {
+                               "type": "Control",
+                              "scope": "#/properties/gyv",
+                               "options": {
+                                "display": "addressSelect"
+                              }
+                             
+                            }
+                          ],
+                          "rule": {
+                            "effect": "SHOW",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          }
+                        },
 
                         {
+                           "type": "HorizontalLayout",
+                           "options": {
+                            "columns": 2
+                          },
+                          "elements": [
+                        {
                           "type": "HorizontalLayout",
+                           "options": {
+                            "columns": 1
+                          },
                           "elements": [
                             {
                               "type": "Control",
                               "scope": "#/properties/gamintojo-patvirtinimo-iregistravimo-nr"
-                            },
+                            }
+                          ]
+                        },
+                        {
+                          "type": "HorizontalLayout",
+                           "options": {
+                            "columns": 1
+                          },
+                          "elements": [
                             {
                               "type": "Control",
                               "scope": "#/properties/adresas"
                             }
-                          ]
+                          ],
+                           "rule": {
+                            "effect": "HIDE",
+                            "condition": {
+                              "scope": "#/properties/salis",
+                              "schema": {
+                                "const": "LTU"
+                              }
+                            }
+                          }
+                        }
+                        ]
                         },
 
                         {
