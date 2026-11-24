@@ -837,10 +837,9 @@
           "type": "boolean"
         }
       },
-      "required": ["apmokejimas", "laboratoriniai-tyrimai", "sutikimas"],
+      "required": ["laboratoriniai-tyrimai", "sutikimas"],
       "errorMessage": {
         "required": {
-          "apmokejimas": "Apmokėjimas privalomas.",
           "laboratoriniai-tyrimai": "Laboratoriniai tyrimai privalomi.",
           "sutikimas": "Sutikimas yra būtinas ir turi būti pateiktas pažymint laukelį."
         }

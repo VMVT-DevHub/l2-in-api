@@ -560,7 +560,6 @@
       "required": ["sutikimas", "uzkreciamuju-ligu-tyrimo-protokolai"],
       "errorMessage": {
         "required": {
-          "apmokejimas": "Apmokėjimas privalomas.",
           "sutikimas": "Sutikimas yra būtinas ir turi būti pateiktas pažymint laukelį."
         }
       }
