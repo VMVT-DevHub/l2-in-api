@@ -1520,17 +1520,57 @@
       "type": "Category",
       "label": "Dokumentai",
       "elements": [
-        {
+         {
           "type": "Group",
+          "label": "Rinkliava *",
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/dokumentai/properties/apmokejimas",
-              "label": "",
-              "options": { "display": "upload", "clearOnCopy": true }
+              "scope": "#/properties/dokumentai/properties/patvirtinu-rinkliava/properties/sumoketa-rinkliava",
+              "options": {
+                "clearOnCopy": true
+              }
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/dokumentai/properties/patvirtinu-rinkliava/properties/kitas-asmuo",
+                  "options": {
+                    "margin": "16px"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/dokumentai/properties/patvirtinu-rinkliava/properties/mokejimo-nr"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/dokumentai/properties/patvirtinu-rinkliava/properties/mokejimo-data",
+                   "options": {
+                      "untilToday": true
+                    }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/dokumentai/properties/patvirtinu-rinkliava/properties/moketojas",
+                  "rule": {
+                    "effect": "SHOW",
+                    "condition": {
+                      "scope": "#/properties/dokumentai/properties/patvirtinu-rinkliava/properties/kitas-asmuo",
+                      "schema": { "const": true }
+                    }
+                  }
+                }
+              ]
             }
-          ],
-          "label": "Mokėjimo pavedimas *"
+          ]
         },
         {
           "type": "Group",
